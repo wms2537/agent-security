@@ -1,0 +1,8 @@
+comp/.venv/
+comp/**/__pycache__/
+comp/sdk/*.zip
+**/__pycache__/
+*.pyc
+.ipynb_checkpoints/
+artifacts/
+*.log
