@@ -31,8 +31,8 @@
       "id": "T001",
       "phase": "4",
       "desc": "Push+submit notebook to Kaggle (needs user go-ahead: accepting rules + submitting is a consequential account action)",
-      "status": "in_progress",
-      "evidence": "kernel whymelabs/ai-agent-security-attack pushed (v2, T4/machine_shape=NvidiaTeslaT4, GPU on, internet off, competition attached); commit run polling; submit pending commit COMPLETE",
+      "status": "done",
+      "evidence": "Submitted v3 successfully (ref 54799835) after fixing T4 accelerator + placeholder submission.csv; real rerun queued (scores in hours)",
       "parent": null
     },
     {
