@@ -31,8 +31,8 @@
       "id": "T001",
       "phase": "4",
       "desc": "Push+submit notebook to Kaggle (needs user go-ahead: accepting rules + submitting is a consequential account action)",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "kernel whymelabs/ai-agent-security-attack pushed (v2, T4/machine_shape=NvidiaTeslaT4, GPU on, internet off, competition attached); commit run polling; submit pending commit COMPLETE",
       "parent": null
     },
     {
@@ -76,7 +76,9 @@
     "Dominant failure mode is replay-timeout voiding the whole submission -> size returned candidate count by measured cost with a safety margin.",
     "Gateway (kaggle_evaluation/jed_attack): DEFAULT_BUDGET_S=9000 applied once to generation and once to EACH replay per model; max_tool_hops=8; models gpt_oss then gemma. Confirms replay_deadline_s=9000 and multi-post-8 ceiling.",
     "Private guardrail is 'persistent_provenance' (aicomp_private_guardrails wheel, not shipped): a provenance/taint guardrail blocking untrusted->sensitive flows. Our SECRET_MARKER and email bodies originate in the USER message (trusted principal), so attacks are provenance-clean by construction and should transfer.",
-    "gpt-oss uses harmony channels; its parser rejects >1 tool call per turn -> multi-post must be one http.post per hop across the 8-hop loop, not batched."
+    "gpt-oss uses harmony channels; its parser rejects >1 tool call per turn -> multi-post must be one http.post per hop across the 8-hop loop, not batched.",
+    "Kaggle submission mechanics: this competition REQUIRES machine_shape=NvidiaTeslaT4 (P100 rejected with 400 FAILED_PRECONDITION); submit code comps via `kaggle competitions submit -k <kernel> -v <ver>` after the commit run COMPLETEs.",
+    "Code-comp submit needs a placeholder /kaggle/working/submission.csv written during the COMMIT run (4 rows: Id,Score for gpt_oss_public/private, gemma_public/private = 0.0); the rerun overwrites it. Without it: 400 'Did not find provided Notebook Output File'. Full flow verified against Kaggle docs tutorials.md."
   ],
   "best_state": {
     "run_id": "local-compliant-400-hardened-v2",

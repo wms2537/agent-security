@@ -40,6 +40,13 @@ write_cell = (
 )
 
 serve = """\
+# Write a placeholder submission.csv so the commit run produces the output file the submit API
+# requires; Kaggle's real competition rerun overwrites it with the true per-cell scores.
+from pathlib import Path
+placeholder = 'Id,Score\\ngpt_oss_public,0.0\\ngpt_oss_private,0.0\\ngemma_public,0.0\\ngemma_private,0.0\\n'
+Path('/kaggle/working/submission.csv').write_text(placeholder)
+print('placeholder submission.csv written')
+
 # Local validation only verifies the notebook runs; real scoring happens in Kaggle's rerun.
 import kaggle_evaluation.jed_attack_134815.jed_attack_inference_server as srv
 srv.JEDAttackInferenceServer().serve()
