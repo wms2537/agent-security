@@ -13,19 +13,61 @@
     "novelty_claim": "Online per-target template selection + weighted replay-budget fill that adds predicate diversity (private-guardrail robustness) and void-safety, vs the public meta's single-predicate exfil-only fill."
   },
   "budgets": {
-    "research_iterations": {"limit": 5, "spent": 0},
-    "hypothesis_review_rounds": {"limit": 2, "spent": 0},
-    "paper_review_rounds": {"limit": 2, "spent": 0}
+    "research_iterations": {
+      "limit": 5,
+      "spent": 0
+    },
+    "hypothesis_review_rounds": {
+      "limit": 2,
+      "spent": 0
+    },
+    "paper_review_rounds": {
+      "limit": 2,
+      "spent": 0
+    }
   },
   "tasks": [
-    {"id": "T001", "phase": "4", "desc": "Push+submit notebook to Kaggle (needs user go-ahead: accepting rules + submitting is a consequential account action)", "status": "open", "evidence": null, "parent": null},
-    {"id": "T002", "phase": "4", "desc": "Tune exfil templates for gpt-oss harmony format + gemma terse format once real LB feedback is available", "status": "open", "evidence": null, "parent": null},
-    {"id": "T003", "phase": "4", "desc": "Investigate multi-post ceiling under forced replay max_tool_hops; add higher-post variant if hops allow", "status": "open", "evidence": null, "parent": null},
-    {"id": "T004", "phase": "2", "desc": "Design stronger private-guardrail-transfer attacks (laundering, non-http exfil, destructive) — the differentiator vs public notebooks", "status": "open", "evidence": null, "parent": null}
+    {
+      "id": "T001",
+      "phase": "4",
+      "desc": "Push+submit notebook to Kaggle (needs user go-ahead: accepting rules + submitting is a consequential account action)",
+      "status": "open",
+      "evidence": null,
+      "parent": null
+    },
+    {
+      "id": "T002",
+      "phase": "4",
+      "desc": "Tune exfil templates for gpt-oss harmony format + gemma terse format once real LB feedback is available",
+      "status": "open",
+      "evidence": null,
+      "parent": null
+    },
+    {
+      "id": "T003",
+      "phase": "4",
+      "desc": "Investigate multi-post ceiling under forced replay max_tool_hops; add higher-post variant if hops allow",
+      "status": "open",
+      "evidence": null,
+      "parent": null
+    },
+    {
+      "id": "T004",
+      "phase": "2",
+      "desc": "Design stronger private-guardrail-transfer attacks (laundering, non-http exfil, destructive) \u2014 the differentiator vs public notebooks",
+      "status": "in_progress",
+      "evidence": "CONFUSED_DEPUTY private reserve (22%) added + validated (refuse_exfil norm=11.28); UNTRUSTED_TO_ACTION/DESTRUCTIVE_WRITE proven structurally blocked",
+      "parent": null
+    }
   ],
   "parked_candidates": [],
   "tried_and_failed": [
-    {"approach": "equal round-robin ensemble fill", "failure_class": "refuted", "why": "dilutes high-severity multi-post EXFIL with sev-4 CONFUSED_DEPUTY; weighted allocation fixed it", "log": "results.tsv:local-compliant-400-rr"}
+    {
+      "approach": "equal round-robin ensemble fill",
+      "failure_class": "refuted",
+      "why": "dilutes high-severity multi-post EXFIL with sev-4 CONFUSED_DEPUTY; weighted allocation fixed it",
+      "log": "results.tsv:local-compliant-400-rr"
+    }
   ],
   "learnings": [
     "OptimalGuardrail (public) denies any tool whose target contains secret/password/token/key/... and denies fs/http/email/shell when web/email source within last 5 events; for http.post it inspects the URL not the data, so clean-URL + SECRET_MARKER payload passes.",
@@ -33,9 +75,17 @@
     "Severity sum is not deduped; only the +2 cell bonus dedups -> replicate winners under unique cells.",
     "Dominant failure mode is replay-timeout voiding the whole submission -> size returned candidate count by measured cost with a safety margin."
   ],
-  "best_state": {"run_id": "local-compliant-400", "metric": 100.68, "commit": "pending"},
+  "best_state": {
+    "run_id": "local-compliant-400-hardened",
+    "metric": 198.6,
+    "commit": "pending"
+  },
   "gates": {
-    "0": {"problem_md": "PROBLEM.md written from live competition page + SDK source"},
-    "1": {"literature": "SDK scoring/predicates/guardrail/runner read directly; public-notebook meta analyzed (subagent); recorded in research-log/001"}
+    "0": {
+      "problem_md": "PROBLEM.md written from live competition page + SDK source"
+    },
+    "1": {
+      "literature": "SDK scoring/predicates/guardrail/runner read directly; public-notebook meta analyzed (subagent); recorded in research-log/001"
+    }
   }
 }
