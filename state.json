@@ -7,10 +7,10 @@
   "intensity": "medium",
   "output_format": "notebook+working-note",
   "idea_dna": {
-    "problem": "Maximize normalized attack score on the Kaggle AI-Agent-Security multi-step tool-attack benchmark, across public+private guardrails and gpt-oss/gemma targets.",
-    "assumption": "Score is dominated by many validated-firing candidates each minting a unique cell; the binding constraints are the 2000-candidate cap and the per-model replay-timeout that voids submissions.",
-    "assumption_source": "explicit",
-    "novelty_claim": "Online per-target template selection + weighted replay-budget fill that adds predicate diversity (private-guardrail robustness) and void-safety, vs the public meta's single-predicate exfil-only fill."
+    "problem": "Maximize the MEAN of 4 independently-normalized-and-capped leaderboard cells ({gpt_oss,gemma}x{public,private}) on the Kaggle AI-Agent-Security benchmark.",
+    "assumption": "Each cell's score is ~0.09*N where N = verified-firing single-post exfil candidates; N is LATENCY-BOUND (replay is per-cell 9000s at hops=8), not the 2000 cap. Exfil fires on all 4 cells because the payload originates in the trusted user message. So: fire reliably + fast + never void; predicate diversity only dilutes N.",
+    "assumption_source": "gateway+scorer source read directly; corroborated by LB arithmetic (all-public-only would be ~46, top is ~103) and pulled public notebooks (pilkwang/yusuketogashi).",
+    "novelty_claim": "Latency-minimized, per-model raw-per-second template selection with VERIFIED-firing fill and void-safe sizing; corrects the prior build's 4 root causes (single-cell mock, multi-post, dead predicate reserves, gpt-oss-only phrasing)."
   },
   "budgets": {
     "research_iterations": {
@@ -67,6 +67,12 @@
       "failure_class": "refuted",
       "why": "dilutes high-severity multi-post EXFIL with sev-4 CONFUSED_DEPUTY; weighted allocation fixed it",
       "log": "results.tsv:local-compliant-400-rr"
+    },
+    {
+      "approach": "multi-post-8 primary + 22% CONFUSED_DEPUTY reserve + hedges (v1, LB=36)",
+      "failure_class": "refuted-by-real-LB-and-source",
+      "why": "N is latency-bound: multi-post costs ~k x replay time for < k x reliability => fewer findings AND fewer +2 cell bonuses/sec than single-post. CD/hedge/launder fire ~0 on real models and are unnecessary (exfil already fires on private cells). Harmony tokens hurt gemma. Validated 198.6 was ONE compliant-mock cell, not the 4-cell mean.",
+      "log": "research-log/002-rootcause-and-rebuild.md"
     }
   ],
   "learnings": [
@@ -81,8 +87,10 @@
     "Code-comp submit needs a placeholder /kaggle/working/submission.csv written during the COMMIT run (4 rows: Id,Score for gpt_oss_public/private, gemma_public/private = 0.0); the rerun overwrites it. Without it: 400 'Did not find provided Notebook Output File'. Full flow verified against Kaggle docs tutorials.md."
   ],
   "best_state": {
-    "run_id": "local-compliant-400-hardened-v2",
-    "metric": 198.6,
+    "run_id": "v2-rebuild-single-post-verified-fill",
+    "metric_note": "Local mock scores are mechanics-only (scale with the max_candidates cap) and are NOT LB predictions. Real target: public meta band ~84-103 (LB mean of 4 cells).",
+    "real_lb": 36,
+    "real_lb_note": "v1 (ref 54799835), multi-post + dead reserves; superseded by v2.",
     "commit": "pending"
   },
   "gates": {
