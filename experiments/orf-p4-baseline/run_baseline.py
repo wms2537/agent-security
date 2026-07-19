@@ -16,10 +16,20 @@ from types import ModuleType
 from typing import Sequence
 
 
-ROOT = Path("/home/soh/agent-security")
-OUTPUT_DIR = Path("experiments/orf-p4-baseline")
+ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_CONFIG = Path("experiments/configs/orf-phase4-v1.json")
 SUPPORT_PATH = Path("experiments/poc/orf_support_calibration.py")
+BUNDLE_PATH = Path("experiments/orf_bundle.py")
+RUNNER_PATH = Path("experiments/orf-p4-baseline/run_baseline.py")
+RUNS_PARENT = Path("experiments/runs")
+OUTPUT_ARTIFACTS = (
+    "score-tables.tsv",
+    "aggregate-by-length.tsv",
+    "baseline-summary.json",
+    "profile.md",
+    "notes.md",
+    "run.log",
+)
 LENGTHS = (1, 2, 4, 8, 16, 24, 32)
 B_GEN = Fraction(9000, 1)
 B_REP = Fraction(8100, 1)
@@ -63,6 +73,16 @@ def load_support(path: Path) -> ModuleType:
     spec = importlib.util.spec_from_file_location("orf_phase4_immutable_support", path)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load immutable support module: {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_bundle_helper(path: Path) -> ModuleType:
+    spec = importlib.util.spec_from_file_location("orf_phase4_bundle_helper", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load bundle helper: {path}")
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
     spec.loader.exec_module(module)
@@ -163,191 +183,213 @@ def validate_config(config: dict[str, object]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
+    parser.add_argument("--attempt-dir", type=Path, required=True)
     args = parser.parse_args()
     if Path.cwd().resolve() != ROOT:
         raise RuntimeError(f"execution root must be {ROOT}")
+    if not sys.flags.isolated:
+        raise RuntimeError("baseline runner requires Python isolated mode (-I)")
     config_path = Path(args.config)
     if config_path != EXPECTED_CONFIG:
         raise ValueError(f"config path must be {EXPECTED_CONFIG}")
+    attempt_relative = args.attempt_dir
+    if (
+        attempt_relative.is_absolute()
+        or len(attempt_relative.parts) != 3
+        or attempt_relative.parts[:2] != ("experiments", "runs")
+    ):
+        raise ValueError("attempt directory must be a direct child of experiments/runs")
+    if sys.argv != [
+        RUNNER_PATH.as_posix(),
+        "--config",
+        EXPECTED_CONFIG.as_posix(),
+        "--attempt-dir",
+        attempt_relative.as_posix(),
+    ]:
+        raise ValueError("baseline arguments must use canonical ordering and spelling")
+    canonical_command = (
+        "comp/.venv/bin/python -I experiments/orf-p4-baseline/run_baseline.py "
+        f"--config {EXPECTED_CONFIG.as_posix()} "
+        f"--attempt-dir {attempt_relative.as_posix()}"
+    )
+    bundle_helper = load_bundle_helper(ROOT / BUNDLE_PATH)
+    bundle_writer = bundle_helper.AttemptBundle(
+        ROOT / attempt_relative,
+        repo_root=ROOT,
+        allowed_parent=ROOT / RUNS_PARENT,
+        canonical_command=canonical_command,
+        binding_paths=(RUNNER_PATH, BUNDLE_PATH, EXPECTED_CONFIG, SUPPORT_PATH),
+        expected_artifacts=OUTPUT_ARTIFACTS,
+    )
 
-    started = time.perf_counter()
-    config = json.loads(config_path.read_text(encoding="utf-8"))
-    validate_config(config)
-    support = load_support(SUPPORT_PATH)
-    if tuple(support.LENGTHS) != LENGTHS:
-        raise ValueError("immutable support length set differs from frozen config")
+    with bundle_writer as bundle:
+        started = time.perf_counter()
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        validate_config(config)
+        support = load_support(SUPPORT_PATH)
+        if tuple(support.LENGTHS) != LENGTHS:
+            raise ValueError("immutable support length set differs from frozen config")
 
-    immutable_hashes = {
-        path: file_sha256(Path(path)) for path in EXPECTED_IMMUTABLE_PATHS
-    }
-    config_hash = file_sha256(config_path)
-    if immutable_hashes[config_path.as_posix()] != config_hash:
-        raise AssertionError("config hash mismatch within immutable input set")
+        immutable_hashes = {
+            path: file_sha256(Path(path)) for path in EXPECTED_IMMUTABLE_PATHS
+        }
+        config_hash = file_sha256(config_path)
+        if immutable_hashes[config_path.as_posix()] != config_hash:
+            raise AssertionError("config hash mismatch within immutable input set")
 
-    table_header = [
-        "master_index",
-        "master_digest_hex",
-        "profile_index",
-        "stratum_index",
-        "replicate_index",
-        "cliff",
-        "minimum_cliff_floor_distance",
-    ]
-    for length in LENGTHS:
-        table_header.extend(
-            [f"cost_numerator_m{length}", f"cost_denominator_m{length}", f"events_m{length}"]
-        )
-    table_header.extend(f"score_m{length}" for length in LENGTHS)
-    table_lines = ["\t".join(table_header)]
-    aggregate_lines = [
-        "master_index\tmaster_digest_hex\tlength\ttotal_score\tselected_global_length\tis_selected"
-    ]
-    master_summaries: list[dict[str, object]] = []
-    profile_sections: list[str] = []
-    total_pairs = 0
-    total_matches = 0
-
-    for master_index, preimage in enumerate(EXPECTED_PREIMAGES):
-        master = sha256(preimage.encode("ascii")).digest()
-        profiles, master_floor_distance = support.build_profiles(master)
-        if len(profiles) != 320:
-            raise ValueError(f"master {master_index} did not produce 320 profiles")
-        totals = [0] * len(LENGTHS)
-        master_matches = 0
-        for profile_index, profile in enumerate(profiles):
-            stratum_index, replicate_index = divmod(profile_index, 8)
-            if stratum_index >= 40 or replicate_index >= 8:
-                raise AssertionError("profile ordering violates frozen crossed design")
-            reference = tuple(support.score_table(profile, SATURATION))
-            independent = independent_score_table(profile.costs, profile.events)
-            if reference != independent:
-                raise AssertionError(
-                    f"mechanical mismatch at master={master_index}, profile={profile_index}"
-                )
-            master_matches += len(LENGTHS)
-            total_matches += len(LENGTHS)
-            total_pairs += len(LENGTHS)
-            for action_index, score in enumerate(reference):
-                totals[action_index] += score
-
-            row = [
-                str(master_index),
-                master.hex(),
-                str(profile_index),
-                str(stratum_index),
-                str(replicate_index),
-                str(profile.cliff),
-                "" if profile.floor_margin is None else str(profile.floor_margin),
-            ]
-            for cost, event in zip(profile.costs, profile.events):
-                row.extend([str(cost.numerator), str(cost.denominator), str(event)])
-            row.extend(str(score) for score in reference)
-            table_lines.append("\t".join(row))
-
-        best_index = max(
-            range(len(LENGTHS)), key=lambda i: (totals[i], -LENGTHS[i])
-        )
-        global_length = LENGTHS[best_index]
-        global_score = totals[best_index]
-        ranked = sorted(
-            zip(LENGTHS, totals), key=lambda item: (-item[1], item[0])
-        )
-        top_second_gap = ranked[0][1] - ranked[1][1]
-        for length, total in zip(LENGTHS, totals):
-            aggregate_lines.append(
-                "\t".join(
-                    [
-                        str(master_index),
-                        master.hex(),
-                        str(length),
-                        str(total),
-                        str(global_length),
-                        str(length == global_length).lower(),
-                    ]
-                )
+        table_header = [
+            "master_index",
+            "master_digest_hex",
+            "profile_index",
+            "stratum_index",
+            "replicate_index",
+            "cliff",
+            "minimum_cliff_floor_distance",
+        ]
+        for length in LENGTHS:
+            table_header.extend(
+                [f"cost_numerator_m{length}", f"cost_denominator_m{length}", f"events_m{length}"]
             )
-        master_summaries.append(
-            {
-                "by_length_totals": {
-                    str(length): total for length, total in zip(LENGTHS, totals)
-                },
-                "global_length": global_length,
-                "global_score_raw": global_score,
-                "master_digest_hex": master.hex(),
-                "master_index": master_index,
-                "minimum_cliff_floor_distance": str(master_floor_distance),
-                "reference_matches": master_matches,
-                "reference_pairs": 320 * len(LENGTHS),
-            }
-        )
-        profile_sections.extend(
-            [
-                f"## Master {master_index}",
-                "",
-                f"Digest: `{master.hex()}`",
-                "",
-                "| Length | Aggregate raw score |",
-                "|---:|---:|",
-                *(f"| {length} | {total} |" for length, total in zip(LENGTHS, totals)),
-                "",
-                f"Selected global length: {global_length}",
-                "",
-                f"Top-vs-second aggregate gap: {top_second_gap}",
-                "",
-            ]
-        )
+        table_header.extend(f"score_m{length}" for length in LENGTHS)
+        table_lines = ["\t".join(table_header)]
+        aggregate_lines = [
+            "master_index\tmaster_digest_hex\tlength\ttotal_score\tselected_global_length\tis_selected"
+        ]
+        master_summaries: list[dict[str, object]] = []
+        profile_sections: list[str] = []
+        total_pairs = 0
+        total_matches = 0
 
-    if len(table_lines) != 1 + 3 * 320:
-        raise AssertionError("score table row count is not 960")
-    if len(aggregate_lines) != 1 + 3 * len(LENGTHS):
-        raise AssertionError("aggregate table row count is not 21")
-    if total_pairs != 3 * 320 * len(LENGTHS) or total_matches != total_pairs:
-        raise AssertionError("mechanical pair count or equality check failed")
+        for master_index, preimage in enumerate(EXPECTED_PREIMAGES):
+            master = sha256(preimage.encode("ascii")).digest()
+            profiles, master_floor_distance = support.build_profiles(master)
+            if len(profiles) != 320:
+                raise ValueError(f"master {master_index} did not produce 320 profiles")
+            totals = [0] * len(LENGTHS)
+            master_matches = 0
+            for profile_index, profile in enumerate(profiles):
+                stratum_index, replicate_index = divmod(profile_index, 8)
+                if stratum_index >= 40 or replicate_index >= 8:
+                    raise AssertionError("profile ordering violates frozen crossed design")
+                reference = tuple(support.score_table(profile, SATURATION))
+                independent = independent_score_table(profile.costs, profile.events)
+                if reference != independent:
+                    raise AssertionError(
+                        f"mechanical mismatch at master={master_index}, profile={profile_index}"
+                    )
+                master_matches += len(LENGTHS)
+                total_matches += len(LENGTHS)
+                total_pairs += len(LENGTHS)
+                for action_index, score in enumerate(reference):
+                    totals[action_index] += score
 
-    global_scores = [int(item["global_score_raw"]) for item in master_summaries]
-    m16_count = sum(item["global_length"] == 16 for item in master_summaries)
-    elapsed = time.perf_counter() - started
-    peak_memory_gb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024**2)
-    mean_global = Fraction(sum(global_scores), len(global_scores))
-    m16_fraction = Fraction(m16_count, len(master_summaries))
-    mechanical_fraction = Fraction(total_matches, total_pairs)
-    summary = {
-        "claim_scope": config["claim_scope"],
-        "config_path": config_path.as_posix(),
-        "config_sha256": config_hash,
-        "global_length_16_fraction": fixed_12(m16_fraction),
-        "immutable_input_sha256": immutable_hashes,
-        "masters": master_summaries,
-        "masters_evaluated": len(master_summaries),
-        "max_global_score_raw": max(global_scores),
-        "mean_global_score_raw": fixed_12(mean_global),
-        "mean_global_score_raw_exact": {
-            "denominator": mean_global.denominator,
-            "numerator": mean_global.numerator,
-        },
-        "mechanical_reference_match_fraction": fixed_12(mechanical_fraction),
-        "mechanical_reference_matches": total_matches,
-        "mechanical_reference_pairs": total_pairs,
-        "min_global_score_raw": min(global_scores),
-        "peak_memory_gb": round(peak_memory_gb, 9),
-        "profiles_evaluated": 3 * 320,
-        "run_id": "orf-p4-baseline",
-        "runtime_seconds": round(elapsed, 9),
-        "status": "PUBLIC_NON_TARGET_BASELINE_VALIDATION",
-    }
+                row = [
+                    str(master_index),
+                    master.hex(),
+                    str(profile_index),
+                    str(stratum_index),
+                    str(replicate_index),
+                    str(profile.cliff),
+                    "" if profile.floor_margin is None else str(profile.floor_margin),
+                ]
+                for cost, event in zip(profile.costs, profile.events):
+                    row.extend([str(cost.numerator), str(cost.denominator), str(event)])
+                row.extend(str(score) for score in reference)
+                table_lines.append("\t".join(row))
 
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    (OUTPUT_DIR / "score-tables.tsv").write_text(
-        "\n".join(table_lines) + "\n", encoding="utf-8"
-    )
-    (OUTPUT_DIR / "aggregate-by-length.tsv").write_text(
-        "\n".join(aggregate_lines) + "\n", encoding="utf-8"
-    )
-    (OUTPUT_DIR / "baseline-summary.json").write_text(
-        canonical_json(summary), encoding="utf-8"
-    )
-    (OUTPUT_DIR / "profile.md").write_text(
-        "\n".join(
+            best_index = max(
+                range(len(LENGTHS)), key=lambda i: (totals[i], -LENGTHS[i])
+            )
+            global_length = LENGTHS[best_index]
+            global_score = totals[best_index]
+            ranked = sorted(
+                zip(LENGTHS, totals), key=lambda item: (-item[1], item[0])
+            )
+            top_second_gap = ranked[0][1] - ranked[1][1]
+            for length, total in zip(LENGTHS, totals):
+                aggregate_lines.append(
+                    "\t".join(
+                        [
+                            str(master_index),
+                            master.hex(),
+                            str(length),
+                            str(total),
+                            str(global_length),
+                            str(length == global_length).lower(),
+                        ]
+                    )
+                )
+            master_summaries.append(
+                {
+                    "by_length_totals": {
+                        str(length): total for length, total in zip(LENGTHS, totals)
+                    },
+                    "global_length": global_length,
+                    "global_score_raw": global_score,
+                    "master_digest_hex": master.hex(),
+                    "master_index": master_index,
+                    "minimum_cliff_floor_distance": str(master_floor_distance),
+                    "reference_matches": master_matches,
+                    "reference_pairs": 320 * len(LENGTHS),
+                }
+            )
+            profile_sections.extend(
+                [
+                    f"## Master {master_index}",
+                    "",
+                    f"Digest: `{master.hex()}`",
+                    "",
+                    "| Length | Aggregate raw score |",
+                    "|---:|---:|",
+                    *(f"| {length} | {total} |" for length, total in zip(LENGTHS, totals)),
+                    "",
+                    f"Selected global length: {global_length}",
+                    "",
+                    f"Top-vs-second aggregate gap: {top_second_gap}",
+                    "",
+                ]
+            )
+
+        if len(table_lines) != 1 + 3 * 320:
+            raise AssertionError("score table row count is not 960")
+        if len(aggregate_lines) != 1 + 3 * len(LENGTHS):
+            raise AssertionError("aggregate table row count is not 21")
+        if total_pairs != 3 * 320 * len(LENGTHS) or total_matches != total_pairs:
+            raise AssertionError("mechanical pair count or equality check failed")
+
+        global_scores = [int(item["global_score_raw"]) for item in master_summaries]
+        m16_count = sum(item["global_length"] == 16 for item in master_summaries)
+        elapsed = time.perf_counter() - started
+        peak_memory_gb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024**2)
+        mean_global = Fraction(sum(global_scores), len(global_scores))
+        m16_fraction = Fraction(m16_count, len(master_summaries))
+        mechanical_fraction = Fraction(total_matches, total_pairs)
+        summary = {
+            "claim_scope": config["claim_scope"],
+            "config_path": config_path.as_posix(),
+            "config_sha256": config_hash,
+            "global_length_16_fraction": fixed_12(m16_fraction),
+            "immutable_input_sha256": immutable_hashes,
+            "masters": master_summaries,
+            "masters_evaluated": len(master_summaries),
+            "max_global_score_raw": max(global_scores),
+            "mean_global_score_raw": fixed_12(mean_global),
+            "mean_global_score_raw_exact": {
+                "denominator": mean_global.denominator,
+                "numerator": mean_global.numerator,
+            },
+            "mechanical_reference_match_fraction": fixed_12(mechanical_fraction),
+            "mechanical_reference_matches": total_matches,
+            "mechanical_reference_pairs": total_pairs,
+            "min_global_score_raw": min(global_scores),
+            "peak_memory_gb": round(peak_memory_gb, 9),
+            "profiles_evaluated": 3 * 320,
+            "run_id": "orf-p4-baseline",
+            "runtime_seconds": round(elapsed, 9),
+            "status": "PUBLIC_NON_TARGET_BASELINE_VALIDATION",
+        }
+
+        profile_text = "\n".join(
             [
                 "# ORF Phase-4 public baseline profile",
                 "",
@@ -357,11 +399,8 @@ def main() -> int:
                 "",
                 *profile_sections,
             ]
-        ),
-        encoding="utf-8",
-    )
-    (OUTPUT_DIR / "notes.md").write_text(
-        "\n".join(
+        )
+        notes_text = "\n".join(
             [
                 "# ORF Phase-4 baseline notes",
                 "",
@@ -375,19 +414,31 @@ def main() -> int:
                 "- No network, beacon, held-out target, or external service was used.",
                 "",
             ]
-        ),
-        encoding="utf-8",
-    )
+        )
+        metrics = {
+            "mean_global_score_raw": fixed_12(mean_global),
+            "min_global_score_raw": str(min(global_scores)),
+            "max_global_score_raw": str(max(global_scores)),
+            "global_length_sixteen_fraction": fixed_12(m16_fraction),
+            "mechanical_reference_match_fraction": fixed_12(mechanical_fraction),
+            "masters_evaluated": str(len(master_summaries)),
+            "profiles_evaluated": "960",
+            "peak_memory_gb": f"{peak_memory_gb:.9f}",
+            "runtime_seconds": f"{elapsed:.9f}",
+        }
+        bundle.write_text("score-tables.tsv", "\n".join(table_lines) + "\n")
+        bundle.write_text(
+            "aggregate-by-length.tsv", "\n".join(aggregate_lines) + "\n"
+        )
+        bundle.write_text("baseline-summary.json", canonical_json(summary))
+        bundle.write_text("profile.md", profile_text)
+        bundle.write_text("notes.md", notes_text)
+        bundle.log_metrics(metrics)
+        bundle.complete()
 
-    print(f"mean_global_score_raw: {fixed_12(mean_global)}")
-    print(f"min_global_score_raw: {min(global_scores)}")
-    print(f"max_global_score_raw: {max(global_scores)}")
-    print(f"global_length_16_fraction: {fixed_12(m16_fraction)}")
-    print(f"mechanical_reference_match_fraction: {fixed_12(mechanical_fraction)}")
-    print(f"masters_evaluated: {len(master_summaries)}")
-    print("profiles_evaluated: 960")
-    print(f"peak_memory_gb: {peak_memory_gb:.9f}")
-    print(f"runtime_seconds: {elapsed:.9f}")
+    # complete() self-verifies the published final bundle before stdout metrics.
+    for name, value in metrics.items():
+        print(f"{name}: {value}")
     return 0
 
 

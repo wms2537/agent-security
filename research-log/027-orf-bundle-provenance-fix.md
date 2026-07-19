@@ -1,6 +1,6 @@
 # ORF fresh-bundle provenance fix
 
-**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** in progress, scientific core unexecuted
+**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** implemented and locally verified, scientific core unexecuted
 
 ## Context
 
@@ -50,7 +50,29 @@ the core program.
 
 ## Gate Check
 
-Pending implementation, deterministic/failure tests, and sterile re-review.
+Implementation is complete in `experiments/orf_bundle.py`, with synthetic tests
+in `experiments/test_orf_bundle.py` and both future runners hardened. The helper
+uses exclusive sibling staging, bundle-owned first-line logging, canonical
+`COMPLETE.json`, exact file/binding/artifact verification, fsync, and Linux
+`renameat2(RENAME_NOREPLACE)` with no overwrite fallback. Both future runners
+open their transaction before scientific computation; the core command and
+attempt identity are exact and preregistered.
+
+Independent local verification after implementation:
+
+- static compilation passed for the helper, tests, baseline runner, and core
+  runner;
+- bundle tests: `Ran 10 tests` / `OK`, including 24 injected structural failure
+  boundaries plus success, repeat, corruption, missing, extra, malformed,
+  noncanonical, binding-race, identity, and no-replace cases;
+- core toy arithmetic: `Ran 4 tests` / `OK`;
+- `experiments/runs/` still contains only the two historical support-calibration
+  directories; the core and future-baseline final attempts are absent;
+- the frozen Phase-4 config/support and all six historical baseline evidence
+  files have an empty diff from `HEAD`.
+
+The implementation gate passes. T016 remains closed until a fresh sterile code
+review returns `SOUND`.
 
 ## Problem alignment
 
@@ -60,9 +82,9 @@ run from impersonating evidence for the candidate-structure policy.
 
 ## Decision
 
-Implement the reusable protocol and harden both future baseline and core paths.
+Keep the reusable protocol and both future runners for sterile re-review.
 
 ## Next Steps
 
-Run toy/failure tests only, commit, and re-dispatch the sterile code reviewer.
+Commit the verified source/test repair and re-dispatch the sterile code reviewer.
 No scientific, held-out, network, or Kaggle action.

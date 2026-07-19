@@ -207,8 +207,8 @@
       "id": "T023",
       "phase": "4",
       "desc": "Fix the code-review provenance blocker with fresh attempt directories, completion manifests, failure-injection tests, and manifest verification before sterile re-review",
-      "status": "in_progress",
-      "evidence": "research-log/027 pre-specifies fresh staging/final attempt directories, run-owned first-line log, COMPLETE.json last with source/input/output hashes, atomic absent-destination publication, exact-set verifier, failed-attempt preservation, repeat/corrupt/missing/extra/failure-injection tests, and no scientific core execution.",
+      "status": "done",
+      "evidence": "The reusable helper and both future runners implement fresh direct-child staging, bundle-owned exact-command log, canonical COMPLETE last, fsync, glibc renameat2(RENAME_NOREPLACE), exact identity/file/binding/artifact verification, failed-attempt preservation, and no overwrite. Static compilation passed; 10 bundle tests (including 24 failure boundaries) and 4 core toy tests passed. Core/future-baseline attempts remain absent and frozen config/support plus six historical baseline evidence files are unchanged. research-log/027 records the checks; scientific core remains unexecuted pending sterile re-review.",
       "parent": "T016"
     }
   ],

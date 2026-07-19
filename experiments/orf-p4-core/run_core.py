@@ -28,8 +28,24 @@ from typing import Any, Sequence
 REPO = Path(__file__).resolve().parents[2]
 EXPECTED_CONFIG = Path("experiments/configs/orf-phase4-v1.json")
 EXPECTED_BASELINE_TABLE = Path("experiments/orf-p4-baseline/score-tables.tsv")
-EXPECTED_OUTPUT_DIR = Path("experiments/orf-p4-core")
 SUPPORT_PATH = Path("experiments/poc/orf_support_calibration.py")
+BUNDLE_PATH = Path("experiments/orf_bundle.py")
+RUNNER_PATH = Path("experiments/orf-p4-core/run_core.py")
+RUNS_PARENT = Path("experiments/runs")
+EXPECTED_ATTEMPT_DIR = Path("experiments/runs/orf-p4-core-v1")
+CANONICAL_COMMAND = (
+    "comp/.venv/bin/python -I experiments/orf-p4-core/run_core.py "
+    "--config experiments/configs/orf-phase4-v1.json "
+    "--baseline-tables experiments/orf-p4-baseline/score-tables.tsv "
+    "--attempt-dir experiments/runs/orf-p4-core-v1"
+)
+OUTPUT_ARTIFACTS = (
+    "core-by-master.tsv",
+    "homogeneous-by-master.tsv",
+    "core-summary.json",
+    "notes.md",
+    "run.log",
+)
 EXPECTED_CONFIG_SHA256 = "e3ebe822094c91d6b6e83de6bc55324e43301b74df9a6e3bc3ee3e932b0ba748"
 EXPECTED_SUPPORT_SHA256 = "fdc68ce08923be8d693155bb2641841a3a706164ebcb9d05e6a330a1d8c67fe9"
 EXPECTED_BASELINE_TABLE_SHA256 = "331e8b5e16b42d8781df68fd49aa9cd83a4d77c8f5ec0ab9de15e09137e59cbf"
@@ -168,6 +184,16 @@ def load_support(path: Path) -> ModuleType:
     spec = importlib.util.spec_from_file_location("orf_phase4_core_support", path)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load immutable support module: {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_bundle_helper(path: Path) -> ModuleType:
+    spec = importlib.util.spec_from_file_location("orf_phase4_bundle_helper", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load bundle helper: {path}")
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
     spec.loader.exec_module(module)
@@ -403,9 +429,7 @@ def result_record(
     }
 
 
-def write_primary_tsv(
-    path: Path, records: Sequence[dict[str, Any]]
-) -> None:
+def render_primary_tsv(records: Sequence[dict[str, Any]]) -> str:
     header = [
         "master_index",
         "master_digest_hex",
@@ -441,12 +465,10 @@ def write_primary_tsv(
                 ]
             )
         )
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return "\n".join(lines) + "\n"
 
 
-def write_homogeneous_tsv(
-    path: Path, records: Sequence[dict[str, Any]]
-) -> None:
+def render_homogeneous_tsv(records: Sequence[dict[str, Any]]) -> str:
     header = [
         "master_index",
         "master_digest_hex",
@@ -474,91 +496,126 @@ def write_homogeneous_tsv(
                 ]
             )
         )
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return "\n".join(lines) + "\n"
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=Path, default=EXPECTED_CONFIG)
-    parser.add_argument("--baseline-tables", type=Path, default=EXPECTED_BASELINE_TABLE)
-    parser.add_argument("--output-dir", type=Path, default=EXPECTED_OUTPUT_DIR)
+    parser.add_argument("--config", type=Path, required=True)
+    parser.add_argument("--baseline-tables", type=Path, required=True)
+    parser.add_argument("--attempt-dir", type=Path, required=True)
     args = parser.parse_args()
+
+    if Path.cwd().resolve() != REPO:
+        raise RuntimeError(f"execution root must be {REPO}")
+    if not sys.flags.isolated:
+        raise RuntimeError("core runner requires Python isolated mode (-I)")
+    if sys.argv != [
+        RUNNER_PATH.as_posix(),
+        "--config",
+        EXPECTED_CONFIG.as_posix(),
+        "--baseline-tables",
+        EXPECTED_BASELINE_TABLE.as_posix(),
+        "--attempt-dir",
+        EXPECTED_ATTEMPT_DIR.as_posix(),
+    ]:
+        raise ValueError(f"core must use the exact canonical command: {CANONICAL_COMMAND}")
 
     config_path = resolve_exact_repo_path(args.config, EXPECTED_CONFIG, must_exist=True)
     baseline_path = resolve_exact_repo_path(
         args.baseline_tables, EXPECTED_BASELINE_TABLE, must_exist=True
     )
-    output_dir = resolve_exact_repo_path(
-        args.output_dir, EXPECTED_OUTPUT_DIR, must_exist=True
-    )
+    if args.attempt_dir != EXPECTED_ATTEMPT_DIR:
+        raise ValueError(f"attempt path must be {EXPECTED_ATTEMPT_DIR.as_posix()}")
     support_path = resolve_exact_repo_path(SUPPORT_PATH, SUPPORT_PATH, must_exist=True)
+    bundle_path = resolve_exact_repo_path(BUNDLE_PATH, BUNDLE_PATH, must_exist=True)
     if file_sha256(config_path) != EXPECTED_CONFIG_SHA256:
         raise ValueError("frozen Phase-4 config hash mismatch")
     if file_sha256(support_path) != EXPECTED_SUPPORT_SHA256:
         raise ValueError("immutable calibration support hash mismatch")
 
-    started = time.perf_counter()
-    config = json.loads(config_path.read_text(encoding="utf-8"))
-    if not isinstance(config, dict):
-        raise ValueError("config must be a JSON object")
-    validate_config(config)
-
-    baseline_bytes = baseline_path.read_bytes()
-    baseline_hash = hashlib.sha256(baseline_bytes).hexdigest()
-    if baseline_hash != EXPECTED_BASELINE_TABLE_SHA256:
+    if file_sha256(baseline_path) != EXPECTED_BASELINE_TABLE_SHA256:
         raise ValueError("committed baseline score-table hash mismatch")
-    baseline_text = baseline_bytes.decode("utf-8")
-    primary_tables = parse_baseline_tables(baseline_text)
-    primary_results = [
-        evaluate_master_score_tables(tables) for tables in primary_tables
-    ]
-    primary_digests = [
-        hashlib.sha256(preimage.encode("ascii")).hexdigest()
-        for preimage in PRIMARY_PREIMAGES
-    ]
+    bundle_helper = load_bundle_helper(bundle_path)
+    attempt_dir = REPO / EXPECTED_ATTEMPT_DIR
+    binding_paths = (
+        RUNNER_PATH,
+        BUNDLE_PATH,
+        EXPECTED_CONFIG,
+        SUPPORT_PATH,
+        EXPECTED_BASELINE_TABLE,
+    )
 
-    support = load_support(support_path)
-    homogeneous_results, homogeneous_digests = build_homogeneous_controls(support)
-    primary_records = [
-        result_record(index, digest, result)
-        for index, (digest, result) in enumerate(
-            zip(primary_digests, primary_results, strict=True)
+    with bundle_helper.AttemptBundle(
+        attempt_dir,
+        repo_root=REPO,
+        allowed_parent=REPO / RUNS_PARENT,
+        canonical_command=CANONICAL_COMMAND,
+        binding_paths=binding_paths,
+        expected_artifacts=OUTPUT_ARTIFACTS,
+    ) as bundle:
+        started = time.perf_counter()
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        if not isinstance(config, dict):
+            raise ValueError("config must be a JSON object")
+        validate_config(config)
+
+        baseline_bytes = baseline_path.read_bytes()
+        baseline_hash = hashlib.sha256(baseline_bytes).hexdigest()
+        baseline_text = baseline_bytes.decode("utf-8")
+        primary_tables = parse_baseline_tables(baseline_text)
+        primary_results = [
+            evaluate_master_score_tables(tables) for tables in primary_tables
+        ]
+        primary_digests = [
+            hashlib.sha256(preimage.encode("ascii")).hexdigest()
+            for preimage in PRIMARY_PREIMAGES
+        ]
+
+        support = load_support(support_path)
+        homogeneous_results, homogeneous_digests = build_homogeneous_controls(support)
+        primary_records = [
+            result_record(index, digest, result)
+            for index, (digest, result) in enumerate(
+                zip(primary_digests, primary_results, strict=True)
+            )
+        ]
+        homogeneous_records = [
+            result_record(index, digest, result)
+            for index, (digest, result) in enumerate(
+                zip(homogeneous_digests, homogeneous_results, strict=True)
+            )
+        ]
+
+        gains = [result.gain_percent for result in primary_results]
+        mean_gain = sum(gains, Fraction(0, 1)) / len(gains)
+        minimum_gain = min(gains)
+        maximum_gain = max(gains)
+        gain_floats = [float(gain) for gain in gains]
+        sample_std = statistics.stdev(gain_floats)
+        half_width = T_CRITICAL_DF_TWO * sample_std / math.sqrt(len(gains))
+        t_low = float(mean_gain) - half_width
+        t_high = float(mean_gain) + half_width
+        clear_count = sum(gain >= MATERIALITY_THRESHOLD for gain in gains)
+        clear_fraction = Fraction(clear_count, len(gains))
+        homogeneous_zero_count = sum(
+            result.regret == 0 for result in homogeneous_results
         )
-    ]
-    homogeneous_records = [
-        result_record(index, digest, result)
-        for index, (digest, result) in enumerate(
-            zip(homogeneous_digests, homogeneous_results, strict=True)
+        homogeneous_one_count = sum(
+            result.global_length == 1
+            and result.adaptive_length_counts[0] == HOMOGENEOUS_PROFILES
+            for result in homogeneous_results
         )
-    ]
+        homogeneous_zero_fraction = Fraction(
+            homogeneous_zero_count, len(homogeneous_results)
+        )
+        homogeneous_one_fraction = Fraction(
+            homogeneous_one_count, len(homogeneous_results)
+        )
+        elapsed = time.perf_counter() - started
+        memory_gb = peak_memory_gb()
 
-    gains = [result.gain_percent for result in primary_results]
-    mean_gain = sum(gains, Fraction(0, 1)) / len(gains)
-    minimum_gain = min(gains)
-    maximum_gain = max(gains)
-    gain_floats = [float(gain) for gain in gains]
-    sample_std = statistics.stdev(gain_floats)
-    half_width = T_CRITICAL_DF_TWO * sample_std / math.sqrt(len(gains))
-    t_low = float(mean_gain) - half_width
-    t_high = float(mean_gain) + half_width
-    clear_count = sum(gain >= MATERIALITY_THRESHOLD for gain in gains)
-    clear_fraction = Fraction(clear_count, len(gains))
-    homogeneous_zero_count = sum(result.regret == 0 for result in homogeneous_results)
-    homogeneous_one_count = sum(
-        result.global_length == 1
-        and result.adaptive_length_counts[0] == HOMOGENEOUS_PROFILES
-        for result in homogeneous_results
-    )
-    homogeneous_zero_fraction = Fraction(
-        homogeneous_zero_count, len(homogeneous_results)
-    )
-    homogeneous_one_fraction = Fraction(
-        homogeneous_one_count, len(homogeneous_results)
-    )
-    elapsed = time.perf_counter() - started
-    memory_gb = peak_memory_gb()
-
-    summary = {
+        summary = {
         "claim_scope": CLAIM_SCOPE,
         "homogeneous_controls": {
             "all_masters_zero_fraction_decimal": fixed_12(
@@ -639,42 +696,43 @@ def main() -> int:
         "run_id": "orf-p4-core",
         "schema_version": "orf-phase4-core-summary-v1",
         "status": "PUBLIC_NON_TARGET_CORE_VALIDATION",
-    }
+        }
 
-    write_primary_tsv(output_dir / "core-by-master.tsv", primary_records)
-    write_homogeneous_tsv(
-        output_dir / "homogeneous-by-master.tsv", homogeneous_records
-    )
-    (output_dir / "core-summary.json").write_text(
-        canonical_json(summary), encoding="utf-8"
-    )
-    (output_dir / "notes.md").write_text(
-        "# ORF Phase-4 core run notes\n\n"
-        "The core calculation recomputed `G` from the seven committed score columns "
-        "and computed `A` by exhaustive per-row argmax, always breaking ties toward "
-        "the smaller fill length. No baseline summary or reported `G` entered the "
-        "calculation.\n\n"
-        "The separately generated homogeneous controls used the frozen immutable "
-        "calibration primitives. All controls were asserted before output.\n\n"
-        "Deviations: none.\n\n"
-        "Scope is public deterministic non-target validation only. Synthetic-profile "
-        "results do not establish live heterogeneity, learnability, private transfer, "
-        "held-out performance, Kaggle performance, or a live-deadline claim.\n",
-        encoding="utf-8",
-    )
+        notes = (
+            "# ORF Phase-4 core run notes\n\n"
+            "The core calculation recomputed `G` from the seven committed score columns "
+            "and computed `A` by exhaustive per-row argmax, always breaking ties toward "
+            "the smaller fill length. No baseline summary or reported `G` entered the "
+            "calculation.\n\n"
+            "The separately generated homogeneous controls used the frozen immutable "
+            "calibration primitives. All controls were asserted before output.\n\n"
+            "Deviations: none.\n\n"
+            "Scope is public deterministic non-target validation only. Synthetic-profile "
+            "results do not establish live heterogeneity, learnability, private transfer, "
+            "held-out performance, Kaggle performance, or a live-deadline claim.\n"
+        )
+        metrics = {
+            "mean_adaptive_gain_percent": fixed_12(mean_gain),
+            "minimum_adaptive_gain_percent": fixed_12(minimum_gain),
+            "maximum_adaptive_gain_percent": fixed_12(maximum_gain),
+            "all_masters_clear_fraction": fixed_12(clear_fraction),
+            "homogeneous_zero_fraction": fixed_12(homogeneous_zero_fraction),
+            "homogeneous_length_one_fraction": fixed_12(homogeneous_one_fraction),
+            "masters_evaluated": str(len(primary_results)),
+            "profiles_evaluated": str(len(primary_results) * PROFILES_PER_MASTER),
+            "peak_memory_gb": format(memory_gb, ".9f"),
+            "runtime_seconds": format(elapsed, ".9f"),
+        }
+        bundle.write_text("core-by-master.tsv", render_primary_tsv(primary_records))
+        bundle.write_text(
+            "homogeneous-by-master.tsv", render_homogeneous_tsv(homogeneous_records)
+        )
+        bundle.write_text("core-summary.json", canonical_json(summary))
+        bundle.write_text("notes.md", notes)
+        bundle.log_metrics(metrics)
+        bundle.complete()
 
-    metrics = {
-        "mean_adaptive_gain_percent": fixed_12(mean_gain),
-        "minimum_adaptive_gain_percent": fixed_12(minimum_gain),
-        "maximum_adaptive_gain_percent": fixed_12(maximum_gain),
-        "all_masters_clear_fraction": fixed_12(clear_fraction),
-        "homogeneous_zero_fraction": fixed_12(homogeneous_zero_fraction),
-        "homogeneous_length_one_fraction": fixed_12(homogeneous_one_fraction),
-        "masters_evaluated": str(len(primary_results)),
-        "profiles_evaluated": str(len(primary_results) * PROFILES_PER_MASTER),
-        "peak_memory_gb": format(memory_gb, ".9f"),
-        "runtime_seconds": format(elapsed, ".9f"),
-    }
+    # complete() self-verifies the published final bundle before any metric is emitted.
     for name, value in metrics.items():
         print(f"{name}: {value}")
     return 0
