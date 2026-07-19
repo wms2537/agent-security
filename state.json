@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 8 returned NEEDS_REVISION. Non-target calibration v1 was preregistered at bba39d7 and executed once, but post-run audit `getcontext().prec` returned 28 and `rg` found the cost polynomial rounded before Fraction conversion at script line 117. Its nominal pass was rejected; all six rows are crash/NA/null and artifacts are preserved. Exploratory calibration budget 1/2; hypothesis-review budget 8/10. Remaining blockers: terminal union/fetch marker/cross-fields/numeric execution plus valid calibration outcome and terminal posting. No held-out beacon/Kaggle action.",
+      "evidence": "Round 8 returned NEEDS_REVISION. Non-target calibration v1 was preregistered at bba39d7 but rejected after audit found its cost polynomial rounded before Fraction conversion; all six rows are crash/NA/null and artifacts are preserved at bcf9a5c. Calibration v2 keeps identical choices and converts a/b/d individually to Fraction before exact cost arithmetic; syntax and six unresolved retry rows are to be sealed before its one run. Exploratory budget will be 2/2; review budget 8/10. No held-out beacon/Kaggle action.",
       "parent": "T008"
     }
   ],

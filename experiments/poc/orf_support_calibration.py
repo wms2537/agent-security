@@ -29,7 +29,7 @@ CANDIDATE_CAP = 2000
 SATURATIONS = (200_000, 10**18)
 PRECISION = 80
 FLOOR_CERTIFICATE_THRESHOLD = Decimal("1e-60")
-OUTPUT_DIR = Path("experiments/runs/orf-support-calibration-v1")
+OUTPUT_DIR = Path("experiments/runs/orf-support-calibration-v2")
 
 
 @dataclass(frozen=True)
@@ -110,11 +110,18 @@ def build_profiles(master: bytes) -> tuple[list[Profile], Decimal]:
                         b = log_uniform(rng, "0.1", "1") if linear_index == 0 else log_uniform(rng, "2", "8")
                         d = Decimal(0) if curvature_index == 0 else log_uniform(rng, "0.05", "0.2")
                         lam = None if cliff == -1 else log_uniform(rng, "0.5", "3")
+                        a_fraction = Fraction(a)
+                        b_fraction = Fraction(b)
+                        d_fraction = Fraction(d)
                         costs: list[Fraction] = []
                         events: list[int] = []
                         profile_margin: Decimal | None = None
                         for length in LENGTHS:
-                            costs.append(Fraction(a + b * length + d * length * length))
+                            costs.append(
+                                a_fraction
+                                + b_fraction * length
+                                + d_fraction * length * length
+                            )
                             count, margin = event_count(length, cliff, lam)
                             events.append(count)
                             if margin is not None:

@@ -17,3 +17,9 @@ orf-cal-v1-no-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	bea
 orf-cal-v1-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	NA	null	NA	NA	crash	cliff-only H=200000 sensitivity; exploratory only
 orf-cal-v1-equal-unsat-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	NA	null	NA	NA	crash	equal-weight H=10^18 saturation sensitivity; exploratory only
 orf-cal-v1-floor-margin	minimum_cliff_floor_distance	0.000000000000000000000000000000000000000000000000000000000001	beat-baseline	low	NA	null	NA	NA	crash	minimum distance from a cliff expression to an integer; no resampling
+orf-cal-v2-equal-h200-clear	masters_clearing_5pct_fraction	0.750000000000	beat-baseline	low			NA	NA		retry after v1 numeric crash; equal-weight H=200000; exploratory only
+orf-cal-v2-balanced-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		retry after v1 numeric crash; balanced cliff-presence H=200000; exploratory only
+orf-cal-v2-no-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		retry after v1 numeric crash; no-cliff-only H=200000; exploratory only
+orf-cal-v2-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		retry after v1 numeric crash; cliff-only H=200000; exploratory only
+orf-cal-v2-equal-unsat-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		retry after v1 numeric crash; equal-weight H=10^18; exploratory only
+orf-cal-v2-floor-margin	minimum_cliff_floor_distance	0.000000000000000000000000000000000000000000000000000000000001	beat-baseline	low			NA	NA		retry after v1 numeric crash; no-resampling floor certificate
