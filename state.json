@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 10,
-      "spent": 4
+      "spent": 5
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding held-out hypothesis research-log/010-hypothesis-iter-4-v3-heldout.md and contract experiments/configs/orf-heldout-v1.json are frozen pre-data. JSON validation passed. Seed-independent negative-control verification returned `PASS homogeneous negative: m=1 is oracle-best for b grid [5,12], candidate/raw caps inactive`. Held-out seed 2026071902 is unopened and no generator exists. Review limit is 10, spent is 4 until dispatch; Phase 2 remains closed and Kaggle actions are prohibited.",
+      "evidence": "Superseding held-out hypothesis research-log/010-hypothesis-iter-4-v3-heldout.md and contract experiments/configs/orf-heldout-v1.json are frozen pre-data. Seed-independent negative-control verification returned `PASS homogeneous negative: m=1 is oracle-best for b grid [5,12], candidate/raw caps inactive`. Sterile round 5 dispatched against the committed 395-line entry with six prior blockers; contract SHA-256 is 2a920b17630c00485ddb854825fff7ee2e714dd5bddb3bab50d74df26f2ccddd. Review budget is 5/10, held-out seed 2026071902 remains unopened, Phase 2 is closed, and Kaggle actions are prohibited.",
       "parent": "T008"
     }
   ],

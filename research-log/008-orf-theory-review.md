@@ -446,3 +446,12 @@ hypothesis-review round, raising the limit from 4 to 10, to write and review a
 held-out ORF hypothesis. No Kaggle action is authorized.” The recorded review
 ceiling is therefore 10; reviews remain sequential and consume one round per
 dispatch. The Kaggle prohibition is explicit and binding.
+
+## Held-out round 5 dispatch
+
+The sterile theory re-review was dispatched against the committed 395-line
+superseding entry `research-log/010-hypothesis-iter-4-v3-heldout.md`, which cites the
+locked contract `experiments/configs/orf-heldout-v1.json` (SHA-256
+`2a920b17630c00485ddb854825fff7ee2e714dd5bddb3bab50d74df26f2ccddd`). The prompt
+contains the six round-4 blockers in the allowed previous-review slot. This consumes
+review round 5/10; the held-out seed remains unopened.

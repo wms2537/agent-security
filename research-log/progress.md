@@ -26,3 +26,4 @@
 2026-07-19 | P2 | T009 final theory re-review round 4 | needs_revision | reviewer verified 346 lines; 4 prior issues resolved, 3 improved, final gate fails on circular margin, purpose-built profiles, and uncalibrated correlated-latency risk; budget 4/4 exhausted
 2026-07-19 | P2 | T009 held-out revision authorization | approved | user verbatim raised hypothesis-review limit 4→10 and prohibited all Kaggle action; reviews remain sequential
 2026-07-19 | P2 | T009 held-out ORF-H hypothesis v3 | ready_review | 256-profile seed locked unopened; contract JSON valid; homogeneous negative proof PASS with m=1 oracle-best on b∈[5,12]; no generator or experiment run
+2026-07-19 | P2 | T009 held-out theory review round 5 | in_progress | sterile review dispatched against committed 395-line v3 plus locked contract; held-out seed unopened; budget 5/10
