@@ -8,9 +8,9 @@
   "output_format": "notebook+working-note",
   "idea_dna": {
     "problem": "Maximize the MEAN of 4 independently-normalized-and-capped leaderboard cells ({gpt_oss,gemma}x{public,private}) on the Kaggle AI-Agent-Security benchmark.",
-    "assumption": "Across an independently generated, unopened synthetic coverage distribution, response-profile heterogeneity is large enough for exhaustive per-profile chain-length measurement to repay its charged probe cost versus the hindsight oracle-best static length; a homogeneous single-dominant block must show the opposite sign.",
-    "assumption_source": "Benchmark mechanics in frozen SDK/gateway/scorer sources plus T005/T006 controlled evidence motivate the generator dimensions; the held-out seed in experiments/configs/orf-heldout-v1.json is unopened, and no claim is made about live target prevalence, replay-risk calibration, or private transfer.",
-    "novelty_claim": "Held-Out Online Replay Frontier (ORF-H): replace a static chain length with exhaustive, budget-charged online selection and test its information value on an unopened synthetic profile distribution against an oracle-best same-action-set static control and a single-dominant negative control."
+    "assumption": "On a post-freeze beacon-derived equal-stratum synthetic coverage split, response-profile heterogeneity is large enough that per-profile fill selection adds at least 5% over an identical retained-probe portfolio using the hindsight best global fill; a homogeneous single-dominant block must produce exact equality.",
+    "assumption_source": "Frozen SDK/gateway/scorer mechanics plus T005/T006 controlled evidence motivate the response dimensions, but not their real prevalence. The v4 outcome source is a future NIST Randomness Beacon pulse fixed only after reviewed implementation and predictions; no claim is made about live targets, replay-risk calibration, private transfer, or Kaggle performance.",
+    "novelty_claim": "Beacon-Held-Out Online Replay Frontier (ORF-B): replace global fill-length choice with per-profile choice and isolate its synthetic information value using identical probes, an exact fixed-split estimand, a strong preregistered nonadaptive mixture, and a homogeneous negative consequence."
   },
   "budgets": {
     "research_iterations": {
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 5 returned NEEDS_REVISION after verifying the 395-line v3, 76-line contract, contract SHA-256, and all source hashes. It accepted the non-circular held-out synthetic scope but found seven blockers: retained-probe/mixed-portfolio attribution, public-seed pseudo-blinding, incoherent fixed-split bootstrap, missing raw-cap/oracle/regret/failure formulas, arbitrary generator weights, incomplete executable protocol, and incomplete scorer/predicate citations. Full verdict: research-log/008-orf-theory-review.md. Budget is 5/10, Phase 2 remains closed, held-out seed has not been instantiated, and Kaggle actions are prohibited.",
+      "evidence": "Superseding ORF-B v4 and immutable machine contract are ready for review. Deterministic verification command `comp/.venv/bin/python -m json.tool experiments/configs/orf-heldout-v2.json` passed; independent formula check printed `PASS strata=40 profiles=320 mixtures=3003; negative m=1 unique at b endpoints for static and identical-probe fill`; all five source hashes matched. No beacon target, master digest, profile, implementation, or experiment was created. Budget remains 5/10 until dispatch; Phase 2 is closed and Kaggle actions are prohibited.",
       "parent": "T008"
     }
   ],
@@ -183,7 +183,17 @@
       "seed": 2026071902,
       "opened": false,
       "opened_at": null,
-      "rule": "Open exactly once in Phase 3 only after a rigorous theory verdict, implementation verification, and committed prediction rows."
+      "rule": "Never open: round 5 found the public seed was not genuinely blind, and v2 supersedes this contract.",
+      "status": "superseded-never-opened"
+    },
+    "orf-heldout-v2": {
+      "contract": "experiments/configs/orf-heldout-v2.json",
+      "seed": null,
+      "beacon_target_unix_ms": null,
+      "beacon_revealed": false,
+      "opened_at": null,
+      "rule": "Only after RIGOROUS review, committed implementation/unit checks/prediction rows, and a clean freeze may a future NIST pulse create the fixed-path atomic opening ledger. No Kaggle action is authorized.",
+      "status": "locked-pre-review"
     }
   },
   "gates": {

@@ -28,3 +28,4 @@
 2026-07-19 | P2 | T009 held-out ORF-H hypothesis v3 | ready_review | 256-profile seed locked unopened; contract JSON valid; homogeneous negative proof PASS with m=1 oracle-best on b∈[5,12]; no generator or experiment run
 2026-07-19 | P2 | T009 held-out theory review round 5 | in_progress | sterile review dispatched against committed 395-line v3 plus locked contract; held-out seed unopened; budget 5/10
 2026-07-19 | P2 | T009 held-out theory review round 5 | needs_revision | reviewer verified 395 lines + contract/source hashes; held-out scope accepted, but adaptation confounded by probe mixture, public seed not blind, estimand/formulas/protocol incomplete; budget 5/10
+2026-07-19 | P2 | T009 beacon-held-out ORF-B hypothesis v4 | ready_review | JSON/formula/source-hash checks PASS: 40 strata, 320 unopened profiles specified, 3003 mixed controls, homogeneous m=1 unique; no beacon target/profile/experiment created; no Kaggle action
