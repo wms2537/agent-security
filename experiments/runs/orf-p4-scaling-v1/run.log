@@ -1,0 +1,10 @@
+comp/.venv/bin/python -I experiments/orf-p4-scaling/run_scaling.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-scaling-v1
+all_scale_master_cells_clear_fraction: 1.000000000000
+scale_forty_mean_gain_percent: 48.952971791444
+scale_one_hundred_sixty_mean_gain_percent: 42.794164975019
+scale_three_hundred_twenty_mean_gain_percent: 40.249038022308
+minimum_cell_gain_percent: 38.111186959411
+maximum_cell_gain_percent: 52.609341554583
+scale_master_cells: 9
+peak_memory_gb: 0.583507538
+runtime_seconds: 0.031398170

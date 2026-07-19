@@ -1,6 +1,6 @@
 # Experiment: ORF Phase-4 nested-scale robustness
 
-**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not run
+**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, confirmed and kept
 
 ## Context
 
@@ -45,11 +45,18 @@ scientific outcome retry is allowed.
 
 ## Gate Check
 
-- T020's changed-regime generalization passed review, execution, manifest, and
-  independent row/score audit.
-- Scales, nested selection, masters, score table, policies, prediction,
-  threshold, command, evidence, and stop rules are fixed.
-- The exact final attempt is absent.
+- T027 returned `SOUND` with no findings before execution.
+- The exact command exited 0 on its first invocation and published the five
+  expected files with a verified COMPLETE manifest and seven exact bindings.
+- Independent audit selected/recomputed all nine cells from the bound baseline:
+  1,560 selected row appearances, exact A/G/regret/gain/action counts, exact
+  nesting, and full-scale equality.
+- Mean gains are 48.952971791444% at N=40, 42.794164975019% at N=160, and
+  40.249038022308% at N=320. The nine-cell range is
+  `[38.111186959411%,52.609341554583%]`.
+- All nine cells clear 5%, so the exact primary fraction is 1.0.
+- Immutable paths have an empty diff from preregistration commit `a796796`; no
+  retry or deviation occurred.
 
 ## Problem alignment
 
@@ -58,10 +65,22 @@ size rather than appearing only after aggregating the maximum planned sample.
 
 ## Decision
 
-Implement the deterministic subset wrapper and toy nesting checks without
-running the nine cells.
+**Keep.** Material direction is robust at every nested scale; magnitude declines
+as the crossed design averages more replicates but remains near 40% at full N.
 
 ## Next Steps
 
-Commit the preregistration, implement/test/freeze the runner, then execute once
-and close Phase 4 only after an independent nine-cell audit.
+Commit the verified bundle and resolved ledger, then perform T022's complete
+Phase-4 provenance/results audit and comparison summary.
+
+## Prediction vs. Reality
+
+Predicted all-nine-clear fraction was 1.0; actual was exactly
+`1.000000000000`. The scale means were deliberately descriptive rather than
+numerically forecast. Runtime was 0.031398170 seconds and peak memory was
+0.583507538 GB.
+
+The decreasing mean is compatible with small-N strata exhibiting more realized
+heterogeneity before replicate averaging. Because the subsets are nested rather
+than independent, this is robustness evidence, not a learning curve or
+population convergence estimate.

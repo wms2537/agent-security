@@ -191,8 +191,8 @@
       "id": "T021",
       "phase": "4",
       "desc": "Preregister and run nested 40/160/320-profile robustness and scaling checks across the three primary public masters",
-      "status": "in_progress",
-      "evidence": "research-log/038 fixes design/prediction before code. research-log/039 records unexecuted runner SHA 6f5fa9a8... and toys SHA 19f806da...; static PASS and 4/4 nested-count/prefix/evaluator/schema tests. Attempt absent; T027 focused review blocks execution.",
+      "status": "done",
+      "evidence": "T027 SOUND preceded first exact invocation. COMPLETE verifier plus independent 9-cell/1560-selected-row audit PASS; exact N40/160/320 means 48.952971791444/42.794164975019/40.249038022308%, cell range 38.111186959411-52.609341554583%, all 9 >=5% fraction=1, k8 equals committed core, immutable diff from a796796 empty. Runtime 0.031398170s, memory 0.583507538GB; confirmed/kept.",
       "parent": "T020"
     },
     {
@@ -501,7 +501,8 @@
       "code_review": "Sterile round-3 SOUND verdict in research-log/030; both prior HIGHs RESOLVED, no severity findings, 15/15 transactional/adversarial bundle tests and 4/4 arithmetic toys pass, and the public non-target core remained unexecuted at gate closure.",
       "core": "Reviewed one-use public core bundle COMPLETE and independently verified: exact mean adaptive gain 40.249038022308% versus predicted 40% [30,50], all 3 masters >=5%, homogeneous zero/length-one controls 3/3, and immutable paths unchanged from preregistration commit 20b73f4.",
       "attribution": "Sterile-reviewed one-use OAT batch independently verified across 4800 rows/33600 scores: mean gains no_cliff=7.6221, no_curvature=37.8600, no_reset=18.9736, no_novelty=40.0947, unsaturated=44.3552%; all 15 cells material and immutable paths unchanged.",
-      "generalization": "Sterile-reviewed disjoint public unsaturated balanced-cliff regime independently verified across 960 rows/6720 scores: mean gain 36.393868336949% vs predicted 35%, all 3 masters material, exact 256+256 weighting, COMPLETE bundle, immutable diff empty."
+      "generalization": "Sterile-reviewed disjoint public unsaturated balanced-cliff regime independently verified across 960 rows/6720 scores: mean gain 36.393868336949% vs predicted 35%, all 3 masters material, exact 256+256 weighting, COMPLETE bundle, immutable diff empty.",
+      "scaling": "Sterile-reviewed nested 40/160/320 robustness independently recomputed for all 9 cells: all clear fraction 1.0, means 48.953/42.794/40.249%, range 38.111-52.609%, full scale equals core, COMPLETE and immutable diff pass."
     }
   }
 }
