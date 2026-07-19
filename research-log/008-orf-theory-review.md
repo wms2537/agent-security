@@ -1054,3 +1054,23 @@ The adverse `NEEDS_REVISION` verdict stands. The reported 511 hypothesis lines,
 were independently verified against commit `f4098e9`. The v5 hypothesis and v3
 contract remain immutable. Phase 2 stays closed and no freeze, target, profile,
 experiment, or Kaggle action exists.
+
+## Conditional-regret round 8 dispatch
+
+The superseding entry
+`research-log/013-hypothesis-iter-4-v6-conditional-regret.md`, contract
+`experiments/configs/orf-heldout-v4.json`, and artifact schema
+`experiments/configs/orf-heldout-v4-artifacts.schema.json` were committed at
+`3033b15` before dispatch. They have 498, 204, and 231 lines respectively. Contract
+SHA-256 is
+`1ed7ad83db5ea6a0cff25192534f162f102d3635048d97cdebb90551ee84da30`; schema
+SHA-256 is
+`bd8ddcabef0c9b08ba6b4efeabe6cb2cf4894b16517b1b38de2585b760058a32`.
+
+Pre-review verification passed Draft 2020-12 validation of six complete sample
+artifact trees and the live NIST envelope, exact-Fraction negative endpoint proof,
+exhaustive binary materiality partition, 3,003 mixture count, JSON/source/schema
+hash checks, and zero seed fields. The sterile re-review contains only the six
+round-7 blockers in the allowed slot. Dispatch consumes round 8/10. No evaluator,
+freeze, pulse target, opening, profile, experiment, submission, or Kaggle action
+exists.

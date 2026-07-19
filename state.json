@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 10,
-      "spent": 7
+      "spent": 8
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding 498-line conditional-regret v6, 204-line v4 contract, and 231-line strict artifact schema are ready for review. Verification passed Draft 2020-12 schema checks on six full sample artifacts and the live NIST envelope, schema/source hashes, exact-Fraction negative endpoint proof, exhaustive binary materiality partition, 3003 mixtures, valid JSON, and zero seed fields. No target/profile was derived. Budget remains 7/10 until dispatch; Phase 2 closed; no Kaggle action.",
+      "evidence": "Theory review round 8 was charged and dispatched against committed 498-line v6, 204-line v4 contract SHA-256 1ed7ad83db5ea6a0cff25192534f162f102d3635048d97cdebb90551ee84da30, and 231-line artifact schema SHA-256 bd8ddcabef0c9b08ba6b4efeabe6cb2cf4894b16517b1b38de2585b760058a32. Sterile prompt includes only template state and six round-7 blockers. Budget 8/10; Phase 2 closed; no implementation/freeze/target/profile/experiment/Kaggle action.",
       "parent": "T008"
     }
   ],
