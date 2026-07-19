@@ -152,7 +152,7 @@
       "phase": "4",
       "desc": "Sterile code-review gate on the committed baseline and unexecuted core code before any core result may be believed",
       "status": "in_progress",
-      "evidence": "Initial review 026 returned NEEDS_REVISION solely on stale/partial artifact provenance after passing leakage, split hygiene, metrics, separation, baseline fairness, and seed handling. Commit bb896ab implements and locally verifies T023's transactional provenance repair; a fresh sterile re-review is being dispatched against that immutable commit. No core run or scientific output exists.",
+      "evidence": "Round-2 review 028 marks the original stale/partial-artifact HIGH RESOLVED and again passes leakage, split hygiene, metrics, separation, baseline fairness, and seeds, but returns NEEDS_REVISION on a new HIGH: resolving a raw attempt path before lexical identity checks permits live/dangling symlink aliases. T024 owns the required lstat/lexists/exact-lexical-child repair and adversarial tests. No core run or scientific output exists.",
       "parent": "T015"
     },
     {
@@ -209,6 +209,14 @@
       "desc": "Fix the code-review provenance blocker with fresh attempt directories, completion manifests, failure-injection tests, and manifest verification before sterile re-review",
       "status": "done",
       "evidence": "The reusable helper and both future runners implement fresh direct-child staging, bundle-owned exact-command log, canonical COMPLETE last, fsync, glibc renameat2(RENAME_NOREPLACE), exact identity/file/binding/artifact verification, failed-attempt preservation, and no overwrite. Static compilation passed; 10 bundle tests (including 24 failure boundaries) and 4 core toy tests passed. Core/future-baseline attempts remain absent and frozen config/support plus six historical baseline evidence files are unchanged. research-log/027 records the checks; scientific core remains unexecuted pending sterile re-review.",
+      "parent": "T016"
+    },
+    {
+      "id": "T024",
+      "phase": "4",
+      "desc": "Close the round-2 attempt-identity blocker by rejecting live/dangling symlink aliases before resolution and testing constructor/verifier behavior",
+      "status": "in_progress",
+      "evidence": "research-log/028 records the sterile NEEDS_REVISION report verbatim. Required scope: inspect the raw direct child with lstat/is_symlink and lexists, compare lexical canonical child identity, reject dangling/live aliases in constructor and verifier, and preserve all T023 guarantees without executing scientific code.",
       "parent": "T016"
     }
   ],
