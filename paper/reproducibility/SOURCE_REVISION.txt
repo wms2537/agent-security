@@ -1,0 +1,5 @@
+# Local source revision
+
+git_commit=0b5e9f7eed1338de419d8137b1866624f44c4c26
+scope=committed section sources, code, configs, evidence tables, and review foundation
+external_archive=none

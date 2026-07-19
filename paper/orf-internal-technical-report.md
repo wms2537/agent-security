@@ -1,536 +1,947 @@
-# Conditional Regret of Global Candidate Length in a Public Synthetic Agent-Security Model
+# Perfect-Information Regret of a Shared Candidate-Length Constraint on Deterministic Synthetic Score Tables
 
-*Internal technical report — 19 July 2026*
+Public-Synthetic Perfect-Information Regret (PS-PIR) is a deterministic scorer worked example that applies the established value-of-perfect-information comparison to a shared candidate-length constraint. On each completely specified score table, an exhaustive comparator selects one fill length for every row, while a perfect-information comparator selects separately after receiving every row's counterfactual scores. The resulting difference is an exact policy-class calculation, not a new regret concept, theorem, or learning method.
 
-# Abstract
+On the three named designer-specified crossed tables, the perfect-information gains over the shared comparator were 41.437632%, 38.111187%, and 41.198295%, spanning 38.111187--41.437632%. On three homogeneous tables constructed to have length one as the row-wise optimum, both comparators selected length one and had exactly equal scores, giving zero raw regret. These results describe only the supplied tables and the homogeneous boundary/code-path check. The crossed-table values exceeded a preselected 5% numerical cutoff, but that cutoff has no external utility calibration and does not imply practical importance.
 
-A fixed candidate length spends the same finite generation and replay budgets on
-response profiles that may prefer different structures. We study this restriction
-with Beacon-Held-Out Conditional Regret (ORF-B), which makes one action-scope
-replacement: with identical retained probes, legal actions, resources, and
-scores, it replaces one exhaustive global fill-length argmax with profile-wise
-oracle argmaxes. On `n=3` fixed public synthetic masters, the profile-conditioned
-oracle gained a mean **40.249%** over the exact global comparator, with a
-measured-master s.d. of **1.855 percentage points**; `test: none; p: not
-applicable`, because these masters form a deterministic finite census rather than
-a population sample. Three separately derived homogeneous masters returned exact
-zero regret, and both policies selected length one for every homogeneous profile.
-In secondary public checks, three disjoint changed-construction masters averaged
-**36.394%**, while paired one-at-a-time removals of cliff behavior and reset
-overhead produced the largest decreases from the core gain. These results measure
-public-synthetic oracle information value for the benchmark-shaped scorer. The
-locked test was not run, and no Kaggle action occurred. Accordingly, the result
-does not establish a learner, live response heterogeneity or transfer, replay
-safety, private transfer, or held-out confirmation.
+PS-PIR grants full counterfactual observability; retained probes do not select an action. No learner was trained, and no live target, untouched test, beacon, held-out evaluation, Kaggle action, or transfer evaluation supplied evidence. The calculation therefore demonstrates neither an agent-security opportunity nor an attainable or deployable performance gain.
 
 # Introduction
 
-In this benchmark, candidate structure is a replay-budget decision: if the returned set overruns a model deadline, the whole submission is voided rather than merely losing the late candidate. Every additional tool hop consumes generation and replay resources that could have produced another independently scored finding, while only the first 2,000 returned candidates can be replayed. A fixed candidate length therefore makes a consequential systems assumption. It spends the same finite resources on response profiles that may differ in event yield, latency, and the point at which a longer trajectory stops paying for itself. Because the attacker observes each live model during search, leaving that response curve unidentified discards one of the few signals that could support model-specific allocation.
+The audited local SDK couples attack scoring to finite generation and replay
+resources. `AttackRunConfig.time_budget_s` is defined as the wall-clock budget
+for a full attack run in `comp/sdk/aicomp_sdk/attacks/contracts.py`. The local
+gateway sets a 9,000-second generation deadline for each configured model and a
+separate 9,000-second deadline for each model–guardrail replay, and it replays
+only the candidate prefix bounded by the imported `MAX_REPLAY_FINDINGS`
+constant
+(`comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py`). The
+scorer sums predicate severity weights, adds two raw points for every distinct
+score-cell hash, normalizes by the 200,000 raw-score reference, and caps the
+normalized attack score at 1,000 (`comp/sdk/aicomp_sdk/scoring.py`). These are
+facts about the audited repository, not claims about every benchmark or attack
+system. Public-Synthetic Perfect-Information Regret (PS-PIR) adds a deliberately
+synthetic decision to this local accounting: whether one fill length must be
+shared across all rows of a specified score table or may be selected separately
+for each row after all seven action scores are revealed.
 
-The project history makes this concern concrete. Before the ORF study, a multi-post design was forecast to score approximately 85 but returned **36.705** on the live four-cell leaderboard aggregate. That historical run is context, not evidence from the ORF experiment. Source-level diagnosis found that its longer candidates were latency-bound, so they generated fewer replayable findings and fewer distinct-cell bonuses per second than short candidates. Reserves for alternative predicates rarely fired, model-specific formatting hurt one target, and a high local mock value had described one compliant cell rather than the mean of four independently normalized cells. The failure showed that a constructed score and one fixed structural recipe can conceal both replay cost and aggregation error. It redirected the question from choosing another universal template toward identifying which candidate structure a model can support under its budget.
+Auditing that comparison is useful because it makes the score lost to the
+shared-action restriction exactly calculable and exercises the finite
+calculation's scorer-accounting and equality code paths. Its conceptual form is
+established value of perfect information: information has value through the
+decision it changes and
+the resulting consequence [1]. In PS-PIR, however, the relevant information is
+granted by construction. The row-wise comparator sees the complete
+counterfactual score vector before choosing, so a positive difference cannot
+show that informative observations exist or are available before an operational
+choice. Contextual-bandit, off-policy evaluation, adaptive-optimization, and
+heterogeneous-policy work instead makes observable context, partial feedback,
+identification assumptions, or sequential observations part of the learning
+problem [2]–[5]. Recent LLM systems likewise condition prompt-, subproblem-,
+planning-, or step-level resource allocation on estimated or learned signals
+[6]–[10]. PS-PIR defines no such signal-to-action mapping: its retained probes
+do not choose the fill length.
 
-Broad adaptive allocation is established prior art in the bounded literature record. A search of five verified primary studies found difficulty-conditioned strategy choice at prompt level, complexity-conditioned token allocation within a query, learned decisions about when an agent should plan, selective resource assignment across mathematical subproblems, and remaining-budget control in tool-agent search [Snell et al., 2025; Lin et al., 2026; Paglieri et al., 2026; Xiao et al., 2026; Li et al., 2026]. These studies differ in task, allocation unit, observability, cost, and outcome, and their reported numbers are not comparable to this benchmark. The search was deliberately narrow and does not establish exhaustive priority. The remaining question here is correspondingly specific: what exact score is lost in this benchmark-shaped finite construction when candidate length must be global rather than conditioned on the response profile?
+One earlier live result provides historical motivation for checking structural
+and aggregation assumptions, but it is not evidence for PS-PIR. The recorded
+multi-post design was forecast at approximately 85 and returned an aggregate of
+36.705 (`results.tsv`; `research-log/002-rootcause-and-rebuild.md`). Project
+notes proposed latency, reserve allocation, parser behavior, and aggregation
+mismatch as possible explanations. The present methods include no timing,
+reserve-firing, parsing, or causal-attribution protocol that could identify
+those explanations. They therefore remain diagnostic hypotheses. The observed
+miss motivated an exact audit of one shared structural choice; it neither
+explains the miss nor validates the synthetic table construction.
 
-We isolate that restriction as **Beacon-Held-Out Conditional Regret (ORF-B)**. For a fixed table of synthetic profiles and seven legal candidate lengths, the matched `PROBE_GLOBAL` policy exhaustively selects one length for the entire table. `ADAPTIVE` instead selects the best legal length separately for each profile. Profiles, retained probes, candidate actions, generation and replay resources, score semantics, and tie rules are identical; only the scope of the final argmax changes. In plain language, ORF-B asks how much an omniscient allocator gains by choosing structure profile by profile instead of forcing every profile to share one choice. Because `ADAPTIVE` observes all counterfactual action scores, it is an **oracle**, not a trained router or deployable online controller.
+The evidence tier is correspondingly limited. The generator family, ranges,
+weights, and analysis choices were developed adaptively through a public proof
+of concept, numeric repair, calibration, and repeated hypothesis review. The
+public configuration was then frozen before Phase 4, making that stage a
+post-calibration frozen public verification of the selected deterministic
+tables, not an untouched test. The 5% line was a preselected internal numerical
+cutoff without external utility calibration. No context-to-length learner,
+untouched evaluation tier, live target, private target, beacon operation,
+held-out freeze or opening, or Kaggle action supplied evidence to the executed
+study. **PS-PIR** names that executed public-synthetic calculation;
+**ORF-B / Beacon-Held-Out Conditional Regret** is reserved for a prospective
+protocol that was not executed.
 
-This distinction separates a finite information-value question from the operational problem. The profile-wise action space contains the shared-action space, so its score cannot be lower on a fixed table; that containment proves direction but not a material magnitude. A positive oracle gap also says nothing about whether retained probes reveal the maximizing length, whether a live model has stable profile heterogeneity, or whether a fallible learner can exploit it. The deterministic replay accounting is not a calibrated latency-tail model and does not establish whole-run safety. Public synthetic masters likewise do not establish private transfer, held-out confirmation, or Kaggle improvement. The locked v7 construction remained unfrozen and unopened, and no held-out, private, beacon, or Kaggle action entered this study.
+This internal report contributes only three artifacts:
 
-This report makes three bounded contributions:
+1. **An exact scorer calculation.** It instantiates the established
+   perfect-information comparison on three named designer-specified crossed
+   tables, reports the best shared action and every row-wise maximum, and checks
+   exact equality on three homogeneous boundary tables. This is an
+   implementation of finite-table arithmetic, not a new theorem or regret
+   concept.
 
-1. **An exact finite estimand.** We define conditional regret as the difference between the sum of profile-wise maxima and the maximum shared-length column sum under the audited SDK-shaped score table. We prove only the finite containment inequality and explicitly leave the registered 5% materiality threshold to measurement.
+2. **Direct table diagnostics.** Per-table action histograms show the row-wise
+   choices, a complete 40-stratum accounting assigns all 10,380,000 raw points
+   of finite regret across 960 engineered rows, and one-at-a-time displays
+   report raw perfect-information score \(A\), shared score \(G\), and
+   \(A-G\) before their percentage ratios. These diagnostics describe the
+   specified tables; they do not identify a causal mechanism or establish
+   naturally occurring heterogeneity.
 
-2. **Controlled public evidence and boundary checks.** On three pre-specified public synthetic masters, the oracle comparison yields a 40.249% mean gain over the exhaustive shared-length comparator; three separately derived homogeneous masters yield exact zero regret and length one. Secondary one-at-a-time transforms, a disjoint changed public construction, and nested profile prefixes test which mechanisms support the magnitude and whether the finite direction persists. These are fixed-master descriptions, not population inference or live transfer evidence.
+3. **An internally reproducible record.** Repository-relative code, configs,
+   score tables, manifests, figures, diagnostic tables, and the complete
+   42-row prediction ledger preserve the calculations and their adaptive
+   history. The record has no external archive, DOI, or durability guarantee
+   and is not a publication package.
 
-3. **An auditable repository artifact.** The repository contains the code, frozen configs, exact public score tables, run logs, completion manifests, figures, and source CSVs needed to trace the reported calculations; no held-out output exists. Source review preceded result-generating runs, and independent audits recomputed the finite tables. This evidence package supports reproducibility; its custody machinery is not a scientific component of ORF-B and does not substitute for an unopened test tier.
-
-The contribution is therefore an opportunity bound, not an attack policy. A system that used the bound would still need to learn an action from limited probes, model replay latency and dependence against an explicit void-risk target, and survive separately authorized live and private evaluation. Without those steps, the public deterministic result does not solve the benchmark's replay-safe transfer objective. The evaluation tests three promises: material crossed-table regret, exact homogeneous equality, and persistence under mechanism removals, a changed construction, and nested scale.
+Accordingly, PS-PIR is a reproducible scorer worked example rather than a
+learned method, empirical population result, or deployable allocation policy.
+It establishes no live-transfer or agent-security performance claim. Whether
+observations available before a length choice can support a safe selector on an
+untouched target remains unanswered and would be separate work.
 
 # Related Work
 
-We organize related work by two properties of conditional allocation: the
-granularity at which a decision is made and the information available when it is
-made. Existing systems condition computation at the prompt, subproblem, or agent
-step using estimated difficulty, learned state, or model-generated value. ORF-B
-instead conditions a finite candidate-length choice on a fully observed synthetic
-response profile and measures an oracle gap. These objectives, domains, and units
-are incompatible, so the numbers below characterize results within each cited
-study rather than a common ranking.
+## Value of information
 
-## Prompt- and subproblem-conditioned compute
+The conceptual owner of Public-Synthetic Perfect-Information Regret (PS-PIR)
+is decision-theoretic value of information. Howard values information through
+the decisions it changes and the resulting consequences, with perfect
+information as the limiting case in which the relevant uncertainty is resolved
+before a choice is made [1]. PS-PIR has this established form in a deterministic
+finite table: viewed across rows, the shared comparator is restricted to one
+candidate length and cannot condition its action on the current row, whereas
+the row-wise comparator is granted every counterfactual score for that row
+before choosing. The difference between those two values is therefore a
+scorer-specific perfect-information calculation. It does not establish that
+such information is observable in operation, and the max-before/max-after
+comparison is not a new information-value or regret concept.
 
-Snell et al. study test-time strategy selection at whole-prompt granularity on
-mathematical reasoning. They stratify MATH problems by model-specific difficulty,
-compare iterative revision and verifier-guided search within fixed inference
-budgets, and construct a per-prompt compute-optimal policy. In reported regimes,
-that policy nearly matched or exceeded best-of-N while using up to fourfold less
-test-time compute; the hardest problems benefited little from additional compute,
-and estimating difficulty itself incurred inference cost [Snell et al., 2025].
-The study therefore establishes both the value and the boundary of prompt-level
-conditioning in its reasoning setting. Its conditioning statistic is an estimate
-used to select a strategy; it does not measure candidate length under a security
-benchmark scorer.
+## Context-conditioned policy learning and evaluation
 
-Plan-and-Budget moves the allocation unit inside a query. It decomposes a
-reasoning problem into subquestions, estimates their relative complexity, and
-assigns token budgets with an adaptive schedule rather than applying one global
-budget. The current report for its reasoning, instruction-following, and
-tool-free planning evaluations gives gains of up to 70% in accuracy, a 39% token
-reduction, and a 193.8% increase in its E3 efficiency metric [Lin et al., 2026].
-Those values describe that paper's own objectives and baselines. The method
-depends on a useful complexity ordering and substitutes practical schedules for
-parameters that cannot be estimated exactly at deployment.
+Contextual policy research addresses the harder step that PS-PIR leaves open:
+mapping information available at decision time to an action. Langford and Zhang
+study bandits with observable side information, learning a context-to-action
+rule while trading off exploration and exploitation and analyzing regret through
+the policy class and its learning complexity [2]. Their setting makes the
+contextual selector an object to be learned. By contrast, PS-PIR defines no
+observable context-to-length rule; it directly supplies the complete score
+vector for every legal length on each row.
 
-SCALE likewise allocates at subproblem granularity, selecting System 1 or System
-2 processing and a resource level from estimated mathematical difficulty. On
-AIME25, its reported comparison raises accuracy from 57.50% to 71.25% while
-reducing computation by 33--53% relative to uniform-scaling baselines
-[Xiao et al., 2026]. The result reinforces the case against uniform reasoning allocation
-in that domain, while leaving its benefits dependent on decomposition and
-difficulty classification. Together, these studies show that broad adaptive
-allocation across heterogeneous reasoning instances is prior art. They do not,
-however, determine the value of replacing one shared candidate-length action
-with profile-wise actions under ORF-B's finite score table.
+Dudík et al. study evaluation and optimization of contextual policies from
+historical data when only the reward for the logged action is observed [3].
+Their doubly robust approach combines reward and logging-policy models, with
+explicit assumptions governing what policy value can be identified from partial
+feedback. PS-PIR bypasses that central estimation problem because its synthetic
+table contains every action's counterfactual score. Consequently, the reported
+oracle value is neither an off-policy estimate nor evidence that a policy could
+recover the row-wise actions from retained probes.
 
-## Learned planning decisions in agents
+Athey and Wager provide a related heterogeneous-assignment perspective: they
+learn constrained treatment policies from observable individual
+characteristics in observational data, using identification conditions and
+doubly robust scores to obtain policy-value guarantees [4]. The contrast between
+heterogeneous assignments and a uniform assignment resembles the action-class
+comparison in PS-PIR, but the evidentiary problems differ. PS-PIR performs exact
+arithmetic on designer-specified score tables; it does not estimate treatment
+effects, identify policy value from observational data, or learn an assignment
+rule. Together, these contextual-policy literatures show that moving from an
+oracle table gap to an operational selector would require observations,
+identification or feedback assumptions, a specified policy class, and an
+evaluation protocol that are absent here.
 
-Paglieri et al. move from estimated task difficulty to a state-dependent planning
-decision inside a long-horizon agent. Their unified model learns when to plan
-through supervised priming followed by reinforcement learning, with no-planning
-and fixed-frequency policies as controls. In the reported Crafter comparison, an
-8B dynamic-planning agent attains reward 0.387 versus 0.379 for a 70B zero-shot
-baseline while generating 85% fewer tokens [Paglieri et al., 2026]. The paper
-also records boundaries that matter for interpreting the result: the agents do
-not fully solve Crafter, the evaluation covers two environments, and planning
-latency is effectively absent in the turn-based setting.
+## Adaptive optimization under partial observation
 
-Their learned live-environment policy answers a different question from ORF-B.
-It tests whether an agent can infer when planning has positive net value and act
-on that inference. ORF-B measures the information value of an oracle that already
-knows each synthetic profile's score table; it neither trains nor evaluates a
-selector. Constructed response profiles can validate the mechanics of that
-conditional action but cannot confirm that a target model exhibits stable,
-observable response heterogeneity. We therefore do not treat the synthetic oracle
-gap as evidence that a live agent can learn the corresponding decision.
+Golovin and Krause formalize adaptive submodular optimization for sequential
+choices under partial observability, where later actions can depend on states
+revealed by earlier selections [5]. Their guarantees concern adaptive policies
+and greedy optimization under structural assumptions such as adaptive
+submodularity. This supplies a useful distinction between observation-conditioned
+and fixed policies, but PS-PIR is not an instance of their problem class: it
+makes one candidate-length choice per profile after granting the full
+counterfactual score row, has no sequential information-acquisition process, and
+does not claim adaptive submodularity. The finite PS-PIR difference should thus
+not be read as an operational adaptivity gap or as evidence that partial
+observations suffice to realize the perfect-information value.
 
-## Budget-aware tool-agent search
+## Recent LLM allocation neighbors
 
-Budget-Aware Value Tree Search (BAVT) is the closest tool-agent neighbor in the
-bounded set. It expands alternative tool-use paths, uses a shared LLM critic to
-estimate residual step value, prunes low-value paths, and changes selection from
-exploration toward exploitation as the remaining tool and token budget shrinks.
-Across its multi-hop question-answering evaluation, the reported low-budget
-OSS-20B comparison gives average exact match 0.338 with five tool calls, versus
-0.334 for parallel sampling with 20 calls [Li et al., 2026]. Its ablation is also
-informative: random tree structure alone degrades performance, static step-level
-value helps, and remaining-budget conditioning supplies the resource-aware
-control.
+Recent LLM work demonstrates conditional resource allocation at several
+granularities, using information that must itself be estimated or learned.
+At whole-prompt granularity, Snell et al.'s ICLR study conditions test-time
+strategy and compute on model-specific estimates of mathematical-problem
+difficulty [6]. At subproblem granularity, the ICLR 2026 Plan-and-Budget paper
+decomposes queries and schedules token budgets from estimated relative
+complexity across reasoning, instruction-following, and planning tasks [7],
+while the peer-reviewed SCALE study selects reasoning modes and resource levels
+for mathematical subproblems according to estimated difficulty [9]. These
+studies evaluate performance--cost tradeoffs in their own reasoning domains;
+they do not evaluate candidate-length actions under the scorer used by PS-PIR.
 
-BAVT performs online, step-level search with a model-generated value signal;
-ORF-B evaluates an exact, scorer-specific action-scope relaxation after retaining
-the same probes, legal lengths, resources, and score. BAVT's critic adds inference
-overhead, and its experiments use one external tool with a uniform discrete cost,
-leaving asymmetric tool costs outside the evaluated setting [Li et al., 2026].
-Correspondingly, ORF-B's finite resource accounting does not establish replay-
-deadline safety. Such a safety claim would require a calibrated latency-tail and
-dependence model together with an explicit acceptable void-risk target, neither
-of which is measured here.
+At agent and step granularity, the Paglieri et al. preprint trains a unified
+agent to decide when planning has positive value in long-horizon environments,
+comparing its learned decisions with fixed planning patterns [8]. The
+Budget-Aware Value Tree Search preprint instead uses model-generated
+residual-value estimates and remaining tool/token budget to control step-level
+tool-agent search [10]. Their observation and control mechanisms are precisely
+what the PS-PIR oracle calculation does not supply: the former learns a planning
+gate from task interaction, and the latter performs online budget-conditioned
+search using a critic. Their domains, actions, costs, and outcome measures also
+differ from the deterministic candidate-length score tables considered here.
+Accordingly, their reported quantitative results are not directly comparable
+with the PS-PIR percentages.
 
-## Bounded positioning of ORF-B
+## Positioning of PS-PIR
 
-Our bounded search identified prompt-conditioned reasoning policies,
-subproblem-level token schedulers, learned planning gates, and budget-conditioned
-tool search. This five-paper set cannot establish exhaustive priority, but it is
-sufficient to reject a broad claim that adaptive allocation itself is new. ORF-B's
-narrower distinction is an exact SDK-shaped finite conditional-regret measurement:
-for identical synthetic profiles, retained probes, legal actions, resources, and
-scores, it compares one exhaustive global fill-length argmax with profile-wise
-argmaxes and includes a homogeneous equality control. It is not a learned or live
-controller, and its public synthetic evidence does not establish target-model
-heterogeneity, private transfer, or replay safety. With that scope fixed, the next
-section defines the finite estimand and the single action-scope replacement used
-to measure it.
+The foundational literature establishes value of perfect information,
+context-to-action policy learning and evaluation, heterogeneous assignment, and
+observation-conditioned optimization [1]–[5]. The recent LLM literature applies
+conditional allocation to prompts, subproblems, planning decisions, and tool
+search [6]–[10]. Against that background, PS-PIR contributes only a
+scorer-specific worked example and reproducible implementation of an established
+perfect-information policy-class comparison on named deterministic synthetic
+tables. It is not a new regret concept, theorem, adaptive algorithm, learned
+selector, or empirical phenomenon. In particular, it provides no evidence that
+retained probes reveal the row-wise best length or that any operational policy
+can attain a fraction of the computed oracle value.
 
 # Methodology
 
-## Finite conditional regret under a shared-action restriction
+## PS-PIR on one fixed finite score table
 
-For a fixed table, ORF-B is the score lost solely because all profiles must share one legal fill length. Let \(z\in\mathcal{Z}\) index a synthetic response profile, let \(m\) denote a candidate fill length, and let the finite legal action set be
+Public-Synthetic Perfect-Information Regret (PS-PIR) is a deterministic
+comparison between two policy classes on one completely specified score table.
+It is an instance of established value-of-perfect-information reasoning, not a
+new regret definition or an operational routing algorithm. The earlier name
+ORF-B / Beacon-Held-Out Conditional Regret denotes only a prospective protocol
+that was not executed in this study.
 
-\[
-\mathcal{L}=\{1,2,4,8,16,24,32\}.
-\]
-
-For each profile and action, \(S_z(m)\) is the exact capped score obtained after the common probes have been retained and the remaining generation and replay resources have been spent on length \(m\). The profile-conditioned oracle, called `ADAPTIVE`, has aggregate objective
-
-\[
-A=\sum_{z\in\mathcal{Z}}\max_{m\in\mathcal{L}}S_z(m).
-\]
-
-The matched shared-action policy, called `PROBE_GLOBAL`, exhaustively evaluates the same seven lengths but must select one length for the complete table:
+Let \(\mathcal{Z}\) be the finite set of rows in a named synthetic table and let
 
 \[
-G=\max_{m\in\mathcal{L}}\sum_{z\in\mathcal{Z}}S_z(m).
+\mathcal{M}=\{1,2,4,8,16,24,32\}
 \]
 
-Both policies therefore use identical profiles, probes, candidate construction, legal actions, resources, scoring semantics, and arithmetic. They differ only in the scope of the final argmax. Ties choose the smaller legal length. We define conditional regret as \(\Delta=A-G\), and, when \(G>0\), define percentage gain as \(100\Delta/G\).
-
-**Finite containment proof.** Let \(m_G\) be a maximizing global action. For every profile, \(\max_m S_z(m)\geq S_z(m_G)\). Summing these finite inequalities gives
+be the designer-specified candidate fill lengths. For profile \(z\), the common
+seven probes leave generation charge \(g_z\), replay charge \(r_z\), retained
+candidate count \(p_z\), and raw score \(Q_z\). At fill length \(m\), the exact
+candidate cost is \(c_z(m)>0\), the event yield is \(e_z(m)\geq 0\), and the
+singleton raw-score increment is \(q_z(m)\geq0\), defined by
 
 \[
-A-G=\sum_z\left[\max_m S_z(m)-S_z(m_G)\right]\geq 0.
+q_z(m)=
+\begin{cases}
+0, & e_z(m)=0,\\
+16e_z(m)+2, & e_z(m)>0.
+\end{cases}
 \]
 
-The containment fixes the expected direction: the product action space available to `ADAPTIVE` contains every diagonal, shared-length action available to `PROBE_GLOBAL`. It does not establish that the gain reaches the registered 5% materiality threshold. Magnitude remains an empirical property of the fixed table.
+The positive branch follows the audited scorer: each severity-five predicate
+contributes 16 and each distinct score cell contributes 2
+(`comp/sdk/aicomp_sdk/scoring.py`). The synthetic trace constructor requires
+distinct score-cell hashes within a complete trajectory before using this
+shortcut. A zero-yield attempt produces no finding and therefore has
+\(q_z(m)=0\).
 
-### Exact score and resource identity
-
-The table is evaluated through the frozen SDK path rather than a surrogate score. A constructed positive candidate produces a trace whose \(e\) successful `http.post` events send `SECRET_MARKER` to candidate-specific `.invalid` domains. Each event is marked successful, has source `user` and side effect `SHARE`, and is accompanied by an explicit synthetic user authorization. SDK predicate evaluation must return exactly \(e\) severity-five `EXFILTRATION` predicates and no others. The trace's tool events are passed to the SDK cell-signature function, the resulting finding is passed through the score-cell lookup, and the finding list is scored by the SDK raw attack scorer. For one positive singleton finding, the exact raw contribution is
+The zero branch is evaluated *before* any saturation quotient. Specifically,
+with generation budget \(B_{\mathrm{gen}}\), synthetic replay budget
+\(B_{\mathrm{rep}}\), returned-candidate cap \(C\), and per-profile raw cap
+\(H\), define
 
 \[
-q=16e+2,
+n_z(m)=0\qquad\text{if }q_z(m)=0.
 \]
 
-where the additive two points are the distinct-cell contribution. A zero-event attempt produces no finding and contributes zero.
+For \(q_z(m)>0\), first set
 
-The identity boundary is strict. A 64-hex `candidate_id` identifies bookkeeping and constructs an isolated `.invalid` URL; it is not a score identity. The score identity is the actual 16-lowercase-hex cell-signature hash returned from the trace's tool events. Before the singleton shortcut is used, retained score-cell hashes must be pairwise distinct within each complete profile-policy trajectory. A collision invalidates the protocol rather than being replaced with the candidate identifier. The full retained finding list is also scored once through the SDK, and its objective is capped at \(H=200{,}000\).
+\[
+h_z(m)=
+\begin{cases}
+0, & Q_z\geq H,\\
+\left\lceil\dfrac{H-Q_z}{q_z(m)}\right\rceil, & Q_z<H,
+\end{cases}
+\]
 
-Every profile first attempts the seven probe lengths once in ascending order. Let \(g\), \(r\), \(p\), and \(Q\) be, respectively, generation already charged, replay already charged, retained probe count, and probe raw score. Let \(c_z(m)\) be the exact candidate cost and \(q_z(m)>0\) the singleton raw score at action \(m\). With generation budget \(B_{\mathrm{gen}}=9000\), replay budget \(B_{\mathrm{rep}}=8100\), and returned-candidate cap \(C=2000\), the number of fill candidates is
+and then set
 
 \[
 n_z(m)=\max\!\left(0,\min\!\left\{
-C-p,
-\left\lfloor\frac{B_{\mathrm{gen}}-g}{c_z(m)}\right\rfloor,
-\left\lfloor\frac{B_{\mathrm{rep}}-r}{c_z(m)}\right\rfloor,
-\left\lceil\frac{H-Q}{q_z(m)}\right\rceil
-\right\}\right),
+C-p_z,
+\left\lfloor\frac{B_{\mathrm{gen}}-g_z}{c_z(m)}\right\rfloor,
+\left\lfloor\frac{B_{\mathrm{rep}}-r_z}{c_z(m)}\right\rfloor,
+h_z(m)
+\right\}\right).
 \]
 
-with the saturation term set to zero when \(Q\geq H\). If \(q_z(m)=0\), no fill is retained. Thus \(S_z(m)=\min\{H,Q+n_z(m)q_z(m)\}\). Probe generation is charged for every attempt, while replay and the returned-candidate cap are charged only for positive retained findings. These are deterministic synthetic resources; the replay budget is not a model of a live latency tail.
+The corresponding table entry is
 
-### Crossed and homogeneous constructions
+\[
+S_z(m)=\min\{H,Q_z+n_z(m)q_z(m)\}.
+\]
 
-The crossed construction is designed to create profile-dependent cost and yield curves while preserving exact paired evaluation. Candidate cost is
+Here \(H\) is applied separately to each profile; it is not an aggregate-table
+cap. Probe generation is charged for every attempted probe, while replay and
+the candidate count are charged only for positive retained findings. These
+rules define the synthetic table and do not model a measured live latency
+distribution.
+
+The shared-action comparator (`PROBE_GLOBAL` in the implementation) exhausts
+all seven columns but selects one length for every row:
+
+\[
+G=\max_{m\in\mathcal{M}}\sum_{z\in\mathcal{Z}}S_z(m).
+\]
+
+The row-wise perfect-information comparator (`ADAPTIVE` in the implementation)
+selects a column separately after observing every counterfactual entry:
+
+\[
+A=\sum_{z\in\mathcal{Z}}\max_{m\in\mathcal{M}}S_z(m).
+\]
+
+Ties choose the smaller length. We report the raw gap
+\(\Delta=A-G\) and, because \(G>0\) in every reported table, the displayed
+ratio
+
+\[
+R=100\frac{A-G}{G}.
+\]
+
+### Finite policy-class containment
+
+Let \(m_G\) maximize the shared objective. Row by row,
+\(\max_m S_z(m)\geq S_z(m_G)\). Summation yields only the elementary
+containment result
+
+\[
+\Delta=\sum_z\left[\max_m S_z(m)-S_z(m_G)\right]\geq 0.
+\]
+
+Equality holds exactly when at least one shared action is row-optimal for every
+profile. In one direction, a common row-wise maximizer attains \(A\) inside the
+shared class, so \(G=A\). In the other, if \(G=A\), every nonnegative row loss
+under \(m_G\) must be zero, so \(m_G\) is row-optimal everywhere. No stronger
+theorem, distributional statement, or empirical mechanism is claimed.
+
+For descriptive accounting, define the loss margin of shared action \(m\) on
+row \(z\) as
+
+\[
+\ell_z(m)=\max_{m'\in\mathcal{M}}S_z(m')-S_z(m)\geq0.
+\]
+
+Then the reported gap is the smallest aggregate loss among the seven shared
+columns, \(\Delta=\min_m\sum_z\ell_z(m)\). Thus an action histogram alone does
+not determine the gap: the result depends both on which lengths maximize which
+rows and on the score margins lost when the best shared column is used. This is
+a description of finite-table arithmetic, not a novel regret characterization.
+
+## Designer-specified table constructions
+
+The primary crossed construction is an engineering stress test deliberately
+made heterogeneous. It does not represent an estimated population of live
+profiles. Candidate cost has the form
 
 \[
 c_z(m)=a_z+b_zm+d_zm^2.
 \]
 
-Its 40 strata cross reset band (`LOW` or `HIGH`), linear-cost band (`LOW` or `HIGH`), curvature (`NONE` or `HIGH`), and cliff location \(k\in\{-1,4,8,16,24\}\). Each stratum has eight keyed replicates. Reset draws use ranges \([5,20]\) and \([40,80]\); linear draws use \([0.1,1]\) and \([2,8]\); high curvature uses \([0.05,0.2]\). For no cliff, or for \(m\leq k\), event yield is \(e_z(m)=m\). Above a positive cliff,
+Forty equally weighted strata cross reset band (`LOW`, `HIGH`), linear-cost band
+(`LOW`, `HIGH`), curvature (`NONE`, `HIGH`), and cliff location
+\(k\in\{-1,4,8,16,24\}\). Each stratum has eight keyed replicates. Keyed
+pseudorandom log-uniform draws use \(a_z\in[5,20]\) or \([40,80]\),
+\(b_z\in[0.1,1]\) or \([2,8]\), \(d_z=0\) or
+\(d_z\in[0.05,0.2]\), and, when a cliff is present,
+\(\lambda_z\in[0.5,3]\). With no cliff or \(m\leq k\),
+\(e_z(m)=m\). Above a positive cliff,
 
 \[
-e_z(m)=\operatorname{clamp}\!\left(\left\lfloor m\exp\!\left[-\lambda_z(m-k)/k\right]\right\rfloor,0,m\right),
+e_z(m)=\operatorname{clamp}\!\left(
+\left\lfloor m\exp[-\lambda_z(m-k)/k]\right\rfloor,0,m
+\right).
 \]
 
-with \(\lambda_z\in[0.5,3]\). These crossed factors allow the best legal length to differ across profiles; they do not assert that analogous heterogeneity occurs in a live target.
+The construction therefore supplies the action and margin variation whose exact
+consequences PS-PIR tabulates. The ranges, cliff frequency, and equal weights
+are design choices; they carry no claim about empirical prevalence.
 
-Generation is reproducible from domain-separated SHA-256 master and stream labels. CPython pseudorandom floats are converted through their exact binary ratios into a precision-80, half-even Decimal context. Each realized parameter is then converted separately to an exact rational before polynomial cost arithmetic. The cliff floor must remain at least \(10^{-60}\) from an integer boundary; failure is invalid rather than redrawn. This sequence prevents implementation-dependent reassociation from changing a profile.
+The homogeneous companion uses 64 keyed profiles with
+\(c_z(m)=b_zm\), \(e_z(m)=m\), and \(b_z\in[5,12]\). Under the same finite
+resource rules, length one is the unique row-wise maximizer by construction.
+The shared and row-wise calculations must consequently agree. This is a
+boundary and code-path sanity check, not an empirical discriminator or
+additional support for any crossed-table magnitude.
 
-The homogeneous companion construction contains 64 keyed profiles and instead uses \(c_z(m)=b_zm\), \(e_z(m)=m\), and \(b_z\in[5,12]\), with no reset or curvature. Under the same legal actions and resource accounting, length one is the unique maximizer for every homogeneous profile. Consequently the profile-wise and shared argmaxes select the same action and must have \(\Delta=0\). This equality is the distinguishing control: conditioning is expected to matter on the crossed table but cannot create value when all profiles have the same optimum. The control checks the action-scope explanation; it is not separate support for a 5% crossed-table magnitude.
+### Design provenance
 
-### Registered outcome taxonomy
+The following table separates facts read from the audited local SDK from the
+choices used to construct PS-PIR. A value derived from an SDK constant can still
+be a study choice when it is applied at a different aggregation level.
 
-The finite primary result is classified before interpretation:
+| Quantity | Value used in PS-PIR | Provenance and interpretation |
+|---|---:|---|
+| Generation budget \(B_{\mathrm{gen}}\) | 9,000 | SDK fact adopted by the study: the audited gateway sets `DEFAULT_BUDGET_S = 9000.0` for generation and separately for replay (`comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py`). The attack contract defines `time_budget_s` as a full-run wall-clock budget (`comp/sdk/aicomp_sdk/attacks/contracts.py`). |
+| Synthetic replay budget \(B_{\mathrm{rep}}\) | 8,100 | Engineering choice in `experiments/poc/orf_support_calibration.py`; a conservative deterministic reserve, not an SDK deadline and not fitted to replay latency. |
+| Returned-candidate cap \(C\) | 2,000 | SDK fact adopted by the study: `MAX_REPLAY_FINDINGS = 2_000` in `comp/sdk/aicomp_sdk/evaluation/ops.py`, imported and enforced as a replay slice by the audited gateway. |
+| Raw saturation \(H\) | 200,000 per profile | Mixed provenance: the scorer uses `ATTACK_ELITE_RAW = 200000` and caps the corresponding normalized score at 1,000. Applying the equivalent raw saturation separately to every synthetic profile is a PS-PIR modeling choice. |
+| Positive singleton score | \(16e+2\) | SDK scoring fact conditional on the constructed finding having \(e\) severity-five predicates and a distinct score cell; zero events produce no finding. |
+| Legal/probe lengths | \(\{1,2,4,8,16,24,32\}\) | Engineering discretization fixed in the project config and generator; it is not asserted to be an SDK-mandated action set. |
+| Cost form and reset ranges | \(a+bm+dm^2\); \([5,20]\), \([40,80]\) | Designer-specified stress-test choices; no empirical calibration to live reset cost. |
+| Linear and curvature ranges | \(b\in[0.1,1]\) or \([2,8]\); \(d=0\) or \([0.05,0.2]\) | Designer-specified stress-test choices; no empirical frequency or latency interpretation. |
+| Cliff locations and decay | \(k\in\{-1,4,8,16,24\}\); \(\lambda\in[0.5,3]\) | Designer-specified yield choices; the five cliff cells are equally represented rather than prevalence-weighted. |
+| Stratum weights and replicates | 40 strata, equal weight, 8 replicates each | Engineering coverage choice producing 320 rows per named crossed table; not a probability sample. |
+| Homogeneous slope range | \(b\in[5,12]\) | Engineering choice selected for the constructed length-one equality path. |
+| Numerical cutoff | \(R\geq5\%\) | Preselected internal numerical cutoff fixed before the frozen public calculation, without external utility calibration. Crossing it does not imply practical importance. |
 
-- `MATERIAL` when \(100\Delta\geq5G\);
-- `ZERO` when \(\Delta=0\);
-- `POSITIVE_SUBTHRESHOLD` when \(0<100\Delta<5G\); and
-- `PROTOCOL_INVALID` when \(\Delta<0\), the homogeneous difference is nonzero, a score-cell collision occurs, or any generator, numeric, SDK, resource, schema, or completeness requirement is violated.
+## Oracle information and non-operational scope
 
-`ZERO` and `POSITIVE_SUBTHRESHOLD` disconfirm the primary materiality claim. `PROTOCOL_INVALID` is not evidence for or against it and cannot be converted into a scientific retry. The homogeneous control is separately required to return integer zero with global length one.
+PS-PIR grants complete counterfactual access to every \(S_z(m)\) before the
+row-wise argmax. The seven retained probes affect \(g_z,r_z,p_z,Q_z\) equally in
+both policy classes, but their observations are never used to choose a fill
+length. No context-to-action learner, probe-only classifier, selector-error
+curve, or partial-feedback estimator is part of the calculation. Accordingly,
+\(A\) is a perfect-information comparator on the named table, not evidence that
+any fraction of \(\Delta\) is achievable by an agent.
 
-## Assumptions and non-claims
+The executed PS-PIR study consists only of deterministic public synthetic
+tables. It makes no inference about live response heterogeneity, transfer,
+deployable routing, or an untouched evaluation tier. No beacon, held-out
+evaluation, private target, live target, or Kaggle action contributes to this
+method or its results.
 
-- **Stationarity.** Each profile is a deterministic finite table: the trace and score for an action do not change across evaluation. Crossed synthetic profiles cannot confirm the prevalence, stability, or even existence of corresponding response heterogeneity in a live target.
-- **Additive resource accounting.** Generation, replay, and candidate charges are independent and additive per profile. There is no cross-profile cache, shared concurrency, interference, batching, or shared overhead. Replay safety therefore remains unestablished; it requires a calibrated latency-tail and dependence model together with an explicit whole-run void-risk target.
-- **Exact execution.** The estimand depends on the frozen SDK predicate, cell-signature, and scoring behavior and on the specified Decimal-to-rational execution. Different SDK or numeric semantics define a different table.
-- **Oracle observability.** `ADAPTIVE` observes the counterfactual score for every legal length. No learner infers an action from retained probes, so the method measures oracle value of profile-conditioned action scope, not learnability or deployable routing.
-- **Operational scope.** The construction does not establish live prevalence, private transfer, Kaggle improvement, latency-tail safety, or a replay-safe live policy. It advances a controlled proxy rather than the benchmark's full learning-and-transfer objective.
-- **Prospective evidence governance.** The beacon, freeze, custody, schema, and crash-recovery machinery belongs to a prospective evidence-governance protocol, not to the scientific mechanism. That machinery remained unused: no freeze, beacon, target derivation, held-out evaluation, private action, or Kaggle action occurred. Any executable held-out protocol would additionally require every state transition, artifact schema, recovery branch, and terminal outcome to be fully computable before use; a written custody intention alone is insufficient.
+# Experimental setup
 
-# Frozen public constructions and exact evaluation
+## Evidence chronology
 
-The experiment uses three pre-specified deterministic masters per condition; profiles and score rows are not independent replicates. The experimental unit for finite-condition summaries is therefore the master (`n=3`), not any of the 960 physical profiles, 6,720 action scores, ablation rows, or nested-scale cells derived from those masters. All constructions are public, synthetic, deterministic, and non-target. They measure an oracle action-scope contrast on a fixed finite table; they do not sample a population of agents or expose a live target.
+The calculations followed three distinct evidence stages. First, the generator
+and analysis choices were developed through adaptive public exploration and
+calibration. That stage included a 40-profile proof of concept, repairs to the
+public support construction, and repeated hypothesis review. Its outputs
+informed the crossed-table family, coefficient ranges, weights, and numerical
+cutoffs used later. Second, the labels, actions, predictions, and public config
+were frozen in `experiments/configs/orf-phase4-v1.json`, after which Phase 4 ran
+a **post-calibration frozen public verification** of those choices. Freezing the
+calculation after public calibration prevents outcome-dependent relabeling
+within Phase 4, but it does not make the selected construction untouched.
+Third, there was no untouched evaluation stage. The locked v7 construction was
+neither frozen nor opened, and no live target, beacon, held-out evaluation, or
+Kaggle action contributed evidence to PS-PIR.
 
-## Public masters and profile generator
+## Named deterministic tables
 
-The complete design is frozen in `experiments/configs/orf-phase4-v1.json`. The three primary ASCII preimages are `orf-public-phase4-v1|master|000`, `orf-public-phase4-v1|master|001`, and `orf-public-phase4-v1|master|002`. The changed-regime preimages are the disjoint labels `orf-public-phase4-generalization-v1|master|000`, `orf-public-phase4-generalization-v1|master|001`, and `orf-public-phase4-generalization-v1|master|002`. Each master is exactly `SHA256(ASCII preimage)`. These six labels, their order, the generator, thresholds, and regime definitions were committed before their corresponding outcomes; no label was replaced or resampled. The changed-regime set is a second fixed public construction, not a held-out set or a population sample.
+The primary calculation uses three designer-specified crossed tables, named by
+their ASCII master preimages:
 
-For each master, the generator crosses two reset-cost bands, two linear-cost bands, two curvature settings, and five cliff settings. This gives `2 x 2 x 2 x 5 = 40` strata, with eight keyed replicates per stratum and thus 320 physical profiles per master. The reset coefficient `a` is log-uniform on `[5,20]` or `[40,80]`; the linear coefficient `b` is log-uniform on `[0.1,1]` or `[2,8]`; and curvature `d` is either zero or log-uniform on `[0.05,0.2]`. Costs follow the exact quadratic `c(m)=a+b*m+d*m^2`. Cliff values are `{-1,4,8,16,24}`, where `-1` denotes no cliff. For a finite cliff, the decay parameter is log-uniform on `[0.5,3]`; event counts equal `m` through the cliff and thereafter use the clipped floor of `m exp[-lambda(m-cliff)/cliff]`. Random streams are keyed by master, stratum, and replicate, so row identity is recoverable without mutable seed state.
+1. `orf-public-phase4-v1|master|000`;
+2. `orf-public-phase4-v1|master|001`;
+3. `orf-public-phase4-v1|master|002`.
 
-Every profile is scored at the seven legal fill lengths
-`L={1,2,4,8,16,24,32}`. The primary regime uses saturation `H=200000`, generation budget `B_gen=9000`, replay budget `B_rep=8100`, and a returned-candidate cap of 2,000. Probe and fill costs use exact `Fraction` arithmetic. Generator transcendentals use decimal precision 80 with round-half-even; floor distances are retained as numerical certificates. Positive singleton findings use the audited SDK raw-score identity `q=16e+2`, and final scores are capped at `H`. The implementation stores exact cost numerators and denominators, event counts, and all seven integer scores for independent recomputation.
+Each name is mapped once by SHA-256 to a deterministic master. Each primary
+table has 320 profile rows and seven score columns, one for each legal fill
+length in \(\mathcal M=\{1,2,4,8,16,24,32\}\). The 320 rows are the complete
+cross of 40 designer-specified strata and eight keyed replicates per stratum.
+The strata cross two reset-cost bands, two linear-cost bands, two curvature
+settings, and five cliff settings. Equal stratum weights and all coefficient
+ranges are engineering stress-test choices; they do not represent estimated
+frequencies in a population. Keys include the master, stratum, and replicate,
+so every row is recoverable without mutable random state. The reporting unit is
+one complete named table; rows, score columns, strata, and nested prefixes are
+components or views of those tables, not additional reporting units.
 
-The distinguishing homogeneous construction derives one master from each primary preimage by appending `|homogeneous` before SHA-256. It creates 64 profiles per master from keyed streams `negative|profile={profile:02d}`. Each profile has `a=d=0`, no cliff, `b` log-uniform on `[5,12]`, `c(m)=bm`, and `e(m)=m`. This construction fixes the profile-wise optimum by design and is a finite equality control, not a live negative control.
+Three homogeneous tables append `|homogeneous` to the corresponding primary
+preimages before hashing. Each contains 64 deterministic rows for which the
+row-wise optimum is fixed at length one by construction. These tables exercise
+the equality and tie-handling code paths; they are not an independently observed
+negative condition.
 
-## Matched policies and secondary constructions
+The score cells are exact outputs of the construction described in Methodology.
+The primary tables use \(H=200{,}000\), a 9,000-second generation budget, and an
+8,100-second synthetic replay allocation. The 9,000-second value and scorer cap
+are inherited from the audited SDK; the replay allocation, factor ranges, equal
+weights, and 5% line are project choices. The 5% line was fixed before the
+Phase-4 calculations solely as an internal numerical cutoff and has no external
+utility calibration.
 
-`PROBE_GLOBAL` is the strongest exact shared-action comparator available on the constructed table. For each master, it sums every one of the seven score columns and exhaustively selects the maximum column total. It has no unsearched initialization, training setting, or fill-length hyperparameter. `ADAPTIVE` consumes the identical rows and instead selects the maximum among the same seven scores separately for each profile before summing. Both policies retain the same probes, actions, costs, budgets, caps, score function, profiles, and table. Whenever scores tie, both choose the smaller legal length. The comparison therefore changes only the scope of the argmax: once per master versus once per profile.
+## Matched finite-table comparators
 
-Five one-at-a-time (OAT) transforms are secondary attribution analyses on the same three primary masters. `no_cliff` replaces every event vector with `e(m)=m` while preserving realized costs. `no_curvature` sets `d=0` and recomputes `a+b*m`. `no_reset` sets `a=0` and recomputes `b*m+d*m^2`. `no_novelty` changes positive singleton raw score from `16e+2` to `16e`. `unsaturated` changes only `H` from 200,000 to `10^18`. No condition is retuned, and OAT contrasts are not assumed additive.
+Both comparators receive the identical complete score table and the same seven
+legal actions. The exhaustive shared comparator computes the column total for
+every \(m\in\mathcal M\) and chooses the maximizing length once for the whole
+named table. The perfect-information row-wise comparator chooses the maximizing
+length separately in every row and then sums those row maxima. Both choose the
+smaller legal length on a tie. Thus the comparison changes only the scope of the
+argmax; it does not change profiles, actions, costs, caps, budgets, or scores.
+The row-wise comparator is an oracle because it is granted all counterfactual
+action scores. Retained probes do not select an action, and no context-to-length
+learner is trained or evaluated.
 
-The disjoint changed-regime analysis regenerates 320 profiles for each of its three public labels, scores them at `H=10^18`, and changes the finite aggregation weights. Each no-cliff profile has weight four and each cliff profile weight one. The physical design contains 64 no-cliff and 256 cliff profiles per master, so the effective weights are `64*4=256` and `256*1=256`, or 512 total. Exact row replication passes these weights to the same reviewed evaluator, preserving both policy definitions and the smaller-length tie rule.
+## Sensitivity calculations
 
-The scaling analysis reuses the committed primary score table; it generates no new master. For replicate-prefix size `k in {1,4,8}`, it includes replicate indices `0,...,k-1` in every stratum. The resulting sets are strictly nested and contain `N={40,160,320}` profiles per master. The nine master-by-scale cells are deterministic views of the same three masters, not nine independent replicates and not a learning curve.
+Three secondary calculation families describe how the displayed finite-table
+ratio changes under specified transformations. They do not provide untouched
+transfer evidence.
 
-## Metrics and fixed-finite summaries
+The one-at-a-time (OAT) family applies five transforms to the same three primary
+tables: remove the cliff transform; set curvature to zero; set reset cost to
+zero; remove the two-point novelty term; or replace \(H=200{,}000\) with
+\(H=10^{18}\). No action set or comparator is retuned. Because a transform can
+change both oracle and shared totals and the transforms interact, these are
+removal-associated sensitivity calculations rather than component shares.
 
-For each master, the retained raw quantities are global score `G`, adaptive score `A`, conditional regret `A-G`, the selected global length, and adaptive length counts. The per-master effect is `100(A-G)/G`, maintained as an exact fraction until fixed-decimal rendering. The primary scientific metric is the arithmetic mean of this gain across the three primary masters; the baseline metric is mean raw `G`. The homogeneous control records exact raw difference and action identities. Secondary metrics are OAT mean gains and paired differences from the primary construction, changed-regime mean gain, and the fraction of the nine nested-scale cells meeting the materiality rule.
+The changed-construction family uses the three public labels
+`orf-public-phase4-generalization-v1|master|000` through `|002`. Despite the
+legacy string in those labels and artifact paths, this is a second
+designer-specified public construction, not an untouched replication. It uses
+\(H=10^{18}\) and weights each no-cliff row four times and each cliff row once,
+giving equal aggregate weight to the two groups within each named table.
 
-Materiality was fixed inclusively at 5% before execution. Across masters, the report may give the arithmetic mean, measured-master standard deviation, minimum, and maximum. These are fixed-finite descriptions of three named constructions. The minimum--maximum span is not a confidence interval, and the master standard deviation does not estimate a superpopulation. No population hypothesis test or population confidence interval is defined: `test: none; p: not applicable`.
+The nested-prefix family reuses each primary table and includes replicate
+indices \(0\) through \(k-1\) in every stratum for \(k\in\{1,4,8\}\), producing
+40-, 160-, and 320-row prefixes. These nine master-by-prefix cells are dependent
+views of three tables. They are a numerical sensitivity display, not additional
+independent evidence or a learning curve.
 
-## Execution order, commands, and evidence custody
+## Descriptive outputs
 
-All programs ran from `/home/soh/agent-security` in Python isolated mode. The exact scientific commands were:
+For every named primary table, the report retains the exact shared total
+\(G\), perfect-information total \(A\), raw gap \(\Delta=A-G\), percentage ratio
+\(100\Delta/G\), selected shared length, and the complete row-wise action count
+over all seven legal lengths. The primary display reports all three named ratios
+and their exact minimum--maximum range. It does not replace those values with a
+sampling model.
 
-| Family | Command |
-|---|---|
-| Baseline | `comp/.venv/bin/python -I experiments/orf-p4-baseline/run_baseline.py --config experiments/configs/orf-phase4-v1.json` |
-| Core and homogeneous control | `comp/.venv/bin/python -I experiments/orf-p4-core/run_core.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-core-v1` |
-| OAT ablations | `comp/.venv/bin/python -I experiments/orf-p4-ablations/run_ablations.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-ablations-v1` |
-| Changed regime | `comp/.venv/bin/python -I experiments/orf-p4-generalization/run_generalization.py --config experiments/configs/orf-phase4-v1.json --attempt-dir experiments/runs/orf-p4-generalization-v1` |
-| Nested scale | `comp/.venv/bin/python -I experiments/orf-p4-scaling/run_scaling.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-scaling-v1` |
+The stratum accounting reports, for each of the 40 crossed strata, the 24 rows
+formed by that stratum across the three named tables, raw regret, share of the
+finite total regret, and modal row-wise action. This accounting describes where
+the engineered tables contain the finite gap; it is not a causal decomposition.
+The OAT display reports raw \(A\), \(G\), and \(\Delta\), alongside the ratio,
+for the primary condition and all five transforms. Homogeneous outputs retain
+exact action identities and raw equality. Changed-construction and nested-prefix
+outputs are reported as named-table or named-prefix values, with arithmetic
+aggregates used only as deterministic summaries.
 
-The baseline first published the committed exact score table used by later matched comparisons. The core evaluator was then implemented without evaluating that table and underwent sterile source review. That review identified stale-output and lexical-attempt-identity failure modes; the transaction helper and its adversarial tests were repaired before a source-only re-review returned `SOUND`. Each later runner likewise had its design and predictions recorded before implementation, passed toy tests, and received a focused `SOUND` review before its scientific command was permitted.
+No population standard deviation, standardized score, confidence interval, or
+hypothesis test is defined for these finite tables. The analysis declaration is
+therefore `test: none; p: not applicable`. Passing the preselected 5% numerical
+cutoff is a statement about these exact ratios only.
 
-For the core and the three secondary run families, the final attempt directory had to be a fresh, exact direct child of `experiments/runs/`. The bundle opened exclusive staging and wrote the canonical command as the first log line before scientific data access. It bound source, config, support, upstream evidence, and outputs by SHA-256; flushed files and directories; wrote canonical `COMPLETE.json` last; and published by an atomic `renameat2(RENAME_NOREPLACE)` operation. Lexical-path, `lstat`, `O_NOFOLLOW`, inode, file-type, and content-stability checks reject aliases or replacement. A missing or mismatched completion manifest is not accepted as evidence. Independent audits subsequently recomputed the 960 primary rows, 4,800 OAT rows and 33,600 transformed scores, 960 changed-regime rows and 6,720 scores, and all nine nested cells from the bound artifacts.
+## Execution and internal reproducibility
 
-The recorded environment was Linux kernel 6.11.0-29-generic on x86_64, glibc 2.40, CPython 3.14.3 at `comp/.venv/bin/python`, and `jsonschema==4.26.0`. Runs were CPU-only with no accelerator or network. Counting each Phase-4 scientific family once, aggregate runtime was 4.456198161 s and maximum reported peak memory was 0.583507538 GB. These are execution-resource measurements, not scientific effects, hardware-normalized energy estimates, or additional experimental units.
+All scientific commands are repository-relative and are run from the repository
+root. The Phase-4 calculations used Linux x86_64, glibc 2.40, CPython 3.14.3 at
+`comp/.venv/bin/python`, and `jsonschema==4.26.0`; they were CPU-only and made no
+network calls. Dependency records are pinned in
+`paper/reproducibility/requirements-core.txt` and
+`paper/reproducibility/requirements-figures.txt`. Exact verification commands,
+fresh-attempt rules, canonical inputs and outputs, and the separate figure
+environment are listed in `paper/reproducibility/README.md`.
 
-The locked v7 construction was not frozen or opened, and no Kaggle action occurred during this study. No beacon, target derivation, private evaluation, or external post entered any score. Constructed profiles cannot confirm that a live model exhibits stable response heterogeneity or that a learner can infer the oracle action. Replay-deadline safety would additionally require a calibrated tail and dependence model plus an explicit void-risk target; an observed maximum or arbitrary margin is not a coverage guarantee. Finally, machine-readable custody is trustworthy only when every transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one defined value. The public deterministic evidence reported here does not satisfy the missing live, learnability, replay-safety, private-transfer, or locked-test steps by implication.
+The core and secondary runners bind source, config, upstream evidence, and
+outputs by SHA-256 in their `COMPLETE.json` manifests. The reviewer-requested
+action, stratum, and raw OAT tables are regenerated with the repository-relative
+command:
 
-# Material finite regret with a homogeneous zero boundary
+```bash
+comp/.venv/bin/python experiments/orf-phase5-analysis/generate_reviewer_tables.py
+```
 
-All three primary masters cleared the registered 5% threshold, while all three
-homogeneous masters returned exact equality. These are fixed-finite results over
-three pre-specified public masters per condition; profiles, score rows, and
-master-by-scale cells are not additional independent units.
+This constitutes internal reproducibility from the present repository, not an
+external availability claim. There is no public clone, externally archived
+release, DOI, operating-system container, or durability guarantee.
 
-## Exhaustive baseline and pre-specified primary
+# Results on named deterministic tables
 
-The exhaustive seven-action `PROBE_GLOBAL` comparator attained a mean raw score
-of **8,602,550.667** across the three primary masters. Because it evaluates every
-legal fill length on the same score tables used by `ADAPTIVE`, it has no
-unsearched fill-length choice on those tables. Replacing its single global
-argmax with profile-wise argmaxes produced the following registered primary
-gains.
+The results below are exact arithmetic on designer-specified score tables. The
+shared comparator exhaustively evaluated all seven legal lengths and selected
+length **16** on each crossed table. Allowing the perfect-information policy to
+select a length separately for every profile produced gains of
+**41.437632336565%** on P0, **38.111186959411%** on P1, and
+**41.198294770946%** on P2. The finite range across these three named values was
+**38.111186959411--41.437632336565%**.
 
-| Fixed public master | Adaptive gain over `PROBE_GLOBAL` |
-|---|---:|
-| P0 | 41.437632336565% |
-| P1 | 38.111186959411% |
-| P2 | 41.198294770946% |
-| **Mean** | **40.249038022308%** |
+| Crossed table | Perfect-information score, \(A\) | Shared-action score, \(G\) | Raw gap, \(A-G\) | Shared length | Gain, \(100(A-G)/G\) |
+|---|---:|---:|---:|---:|---:|
+| P0 | 11,886,082 | 8,403,762 | 3,482,320 | 16 | 41.437632336565% |
+| P1 | 12,187,804 | 8,824,632 | 3,363,172 | 16 | 38.111186959411% |
+| P2 | 12,113,766 | 8,579,258 | 3,534,508 | 16 | 41.198294770946% |
 
-Across the three paired masters, the measured-master sample s.d. was
-**1.855296739857 percentage points**, and the finite observed range was
-**38.111186959411--41.437632336565%**. The standardized mean over the measured
-master s.d. was **21.694124264676**. This last quantity is descriptive only: it
-is neither Cohen's *d* nor an estimate of a population effect. For the primary
-fixed census, `test: none; p: not applicable`; the min--max span is not a
-confidence interval.
+These values describe P0--P2 only. Their arithmetic mean, used below solely to
+compact the sensitivity summaries, is 40.249038022308%.
 
-Figure 1 shows the primary masters together with the disjoint changed-public
-construction reported below. Each point is one fixed master, the black bars are
-descriptive regime means, and no cross-regime pairing is implied.
+Figure 1 places the primary values beside the second public construction
+reported below. The construction labels are not paired, and the two mean bars
+do not define a between-construction test.
 
-![Figure 1: Primary and changed-public master gains.](figures/comparison_chart.svg)
+![Figure 1: Exact gains on two public designer-specified constructions.](figures/comparison_chart.svg)
 
-*Figure 1. Profile-conditioned selection clears the materiality threshold in two
-public synthetic regimes. Points show three fixed public masters per condition;
-black bars show condition means; the dashed line marks 5%. The master labels are
-disjoint and are not paired across regimes. Error bars: none. Test: none (finite
-pre-specified census); p: not applicable. Source:
+*Figure 1. Exact percentage gaps for three named tables in the primary public
+construction (P0--P2) and three named tables in the changed public construction
+(G0--G2). Black bars are descriptive arithmetic means. The dashed 5% line is a
+preselected numerical cutoff with no external utility calibration. Error bars
+and inferential tests: none. Source:
 `paper/figures/comparison_chart.source.csv`.*
 
-## Exact homogeneous control
+## Homogeneous boundary check
 
-The separately derived homogeneous construction returned an
-`ADAPTIVE - PROBE_GLOBAL` raw difference of exactly zero for each of its three
-masters. Every homogeneous profile and each corresponding global policy selected
-fill length one, giving a zero-difference fraction of 3/3 and a length-one
-fraction of 3/3.
+The homogeneous construction fixes length one as a row-wise optimum. Both the
+shared and perfect-information policies selected length one throughout all
+three homogeneous tables, and their scores were exactly equal:
 
-| Homogeneous outcome | Masters satisfying outcome |
-|---|---:|
-| Exact adaptive-minus-global raw difference = 0 | 3/3 |
-| Profile-wise and global selected length = 1 | 3/3 |
+| Homogeneous table | Perfect-information score | Shared-action score | Raw gap | Shared length | All row-wise lengths one |
+|---|---:|---:|---:|---:|:---:|
+| H0 | 1,277,552 | 1,277,552 | 0 | 1 | yes |
+| H1 | 1,198,568 | 1,198,568 | 0 | 1 | yes |
+| H2 | 1,230,140 | 1,230,140 | 0 | 1 | yes |
 
-This is an exact finite equality result, not a non-significant population
-comparison. No hypothesis test or p-value is attached to it.
+This entailed equality is a boundary and code-path sanity check. It is not an
+empirical comparison between populations and does not independently establish
+the source of the positive gaps in P0--P2.
 
-## Secondary one-at-a-time contrasts
+## Row-wise action distributions
 
-The five one-at-a-time (OAT) analyses reused the same three primary masters and
-compared each transformed condition with that master's core gain. Their paired
-mean differences were:
+The perfect-information choices on the crossed tables were dispersed across
+lengths 4, 8, 16, 24, and 32. Lengths 1 and 2 were never selected. Each row of
+the table below sums to the 320 profiles in that named table.
 
-| OAT condition | Mean gain | Paired delta from core |
-|---|---:|---:|
-| Remove cliff | 7.622073949240% | -32.626964073068 pp |
-| Remove curvature | 37.860007927303% | -2.389030095004 pp |
-| Remove reset | 18.973588191963% | -21.275449830344 pp |
-| Remove novelty bonus | 40.094682770562% | -0.154355251746 pp |
-| Remove saturation | 44.355152104598% | +4.106114082290 pp |
+| Crossed table | Shared length | \(m=1\) | \(m=2\) | \(m=4\) | \(m=8\) | \(m=16\) | \(m=24\) | \(m=32\) | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| P0 | 16 | 0 | 0 | 66 | 96 | 72 | 53 | 33 | 320 |
+| P1 | 16 | 0 | 0 | 66 | 85 | 83 | 52 | 34 | 320 |
+| P2 | 16 | 0 | 0 | 65 | 96 | 69 | 58 | 32 | 320 |
 
-Figure 2 shows the three paired master-level deltas and their descriptive means.
-The largest observed decreases were under cliff removal and reset removal;
-novelty removal changed the mean least, while removing saturation increased it.
-These are secondary, paired, descriptive OAT contrasts (`n=3` fixed masters;
-`test: none; p: not applicable`). The transforms may interact, so their deltas
-are not additive and are not estimates of population-causal effects.
+The dispersion is direct description of the engineered profiles. It does not
+show that a live observation reveals the listed choices or that these
+frequencies occur outside the three tables.
 
-![Figure 2: One-at-a-time deltas from the primary core gain.](figures/ablation_heatmap.svg)
+## Stratum contribution accounting
 
-*Figure 2. Cliff and reset mechanisms have the largest one-at-a-time contribution
-pattern in this construction. Colored points are paired deltas for the same three
-fixed public masters; black diamonds are their means. Error bars: none. Test:
-none (secondary descriptive paired contrasts); p: not applicable. OAT deltas are
-nonadditive. Source: `paper/figures/ablation_heatmap.source.csv`.*
+The crossed construction contains 40 factorial strata. Aggregating the three
+masters gives 24 profiles per stratum, **960 profiles** in total, and exact
+aggregate raw regret of **10,380,000**. Four strata--13, 28, 33, and 38--had
+zero raw regret. The five largest raw contributions were:
 
-## Changed public construction
+| Stratum | Raw regret | Share of total raw regret | Modal row-wise length |
+|---:|---:|---:|---:|
+| 6 | 1,064,390 | 10.254239% | 4 |
+| 2 | 1,044,968 | 10.067129% | 8 |
+| 1 | 1,016,548 | 9.793333% | 4 |
+| 7 | 956,938 | 9.219056% | 8 |
+| 0 | 883,284 | 8.509480% | 32 |
+| **Top five** | **4,966,128** | **47.843237%** | -- |
 
-The disjoint changed public construction returned gains of 36.653863013959%,
-37.352060597349%, and 35.175681399541% on its three fixed masters. Its mean was
-**36.393868336949%**, with all three masters above the registered 5% threshold.
-These labels and construction differ from the primary regime, so no cross-regime
-pairing is implied. This is a second public deterministic result, not a held-out
-or population-generalization result.
+The complete 40-row accounting, including reset band, linear band, curvature,
+cliff value, profile count, raw regret, share, and modal length, is in
+`paper/tables/stratum-regret-decomposition.tsv`. These entries allocate the
+observed arithmetic gap across engineered strata; they are not causal component
+shares or prevalence estimates.
 
-Figure 1 places these values beside the primary construction and the registered
-threshold without treating the two regimes as paired.
+## One-at-a-time sensitivity calculations
 
-## Nested profile-set sizes
+The core row and five one-at-a-time (OAT) transforms are summarized with their
+raw quantities below. For each row, \(A\), \(G\), and \(A-G\) are arithmetic
+means across P0--P2. The percentage column is the mean of the three exact
+master-level ratios, so it need not equal the quotient of the displayed rounded
+mean raw values.
 
-The same three primary masters were evaluated on strictly nested prefixes of 40,
-160, and 320 profiles. Mean gain remained above 5% at each size:
+| Condition | Mean \(A\) | Mean \(G\) | Mean \(A-G\) | Mean gain | Change from core |
+|---|---:|---:|---:|---:|---:|
+| Core | 12,062,550.667 | 8,602,550.667 | 3,460,000.000 | 40.249038022308% | -- |
+| Remove cliff | 15,937,335.333 | 14,808,566.667 | 1,128,768.667 | 7.622073949240% | -32.626964073068 pp |
+| Remove reset | 31,031,426.667 | 26,082,096.000 | 4,949,330.667 | 18.973588191963% | -21.275449830344 pp |
+| Remove curvature | 15,676,959.333 | 11,373,606.000 | 4,303,353.333 | 37.860007927303% | -2.389030095004 pp |
+| Remove novelty bonus | 11,935,712.000 | 8,521,525.333 | 3,414,186.667 | 40.094682770562% | -0.154355251746 pp |
+| Remove saturation | 12,581,486.000 | 8,716,761.333 | 3,864,724.667 | 44.355152104598% | +4.106114082290 pp |
 
-| Profiles per master | P0 | P1 | P2 | Mean gain |
+Cliff removal and reset removal produced the two largest removal-associated
+decreases in the displayed percentage ratio. Novelty-bonus removal produced the
+smallest change, and saturation removal increased the ratio. Every transform
+changed both \(A\) and \(G\); the transforms also interact. The differences
+therefore cannot be added or read as fractions attributable to separate
+mechanisms.
+
+Figure 2 retains the three master-level ratio changes behind the summary. It is
+a display of paired calculations on reused tables, not a decomposition.
+
+![Figure 2: Master-level OAT changes from the core percentage ratio.](figures/ablation_heatmap.svg)
+
+*Figure 2. Change from the core percentage ratio under five one-at-a-time
+transforms of the same three named crossed tables. Colored points are exact
+master-level changes and black diamonds are their arithmetic means. The
+transforms change both policies' raw scores and may interact; no additive or
+causal interpretation is assigned. Error bars and inferential tests: none.
+Source: `paper/figures/ablation_heatmap.source.csv`.*
+
+## Second public construction
+
+A second designer-specified public construction produced gains of
+**36.653863013959%**, **37.352060597349%**, and **35.175681399541%** on its
+three named tables G0, G1, and G2, respectively. Their descriptive mean was
+**36.393868336949%**. All three values were above the preselected 5% numerical
+cutoff. The construction changes several engineering choices at once and was
+also public, so its values are a second finite calculation rather than evidence
+of transfer to another data source.
+
+## Nested-prefix numerical sensitivity
+
+The same P0--P2 profile order was truncated to nested prefixes of 40, 160, and
+320 profiles. The resulting exact percentage gaps were:
+
+| Profiles per table | P0 | P1 | P2 | Descriptive mean |
 |---:|---:|---:|---:|---:|
-| 40 | 52.609341554583% | 45.344531072985% | 48.905042746765% | **48.952971791444%** |
-| 160 | 43.389924985133% | 39.592292530738% | 45.400277409186% | **42.794164975019%** |
-| 320 | 41.437632336565% | 38.111186959411% | 41.198294770946% | **40.249038022308%** |
+| 40 | 52.609341554583% | 45.344531072985% | 48.905042746765% | 48.952971791444% |
+| 160 | 43.389924985133% | 39.592292530738% | 45.400277409186% | 42.794164975019% |
+| 320 | 41.437632336565% | 38.111186959411% | 41.198294770946% | 40.249038022308% |
 
-All nine master-by-size cells cleared the registered threshold. Because the rows
-are nested and the master identities are reused, these are three repeatedly
-viewed fixed masters, not nine independent replicates. Figure 3 is therefore a
-deterministic robustness view, not a learning curve.
+All nine displayed cells are above the 5% numerical cutoff, but they reuse the
+same three named tables and nested rows. They are not nine independent units. The
+change across prefixes is a deterministic numerical-sensitivity result for this
+fixed ordering, not evidence about how performance changes with additional
+sampled data.
 
-![Figure 3: Gain across nested profile-set sizes.](figures/scaling_curve.svg)
+![Figure 3: Exact gaps across nested prefixes of the same tables.](figures/scaling_curve.svg)
 
-*Figure 3. Conditional-regret gain persists across nested profile-set sizes.
-Colored trajectories reuse the same three fixed public masters; the black
-trajectory is their descriptive mean. Error bars: none. Test: none (secondary
-descriptive nested robustness); p: not applicable. Source:
+*Figure 3. Percentage gaps on nested 40-, 160-, and 320-profile prefixes of
+P0--P2. Colored trajectories reuse each named table; the black trajectory is
+their descriptive arithmetic mean. No new table is added as prefix length
+increases. Error bars and inferential tests: none. Source:
 `paper/figures/scaling_curve.source.csv`.*
 
-## Registered outcomes and execution resources
+## Descriptive status of the numbers
 
-All **15/15** registered Phase-4 ledger rows resolved `confirm/keep`: three
-baseline metrics, four core/control metrics, five OAT metrics, two changed-public
-metrics, and one scale metric. This complete match documents calibration to the
-registered local synthetic design; it is not evidence of perfect general
-calibration or of correspondence with a live target.
-
-Counting each scientific family once, the Phase-4 batch used **4.456198161 s**
-of recorded scientific runtime and reached a maximum reported peak memory of
-**0.583507538 GB**. The five OAT rows share one execution and the three scale
-summaries share one execution, so repeated ledger resource fields are not summed.
-The research cycle used one research iteration, with the active hypothesis at
-iteration 4 after nine written ORF revisions and eleven theory-review rounds;
-those revisions are not independent hypotheses or experimental units. No locked
-test result entered this section.
+No sampling model was specified for the named synthetic tables, and no
+inferential statistic is reported. Means are compact arithmetic summaries only;
+the primary result is the three values and their range. The 5% line was selected
+before these frozen public calculations as an internal numerical cutoff, but it
+was not calibrated to deployment utility, cost, or risk. Accordingly, clearing
+that line carries no external practical interpretation.
 
 # Discussion
 
-The registered finite claim held in every public master, but the operational live question did not get answered. Across three fixed primary masters, profile-conditioned selection produced a mean 40.249% gain over the exact shared-length comparator, and three separately derived homogeneous masters returned exact zero regret with length one. The disjoint changed public construction and nested profile prefixes preserved the material direction. These observations establish oracle value for relaxing one shared-action restriction on the specified deterministic tables. They do not establish that a live model exposes stable response-profile heterogeneity, that retained probes reveal the correct action, or that exploiting such a signal is replay-safe. The positive result and this operational non-conclusion are therefore inseparable.
+## Scope of the calculation
 
-## Interpretation of the action-scope gap
+PS-PIR answers a narrow deterministic question. On the three named crossed
+tables, allowing a row-wise perfect-information choice instead of one exhaustive
+shared choice produced ratios of 41.437632336565%, 38.111186959411%, and
+41.198294770946%; the shared action was length 16 in all three tables. On the
+three homogeneous tables, both policy classes selected length one and the raw
+gap was exactly zero. These are exact properties of those score tables and a
+boundary check of the implementation. They are not estimates of an
+agent-security population.
 
-The finite inequality explains direction, while the construction explains why the gap can be large. `ADAPTIVE` contains every action available to `PROBE_GLOBAL`, so its score cannot be lower on the same table. A material gap additionally requires profiles whose maximizing legal lengths differ. The crossed construction supplied such profile-dependent cost and event-yield curves; the homogeneous construction removed that variation and forced both policies to the same optimum. Its exact zero is a boundary condition, not a nonsignificant positive result and not evidence about a live population.
+The direction of the comparison follows from policy-class containment, while
+the positive magnitude comes from the tables that were supplied. The crossed
+generator deliberately varies reset cost, linear cost, curvature, and yield
+cliffs over equally weighted strata. Its ranges, factor frequencies, replay
+reserve, and weights are engineering stress-test choices rather than measured
+features of live response profiles. Moreover, the generator family was
+adaptively developed and repaired during public proof-of-concept and calibration
+work before the Phase-4 config was frozen. The ensuing calculation is therefore
+post-calibration frozen public verification: freezing prevented further
+within-stage changes, but it did not remove construction-selection bias or
+create an untouched evidence tier.
 
-The one-at-a-time removals sharpen this interpretation only **in this construction and OAT pattern**. Removing cliff behavior reduced mean gain by 32.627 percentage points, from 40.249% to 7.622073949240%, while removing reset overhead reduced it by 21.275 points. Curvature removal changed the gain by -2.389 points, and removing the two-point novelty term changed it by only -0.154 points. Removing saturation increased gain by 4.106 points, consistent with the cap suppressing some available action-scope value. These paired descriptive contrasts suggest that cliffs and reset overhead account for most of the observed OAT magnitude here, that novelty is nearly inert, and that saturation masks rather than creates part of the gap. They are non-additive interventions on three fixed masters; they do not identify separable causal effects in a model population.
+The second public construction and the nested prefixes do not change that
+inference. A mean ratio of 36.393868336949% under a different public weighting
+and means of 48.952971791444%, 42.794164975019%, and 40.249038022308% for the
+40-, 160-, and 320-row prefixes are further arithmetic descriptions within the
+same design program. The prefixes reuse rows from the three primary tables, and
+the changed construction remains designer specified. Likewise, the 5% line was
+a preselected numerical cutoff without external utility calibration; crossing
+it says nothing about practical importance.
 
-## Robustness and concrete failure surfaces
+## Heterogeneity represented in the engineered tables
 
-The public robustness checks delimit, but do not dissolve, the construction dependence. Three disjoint changed-regime masters averaged 36.394% after changing master labels, saturation, and cliff weighting. The same three primary masters also remained above 5% at nested profile-set sizes of 40, 160, and 320. Because those scale cells reuse both masters and nested profile rows, they are three reused deterministic trajectories, not nine independent units and not a learning curve. The changed regime is likewise a second public construction, not a held-out sample.
+The action counts make the source of the finite gap visible without extending
+it beyond the construction. Although the best shared action is length 16 for
+each table, the row-wise comparator uses lengths 4, 8, 16, 24, and 32. Across
+the three tables, the respective per-table count ranges are 65--66, 85--96,
+69--83, 52--58, and 32--34; lengths 1 and 2 are unused. This dispersion shows
+that the constructed score rows have different maximizing columns. It does not
+show that naturally occurring profiles have these frequencies, that the five
+actions are distinguishable from retained probes, or that a realizable policy
+could select them.
 
-The homogeneous control gives the clearest failure case: if every profile shares one maximizing action, conditional regret is exactly zero. A second warning is the no-cliff result. Its 7.622073949240% mean remains above the 5% materiality threshold, but it is close enough that a less heterogeneous support could cross below materiality. More generally, the oracle gap can disappear when cost and yield curves align, when probe observations do not distinguish the relevant profile, or when a learned selector's errors exceed the value of conditioning. Constructed profiles can verify arithmetic and policy mechanics, but they cannot confirm live heterogeneity or its prevalence. This is the central external-validity limit, not a caveat that can be repaired by adding more deterministic rows from the same generator.
+The stratum accounting adds the score margins that an action histogram omits.
+Across 960 rows, 36 of the 40 designed strata have positive regret and four
+(`13`, `28`, `33`, and `38`) have zero regret. Total raw regret is 10,380,000,
+and the five largest stratum shares sum to approximately 47.843%. Thus the gap
+is distributed across many cells of this table but is also concentrated in a
+few of the largest designed cells. Because strata were crossed and equally
+weighted by construction, these shares are bookkeeping over engineered support,
+not causal contributions or prevalence estimates.
 
-## What the complete prediction ledger teaches
+## Interacting removal contrasts
 
-The full 42-row ledger is broader than the Phase-4 fixed-table analysis. Its cumulative statuses are 26 `keep`, seven `exploratory`, six `crash`, one `discard`, one `superseded`, and one `mechanics-only`. Signals comprise 31 confirmations, two partial outcomes, two disconfirmations, and seven nulls. Only the 15 `orf-p4-*` `keep` rows enter the reported ORF statistics. Historical rows measure different targets, the PoC and calibration rows precede the fixed Phase-4 estimand, exploratory and mechanics-only rows are not scientific effect estimates, and crashes have no numeric outcome. Preserving those rows in the ledger while excluding them from the fixed-table statistics avoids both selective reporting and invalid pooling.
+The one-at-a-time calculations should be read as transformations of the whole
+score table, not as a decomposition. In the primary condition, mean raw
+perfect-information score (A), shared score (G), and gap (A-G) are
+12,062,550.667, 8,602,550.667, and 3,460,000.000. Removing cliffs changes those
+three quantities to 15,937,335.333, 14,808,566.667, and 1,128,768.667 and lowers
+the displayed ratio from 40.249038022308% to 7.622073949240%. Removing reset
+cost instead changes them to 31,031,426.667, 26,082,096.000, and 4,949,330.667,
+while the ratio falls to 18.973588191963%. These examples show why a ratio
+change cannot be assigned to one component: its numerator and denominator both
+move, and the raw gap may increase while the ratio decreases.
 
-The first disconfirmation was an equal round-robin ensemble fill. It predicted 66 but scored 56.76 because equal allocation diluted high-severity multi-post `EXFILTRATION` candidates with severity-four `CONFUSED_DEPUTY` candidates. Weighted allocation repaired that local dilution and produced the partial weighted result, but this correction did not establish live transfer.
+Among the five displayed transforms, cliff and reset removal produced the two
+largest decreases in the percentage ratio. Curvature removal produced
+37.860007927303%, novelty removal produced 40.094682770562%, and removing
+saturation produced 44.355152104598%. The transforms interact and were not
+combined factorially, so their changes are neither additive shares nor
+identified mechanisms. They describe how the selected deterministic tables
+respond to five specified edits.
 
-The second disconfirmation made that distinction decisive. The v1 design used multi-post-8 as the primary structure, reserved 22% for `CONFUSED_DEPUTY`, and retained additional hedges. It was expected to score about 85 but returned a live leaderboard value of 36.705. Source-level diagnosis showed that multi-post candidates were latency-bound: roughly proportional extra replay time yielded fewer findings and fewer distinct-cell bonuses per second than single-post candidates. The reserve, hedge, and laundering paths almost never fired on real models and were unnecessary because clean exfiltration already fired on private cells. Harmony-token templates also harmed the Gemma parsing path. Finally, the local 198.6 figure had described one compliant-mock cell, not the mean of four independently normalized cells. The later single-post rebuild was only partial relative to its forecast—69.570 against an expected 84–90—despite improving markedly over v1. Together, these rows show why a strong constructed score cannot be treated as a live aggregate prediction.
+## Historical failures are separate evidence
 
-The other partial result was the weighted local ensemble, which reached 100.68 rather than its predicted 120. The seven nulls also remain informative as engineering evidence, though not as effect estimates. One was an exploratory Go-Explore run that exhausted its 20-second budget; a valid retry would require cost prescreening or an adequate declared search budget. Six came from the first ORF calibration implementation: equal, balanced-cliff, no-cliff, cliff-only, unsaturated, and cliff-floor checks all crashed because Decimal parameters were combined before exact rational conversion. Converting each realized parameter separately to `Fraction` repaired the numeric design in the explicitly exploratory v2 calibration. None of these nulls is silently recoded as zero or included in the Phase-4 fixed statistics.
+The project history contains disconfirmations that should not be retrofitted as
+support for PS-PIR. A local equal round-robin ensemble was forecast to score 66
+but scored 56.76. A subsequent weighted allocation improved that local result,
+yet it did not establish transfer. More importantly, an earlier multi-post live
+design was forecast at approximately 85 and returned 36.705. Project notes
+proposed latency, reserve allocation, parser behavior, and aggregation mismatch
+as possible explanations. The PS-PIR methods contain no timing, firing,
+parsing, or attribution protocol capable of identifying those causes, so they
+remain diagnostic hypotheses rather than findings. A later single-post rebuild
+returned 69.570 against a forecast of 84--90, another reminder that local or
+synthetic score calculations were not reliable live aggregate predictions.
 
-## Baseline strength and novelty boundary
+The public synthetic path was itself adaptive. Six first-pass calibration rows
+crashed because of an exact-numeric conversion defect and were rerun only after
+the numeric implementation repair; the proof of concept and repaired calibration
+outcomes then informed the selected Phase-4 construction. Preserving these failures in
+the ledger is essential to interpreting the final tables: the exact arithmetic
+is reproducible, but the construction was selected after substantial public
+development. Neither the failed live forecasts nor the repaired calibration
+establishes why the engineered table has its reported magnitude.
 
-The local contrast is not explained by an under-tuned comparator. `PROBE_GLOBAL` exhaustively searches all seven legal lengths on the same profiles, retained probes, scores, caps, resources, and tie rule. It has no unsearched action or training hyperparameter on the finite table. The result thus measures the cost of one global action scope relative to profile-wise action scope; it does not compare against a literature leaderboard or claim numerical superiority across tasks.
+## Missing operational evidence
 
-A bounded freshness search of five primary papers found adaptive resource allocation at prompt, subproblem, planning-decision, and tool-search granularity already represented in the literature. That record includes difficulty-conditioned test-time compute, Plan-and-Budget, learned decisions about when to plan, SCALE, and budget-aware value-tree search. The search is sufficient to reject a broad claim that conditional allocation itself is new. It is not an exhaustive priority search and does not support a universal statement that no narrower predecessor exists. ORF's remaining differentiator is correspondingly limited: an SDK-faithful, exactly auditable finite conditional-regret estimand for candidate length, paired with an exhaustive shared-action comparator and homogeneous equality boundary. Given adjacent work, the absence of a learner, and the unopened test tier, that contribution supports an internal technical report rather than a contribution-paper claim.
+The difference between PS-PIR and an operational policy is the information and
+evaluation problem. PS-PIR grants the row-wise comparator all seven
+counterfactual scores before it acts. A deployable study would first need to
+define observations available before the length choice and a policy class that
+maps those observations to legal actions, as contextual-bandit and heterogeneous
+policy-learning work does [2], [4]. It would then need to train or select that
+policy without leaking unavailable counterfactuals and evaluate its value under
+the relevant feedback and identification assumptions [3]. If the probes were
+themselves selected sequentially, the information-acquisition policy and its
+structural assumptions would also need to be explicit rather than equated with
+full-table access [5].
 
-## Proxy progress and the unresolved operational problem
+None of those steps is an implementation detail that can be inferred from the
+oracle gap. The retained probes in this study never choose a fill length, no
+selector-error curve is measured, and no partial-feedback policy value is
+estimated. The study also supplies no calibrated latency-tail model or
+whole-run failure-risk guarantee. Consequently, it neither demonstrates an
+agent-security opportunity nor establishes that any fraction of the
+perfect-information difference is attainable as a replay-safe, deployable gain.
 
-ORF advances a controlled proxy for the project's objective: it quantifies how much score is available if the correct candidate length is known separately for each synthetic profile. It does not supply the replay-safe algorithm required by the operational problem. Four evidence gaps remain load-bearing. First, a learner must infer a legal action from limited retained probes without observing all seven counterfactual scores. Second, the locked v7 specification remains unfrozen and unopened, so public-construction tuning and validation-overfitting risk remain unresolved. Third, replay safety requires a calibrated latency-tail and cross-candidate dependence model together with an explicit whole-run void-risk target; the deterministic replay budget is not such a model. Fourth, evaluation would have to compare the learned policy on authorized live and private conditions rather than infer transfer from synthetic score tables.
+## Governance and availability boundary
 
-No held-out, beacon, freeze, target-derivation, private-evaluation, or Kaggle action occurred in this study phase. None is implied by this discussion. Any learner experiment, opening of the locked test, live/private comparison, or Kaggle action would require separate explicit authorization and its own prospective protocol. Without those steps, the 40.249% finite gap is an opportunity bound on a public deterministic construction, not a deployable gain or evidence that the benchmark's live replay-safe transfer objective has been solved.
+For PS-PIR, no beacon was fetched; the prospective ORF-B protocol was not
+frozen or opened; and no held-out, live-target, private-target, or Kaggle action
+was performed. No external archive, DOI, submission, or public release was
+created. The repository supports internal deterministic replay, but it does not
+provide an externally durable publication package. Any learner study or target
+evaluation would be new work requiring its own prospective design and explicit
+authorization. The present evidence ends with a reproducible calculation on
+designer-specified public synthetic tables, not a passed external evaluation.
 
 # Conclusion
 
-ORF-B turns one candidate-structure restriction into an exact finite estimand: the score lost when every profile must share one legal fill length. On three fixed public synthetic masters, replacing the exhaustive shared-length argmax with profile-wise oracle argmaxes yielded a mean gain of **40.249%**. The homogeneous construction supplied the necessary boundary: when every profile shared the same optimum, conditional regret was exactly zero. In this construction's non-additive OAT pattern, cliff behavior and reset overhead accounted for most of the measured magnitude, novelty contributed little, and saturation suppressed some value. These findings characterize an oracle action-scope gap on audited deterministic tables; they do not establish a learned decision rule or a population mechanism.
+The executed Public-Synthetic Perfect-Information Regret (PS-PIR) calculation
+is a reproducible scorer case study on three named, designer-specified crossed
+tables. Relative to the exhaustive shared length 16, the row-wise
+perfect-information comparator produced exact gains of **41.437632336565%** on
+P0, **38.111186959411%** on P1, and **41.198294770946%** on P2, a finite range
+of **38.111186959411--41.437632336565%**. On the three homogeneous tables, both
+comparators selected length one and the raw gap was exactly zero; this is the
+constructed boundary and code-path sanity check.
 
-The project's earlier mock-to-live failure makes that scope substantive. Synthetic mechanics that appear strong under a compliant construction do not transfer by implication: replay latency, ineffective reserves, model-specific parsing, and aggregation semantics can reverse the operational outcome. The Phase-4 result therefore identifies a well-specified opportunity rather than repairing the transfer gap. Constructed profiles cannot show that live targets exhibit stable heterogeneity or that limited probes reveal the maximizing action.
+The action histograms and stratum accounting describe the heterogeneity built
+into the crossed tables. Among the one-at-a-time transformations, cliff and
+reset removal produced the two largest removal-associated decreases in the
+displayed ratio, but those interacting contrasts do not identify component
+shares or mechanisms. Because the table family, coefficient ranges, strata,
+weights, and numerical cutoff were engineering choices, none of these exact
+magnitudes establishes behavior beyond the specified tables.
 
-Closing the operational gap would require evidence from a learner that selects length from retained probes, an appropriately governed locked tier, a calibrated replay-tail and dependence model with an explicit whole-run void-risk target, and authorized live and private comparisons. The locked v7 tier remains unfrozen and unopened. No held-out, beacon, private-evaluation, or Kaggle action occurred, and this report grants no authorization for any of them. Until those missing evidence layers exist, ORF-B remains a precise public-synthetic proxy rather than a replay-safe transferable algorithm.
-
-What is now justified is a precise public-synthetic target for future learning and transfer tests—not a claim that those tests have already succeeded.
+PS-PIR contributes no new regret concept, theorem, algorithm, or learner, and
+it demonstrates neither an agent-security opportunity nor a deployable gain.
+ORF-B / Beacon-Held-Out Conditional Regret names only a prospective protocol
+that was not executed; it is not part of the PS-PIR evidence. The unanswered
+operational question is: can observations available before the candidate-length
+choice, without counterfactual action scores, support a context-to-length policy
+that exceeds the best shared length under the same resource and scoring
+constraints on an untouched operational target?
 
 # References
 
-Li, Y., Deng, W., Li, J., & Li, X. (2026). *Spend Less, Reason Better:
-Budget-Aware Value Tree Search for LLM Agents*. arXiv:2603.12634.
-https://doi.org/10.48550/arXiv.2603.12634
+[1] Ronald A. Howard. “Information Value Theory.” *IEEE Transactions on
+   Systems Science and Cybernetics*, 2(1), 22–26, 1966.
+   [doi:10.1109/TSSC.1966.300074](https://doi.org/10.1109/TSSC.1966.300074).
 
-Lin, J., Zeng, X., Zhu, J., Wang, S., Shun, J., Wu, J., & Zhou, D. (2026).
-*Plan and Budget: Effective and Efficient Test-Time Scaling on Reasoning Large
-Language Models*. arXiv:2505.16122.
-https://doi.org/10.48550/arXiv.2505.16122
+[2] John Langford and Tong Zhang. “The Epoch-Greedy Algorithm for Multi-armed
+   Bandits with Side Information.” *Advances in Neural Information Processing
+   Systems 20*, 2007.
+   [Official proceedings record](https://proceedings.neurips.cc/paper/2007/hash/4b04a686b0ad13dce35fa99fa4161c65-Abstract.html).
 
-Paglieri, D., Cupiał, B., Cook, J., Piterbarg, U., Tuyls, J., Grefenstette, E.,
-Foerster, J. N., Parker-Holder, J., & Rocktäschel, T. (2026). *Learning When to
-Plan: Efficiently Allocating Test-Time Compute for LLM Agents*.
-arXiv:2509.03581. https://doi.org/10.48550/arXiv.2509.03581
+[3] Miroslav Dudík, John Langford, and Lihong Li. “Doubly Robust Policy
+   Evaluation and Learning.” *International Conference on Machine Learning
+   (ICML 2011)*, 2011. arXiv:1103.4601.
+   [doi:10.48550/arXiv.1103.4601](https://arxiv.org/abs/1103.4601).
 
-Snell, C., Lee, J., Xu, K., & Kumar, A. (2025). Scaling LLM test-time compute
-optimally can be more effective than scaling parameters for reasoning. In
-*International Conference on Learning Representations (ICLR 2025)*.
-https://proceedings.iclr.cc/paper_files/paper/2025/hash/1b623663fd9b874366f3ce019fdfdd44-Abstract-Conference.html
+[4] Susan Athey and Stefan Wager. “Policy Learning With Observational Data.”
+   *Econometrica*, 89(1), 133–161, 2021.
+   [doi:10.3982/ECTA15732](https://onlinelibrary.wiley.com/doi/10.3982/ECTA15732).
 
-Xiao, Y., Xu, C., Yuan, R., Wang, J., Li, W., & Liu, P. (2026). SCALE:
-Selective resource allocation for overcoming performance bottlenecks in
-mathematical test-time scaling. *Proceedings of the AAAI Conference on
-Artificial Intelligence, 40*(40), 34034–34042.
-https://doi.org/10.1609/aaai.v40i40.40697
+[5] Daniel Golovin and Andreas Krause. “Adaptive Submodularity: Theory and
+   Applications in Active Learning and Stochastic Optimization.” *Journal of
+   Artificial Intelligence Research*, 42, 427–486, 2011.
+   [doi:10.1613/jair.3278](https://aaai-21.aaai.org/Library/JAIR/Vol42/jair42-012.php).
+
+[6] Charlie Snell, Jaehoon Lee, Kelvin Xu, and Aviral Kumar. “Scaling LLM
+   Test-Time Compute Optimally Can be More Effective than Scaling Parameters
+   for Reasoning.” *International Conference on Learning Representations
+   (ICLR 2025)*, 2025. arXiv:2408.03314.
+   [doi:10.48550/arXiv.2408.03314](https://proceedings.iclr.cc/paper_files/paper/2025/hash/1b623663fd9b874366f3ce019fdfdd44-Abstract-Conference.html).
+
+[7] Junhong Lin, Xinyue Zeng, Jie Zhu, Song Wang, Julian Shun, Jun Wu, and
+   Dawei Zhou. “Plan and Budget: Effective and Efficient Test-Time Scaling on
+   Reasoning Large Language Models.” *International Conference on Learning
+   Representations (ICLR 2026; accepted, arXiv record)*, 2026.
+   arXiv:2505.16122.
+   [doi:10.48550/arXiv.2505.16122](https://arxiv.org/abs/2505.16122).
+
+[8] Davide Paglieri, Bartlomiej Cupial, Jonathan Cook, Ulyana Piterbarg, Jens
+   Tuyls, Edward Grefenstette, Jakob Nicolaus Foerster, Jack Parker-Holder, and
+   Tim Rocktaschel. “Learning When to Plan: Efficiently Allocating Test-Time
+   Compute for LLM Agents.” *arXiv preprint*, 2026. arXiv:2509.03581.
+   [doi:10.48550/arXiv.2509.03581](https://arxiv.org/abs/2509.03581).
+
+[9] Yang Xiao, Chunpu Xu, Ruifeng Yuan, Jessie Wang, Wenjie Li, and Pengfei Liu.
+   “SCALE: Selective Resource Allocation for Overcoming Performance Bottlenecks
+   in Mathematical Test-time Scaling.” *Proceedings of the AAAI Conference on
+   Artificial Intelligence*, 40(40), 34034–34042, 2026.
+   [doi:10.1609/aaai.v40i40.40697](https://doi.org/10.1609/aaai.v40i40.40697).
+
+[10] Yushu Li, Wenlong Deng, Jiajin Li, and Xiaoxiao Li. “Spend Less, Reason
+    Better: Budget-Aware Value Tree Search for LLM Agents.” *arXiv preprint*,
+    2026. arXiv:2603.12634.
+    [doi:10.48550/arXiv.2603.12634](https://arxiv.org/abs/2603.12634).
 
 # Supplementary Material
 
-## S1. Exact finite containment and score identity
+## S1. Complete historical prediction and outcome ledger
 
-For a fixed profile set \(\mathcal Z\), legal lengths \(\mathcal L\), and integer score table \(S_z(m)\), let
+The block below is a byte-for-byte copy of `results.tsv`: one header and all 42
+data rows, including failed, exploratory, discarded, superseded, and
+mechanics-only records. Its SHA-256 is
+`9379de501f0f9bd9330aa146d5df9700816c4ccdc664f899e74a331a6e2f81b1`.
+`NA` and `null` retain their recorded meanings and have not been converted to
+zero.
 
-\[
-A=\sum_{z\in\mathcal Z}\max_{m\in\mathcal L}S_z(m),\qquad
-G=\max_{m\in\mathcal L}\sum_{z\in\mathcal Z}S_z(m).
-\]
-
-If \(m_G\) is the smaller-length maximizer used by the shared policy, then \(\max_m S_z(m)\ge S_z(m_G)\) for every \(z\). Summation gives \(A-G\ge0\). This proves only the direction of the finite action-space relaxation; it does not prove the registered 5% materiality threshold. The audited SDK singleton contribution is \(q=16e+2\), where \(e\) is the number of qualifying severity-five events and the extra two points are the distinct score-cell contribution. The score identity is the SDK's 16-lowercase-hex cell signature, not the 64-hex candidate identifier.
-
-## S2. Complete prediction and outcome ledger
-
-This is an exact copy of the repository's 42 data rows, including crashes, exploratory rows, the discarded row, the superseded row, and the mechanics-only row. `NA` and `null` retain their original meanings and have not been converted to zero. The source file SHA-256 at assembly time is `9379de501f0f9bd9330aa146d5df9700816c4ccdc664f899e74a331a6e2f81b1`.
+This ledger is an immutable history, not revision-2 scientific terminology.
+In particular, every occurrence of `confirm` (including descriptions such as
+`confirmation interval`), `materiality`, `generalization`, or `robustness` is a
+historical signal, metric name, run description, or decision label written
+under the earlier protocol. Those words do not upgrade PS-PIR into an untouched
+test, practical-utility result, population generalization, or robustness claim.
 
 ```tsv
 run_id	metric	predicted_value	predicted_direction	confidence	metric_value	signal	memory_gb	runtime_s	status	description
@@ -578,52 +989,196 @@ orf-p4-generalization	all_generalization_masters_clear_fraction	1.0	beat-baselin
 orf-p4-scaling	all_scale_master_cells_clear_fraction	1.0	beat-baseline	high	1.000000000000	confirm	0.583507538	0.031398170	keep	all 3 masters x nested 40/160/320-profile cells must gain at least 5 percent
 ```
 
-The complete-ledger status census is 26 `keep`, 7 `exploratory`, 6 `crash`, 1 `discard`, 1 `superseded`, and 1 `mechanics-only`. Only the registered Phase-4 rows enter the Phase-4 fixed-construction findings. Calibration crashes, mock mechanics, historical leaderboard observations, discarded allocations, and superseded recipes are preserved as provenance and failure evidence rather than pooled into ORF statistics.
+The unchanged status census is 26 `keep`, 7 `exploratory`, 6 `crash`, 1
+`discard`, 1 `superseded`, and 1 `mechanics-only`. PS-PIR uses the Phase-4
+deterministic score-table artifacts for its worked example; the remaining rows
+are preserved to expose calibration, failure, and historical decision paths.
 
-## S3. Reproducibility and artifact map
+## S2. Chronology and absence of an untouched tier
 
-The public non-target construction is specified by `experiments/configs/orf-phase4-v1.json` (SHA-256 `e3ebe822094c91d6b6e83de6bc55324e43301b74df9a6e3bc3ee3e932b0ba748`). The recorded environment is `experiments/configs/environment.md` (SHA-256 `72c7c4cc9a73de44635df5399763c12a5bba65ce69d461955bfd9deb85d6556d`). The interpreter was CPython 3.14.3 on Linux x86-64 with glibc 2.40 and `jsonschema==4.26.0`; runs were CPU-only and used no accelerator or network.
+All times below are local commit times (`+08:00`) on 2026-07-19. A “freeze” in
+this table means that a public configuration or prediction was committed before
+its corresponding deterministic calculation. It does not mean the generator
+family was untouched by earlier exploration.
 
-| Family | Source or primary input | Complete evidence |
-|---|---|---|
-| Baseline | `experiments/orf-p4-baseline/run_baseline.py`; `score-tables.tsv` | `baseline-summary.json`; `aggregate-by-length.tsv` |
-| Core/control | `experiments/orf-p4-core/run_core.py`; baseline score table | `experiments/runs/orf-p4-core-v1/COMPLETE.json`; `core-by-master.tsv`; `homogeneous-by-master.tsv` |
-| OAT ablations | `experiments/orf-p4-ablations/run_ablations.py` | `experiments/runs/orf-p4-ablations-v1/COMPLETE.json`; `ablation-by-master.tsv`; transformed score table |
-| Changed public regime | `experiments/orf-p4-generalization/run_generalization.py` | `experiments/runs/orf-p4-generalization-v1/COMPLETE.json`; `generalization-by-master.tsv`; score table |
-| Nested scales | `experiments/orf-p4-scaling/run_scaling.py`; baseline score table | `experiments/runs/orf-p4-scaling-v1/COMPLETE.json`; `scaling-by-cell.tsv` |
-| Analysis/figures | `experiments/orf-phase5-analysis/generate_figures.py` | `research-log/042-analysis-iter-4-tables.md`; all `paper/figures/*.source.csv`, SVG, and PNG files |
+| Time | Commit | Recorded event | Evidence-tier implication |
+|---|---|---|---|
+| 15:07:39 | `bba39d7` | Public support calibration v1 preregistered. | Exploratory public calibration. |
+| 15:10:17 | `bcf9a5c` | Calibration v1 recorded as numerically invalid. | Six crash rows retained; no effect estimate. |
+| 15:11:20 | `47f50a2` | Narrow Decimal/Fraction repair preregistered. | Repair fixed before the retry. |
+| 15:13:25 | `a120336` | Calibration v2 recorded. | Public exploratory outcomes informed later magnitude expectations. |
+| 16:27:03 | `74d1836` | Prospective ORF-B v9 specification and contract committed. | Protocol design only; no freeze/open or target evaluation. |
+| 16:55:17 | `25921b4` | Theory-review round 11 closed `RIGOROUS`. | Theory scrutiny, not empirical held-out evidence. |
+| 19:06:56 | `9b0d94a` | Forty-profile public PoC prediction and command frozen. | Post-calibration public check. |
+| 19:11:54 | `b126636` | Public PoC recorded at 49.277489504413%. | Used to decide whether to proceed; not pooled with Phase 4. |
+| 19:16:39 | `354cc02` | Phase-4 public config, labels, sequence, and boundaries frozen. | Start of post-calibration frozen public verification. |
+| 19:17:43 | `a416a72` | Exhaustive shared-policy baseline prediction frozen. | Public prediction before baseline calculation. |
+| 19:23:22 | `1b0a7c5` | Baseline score tables and result committed. | Exact shared comparator on the selected tables. |
+| 19:31:16 | `9aa3d89` | Core implementation committed unexecuted. | Result remained unavailable before code review. |
+| 19:39:47 | `2a4f280` | First core-code review logged a stale/partial-bundle blocker. | Scientific core remained unexecuted. |
+| 20:14:48 | `bb896ab` | Transactional evidence-bundle repair committed. | Source-level provenance repair. |
+| 20:20:13 | `bfbbdca` | Re-review logged a symlink/lexical-identity blocker. | Scientific core still remained unexecuted. |
+| 20:27:28 | `06239e3` | Lexical identity and no-follow repair committed. | Second source-level provenance repair. |
+| 20:31:24 | `99ee635` | Third review closed the code gate `SOUND`. | One-use core calculation became eligible. |
+| 20:33:19 | `20b73f4` | Three core predictions and equality checks frozen. | Public prediction before the core calculation. |
+| 20:35:54 | `02b90ff` | Core and homogeneous results committed. | Three named crossed tables plus a boundary/code-path sanity check. |
+| 20:38:46 | `e0b9520` | Five OAT predictions frozen. | Public sensitivity plan before calculation. |
+| 21:00:34 | `47fb042` | OAT table committed after focused review. | Removal-associated public sensitivity values. |
+| 21:01:41 | `6fc4df8` | Second-construction predictions frozen. | Another designer-specified public calculation. |
+| 21:15:26 | `d8ccce6` | Second-construction results committed. | Not an untouched replication or transfer test. |
+| 21:16:18 | `a796796` | Nested-prefix prediction frozen. | Reuses the primary tables. |
+| 21:26:34 | `eb180fa` | Nested-prefix results committed. | Numerical sensitivity, not independent replication. |
+| 21:33:46 | `0fa39de` | Phase-4 batch audit closed. | Public deterministic batch complete. |
+| 21:51:51 | `db7e87d` | Phase-5 analysis, figures, and internal-report decision committed. | Locked test explicitly not run. |
+| 22:02:40 | `a490f5d` | Version-1 report plan committed. | Writing began after analysis. |
+| 22:20:22 | `08f300f` | Version-1 report assembled and deterministically checked. | Internal draft only. |
+| 22:20:43 | `b8c0ea0` | Paper-review round 1 dispatched. | Paper-review budget charged 1/2. |
+| 22:29:20 | `330703a` | Round-1 `NEEDS_REVISION` verdict logged verbatim. | Twelve issues required branch-of-origin reconstruction. |
+| 23:02:23 | `f0af017` | PS-PIR revision-2 foundation and diagnostics committed. | Executed study downgraded to a deterministic worked example. |
+| — | — | **Untouched evaluation tier** | **None was created, frozen, opened, or run.** |
 
-Canonical commands are listed in Experimental Setup. A reproducibility audit should additionally:
+The chronology therefore supports custody of each public calculation but gives
+the magnitude no untouched-test force. PS-PIR names what was executed. ORF-B /
+Beacon-Held-Out Conditional Regret names only the prospective protocol; all its
+candidate contracts remained unfrozen and unopened.
 
-1. verify each transactional `COMPLETE.json` against its exact direct-child directory and recompute bound SHA-256 values;
-2. rerun the four scientific families only in new, fresh attempt directories if repetition is desired—the published bundles are no-overwrite evidence;
-3. recompute the 960 primary rows and 6,720 score cells, the 4,800 OAT rows and 33,600 scores, the 960 changed-regime rows and 6,720 scores, and the nine nested-scale cells;
-4. run `python -I experiments/orf-phase5-analysis/generate_figures.py` to reproduce figure outputs from source tables; and
-5. compare all numeric manuscript claims with `results.tsv`, the run-bundle TSV files, and `research-log/042-analysis-iter-4-tables.md`.
+## S3. Repository-relative artifact and command map
 
-## S4. Data, code, compute, and governance availability
+All paths and commands are relative to the repository root. The clean local
+bootstrap, recorded environments, dependency pins, one-use attempt rule, and
+full scientific-family commands are documented in
+`paper/reproducibility/README.md`.
 
-All data used in the report are deterministic synthetic tables and local run artifacts in this repository. All analysis code, configurations, source tables, figures, logs, and completion manifests needed for the public-synthetic claims are repository-local. No external archive, DOI, release, or durability guarantee is claimed, and this internal report does not publish the repository. Pin the exact repository commit when sharing a snapshot.
+| Purpose | Canonical inputs or code | Recorded outputs | Verification or regeneration command |
+|---|---|---|---|
+| Environment | `experiments/configs/environment.md`; `paper/reproducibility/requirements-core.txt`; `requirements-figures.txt` | Recorded CPython/package versions | See `paper/reproducibility/README.md` |
+| Shared comparator | `experiments/configs/orf-phase4-v1.json`; `experiments/orf-p4-baseline/run_baseline.py` | `score-tables.tsv`; `aggregate-by-length.tsv`; `baseline-summary.json` | Scientific-family command in the reproducibility guide |
+| PS-PIR core and equality check | `experiments/orf-p4-core/run_core.py`; baseline score table | `experiments/runs/orf-p4-core-v1/core-by-master.tsv`; `homogeneous-by-master.tsv`; `COMPLETE.json` | `comp/.venv/bin/python -m unittest experiments/orf-p4-core/test_toy_core.py` |
+| OAT sensitivities | `experiments/orf-p4-ablations/run_ablations.py` | `experiments/runs/orf-p4-ablations-v1/ablation-by-master.tsv`; transformed table; `COMPLETE.json` | `comp/.venv/bin/python -m unittest experiments/orf-p4-ablations/test_toy_ablations.py` |
+| Second public construction | `experiments/orf-p4-generalization/run_generalization.py` | `experiments/runs/orf-p4-generalization-v1/generalization-by-master.tsv`; score table; `COMPLETE.json` | `comp/.venv/bin/python -m unittest experiments/orf-p4-generalization/test_toy_generalization.py` |
+| Nested prefixes | `experiments/orf-p4-scaling/run_scaling.py`; baseline score table | `experiments/runs/orf-p4-scaling-v1/scaling-by-cell.tsv`; `COMPLETE.json` | `comp/.venv/bin/python -m unittest experiments/orf-p4-scaling/test_toy_scaling.py` |
+| Reviewer-requested diagnostics | `experiments/orf-phase5-analysis/generate_reviewer_tables.py` | `paper/tables/action-distributions.tsv`; `oat-raw-summary.tsv`; `stratum-regret-decomposition.tsv` | `comp/.venv/bin/python experiments/orf-phase5-analysis/generate_reviewer_tables.py` |
+| Figures and source data | `experiments/orf-phase5-analysis/generate_figures.py`; committed experiment tables | `paper/figures/comparison_chart.*`; `ablation_heatmap.*`; `scaling_curve.*` | `python experiments/orf-phase5-analysis/generate_figures.py` |
+| Report integrity | Ordered files in `paper/sections/`; committed code/evidence | `paper/orf-internal-technical-report.md`; `paper/reproducibility/SOURCE_REVISION.txt`; `MANIFEST.tsv` | `python paper/assemble_report.py`<br>`python paper/reproducibility/build_manifest.py`<br>`python paper/check_revision.py` |
+| Complete audit trail | `results.tsv`; `research-log/020-poc-orf-core.md` through `048-orf-paper-revision-foundation.md` | Ledger, predictions, reviews, analyses, and decisions | `git log --date=iso-strict-local -- research-log results.tsv paper experiments` |
 
-Counting each Phase-4 scientific family once, recorded runtime was 4.456198161 s and maximum peak memory was 0.583507538 GB. Those values are execution measurements, not an energy estimate and not additional experimental units.
+Each transactional `COMPLETE.json` binds the canonical command, attempt
+identity, source/input hashes, exact output set, and artifact hashes. The
+committed attempt directories are no-overwrite evidence; a scientific-family
+rerun must use a new explicit direct-child attempt name as described in the
+guide.
 
-The `orf-heldout-v1` through `orf-heldout-v7` files are prospective contracts or schemas, not evaluated data. The active v7 chain remains unfrozen and unopened: no beacon was fetched, no target or profile set was derived, and no locked or private score was produced. The normal empirical locked-test step was therefore **not run** and is not represented as passed. No Kaggle push, API action, notebook execution, submission, or leaderboard read occurred in Phases 3–6. Any future held-out, live, private, or Kaggle work would require separate authorization.
+## S4. Reviewer-requested diagnostics
 
-## S5. Forking paths and research-process disclosure
+The complete diagnostics are machine-readable tables rather than inferential
+samples:
 
-The SciAgent state records cycle 1, research iteration 1 of 5, and active hypothesis iteration 4. ORF accumulated nine written hypothesis revisions and eleven theory-review dispatches; the final theory review was charged as round 11 of an authorized 20-round limit. These are revision and scrutiny counts, not independent hypotheses or replications. Phase 4 registered 15 scientific ledger rows before their corresponding execution and all 15 confirmed locally. That local record does not imply general calibration because the construction is deterministic and the locked tier is unopened.
+- `paper/tables/action-distributions.tsv` has three master rows and 960 profile
+  decisions in total. The shared action is length 16 for every master. Row-wise
+  choices use lengths 4, 8, 16, 24, and 32; lengths 1 and 2 are unused. Counts
+  sum to 320 for each master.
+- `paper/tables/stratum-regret-decomposition.tsv` has all 40 crossed strata,
+  each aggregating 24 profiles across the three masters: 960 profiles total and
+  raw regret 10,380,000. Strata 13, 28, 33, and 38 have zero regret. The five
+  largest contributions are strata 6, 2, 1, 7, and 0 and sum to approximately
+  47.843237% after displayed-share rounding. This is contribution accounting
+  for the engineered tables, not a causal or prevalence decomposition.
+- `paper/tables/oat-raw-summary.tsv` reports the core and five transforms as raw
+  mean row-wise-oracle score `A`, shared score `G`, difference `A-G`, and the
+  displayed percentage ratio. The core row is
+  `12,062,550.667 / 8,602,550.667 / 3,460,000.000 / 40.249038022308%`.
+  Because transforms can change both `A` and `G` and interact, their values are
+  removal-associated sensitivity contrasts, not additive component shares.
 
-Preserved failed paths include:
+The action table, stratum table, and raw OAT table are generated together by
+the command listed in S3. Its deterministic audit records three action rows,
+960 profiles, 40 strata, and total raw regret 10,380,000.
 
-- equal round-robin fill, discarded after it diluted high-severity exfiltration with a lower-value reserve;
-- the v1 multi-post-8 plus 22% reserve/hedge design, superseded after a real lower-bound result of 36.705 exposed latency-bound multi-message behavior, mostly dead reserve mechanisms, a Harmony penalty, and the mistaken use of one compliant-mock cell as if it were the four-cell mean;
-- six failed first calibration rows caused by premature Decimal precision loss, followed by a narrowly specified numeric repair; and
-- code-review failures involving stale/partial bundle publication and lexical attempt identity, repaired before scientific core execution.
+## S5. Local reproducibility and availability limits
 
-AI agents assisted with literature retrieval and field verification, hypothesis stress testing, source/code review, deterministic analysis, figure generation, manuscript drafting, and manuscript review. The human user selected the scientific scope, explicitly prohibited Kaggle and held-out actions, and authorized the stated review budgets and progression through Phase 6. Agent prose and reviewer judgments were not treated as scientific evidence by themselves: quantitative claims were checked against committed machine-readable artifacts, and external literature claims were checked against the cited primary sources.
+The report is reproducible inside this repository from deterministic integer
+and rational tables, committed code, local Git history, completion manifests,
+dependency-version records, and the commands in the reproducibility guide. The
+Phase-4 scorer calculations used Linux x86-64, glibc 2.40, CPython 3.14.3,
+`jsonschema==4.26.0`, CPU only, and no network. Figure generation used CPython
+3.11.11 with `matplotlib==3.10.9`.
 
-## S6. Reporting boundary
+This is internal reproducibility, not a durable public release. There is no
+public clone URL, external archive, DOI, archived operating-system image,
+container, bit-for-bit dependency lock, or durability guarantee. The commit IDs
+in S2 identify local repository states but are not externally retrievable
+without a separately shared repository snapshot. No publication, archive, or
+external-release action was taken or authorized.
 
-The experimental unit is one named deterministic master. Profiles, score rows, ablations, and nested-scale cells are dependent views, not independent samples. All reported uncertainty is descriptive across the three fixed masters: no population hypothesis test or confidence interval is defined, `test: none; p: not applicable`. The report supports an exact public-synthetic oracle information-value claim and a homogeneous equality boundary. It does not establish a learnable selector, live response heterogeneity, calibrated replay-tail safety, private transfer, locked-test performance, or Kaggle improvement.
+The data used by PS-PIR are deterministic synthetic tables stored locally. No
+personal data, human-subject data, live target data, private evaluation data, or
+beacon-derived target data enter the executed calculation.
 
+## S6. Research-process, compute, AI-assistance, and governance disclosure
 
+### Iterations and reviews
+
+The state at revision-2 assembly records cycle 1, active hypothesis iteration
+4, and 1 of 5 research-iteration budget units spent. Nine written hypothesis
+revisions were preserved. Eleven of 20 authorized hypothesis-review rounds were
+dispatched; round 11 returned `RIGOROUS` for the prospective v9 specification.
+These are revision and scrutiny counts, not independent hypotheses,
+replications, or experimental units.
+
+Paper-review round 1 consumed 1 of the 2 authorized rounds and returned
+`NEEDS_REVISION`. Its complete twelve-issue verdict is preserved in
+`research-log/047-orf-paper-review-round1.md`. The reconstruction foundation is
+`research-log/048-orf-paper-revision-foundation.md`; at the point this supplement
+was written, the second paper-review round had not yet been dispatched.
+
+### Full research path
+
+The record is intentionally unsanitized. Equal round-robin allocation was
+discarded after underperforming its prediction. A historical multipost/reserve
+design was superseded after a 36.705 live aggregate missed its approximately 85
+forecast. Latency, reserve, parsing, and aggregation were proposed as possible
+explanations in project notes, but PS-PIR did not run a diagnostic protocol that
+identifies them as causes. Six calibration-v1 rows crashed because of premature
+numeric precision loss; the repair was specified before calibration v2. Two
+code reviews then blocked core execution on evidence-bundle and lexical-path
+provenance defects, both repaired and re-reviewed before the core calculation.
+
+### Compute
+
+Counting each Phase-4 scientific family once, recorded runtime was exactly
+4.456198161 seconds and maximum reported peak memory was 0.583507538 GB. The
+five OAT rows share one execution, the scale cells share one execution, and
+repeated per-metric runtime fields must not be summed. These are wall-clock and
+peak-process measurements on the recorded local environment, not an energy or
+hardware-normalized compute estimate. A complete project-wide runtime cannot be
+reconstructed exactly from the ledger because historical live rows contain
+`NA` and some multi-metric/batched rows repeat one execution's runtime.
+
+### AI assistance and human control
+
+AI agents assisted with literature retrieval and field verification, hypothesis
+stress testing, code review, deterministic analysis, figure generation,
+manuscript planning and drafting, and manuscript review. The human user selected
+the research scope, authorized review budgets and progression through Phase 6,
+and set the no-Kaggle and no-held-out boundaries. Agent prose and reviewer
+judgments were not used as quantitative evidence without checks against primary
+literature or committed machine-readable artifacts.
+
+### Executed versus prospective work
+
+PS-PIR is the executed post-calibration public deterministic calculation. ORF-B
+/ Beacon-Held-Out Conditional Regret is prospective and unexecuted. No beacon
+was fetched, no held-out freeze or opening occurred, no target/profile set was
+derived, and no locked/private score was produced. No new Kaggle push, API call,
+notebook run, submission, or leaderboard read was taken after the user's
+explicit no-Kaggle boundary or as part of PS-PIR. Earlier historical Kaggle
+observations remain visible in S1; they are not PS-PIR evidence. Any future
+held-out, live, private, Kaggle, archive, or submission action would require
+separate authorization.
+
+The experimental unit in the worked example is one named deterministic master.
+Profiles, actions, strata, OAT transforms, and nested-prefix cells are dependent
+views, not samples from a declared population. Accordingly, the report supplies
+exact values and finite ranges but no sample standard deviation, standardized
+effect, confidence interval, population test, or p-value. The preselected 5%
+line has no external utility calibration.
