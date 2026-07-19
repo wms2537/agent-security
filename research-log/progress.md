@@ -7,3 +7,5 @@
 2026-07-18 | P4 | REBUILD v2: single-post exfil, per-model raw/s selection, verified fill, void-safe 0.90, gemma JSON template | done | mock selection+fill+sizing validated
 2026-07-18 | P4 | REAL LB v2 = 69.570 (was 36.705, +89%) | done | root-cause fix confirmed; mid-pack, top ~103.67; next=read v2 kernel log for real per-model selection (T002)
 2026-07-19 | P4 | ORIENT + close stale T004 private-diversity branch | failed | `rg -n` confirms v1 actual 36.705 vs ~85 predicted and 28% dead reserve; mechanics smoke passed on four mocks
+2026-07-19 | P4 | T002 live leaderboard + Kaggle strong-baseline audit | done | v2 telemetry unavailable; leader=105.635; 0.99/direct-cost predicts ~84.2; multi-message amortization is the only credible 2x lever
+2026-07-19 | P4 | SELECT T005 replay-safe baseline parity | in_progress | prediction 82-89 real LB; mechanics first, no Kaggle submission without checkpoint

@@ -1,7 +1,7 @@
 {
   "phase": "4",
   "cycle": 1,
-  "iteration": 1,
+  "iteration": 3,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
@@ -39,8 +39,8 @@
       "id": "T002",
       "phase": "4",
       "desc": "Read the v2 kernel-v4 run log ([attack] selected/raw-s/unit/returned per model) to learn the REAL per-model winning template, latency, and candidate count; then trim the bank to proven winners and attack latency to raise N",
-      "status": "in_progress",
-      "evidence": "v2 rebuild scored 69.570 (was 36.705); real per-model selection now observable in the kernel log",
+      "status": "done",
+      "evidence": "`kaggle kernels output whymelabs/ai-agent-security-attack -p /tmp/our-kernel-output` returned only commit-phase attack.py/submission.csv/log; the log has no competition-rerun `[attack]` telemetry. Kaggle CLI/API exposes ref 54808132 score 69.570 but no rerun-log endpoint. Baseline audit and replacement levers: research-log/004-kaggle-baseline-audit.md.",
       "parent": null
     },
     {
@@ -58,6 +58,22 @@
       "status": "failed",
       "evidence": "rg -n '28 % of budget was dead weight|real-lb-v1-multipost' research-log/002-rootcause-and-rebuild.md results.tsv -> results.tsv:8 real-lb-v1-multipost normalized_lb predicted ~85, actual 36.705, disconfirm; research-log/002:20 identifies the 22% CONFUSED_DEPUTY reserve plus hedges as dead weight. Clean single-post exfil already reaches private cells, so this branch is refuted.",
       "parent": null
+    },
+    {
+      "id": "T005",
+      "phase": "4",
+      "desc": "Reproduce strong public replay-safe baseline: direct measured cost to 0.99*9000 with the proven single-post floor; validate mechanics before the structural experiment",
+      "status": "in_progress",
+      "evidence": "Pre-registered in research-log/004: v2 effective measured cap 7364s vs public 8910s (1.210x); predicted real LB 82-89, void/lower-than-78 is failure.",
+      "parent": null
+    },
+    {
+      "id": "T006",
+      "phase": "4",
+      "desc": "Implement adaptive multi-message amortization selected only by live raw-per-second and >=75% message fire count; preserve single-post fallback",
+      "status": "open",
+      "evidence": "Pre-registered in research-log/004: SDK replays up to 32 messages after one reset and scores every EXFIL event; public TensorLiu v125 provides a testable M=24 efficiency-gated baseline.",
+      "parent": "T005"
     }
   ],
   "parked_candidates": [],
