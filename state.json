@@ -242,6 +242,38 @@
       "status": "done",
       "evidence": "research-log/040 records focused SOUND with no findings. Reviewer confirmed prediction-before-code, exact hashes/command/transaction, strict 960-row parser and reviewed evaluator, exact replicate-prefix nesting k=1/4/8 across 40 strata, nine exact cells, k8 equality to all committed core records, exact all-clear/by-scale aggregates, sufficient bound evidence and COMPLETE provenance. Attempts absent at closure.",
       "parent": "T021"
+    },
+    {
+      "id": "T028",
+      "phase": "5",
+      "desc": "Dispatch and independently verify the SciAgent results analysis, effect sizes, statistical declaration, prediction audit, tables, and publication figures",
+      "status": "in_progress",
+      "evidence": "Dispatch scope fixes the independent unit as one public master (n=3 paired fixed masters), forbids profile/row/cell pseudoreplication, excludes crash/discard/exploratory rows from analysis, and preserves the no-held-out/no-Kaggle boundary.",
+      "parent": "T022"
+    },
+    {
+      "id": "T029",
+      "phase": "5",
+      "desc": "Run the required narrow fresh-literature search on profile-conditioned versus globally shared finite-action selection and record primary-source findings",
+      "status": "pending",
+      "evidence": null,
+      "parent": "T028"
+    },
+    {
+      "id": "T030",
+      "phase": "5",
+      "desc": "Complete search diagnosis, budget audit, locked-test boundary analysis, and the user publication-path checkpoint",
+      "status": "pending",
+      "evidence": null,
+      "parent": "T029"
+    },
+    {
+      "id": "T031",
+      "phase": "6",
+      "desc": "Write, review, and verify the source-backed Phase-6 ORF report at the evidence strength authorized by the Phase-5 decision",
+      "status": "pending",
+      "evidence": null,
+      "parent": "T030"
     }
   ],
   "parked_candidates": [],
