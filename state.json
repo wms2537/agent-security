@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 4,
-      "spent": 3
+      "spent": 4
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding hypothesis research-log/009-hypothesis-iter-4-v2.md resolves the 8 round-3 objections structurally and remains pre-data. Deterministic verification returned: `PASS picks=[1, 32, 8, 4] orf=[14100, 152250, 47934, 64080] mean=69591.0 best_static_m=32 best_static_mean=51914.0 gain=34.05% oracle_regret=3.15%`. The user authorized final review verbatim: 'yes, go on, I approve it'. Limit is 4, spent is 3 until dispatch; Phase 2 remains closed pending verdict.",
+      "evidence": "Superseding hypothesis research-log/009-hypothesis-iter-4-v2.md resolves the 8 round-3 objections structurally and remains pre-data. Deterministic verification returned: `PASS picks=[1, 32, 8, 4] orf=[14100, 152250, 47934, 64080] mean=69591.0 best_static_m=32 best_static_mean=51914.0 gain=34.05% oracle_regret=3.15%`. Final sterile re-review dispatched against the committed 346-line entry with the prior issue list; review budget is 4/4 and Phase 2 remains closed pending verdict.",
       "parent": "T008"
     }
   ],

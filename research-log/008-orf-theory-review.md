@@ -237,3 +237,10 @@ The user approved the proposed final scientific re-review verbatim: “yes, go o
 approve it”. In context, this authorizes a superseding ORF hypothesis and raises
 only `hypothesis_review_rounds.limit` from 3 to 4. It does not authorize an
 experiment, Kaggle push, or Kaggle submission.
+
+## Final round 4 dispatch
+
+The final sterile theory re-review was dispatched against the committed 346-line
+superseding entry `research-log/009-hypothesis-iter-4-v2.md`. The dispatch includes
+the prior eight-issue list in the template's allowed re-review slot and consumes
+review round 4/4. The hypothesis is now immutable pending the verdict.

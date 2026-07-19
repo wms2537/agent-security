@@ -22,3 +22,4 @@
 2026-07-19 | P2 | T009 replacement theory review round 3 | needs_revision | reviewer verified 232 lines; ORF is salvageable but 8 required fixes remain; review budget 3/3 exhausted and Phase-2 gate stays closed
 2026-07-19 | P2 | T009 final scientific re-review authorization | approved | user said verbatim “yes, go on, I approve it”; hypothesis-review limit 3→4 only
 2026-07-19 | P2 | T009 superseding ORF hypothesis v2 | ready_review | deterministic verification PASS: picks=[1,32,8,4], mean=69591, +34.05% vs best static, 3.15% oracle regret; no experiment run
+2026-07-19 | P2 | T009 final theory re-review round 4 | in_progress | sterile review dispatched against committed 346-line superseding hypothesis with prior 8-issue list; budget 4/4
