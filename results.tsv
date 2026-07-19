@@ -38,5 +38,5 @@ orf-p4-ablations	no_curvature_mean_gain_percent	35.0	beat-baseline	low	37.860007
 orf-p4-ablations	no_reset_mean_gain_percent	22.0	beat-baseline	low	18.973588191963	confirm	0.548843384	1.506462713	keep	one-at-a-time exact a=0 cost transform
 orf-p4-ablations	no_novelty_mean_gain_percent	40.0	beat-baseline	medium	40.094682770562	confirm	0.548843384	1.506462713	keep	one-at-a-time replacement of positive raw 16e+2 by 16e
 orf-p4-ablations	unsaturated_mean_gain_percent	44.0	beat-baseline	medium	44.355152104598	confirm	0.548843384	1.506462713	keep	one-at-a-time replacement of H=200000 by H=10^18
-orf-p4-generalization	mean_generalization_gain_percent	35.0	beat-baseline	medium						disjoint public unsaturated balanced-cliff regime; confirm interval 30-45 percent
-orf-p4-generalization	all_generalization_masters_clear_fraction	1.0	beat-baseline	high						all three weighted generalization masters must gain at least 5 percent
+orf-p4-generalization	mean_generalization_gain_percent	35.0	beat-baseline	medium	36.393868336949	confirm	0.558269501	1.294787546	keep	disjoint public unsaturated balanced-cliff regime; confirm interval 30-45 percent
+orf-p4-generalization	all_generalization_masters_clear_fraction	1.0	beat-baseline	high	1.000000000000	confirm	0.558269501	1.294787546	keep	all three weighted generalization masters must gain at least 5 percent

@@ -1,6 +1,6 @@
 # Experiment: ORF Phase-4 public generalization regime
 
-**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not generated or run
+**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, confirmed and kept
 
 ## Context
 
@@ -55,11 +55,17 @@ allowed for an outcome.
 
 ## Gate Check
 
-- T019 attribution was sterile-reviewed, executed once, and independently
-  verified across 4,800 rows.
-- Generalization labels, hashes, weights, H, N, prediction, interval, threshold,
-  command, evidence set, and decision rules are fixed before generation.
-- The exact final attempt is absent.
+- T026 returned `SOUND` with no findings before any fixed-master generation.
+- The exact first invocation exited 0 and published the six expected files with
+  a verified COMPLETE manifest and seven exact source/evidence bindings.
+- Independent audit verified 960 ordered physical rows, all 6,720 scores, legal
+  cliff/event/cost identities, exact SHA labels, 64×4 + 256×1 balance per
+  master, and all three weighted A/G/regret/gain/action-count records.
+- Per-master gains are 36.653863013959%, 37.352060597349%, and
+  35.175681399541%; authoritative fixed-decimal mean is 36.393868336949%.
+- All three clear 5%; the mean lies inside `[30,45]`.
+- The eight immutable paths have an empty diff from preregistration commit
+  `6fc4df8`; there was no retry or deviation.
 
 ## Problem alignment
 
@@ -69,10 +75,21 @@ primary construction.
 
 ## Decision
 
-Implement and toy-test the exact regime without generating the three fixed
-masters, then inspect the source before the one-use run.
+**Keep.** The changed public labels, unsaturated resource cap, and balanced
+cliff weighting all preserve a large material conditional-regret advantage.
 
 ## Next Steps
 
-Commit this preregistration, implement the unexecuted runner, freeze its source
-hash, and run the exact public batch once. No held-out or Kaggle action.
+Commit the verified bundle and resolved ledger, then run T021's already frozen
+nested-scale robustness check. No held-out or Kaggle action.
+
+## Prediction vs. Reality
+
+Predicted mean was 35.0%; actual was 36.393868336949%, an error of
+`+1.393868336949` percentage points and inside `[30,45]`. Predicted all-clear
+fraction was 1.0 and actual was exactly `1.000000000000`. Runtime was
+1.294787546 seconds and peak memory was 0.558269501 GB.
+
+This confirms finite-table transfer to one disjoint public synthetic regime. It
+does not convert the three deterministic masters into a population sample or
+establish live/held-out/Kaggle transfer.

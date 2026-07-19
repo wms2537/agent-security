@@ -1,0 +1,4 @@
+master_index	master_digest_hex	physical_profiles	effective_profile_weight	adaptive_score_raw_weighted	global_score_raw_weighted	conditional_regret_raw_weighted	gain_numerator	gain_denominator	gain_percent_decimal	global_fill_length	adaptive_fill_length_counts_weighted_json
+0	96a4e42669a3349e9b74388e952642cb46ac28977b57f7f432422ac10ab353e3	320	512	21304094	15589822	5714272	285713600	7794911	36.653863013959	24	{"1":0,"16":82,"2":0,"24":97,"32":134,"4":69,"8":130}
+1	1104e291afde09c315515ef231a690a433dd890fbe7df1ae0573244a2bb60138	320	512	21824248	15889276	5934972	148374300	3972319	37.352060597349	24	{"1":0,"16":110,"2":0,"24":95,"32":124,"4":68,"8":115}
+2	aab73f8c876012be03ffc548df118fbe5a084dc2a08b8d4894b9c883cf7f27ea	320	512	21407724	15836964	5570760	3571000	101519	35.175681399541	16	{"1":0,"16":106,"2":0,"24":73,"32":141,"4":64,"8":128}

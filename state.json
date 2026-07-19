@@ -183,8 +183,8 @@
       "id": "T020",
       "phase": "4",
       "desc": "Preregister and run the N=3 unsaturated balanced-cliff public generalization benchmark required at Medium intensity",
-      "status": "in_progress",
-      "evidence": "research-log/035 fixes the design/predictions before generation. research-log/036 records unexecuted runner SHA 25f88db... and toys SHA 10d61b0f...; static PASS and toys 5/5 after transparently correcting two toy-fixture mistakes, with runner/design unchanged. Attempt absent; focused T026 review blocks generation.",
+      "status": "done",
+      "evidence": "T026 SOUND preceded generation. First invocation COMPLETE; independent audit verified 960 rows/6720 scores/3 weighted cells, exact labels and 64x4+256x1 balance, manifest and immutable diff from 6fc4df8. Gains 36.653863013959/37.352060597349/35.175681399541%, mean 36.393868336949 inside [30,45], all-clear=1; runtime 1.294787546s, memory 0.558269501GB. Confirmed/kept within public synthetic scope.",
       "parent": "T019"
     },
     {
@@ -492,7 +492,8 @@
       "baseline_provenance": "First log line exact; 961/22/10 artifact lines; runtime 1.491515685s; immutable diff from preregistration commit a416a72 empty. Secondary digit-name extractor defect recorded without rerun.",
       "code_review": "Sterile round-3 SOUND verdict in research-log/030; both prior HIGHs RESOLVED, no severity findings, 15/15 transactional/adversarial bundle tests and 4/4 arithmetic toys pass, and the public non-target core remained unexecuted at gate closure.",
       "core": "Reviewed one-use public core bundle COMPLETE and independently verified: exact mean adaptive gain 40.249038022308% versus predicted 40% [30,50], all 3 masters >=5%, homogeneous zero/length-one controls 3/3, and immutable paths unchanged from preregistration commit 20b73f4.",
-      "attribution": "Sterile-reviewed one-use OAT batch independently verified across 4800 rows/33600 scores: mean gains no_cliff=7.6221, no_curvature=37.8600, no_reset=18.9736, no_novelty=40.0947, unsaturated=44.3552%; all 15 cells material and immutable paths unchanged."
+      "attribution": "Sterile-reviewed one-use OAT batch independently verified across 4800 rows/33600 scores: mean gains no_cliff=7.6221, no_curvature=37.8600, no_reset=18.9736, no_novelty=40.0947, unsaturated=44.3552%; all 15 cells material and immutable paths unchanged.",
+      "generalization": "Sterile-reviewed disjoint public unsaturated balanced-cliff regime independently verified across 960 rows/6720 scores: mean gain 36.393868336949% vs predicted 35%, all 3 masters material, exact 256+256 weighting, COMPLETE bundle, immutable diff empty."
     }
   }
 }
