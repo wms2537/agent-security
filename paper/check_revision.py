@@ -140,7 +140,7 @@ def main() -> None:
         require(f"[{number}]" in cited_text, f"reference [{number}] is uncited")
 
     supplement = SECTIONS[9].read_text(encoding="utf-8")
-    marker = "experiment_id\tmetric\texpected\tdirection\tconfidence\tobserved\tsignal\truntime_sec\tpeak_memory_gb\tstatus\tnotes"
+    marker = "run_id\tmetric\tpredicted_value\tpredicted_direction\tconfidence\tmetric_value\tsignal\tmemory_gb\truntime_s\tstatus\tdescription"
     require(marker in supplement, "embedded ledger header missing")
     start = supplement.index(marker)
     end = supplement.index("\n```", start)

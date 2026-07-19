@@ -37,12 +37,18 @@ comp/.venv/bin/python -m unittest \
 comp/.venv/bin/python experiments/orf-phase5-analysis/generate_reviewer_tables.py
 
 python experiments/orf-phase5-analysis/generate_figures.py
+
+python paper/assemble_report.py
+python paper/reproducibility/build_manifest.py
+python paper/check_revision.py
 ```
 
 The first command tests the exact finite policy calculations and transformed
 constructions. The second regenerates the action-distribution, raw OAT, and
 stratum-decomposition TSVs under `paper/tables/`. The third regenerates the
 three Phase-5 figures and source CSVs using the recorded figure environment.
+The last three commands assemble the ordered section sources, record the local
+source revision and content hashes, and run the manuscript evidence checks.
 
 ## Scientific-family commands
 

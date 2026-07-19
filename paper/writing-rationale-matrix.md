@@ -60,10 +60,10 @@ archive item.
 
 ## Matrix audit
 
-- Total rows: 50.
-- `REWRITE`: 35; `ADD`: 8; `ADD/MOVE`: 1; `MERGE`: 3;
-  `KEEP-AS-ARCHIVE`: 1; controlling/audit rows: 2.
+- Total rows: 51.
+- `REWRITE`: 39; `ADD`: 8; `ADD/MOVE`: 1; `MERGE`: 2;
+  `KEEP-AS-ARCHIVE`: 1.
 - Dominant scientific-prose operation: `REWRITE`.
-- Scientific-prose `KEEP` rows: 0/43 = 0%.
+- Scientific-prose `KEEP` rows: 0/50 = 0%.
 - Every round-1 reviewer issue maps to at least one row.
 - Every numerical Results row maps to a committed or newly generated TSV.
