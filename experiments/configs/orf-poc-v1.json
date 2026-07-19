@@ -1,0 +1,46 @@
+{
+  "contract_version": "orf-poc-v1",
+  "purpose": "public non-target Phase-3 probe of ORF finite-table conditional regret and implementation invariants",
+  "primary": {
+    "master_preimage_ascii": "orf-public-poc-v1|master|000",
+    "master_derivation": "SHA256(master_preimage_ascii)",
+    "profile_stream": "primary|stratum={stratum:02d}|replicate=00",
+    "stratum_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+    "replicate_index": 0,
+    "profile_count": 40,
+    "lengths": [1, 2, 4, 8, 16, 24, 32],
+    "saturation": 200000,
+    "weighting": "equal"
+  },
+  "negative": {
+    "master_preimage_ascii": "orf-public-poc-v1|negative|000",
+    "profile_stream": "negative|profile={profile:02d}",
+    "profile_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
+    "b_log_uniform": ["5", "12"],
+    "a": "0",
+    "d": "0",
+    "cliff": -1,
+    "saturation": 200000
+  },
+  "sdk_fixtures": {
+    "path": "experiments/fixtures/orf-heldout-v7-golden-fixtures.json",
+    "sha256": "fbc56f425786a670dee770509b3cf0380b48d292c6a1b72ebfe582725801b167",
+    "expected_cases": 2
+  },
+  "prediction": {
+    "primary_metric": "adaptive_gain_percent",
+    "predicted_value": 35.0,
+    "confirm_interval_inclusive": [20.0, 50.0],
+    "support_threshold_inclusive": 5.0,
+    "confidence": "low"
+  },
+  "prohibitions": [
+    "network",
+    "beacon fetch",
+    "held-out target derivation",
+    "held-out profile generation",
+    "held-out evaluation",
+    "Kaggle action",
+    "external posting"
+  ]
+}

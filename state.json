@@ -119,8 +119,8 @@
       "id": "T012",
       "phase": "3",
       "desc": "Design a minutes-scale public non-target PoC of the reviewed ORF core assumptions with pre-specified confirm/reject criteria and transferability limits",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Preregistration verification `comp/.venv/bin/python -m json.tool experiments/configs/orf-poc-v1.json >/dev/null && awk -F '\\t' ... results.tsv` returned `results_tsv_fields=11 all_rows=true`; research-log/020 fixes an untouched 40-stratum public label, 35% prediction, 5% support threshold, exact homogeneous/SDK controls, and transferability limits before dispatch.",
       "parent": "T011"
     }
   ],
