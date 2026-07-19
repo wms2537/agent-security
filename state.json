@@ -184,7 +184,7 @@
       "phase": "4",
       "desc": "Preregister and run the N=3 unsaturated balanced-cliff public generalization benchmark required at Medium intensity",
       "status": "in_progress",
-      "evidence": "research-log/035 fixes three disjoint public master preimages, immutable generator, H=1e18, no-cliff weight4/cliff weight1 balanced effective N=512, reviewed exact policies, mean prediction 35% with [30,45] confirm interval, all-clear=1, exact command/attempt/evidence and stop rules before generation. Two ledger rows unresolved; attempt absent.",
+      "evidence": "research-log/035 fixes the design/predictions before generation. research-log/036 records unexecuted runner SHA 25f88db... and toys SHA 10d61b0f...; static PASS and toys 5/5 after transparently correcting two toy-fixture mistakes, with runner/design unchanged. Attempt absent; focused T026 review blocks generation.",
       "parent": "T019"
     },
     {
@@ -226,6 +226,14 @@
       "status": "done",
       "evidence": "research-log/034 records sterile SOUND with HIGH/MEDIUM/LOW none. Reviewer confirmed predictions at parent e0b9520, exact hashes/command/attempt, transaction-before-science, 960-row/6720-score parser parity, exact a/b/d algebra, all five OAT isolations, reviewed evaluator fairness, core-reference equality, 4800-row/15-master audit sufficiency, full bundle bindings, and no held-out/Kaggle action. Attempt absent at closure.",
       "parent": "T019"
+    },
+    {
+      "id": "T026",
+      "phase": "4",
+      "desc": "Focused sterile review of the unexecuted T020 disjoint-label generation, balanced 4:1 weighting, reviewed evaluator replication, evidence tables, and bundle bindings",
+      "status": "in_progress",
+      "evidence": "Target is the committed 404-line runner and 84-line toy suite in research-log/036; fixed generalization masters must remain ungenerated and the final attempt absent until SOUND.",
+      "parent": "T020"
     }
   ],
   "parked_candidates": [],
