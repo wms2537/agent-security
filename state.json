@@ -39,7 +39,7 @@
       "id": "T002",
       "phase": "4",
       "desc": "Read the v2 kernel-v4 run log ([attack] selected/raw-s/unit/returned per model) to learn the REAL per-model winning template, latency, and candidate count; then trim the bank to proven winners and attack latency to raise N",
-      "status": "open",
+      "status": "in_progress",
       "evidence": "v2 rebuild scored 69.570 (was 36.705); real per-model selection now observable in the kernel log",
       "parent": null
     },
