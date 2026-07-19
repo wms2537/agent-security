@@ -1,6 +1,6 @@
 # Experiment: ORF Phase-4 exact global baseline
 
-**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not run
+**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, kept
 
 ## Context
 
@@ -37,8 +37,20 @@ disconfirmation; any reference mismatch is protocol-invalid and blocks Phase 4.
 
 ## Gate Check
 
-Pending execution. The prediction rows, Phase-4 contract, and this rationale are
-committed before dispatch.
+- Independent artifact audit returned
+  `baseline_artifact_audit=PASS rows=960 score_pairs=6720 masters=[8403762, 8824632, 8579258] mean=8602550.666666666046 all_m=16`; the displayed float is non-authoritative, while the asserted exact mean is `25807652/3` and the logged fixed decimal is `8602550.666666666667`.
+- Direct narrow grep extracted every word-only metric. The preregistered secondary
+  name `global_length_16_fraction` contains digits and was therefore missed by
+  `^[a-z_]*`; the explicit superset extractor `grep -E '^[a-z_][a-z_0-9]*:'`
+  recovered `global_length_16_fraction: 1.000000000000` from the original log.
+  The one-use validation label was not rerun or the log rewritten merely to
+  rename a metric.
+- `wc -l` returned 961 score-table lines, 22 aggregate-table lines, and 10 log
+  lines. The exact command is the first log line and output mtimes are plausible
+  for a 1.491515685-second run.
+- `git diff --exit-code a416a72 -- <eight immutable paths>` exited 0 with empty
+  output.
+- The code never computed or reported the adaptive aggregate.
 
 ## Problem alignment
 
@@ -47,9 +59,21 @@ the proposed profile-conditioned structure advantage.
 
 ## Decision
 
-Dispatch one CPU-only baseline implementer after the preregistration commit.
+**Keep.** Baseline reproduction and exhaustive tuning parity pass. The three
+global scores are 8,403,762; 8,824,632; and 8,579,258, all selecting length 16.
+The implementation is a single exact optimizer and passes the simplicity
+criterion. The output-name defect is recorded and future stdout metric names
+must spell numbers as words.
 
 ## Next Steps
 
-Verify artifacts, immutable diff, exact recomputation, and provenance. Stop on
-any mechanical mismatch. No held-out, network, or Kaggle action.
+Implement but do not run the core per-profile wrapper for the code-review gate.
+No held-out, network, or Kaggle action.
+
+## Prediction vs. Reality
+
+The mean prediction was confirmed: actual `8,602,550.666666666667` was
+`+102,550.666666666667` above 8.5m and remained inside `[7.5m,9.5m]`. All three
+masters selected length 16 and all 6,720 independent/reference score pairs
+matched exactly. The result strengthens confidence in baseline mechanics only;
+it says nothing yet about the sealed adaptive gain.

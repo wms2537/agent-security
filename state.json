@@ -135,8 +135,8 @@
       "id": "T014",
       "phase": "4",
       "desc": "Preregister, implement, run, and independently verify the N=3 exact PROBE_GLOBAL baseline; save 320x7 tables and preference profile; this also completes exhaustive tuned-baseline parity",
-      "status": "in_progress",
-      "evidence": "Pre-run ledger verification will use `awk -F '\\t' ... results.tsv`; research-log/024 freezes mean_global_score_raw=8500000, interval 7.5m-9.5m, m16 fraction=1, reference-match=1, N=3 labels from committed config 354cc02, and explicitly forbids computing/reporting the core adaptive aggregate.",
+      "status": "done",
+      "evidence": "Independent verification returned `baseline_artifact_audit=PASS rows=960 score_pairs=6720 masters=[8403762, 8824632, 8579258] ... all_m=16`; exact mean 25807652/3=8602550.666666666667, mechanical match 6720/6720, immutable diff from a416a72 empty, first log line exact, runtime 1.491515685s. The digit-containing secondary line was recovered from the original log with `grep -E '^[a-z_][a-z_0-9]*:'`; no rerun/log rewrite. Baseline is the exhaustive tuned comparator.",
       "parent": "T013"
     },
     {
@@ -326,6 +326,12 @@
       "apply_when": "A held-out custody protocol claims crash recovery across an external thread or service post.",
       "source": "research-log/008-orf-theory-review.md",
       "recurrences": 1
+    },
+    {
+      "lesson": "Parseable metric names must satisfy the verifier's exact regex; numeric concepts should be spelled as words when the extractor permits only lowercase letters and underscores.",
+      "apply_when": "A Phase-3/4 experiment specification requires stdout metrics extracted by `grep ^[a-z_]*:`.",
+      "source": "research-log/024-exp-orf-p4-baseline.md",
+      "recurrences": 1
     }
   ],
   "best_state": {
@@ -447,6 +453,11 @@
       "provenance": "The log's first line is the exact command; 13 log lines and output mtimes are plausible for runtime_seconds=0.679508220; immutable-path diff from preregistration commit 9b0d94a is empty.",
       "user_go": "User advance authorization quoted verbatim: 'then go on with next phases up until phase 6 then, define a goal'. Applies only after a confirmed gate and preserves no-Kaggle/no-held-out-action boundaries.",
       "scope": "Mechanics and finite public synthetic conditional regret only; no held-out v9, live prevalence, learnability, private-transfer, deadline-tail, or Kaggle inference."
+    },
+    "4": {
+      "baseline": "N=3 exact PROBE_GLOBAL scores 8403762, 8824632, 8579258; exact mean 25807652/3=8602550.666666666667 within preregistered interval; all select m=16; 6720/6720 independent score recomputations match.",
+      "tuned_baseline_parity": "The baseline exhaustively argmaxes all seven legal global lengths; no trainable or unsearched baseline hyperparameter exists, so this same run completes exact tuning parity.",
+      "baseline_provenance": "First log line exact; 961/22/10 artifact lines; runtime 1.491515685s; immutable diff from preregistration commit a416a72 empty. Secondary digit-name extractor defect recorded without rerun."
     }
   }
 }

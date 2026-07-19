@@ -59,3 +59,4 @@
 2026-07-19 | P4 | T007 adaptive notebook Kaggle submission | failed_unauthorized | user boundary “No Kaggle action is authorized”; no external action taken; not a scientific disconfirmation
 2026-07-19 | P4 | T013 ORF experiment plan | done | froze 3 primary + 3 generalization public masters, exact global/core policies, code-review ordering, 5 attribution ablations, 3 scales, compute estimates, and 9 sequential tasks; locked held-out/Kaggle remain untouched
 2026-07-19 | P4 | T014 orf-p4-baseline | preregistered | N=3 exact global comparator, predicted mean G=8.5m [7.5m,9.5m], m16 fraction=1, reference match=1; core aggregate forbidden; no held-out/Kaggle action
+2026-07-19 | P4 | T014 orf-p4-baseline | done_keep | exact mean G=8,602,550.6667 within prediction, masters 8,403,762/8,824,632/8,579,258 all m16, 6720/6720 scorer matches, immutable diff empty; digit-name grep defect recorded without rerun; no held-out/Kaggle action
