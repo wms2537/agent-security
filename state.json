@@ -18,7 +18,7 @@
       "spent": 1
     },
     "hypothesis_review_rounds": {
-      "limit": 4,
+      "limit": 10,
       "spent": 4
     },
     "paper_review_rounds": {
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Final round 4 returned NEEDS_REVISION. Reviewer independently reproduced the arithmetic and verified 346 lines, but rejected the circular oracle-margin condition, purpose-built profiles as confirmatory evidence, and uncalibrated independent-noise replay risk. Dispositions: issues 2,4,5,6,8 resolved; 1,3,7 improved. `git show HEAD:research-log/009-hypothesis-iter-4-v2.md | wc -l` returned 346. Full verbatim verdict: research-log/008-orf-theory-review.md. Budget is exhausted at 4/4; Phase 2 remains closed pending user direction.",
+      "evidence": "Final round 4 returned NEEDS_REVISION; full verdict is in research-log/008-orf-theory-review.md. The user then authorized verbatim: 'Authorize one additional hypothesis-review round, raising the limit from 4 to 10, to write and review a held-out ORF hypothesis. No Kaggle action is authorized.' Review limit is 10, spent remains 4 until the next dispatch, Phase 2 remains closed, and Kaggle actions are prohibited.",
       "parent": "T008"
     }
   ],

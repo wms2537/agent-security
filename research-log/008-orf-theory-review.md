@@ -438,3 +438,11 @@ The adverse `NEEDS_REVISION` verdict stands. The reported line count is verified
 `346`, matching the reviewer. The immutable superseding hypothesis was not edited.
 The review budget is exhausted at 4/4, so Phase 2 remains closed and no ORF
 implementation or confirmatory experiment is authorized.
+
+## User authorization for held-out revision reviews
+
+The user authorized the next held-out revision verbatim: “Authorize one additional
+hypothesis-review round, raising the limit from 4 to 10, to write and review a
+held-out ORF hypothesis. No Kaggle action is authorized.” The recorded review
+ceiling is therefore 10; reviews remain sequential and consume one round per
+dispatch. The Kaggle prohibition is explicit and binding.
