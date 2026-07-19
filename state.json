@@ -47,8 +47,8 @@
       "id": "T003",
       "phase": "4",
       "desc": "Investigate multi-post ceiling under forced replay max_tool_hops; add higher-post variant if hops allow",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "Local verification returned `m32_local_capability=PASS configured=32 messages=32 overrequest_clamped=32`; source grep found `MAX_REPLAY_MESSAGES_PER_FINDING: Final[int] = 32` and gateway replay iterates every message at eight hops. `experiments/attack.py` already exposes and clamps `multi_fill_messages=32`, so the source-legal higher-post variant requires no code change. No live/Kaggle action.",
       "parent": null
     },
     {
