@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 10
+      "spent": 11
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -112,7 +112,7 @@
       "phase": "2",
       "desc": "Independently theory-review immutable ORF v9 under the user-extended hypothesis-review budget",
       "status": "in_progress",
-      "evidence": "User authorization: 'I give you another 10 review budget'. Interpreted append-only as raising hypothesis_review_rounds.limit from 10 to 20 while spent remains 10 until the next dispatch. Review target is committed v9 at 74d1836; no held-out, beacon, evaluator, profile, submission, or Kaggle action is authorized.",
+      "evidence": "User authorization: 'I give you another 10 review budget'. Limit raised to 20. Round 11 charged at dispatch against immutable commit 74d1836: 500-line v9, 214-line contract SHA d53b5920d178ddee622bcb53283652006a0e4089a539d9c21e424ee7b67d5235, 159-line schema SHA 64d7ac6d775d92a6edcc22fc7925996aadd69c66c37aed339a9e45dcd4e3c321, 230-line reference checker, and 146-line fixture. Sterile prompt contains only the theory-review template and the four round-10 blockers. Budget 11/20; no held-out, beacon, evaluator, profile, submission, or Kaggle action.",
       "parent": "T010"
     }
   ],
@@ -329,7 +329,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "No freeze is permitted unless a separately authorized independent review returns RIGOROUS, a later source-hashed held-out evaluator and predictions are authorized/committed, both POSIX and authenticated idempotent-thread preflights pass, and the user explicitly authorizes the irreversible freeze chain. No Kaggle action is authorized.",
-      "status": "specification-verified-review-budget-extended-ready-round-11-never-frozen"
+      "status": "theory-review-round-11-in-progress-never-frozen"
     }
   },
   "gates": {
