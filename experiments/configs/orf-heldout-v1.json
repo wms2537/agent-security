@@ -1,0 +1,76 @@
+{
+  "contract_version": "orf-heldout-v1",
+  "created_date": "2026-07-19",
+  "opened": false,
+  "python": "CPython 3.14.3",
+  "prng": "random.Random (MT19937)",
+  "lengths": [1, 2, 4, 8, 16, 24, 32],
+  "budgets": {
+    "generation_s": 9000.0,
+    "deterministic_replay_allowance_s": 8100.0,
+    "replay_deadline_s": 9000.0,
+    "candidate_cap": 2000,
+    "raw_cap": 200000
+  },
+  "orf": {
+    "probe_repetitions_per_length": 3,
+    "minimum_event_fraction": 0.75,
+    "retain_successful_probes": true,
+    "tie_break": "smaller_length"
+  },
+  "profile_generator": {
+    "reset_overhead_log_uniform_s": [5.0, 80.0],
+    "linear_cost_log_uniform_s_per_message": [0.1, 8.0],
+    "quadratic_zero_probability": 0.35,
+    "quadratic_nonzero_log_uniform_s_per_message2": [0.001, 0.2],
+    "cliff_choices": [null, 4, 8, 16, 24],
+    "cliff_probabilities": [0.4, 0.1, 0.15, 0.15, 0.2],
+    "post_cliff_decay_uniform": [0.5, 3.0]
+  },
+  "splits": {
+    "calibration": {
+      "seed": 2026071901,
+      "profiles": 64
+    },
+    "heldout": {
+      "seed": 2026071902,
+      "profiles": 256,
+      "run_exactly_once": true
+    },
+    "homogeneous_negative": {
+      "seed": 2026071904,
+      "profiles": 64,
+      "cost_rule": "c(m)=b*m with b~LogUniform(5.0,12.0)",
+      "event_rule": "e(m)=m"
+    }
+  },
+  "bootstrap": {
+    "seed": 2026071903,
+    "resamples": 10000,
+    "lower_sorted_zero_based_index": 249,
+    "upper_sorted_zero_based_index": 9749
+  },
+  "primary_thresholds": {
+    "orf_gain_over_oracle_best_static_percent_min": 10.0,
+    "paired_bootstrap_difference_lower_bound_min_exclusive": 0.0,
+    "oracle_optimum_normalized_entropy_min": 0.45,
+    "mean_oracle_regret_percent_max": 10.0,
+    "homogeneous_orf_to_static_ratio_max": 1.0
+  },
+  "timing_stress": {
+    "claim_status": "descriptive_only_uncalibrated",
+    "run_sigma": [0.0, 0.1, 0.25],
+    "block_sigma": [0.05],
+    "candidate_sigma": [0.05, 0.15],
+    "burst_probability": [0.0, 0.01],
+    "burst_multiplier": [2.0, 5.0],
+    "block_size_candidates": 32,
+    "profiles_per_regime": 256
+  },
+  "source_hashes_sha256": {
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f",
+    "comp/sdk/aicomp_sdk/evaluation/ops.py": "455a835e0a58abab79b24c986a937b99712e69ef83d6068fc68873e3c051fe74",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "experiments/attack.py": "8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d"
+  }
+}

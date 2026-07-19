@@ -8,9 +8,9 @@
   "output_format": "notebook+working-note",
   "idea_dna": {
     "problem": "Maximize the MEAN of 4 independently-normalized-and-capped leaderboard cells ({gpt_oss,gemma}x{public,private}) on the Kaggle AI-Agent-Security benchmark.",
-    "assumption": "No single chain length dominates when the observable public target's score-cost-reliability profile changes across regimes; measuring all seven legal lengths can beat the best static full-action policy when the charged oracle margin exceeds the adaptation tax. Hidden-private transfer is not assumed.",
-    "assumption_source": "SDK/gateway/scorer source, real v1/v2 evidence, T005/T006 controlled measurements, and the frozen four-profile derivation in research-log/009-hypothesis-iter-4-v2.md; the live public and hidden-private target profiles remain unknown.",
-    "novelty_claim": "Online Replay Frontier: replace fixed-length routing with exhaustive, budget-charged online mapping over all seven legal chain lengths, then select the public model's constrained optimum; private transfer is an external case study, not part of the local confirmation claim."
+    "assumption": "Across an independently generated, unopened synthetic coverage distribution, response-profile heterogeneity is large enough for exhaustive per-profile chain-length measurement to repay its charged probe cost versus the hindsight oracle-best static length; a homogeneous single-dominant block must show the opposite sign.",
+    "assumption_source": "Benchmark mechanics in frozen SDK/gateway/scorer sources plus T005/T006 controlled evidence motivate the generator dimensions; the held-out seed in experiments/configs/orf-heldout-v1.json is unopened, and no claim is made about live target prevalence, replay-risk calibration, or private transfer.",
+    "novelty_claim": "Held-Out Online Replay Frontier (ORF-H): replace a static chain length with exhaustive, budget-charged online selection and test its information value on an unopened synthetic profile distribution against an oracle-best same-action-set static control and a single-dominant negative control."
   },
   "budgets": {
     "research_iterations": {
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Final round 4 returned NEEDS_REVISION; full verdict is in research-log/008-orf-theory-review.md. The user then authorized verbatim: 'Authorize one additional hypothesis-review round, raising the limit from 4 to 10, to write and review a held-out ORF hypothesis. No Kaggle action is authorized.' Review limit is 10, spent remains 4 until the next dispatch, Phase 2 remains closed, and Kaggle actions are prohibited.",
+      "evidence": "Superseding held-out hypothesis research-log/010-hypothesis-iter-4-v3-heldout.md and contract experiments/configs/orf-heldout-v1.json are frozen pre-data. JSON validation passed. Seed-independent negative-control verification returned `PASS homogeneous negative: m=1 is oracle-best for b grid [5,12], candidate/raw caps inactive`. Held-out seed 2026071902 is unopened and no generator exists. Review limit is 10, spent is 4 until dispatch; Phase 2 remains closed and Kaggle actions are prohibited.",
       "parent": "T008"
     }
   ],
@@ -158,6 +158,15 @@
     "real_lb_note": "v2 (kernel v4, submitted 2026-07-18 12:49) = 69.570 public, +89% over v1's 36.705. Mid-pack; top ~103.67. Confirms the 4-cause root-cause fix. Mock scores remain mechanics-only, not LB predictions.",
     "prior_lb": 36.705,
     "commit": "pending"
+  },
+  "heldout_sets": {
+    "orf-heldout-v1": {
+      "contract": "experiments/configs/orf-heldout-v1.json",
+      "seed": 2026071902,
+      "opened": false,
+      "opened_at": null,
+      "rule": "Open exactly once in Phase 3 only after a rigorous theory verdict, implementation verification, and committed prediction rows."
+    }
   },
   "gates": {
     "0": {
