@@ -176,7 +176,7 @@
       "phase": "4",
       "desc": "Preregister and run the N=3 one-at-a-time attribution ablation batch for cliffs, curvature, reset cost, novelty, and saturation",
       "status": "in_progress",
-      "evidence": "research-log/032 fixes five OAT mechanisms and mean-gain predictions before implementation: no_cliff=7, no_curvature=35, no_reset=22, no_novelty=40, unsaturated=44 percent; same 3 masters and reviewed exact action engine; exact command/attempt/bundle/input hashes; 4,800-row evidence requirement; invalidity rules. Five results rows are unresolved and the final attempt is absent.",
+      "evidence": "research-log/032 fixes predictions/mechanisms before implementation. research-log/033 records unexecuted runner SHA 568d285a... and tests SHA a4036d1b...; static compile and 5 toy tests pass, exact scorer/coefficient/single-change/tie/schema checks included. The 4,800-row runner remains unexecuted pending targeted sterile T025 review; final attempt absent.",
       "parent": "T018"
     },
     {
@@ -218,6 +218,14 @@
       "status": "done",
       "evidence": "research-log/029 records lexical absolute/normpath direct-child checks without child resolution, lexists/lstat rejection of all existing creation names, exact lexical verifier identity, O_NOFOLLOW descriptor reads with inode/type/content checks, and renameat2 no-replace race closure. Static compile passed; bundle tests increased to 15/15 with five live/dangling/race adversarial tests; core toys remain 4/4. The repository core attempt and outputs remain absent.",
       "parent": "T016"
+    },
+    {
+      "id": "T025",
+      "phase": "4",
+      "desc": "Sterile review of the unexecuted T019 exact coefficient recovery, five one-at-a-time transforms, scorer parity, evidence tables, and bundle bindings",
+      "status": "in_progress",
+      "evidence": "Target is the committed 715-line ablation runner and 150-line toy suite described in research-log/033. Reviewer must not execute primary data; T019 remains blocked until SOUND.",
+      "parent": "T019"
     }
   ],
   "parked_candidates": [],
