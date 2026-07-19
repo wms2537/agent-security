@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 8 returned NEEDS_REVISION. Non-target calibration v1 was rejected and preserved as crash. Preregistered v2 passed every support check: equal H=200000 64/64 clear 5% (minimum 34.575811113981%, median 40.924155277025%); balanced/no-cliff/cliff H=200000 each 64/64; equal H=10^18 64/64; minimum cliff-floor distance 2.4702e-8. Independent check: `validated_rows=512 unique_design_rows=512 masters=64 all_score_identities=true all_summary_counts=true support=true`. Exploratory only, budget 2/2; review budget 8/10. Remaining protocol/schema blockers will be addressed in v7. No held-out beacon/Kaggle action.",
+      "evidence": "V7 is ready for review: `wc -l` returned 468 hypothesis, 227 contract, 353 schema lines; Draft 2020-12 and representative invalid/valid outcome, completed, fetch-marker, and valid-summary samples passed with two negative samples rejected; 24 unique V01-V24 names; all source/calibration hashes match; heldout_run_directory=ABSENT. V7 adds minimal OUTCOME union, pre-GET markers, COMPLETED/terminal post, exact per-parameter Fraction bridge, floor certificate, and full cross-field predicates. Exploratory calibration is support only, budget 2/2; review budget 8/10 before dispatch. No target/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -247,6 +247,18 @@
       "opened_at": null,
       "rule": "One monotone future freeze only after RIGOROUS review and committed implementation/tests/predictions; exact pre-pulse user ACK; one-file crash-terminal transitions; no Kaggle action.",
       "status": "reviewed-needs-revision-never-frozen"
+    },
+    "orf-heldout-v5": {
+      "contract": "experiments/configs/orf-heldout-v5.json",
+      "artifact_schema": "experiments/configs/orf-heldout-v5-artifacts.schema.json",
+      "seed": null,
+      "beacon_target_unix_ms": null,
+      "beacon_revealed": false,
+      "freeze_created": false,
+      "user_acknowledged": false,
+      "opened_at": null,
+      "rule": "Only after RIGOROUS review and later phase implementation/tests/predictions may one future freeze begin; pre-GET durable markers, minimal terminal OUTCOME, same-thread terminal hashes, and no Kaggle action are mandatory.",
+      "status": "locked-pre-review-never-frozen"
     }
   },
   "gates": {
