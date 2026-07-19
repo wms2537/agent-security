@@ -1,0 +1,4 @@
+master_index	master_digest_hex	profiles	adaptive_score_raw	global_score_raw	adaptive_minus_global_raw	global_fill_length	all_adaptive_fill_lengths_one
+0	4a5c6b7eb6afe463c886defb6d6defef42c31dad1172c577df42cf48a274e274	64	1277552	1277552	0	1	true
+1	d700f8748e19f5607d545de0458555bd593e277df60673b87a65b51ab1812afa	64	1198568	1198568	0	1	true
+2	c17eb75e2e8e10a48f02a7d2b056bdbdce9b97b7cee5eeb2a9f7b9443b2ce3a1	64	1230140	1230140	0	1	true

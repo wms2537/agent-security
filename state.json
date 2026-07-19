@@ -159,8 +159,8 @@
       "id": "T017",
       "phase": "4",
       "desc": "Preregister and run the N=3 ORF core per-profile-vs-global comparison plus homogeneous distinguishing negative",
-      "status": "in_progress",
-      "evidence": "research-log/031 preregisters the exact one-use command/attempt/bundle/binding hashes; mean-gain prediction 40% with [30,50] confirmation interval; all-masters-clear, homogeneous-zero, and homogeneous-length-one fractions 1.0; confirm/partial/disconfirm/invalid rules. Four results.tsv rows are unresolved before dispatch. T016 is SOUND and the final attempt is absent.",
+      "status": "done",
+      "evidence": "First exact invocation exited 0 and self-published a COMPLETE exact-set/hash-bound bundle. Independent verifier PASS; audit recomputed 960 rows and exact A=[11886082,12187804,12113766], G=[8403762,8824632,8579258], regrets=[3482320,3363172,3534508], gains=[41.437632336565,38.111186959411,41.198294770946], mean=40.249038022308 inside [30,50]. Clear fraction=1 and both homogeneous fractions=1; immutable diff from preregistration 20b73f4 empty. Runtime 0.132034047s, memory 0.515918732GB; keep within public synthetic scope.",
       "parent": "T016"
     },
     {
@@ -474,7 +474,8 @@
       "baseline": "N=3 exact PROBE_GLOBAL scores 8403762, 8824632, 8579258; exact mean 25807652/3=8602550.666666666667 within preregistered interval; all select m=16; 6720/6720 independent score recomputations match.",
       "tuned_baseline_parity": "The baseline exhaustively argmaxes all seven legal global lengths; no trainable or unsearched baseline hyperparameter exists, so this same run completes exact tuning parity.",
       "baseline_provenance": "First log line exact; 961/22/10 artifact lines; runtime 1.491515685s; immutable diff from preregistration commit a416a72 empty. Secondary digit-name extractor defect recorded without rerun.",
-      "code_review": "Sterile round-3 SOUND verdict in research-log/030; both prior HIGHs RESOLVED, no severity findings, 15/15 transactional/adversarial bundle tests and 4/4 arithmetic toys pass, and the public non-target core remained unexecuted at gate closure."
+      "code_review": "Sterile round-3 SOUND verdict in research-log/030; both prior HIGHs RESOLVED, no severity findings, 15/15 transactional/adversarial bundle tests and 4/4 arithmetic toys pass, and the public non-target core remained unexecuted at gate closure.",
+      "core": "Reviewed one-use public core bundle COMPLETE and independently verified: exact mean adaptive gain 40.249038022308% versus predicted 40% [30,50], all 3 masters >=5%, homogeneous zero/length-one controls 3/3, and immutable paths unchanged from preregistration commit 20b73f4."
     }
   }
 }

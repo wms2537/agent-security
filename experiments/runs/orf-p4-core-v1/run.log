@@ -1,0 +1,11 @@
+comp/.venv/bin/python -I experiments/orf-p4-core/run_core.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-core-v1
+mean_adaptive_gain_percent: 40.249038022308
+minimum_adaptive_gain_percent: 38.111186959411
+maximum_adaptive_gain_percent: 41.437632336565
+all_masters_clear_fraction: 1.000000000000
+homogeneous_zero_fraction: 1.000000000000
+homogeneous_length_one_fraction: 1.000000000000
+masters_evaluated: 3
+profiles_evaluated: 960
+peak_memory_gb: 0.515918732
+runtime_seconds: 0.132034047

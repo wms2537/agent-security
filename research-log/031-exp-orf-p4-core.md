@@ -1,6 +1,6 @@
 # Experiment: ORF Phase-4 reviewed core
 
-**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not run
+**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, confirmed and kept
 
 ## Context
 
@@ -76,11 +76,22 @@ reuse the same final attempt identity.
 
 ## Gate Check
 
-- T016 is `SOUND` and the reviewed core remains unexecuted.
-- The exact final attempt is absent.
-- All five pre-run SHA-256 bindings match the reviewed/frozen values.
-- The public primary labels, actions, thresholds, predictions, decision rules,
-  command, and expected bundle are fixed before dispatch.
+- The exact command exited 0 on its first invocation and published the exact six
+  expected files to the previously absent final attempt.
+- Independent `verify_complete_bundle` returned `PASS`; manifest status is
+  `COMPLETE`, its command/attempt/file set/bindings match exactly, and every
+  artifact digest verifies.
+- An independent TSV audit recomputed all 960 rows: adaptive scores
+  `11,886,082`, `12,187,804`, `12,113,766`; global scores `8,403,762`,
+  `8,824,632`, `8,579,258`; regrets `3,482,320`, `3,363,172`, `3,534,508`.
+- Exact per-master gains are 41.437632336565%, 38.111186959411%, and
+  41.198294770946%; their exact mean is 40.249038022308%.
+- All three primary masters clear 5%; all three homogeneous records have exact
+  zero regret, global length one, and 64/64 adaptive length-one choices.
+- `run.log` has 11 lines with the canonical command first. Output mtimes span
+  0.125 seconds, consistent with reported runtime 0.132034047 seconds.
+- The eight immutable Phase-4 paths have an empty diff from preregistration
+  commit `20b73f4`.
 
 ## Problem alignment
 
@@ -91,10 +102,24 @@ universal larger-action effect.
 
 ## Decision
 
-Run the exact canonical command once, then independently verify the complete
-bundle and recompute every reported aggregate from its TSV artifacts.
+**Keep.** The run satisfies every preregistered confirm rule and requires no
+retry or deviation.
 
 ## Next Steps
 
-Commit this preregistration and unresolved ledger rows, dispatch the one-use
-public non-target core run, and stop before T018 unless all fixed gates pass.
+Commit the verified bundle and resolved ledger. T018 may apply the user's advance
+authorization because the baseline/core gates passed. No held-out or Kaggle
+action becomes authorized.
+
+## Prediction vs. Reality
+
+The predicted mean was 40.0%; actual was 40.249038022308%, a difference of
+`+0.249038022308` percentage points and inside the frozen `[30%,50%]` interval.
+The predicted clear fraction and both homogeneous fractions were all `1.0`, and
+all three actuals were exactly `1.000000000000`. Peak memory was 0.515918732 GB
+and runtime was 0.132034047 seconds.
+
+This confirms robust finite public-table conditional regret for the reviewed
+action-scope change. It does not establish live-model heterogeneity,
+learnability, private transfer, a live deadline, held-out performance, or Kaggle
+performance.

@@ -29,7 +29,7 @@ poc	sdk_cases_verified	2	match-baseline	high	2	confirm	0.053520203	0.679508220	k
 orf-p4-baseline	mean_global_score_raw	8500000	unclear	medium	8602550.666666666667	confirm	0.023773193	1.491515685	keep	exact N=3 public non-target PROBE_GLOBAL baseline and tuned parity
 orf-p4-baseline	global_length_16_fraction	1.0	match-baseline	high	1.000000000000	confirm	0.023773193	1.491515685	keep	calibration-derived prediction that every master selects m=16
 orf-p4-baseline	mechanical_reference_match_fraction	1.0	match-baseline	high	1.000000000000	confirm	0.023773193	1.491515685	keep	exact default tables must match immutable calibration reference
-orf-p4-core	mean_adaptive_gain_percent	40.0	beat-baseline	medium						public N=3 per-profile-vs-global core; confirmation interval 30-50 percent
-orf-p4-core	all_masters_clear_fraction	1.0	beat-baseline	high						all three fixed public masters must have adaptive gain at least 5 percent
-orf-p4-core	homogeneous_zero_fraction	1.0	match-baseline	high						exact zero-regret distinguishing negative across three homogeneous masters
-orf-p4-core	homogeneous_length_one_fraction	1.0	match-baseline	high						all homogeneous rows and global policies must select fill length one
+orf-p4-core	mean_adaptive_gain_percent	40.0	beat-baseline	medium	40.249038022308	confirm	0.515918732	0.132034047	keep	public N=3 per-profile-vs-global core; confirmation interval 30-50 percent
+orf-p4-core	all_masters_clear_fraction	1.0	beat-baseline	high	1.000000000000	confirm	0.515918732	0.132034047	keep	all three fixed public masters must have adaptive gain at least 5 percent
+orf-p4-core	homogeneous_zero_fraction	1.0	match-baseline	high	1.000000000000	confirm	0.515918732	0.132034047	keep	exact zero-regret distinguishing negative across three homogeneous masters
+orf-p4-core	homogeneous_length_one_fraction	1.0	match-baseline	high	1.000000000000	confirm	0.515918732	0.132034047	keep	all homogeneous rows and global policies must select fill length one
