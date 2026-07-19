@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 2,
-      "spent": 1
+      "spent": 2
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Selected after T008; varies=candidate-structure-policy, kind=metric. No implementation or experiment is authorized before the Phase-2 rigor gate passes.",
+      "evidence": "Selected after T008; varies=candidate-structure-policy, kind=metric. Theory-review budget is exhausted at 2/2: round 1 returned `Agent errored: Request blocked.` and recovery found no round-2 blind assessment. `python -m json.tool state.json | rg -A2 'hypothesis_review_rounds'` reports limit 2, spent 2. Phase-2 gate remains closed; no implementation or experiment is authorized without explicit user direction.",
       "parent": "T008"
     }
   ],

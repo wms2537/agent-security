@@ -15,3 +15,5 @@
 2026-07-19 | P4 | USER CHECKPOINT T007 real Kaggle experiment | open | submission-ready notebook; approve push+submit to measure >=106 lead / >=125 strong / 82-89 fallback / <78 failure
 2026-07-19 | P2 | T008 proprietary-moat problem reframing | done | user redirected away from copied recipes; PROBLEM.md now anchors online system identification, constrained chain-length optimization, and a distinguishing-prediction moat
 2026-07-19 | P2 | SELECT T009 Online Replay Frontier hypothesis | in_progress | varies=candidate-structure-policy; fixed-M replacement must pass Phase-2 anti-stacking and independent theory review before implementation
+2026-07-19 | P2 | T009 theory review round 1 | blocked-no-verdict | reviewer returned `Agent errored: Request blocked.`; logged verbatim, hypothesis remains frozen, final review round dispatched methodology-only
+2026-07-19 | P2 | T009 theory-review recovery | blocked-user-checkpoint | review budget 2/2 consumed; no recoverable round-2 verdict; Phase-2 gate remains closed and no experiment is authorized
