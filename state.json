@@ -55,8 +55,8 @@
       "id": "T004",
       "phase": "2",
       "desc": "Design stronger private-guardrail-transfer attacks (laundering, non-http exfil, destructive) \u2014 the differentiator vs public notebooks",
-      "status": "in_progress",
-      "evidence": "CONFUSED_DEPUTY private reserve (22%) added + validated (refuse_exfil norm=11.28); UNTRUSTED_TO_ACTION/DESTRUCTIVE_WRITE proven structurally blocked",
+      "status": "failed",
+      "evidence": "rg -n '28 % of budget was dead weight|real-lb-v1-multipost' research-log/002-rootcause-and-rebuild.md results.tsv -> results.tsv:8 real-lb-v1-multipost normalized_lb predicted ~85, actual 36.705, disconfirm; research-log/002:20 identifies the 22% CONFUSED_DEPUTY reserve plus hedges as dead weight. Clean single-post exfil already reaches private cells, so this branch is refuted.",
       "parent": null
     }
   ],
