@@ -875,3 +875,182 @@ The sterile re-review contains the five round-6 blockers in the template's allow
 previous-review slot and no project learnings or assurances. Dispatch consumes
 round 7/10. No freeze, pulse target, opening ledger, profile, implementation,
 experiment, external submission, or Kaggle action exists.
+
+## Beacon-held-out round 7 returned verdict
+
+The reviewer returned the following report verbatim:
+
+**Status: DONE**
+
+The hypothesis entry contains **511 lines**; `git show HEAD:research-log/012-hypothesis-iter-4-v5-beacon-heldout.md | wc -l` also returns 511. The referenced contract contains 265 lines, parses as JSON, and its five declared source hashes match the current files.
+
+## Blind assessment
+
+### Previous-review disposition
+
+1. **Beacon timestamp and freeze enforcement — RESOLVED.** The contract now specifies exact `%fZ` parsing, integer UTC-millisecond conversion without floating timestamps, millisecond and minute alignment, ordered `FREEZE.json` fields, exclusive creation, clean `HEAD=I` at freeze, and clean `HEAD=A` plus the exact `I→F→A` chain before combined reveal/evaluation. The live [NIST pulse](https://beacon.nist.gov/beacon/2.0/pulse/last) uses the expected `...00.000Z` representation, and [NIST’s API documentation](https://csrc.nist.gov/Projects/interoperable-randomness-beacons/beacon-20) confirms millisecond POSIX requests and “specific time or next closest” behavior. A new reveal-ledger contradiction remains below.
+
+2. **Negative global policy — RESOLVED.** `PROBE_GLOBAL_NEGATIVE` is independently selected on the negative split; no primary length is reused.
+
+3. **5% prediction — RESOLVED as requested.** It is explicitly a low-confidence normative materiality threshold, not a mechanism-derived expectation. No empirical or analytical support for expecting 5% is claimed.
+
+4. **Executable schema — IMPROVED, not resolved.** Many previously absent details were added, but the contract is still not a single-valued executable specification.
+
+5. **Prediction ledger/selective opening — RESOLVED for preregistration custody.** Path, header, exact unresolved rows, whole-file hash, freeze binding, public message, ACK, terminal abandonment, and preservation obligations are present. Post-evaluation row resolution remains unspecified as a new issue.
+
+### Justification correctness
+
+The load-bearing algebra is sound under the stated real-arithmetic model:
+
+- A retained candidate with \(e\) severity-5 predicates contributes \(16e\), and a unique non-null cell hash adds 2, hence \(q_z(m)=16e_z(m)+2\). The source-hashed scorer implements exactly this reduction.
+- For any fixed split and common score table,
+  \[
+  A-G=\sum_z\left[\max_m S_z(m)-S_z(m_G)\right]\ge 0.
+  \]
+  This is an identity, not evidence that the realized advantage is material.
+- For the negative split, the seven probes consume \(87b_z\) replay units and contribute common raw score \(16(87)+2(7)=1406\). With \(T=8100/b_z-87\in[588,1533]\), replay binds before generation, candidate count, or saturation. For \(m>1\),
+  \[
+  \lfloor T/m\rfloor(16m+2)\le17T<18(T-1)\le18\lfloor T\rfloor ,
+  \]
+  so \(m=1\) uniquely maximizes the fill under exact arithmetic. The zero aggregate difference follows because both selectors use the same \(m=1\).
+- \(\binom{14}{6}=3003\) denominator-eight mixtures is correct.
+
+These equations carry the argument; they are not merely decorative. The unsupported element is the 5% magnitude, which is now honestly normative.
+
+There is, however, no implementation-aware floating-point error bound connecting the negative proof to the specified Python `float` computations. The margins are large enough that the conclusion is almost certainly robust, but an exact-integer prediction should not rest on “almost certainly.” Either derive an IEEE-754 error envelope or compute the resource capacities in an exact representation.
+
+### Mathematical depth and validity domains
+
+The central abstraction is conditional regret: the value of expanding the action class from one split-wide action to one action per profile. Its validity is limited to deterministic, stationary, fully observed profile tables with additive per-profile budgets and independent per-profile scoring. It does not support noisy inference, online learning, deployment, a target-population expectation, or generalization beyond the selected equal-stratum support.
+
+Notation is not fully disciplined. `G(D)` denotes the global policy aggregate at lines 56 and 70, while `G=9000` denotes generation budget at line 125; later `A/G` again means the aggregate comparator. Rename one. A proof should not require readers to infer which incompatible meaning of \(G\) applies.
+
+### Logical soundness
+
+The most serious defect is the outcome logic.
+
+The claim is “gain ≥5%,” and the finite outcome is measured exactly. Therefore every valid result below 5% falsifies that magnitude prediction. Lines 274–283 and contract lines 204–211 instead call \(0<\text{gain}<5\%\) **INCONCLUSIVE** and reserve **DISCONFIRMED** for exactly zero. What uncertainty remains after an exact finite evaluation that could make 3% consistent with “at least 5%”? None. This outcome partition weakens falsifiability and creates selective interpretive protection.
+
+A second contradiction makes the reveal state machine non-executable as written. Hypothesis lines 338–345 and contract line 98 require `OPENED.json` and `EVALUATION_STARTED.json` to be created before deriving the master digest, while the `OPENED.json` schema at contract lines 99–114 requires `master_digest_hex`. Both requirements cannot be satisfied. Moreover, two independent filesystem files cannot be created as one atomic transaction; the terminal semantics for a crash between them must be defined.
+
+A third defect is schema underdetermination:
+
+- Candidate IDs require “zero-padded” profile and candidate ordinals but specify no widths.
+- Exact `policy_id`, `policy_parameter`, phase, row-status, and decision vocabularies are absent.
+- `fill_length` is declared integer even for policies for which it is inapplicable; no sentinel is specified.
+- Primary null-cliff serialization is unspecified.
+- Negative fields are simultaneously declared integers and literal `NA`.
+- Mixture tie-breaking does not say lexicographically smallest or largest.
+- “At least 17 significant digits” permits multiple ratio strings and is not canonical.
+- `primary_gain_numerator` and denominator are not algebraically defined.
+- Nested summary objects (`row_counts`, stratum metrics, histogram, secondary metrics, binding and failure counts) have keys but no internal schemas.
+- `freeze-anchor.json` and `revealed-pulse.json` are called typed/preserved artifacts without exact content schemas.
+
+Finally, the frozen prediction rows have no deterministic post-run resolution rule. The contract does not define how exact outcomes populate `metric_value`, `signal`, and `status`, or how those changes are committed while preserving the frozen pre-run hash.
+
+Claim verbs are otherwise appropriately predictive—principally “will achieve” and “will have.” “Conditioning effect” should remain restricted to the deterministic paired policy contrast and not be allowed to imply a population or live-system causal effect.
+
+### Assumption completeness
+
+Load-bearing assumptions include:
+
+- One probe reveals future cost and yield exactly and permanently.
+- Cost/yield are deterministic, stationary, additive, and order-independent.
+- Profiles have independent budgets and per-profile score caps.
+- All action candidates are evaluated under identical scorer semantics.
+- The same score table is reused by both selectors.
+- No concurrency, caching, shared overhead, deadline jitter, or cross-profile state exists.
+- Profile support and equal weighting are the estimand, not a prevalence model.
+- The beacon is forward-unpredictable; HTTPS, thread timestamps, local git history, and the user ACK are honest.
+- CPython, `random.Random`, `math.log/exp`, and float-floor behavior reproduce the specified selector.
+- The global-score denominator is positive; here the always-positive \(m=1\) probe guarantees it.
+- No earlier iteration tuned support or threshold to a realized target pulse.
+
+Violations of the first six invalidate the claimed replay-selection interpretation. Violations of custody assumptions invalidate held-out status. Runtime/numeric violations invalidate the exact negative check.
+
+### Threat audit
+
+- **Selection:** The beacon prevents tuning to one realized draw, but not analytical or prior-iteration tuning of the deliberately stress-weighted support. Scope restriction addresses generalization, not design-selection bias.
+- **Confounding:** The primary same-probe contrast isolates decision scope well. Per-profile caps, integer floors, cliff prevalence, and scorer novelty bonuses remain alternative drivers of magnitude.
+- **Assignment:** Fully paired policy evaluation and policy-free keyed substreams are appropriate; randomized assignment is unnecessary for this deterministic finite estimand.
+- **Protocol deviation:** The intended `I→F→A` custody is strong, but the contradictory opening state machine and underspecified raw-pulse artifacts prevent mechanical enforcement.
+- **Missing data:** Any missing/duplicate row or exception invalidates confirmation, which is appropriate. Partial-output schemas still need exact definition.
+- **Measurement:** Source hashes and candidate-level scorer assertions are strong. The measured construct remains an oracle synthetic objective, not live replay value.
+- **Analysis flexibility:** Contrast, support, weighting, and threshold are fixed. The “inconclusive” subthreshold category reintroduces interpretive flexibility.
+- **Selective reporting:** Single-freeze publication and terminal abandonment are substantial safeguards. The unresolved post-run prediction-ledger transition is a remaining gap.
+
+### Taxonomy verification
+
+The defensible classification is:
+
+- **Opportunity:** Evidence Gap, with Resource Bottleneck secondary.
+- **Method:** **Empirical Mapping dominant**, Optimization/Search secondary. The current “Optimization/Search plus Empirical Mapping” does not identify the required dominant paradigm.
+- **Operation:** Replace a split-wide argmax with a profile-conditioned argmax.
+
+This is not Bridge × Synthesis, so the tripwire is not triggered.
+
+### Anti-stacking check
+
+Pass. The distinguishing prediction is genuine: identical probes and resource state can yield a material adaptive/global contrast under heterogeneous profiles but exact equality under homogeneous profiles. A fixed probe portfolio or generic mixture does not itself predict this paired decision-scope contrast.
+
+### Occam’s razor
+
+The simpler sufficient hypothesis is:
+
+> On this frozen finite support, profile-specific optimal actions incur at least 5% less aggregate conditional regret than the best single action; on the homogeneous control, regret is zero.
+
+The SDK, beacon, and custody machinery are measurement and anti-tuning infrastructure, not part of the scientific mechanism. The named “replay value” should not obscure that the tested mechanism is an oracle conditional-regret table.
+
+### Alternative explanations for confirmation
+
+A ≥5% result could arise from:
+
+- Deliberately equal-weighting cliff-heavy or otherwise unrealistic strata.
+- Per-profile saturation caps and integer resource floors.
+- Exact stationarity and noiseless one-probe revelation.
+- The generic weak dominance of a larger, oracle action class.
+- The scorer’s per-candidate uniqueness bonus.
+- Prior analytical selection of factor ranges across hypothesis iterations.
+- Restricting the nonadaptive mixture comparator to denominator eight.
+
+All are compatible with confirmation and prevent broader deployment or population claims.
+
+### Overall: **NEEDS_REVISION**
+
+Required fixes, in severity order:
+
+1. **Correct the decision partition** at hypothesis lines 274–283 and contract lines 204–211. Every exact gain below 5% must disconfirm the ≥5% materiality prediction. Report zero versus positive-subthreshold as descriptive subtypes, not different falsification status.
+2. **Repair the opening state machine** at hypothesis lines 328–347 and contract lines 96–122. Define an executable sequence in which target bytes are preserved, the master is derived, `OPENED.json` is exclusively created with that digest, `EVALUATION_STARTED.json` is then exclusively created, and no profile generation begins until both exist. Define terminal behavior between each transition.
+3. **Finish the schemas** at contract lines 23–35 and 219–256: exact padding widths, identifiers/enums, conditional sentinels, nested summary schemas, canonical decimal formatting, numerator/denominator formulas, tie direction, and exact raw anchor/pulse artifacts.
+4. **Define prediction-ledger resolution** at contract lines 132–140: exact outcome-to-row mapping, signal/status values, numeric formatting, update timing, and commit/progress obligations.
+5. **Remove notation collision and bridge real arithmetic to execution** at hypothesis lines 47–56, 122–139, and 250–266. Rename the generation budget or comparator aggregate and add a float-error bound or exact capacity arithmetic.
+6. **Make the taxonomy dominant/secondary ordering explicit** at hypothesis lines 468–474.
+
+## Actionable coaching
+
+Use two outcome fields rather than one overloaded label:
+
+- `materiality_prediction = CONFIRMED | DISCONFIRMED`
+- `contrast_subtype = ZERO | POSITIVE_SUBTHRESHOLD | MATERIAL`
+
+That preserves useful scientific distinctions without insulating the 5% prediction from falsification.
+
+Represent the custody protocol as an explicit monotone state machine:
+
+`IMPLEMENTED → FROZEN → ACKNOWLEDGED → OPENED → EVALUATION_STARTED → COMPLETED`
+
+Every transition should name its exclusive artifact, required predecessor hashes, allowed git diff, and terminal crash state.
+
+Replace prose-only “schema” strings with actual JSON Schema definitions or an equally deterministic validator specification. Add golden fixtures for one primary profile, one negative profile, one zero-event candidate, one mixture, one invalid artifact, and the complete summary key tree.
+
+For the negative proof, either use exact rational/dimensionless capacity calculations or add a conservative floating-error proof showing that the smallest \(m=1\) advantage remains far above the maximum rounding perturbation.
+
+Finally, describe the scientific contribution as a preregistered finite conditional-regret stress test. Any stronger “replay value” language should be reserved for a later noisy, live, externally weighted experiment.
+
+## Round 7 gate decision
+
+The adverse `NEEDS_REVISION` verdict stands. The reported 511 hypothesis lines,
+265 contract lines, contract SHA-256, JSON validity, and all five source hashes
+were independently verified against commit `f4098e9`. The v5 hypothesis and v3
+contract remain immutable. Phase 2 stays closed and no freeze, target, profile,
+experiment, or Kaggle action exists.

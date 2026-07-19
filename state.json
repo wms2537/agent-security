@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Theory review round 7 was charged and dispatched against committed 511-line ORF-B v5 plus 265-line v3 contract SHA-256 15cca91e5865b652453104c873b0e2acb3a95dd65eeb27e070c3177cc59596e5. The sterile prompt contains only the template, artifact path, claim/question types, and the five round-6 blockers. Budget is 7/10; Phase 2 remains closed. No freeze, beacon target/digest/profile, implementation, experiment, or Kaggle action exists.",
+      "evidence": "Round 7 returned NEEDS_REVISION after verifying the 511-line v5, 265-line contract, JSON validity, contract SHA-256, and five source hashes. Beacon parsing/freeze enforcement, negative policy, normative threshold labeling, preregistration custody, and anti-stacking resolved. Remaining blockers: every exact sub-5% result must disconfirm; opening ledgers have an impossible master-digest order; schemas and post-run ledger resolution remain incomplete; notation collides and exact negative arithmetic is not execution-bound; taxonomy dominance is unstated. Full verdict is verbatim in research-log/008-orf-theory-review.md. Budget 7/10; Phase 2 closed; no beacon/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -180,6 +180,18 @@
       "apply_when": "A Phase-2 hypothesis sets an effect-size threshold for a deterministic optimization advantage.",
       "source": "research-log/008-orf-theory-review.md",
       "recurrences": 1
+    },
+    {
+      "lesson": "A finite exact prediction with a materiality threshold is falsified by every outcome below that threshold; positive-but-subthreshold can be a descriptive subtype, not an inconclusive escape hatch.",
+      "apply_when": "A Phase-2/5 fixed-finite estimand has no sampling uncertainty and a preregistered minimum effect.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "Machine-readable protocol prose is still underdetermined unless each state transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one value.",
+      "apply_when": "A Phase-2 hypothesis claims a held-out protocol is executable from a JSON contract.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 2
     }
   ],
   "best_state": {
@@ -216,7 +228,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "One future freeze only after RIGOROUS review and committed implementation/tests/predictions; pre-pulse exact user-thread ACK is mandatory; reveal and evaluation are inseparable; no Kaggle action is authorized.",
-      "status": "locked-pre-review"
+      "status": "reviewed-needs-revision-never-frozen"
     }
   },
   "gates": {

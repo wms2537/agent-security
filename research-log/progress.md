@@ -33,3 +33,4 @@
 2026-07-19 | P2 | T009 beacon-held-out theory review round 6 | needs_revision | primary isolation/estimand/factorial/source gates resolved; timestamp comparison unsatisfiable, negative global ambiguous, 5pct expectation unsupported, schemas/ledger incomplete; budget 6/10
 2026-07-19 | P2 | T009 beacon-held-out conditional-value v5 | ready_review | NIST ISO parse/index/mixture/negative/source checks PASS; 5pct relabeled normative; typed one-freeze+user-ACK protocol specified; no target/profile/experiment/Kaggle action
 2026-07-19 | P2 | T009 beacon-held-out theory review round 7 | in_progress | sterile re-review dispatched against committed 511-line v5 + 265-line contract; budget 7/10; no freeze/target/profile/Kaggle action
+2026-07-19 | P2 | T009 beacon-held-out theory review round 7 | needs_revision | freeze/negative/threshold custody resolved; sub-5pct label, opening order, exact schemas, ledger resolution, notation/numeric bridge remain; budget 7/10
