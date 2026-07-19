@@ -58,3 +58,4 @@
 2026-07-19 | P4 | T003 multi-post ceiling source audit | done | gateway permits 32 messages per finding and applies max_tool_hops=8 per message; existing config constructs/clamps M32, local capability PASS; no live/Kaggle action
 2026-07-19 | P4 | T007 adaptive notebook Kaggle submission | failed_unauthorized | user boundary “No Kaggle action is authorized”; no external action taken; not a scientific disconfirmation
 2026-07-19 | P4 | T013 ORF experiment plan | done | froze 3 primary + 3 generalization public masters, exact global/core policies, code-review ordering, 5 attribution ablations, 3 scales, compute estimates, and 9 sequential tasks; locked held-out/Kaggle remain untouched
+2026-07-19 | P4 | T014 orf-p4-baseline | preregistered | N=3 exact global comparator, predicted mean G=8.5m [7.5m,9.5m], m16 fraction=1, reference match=1; core aggregate forbidden; no held-out/Kaggle action

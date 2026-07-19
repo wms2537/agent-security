@@ -135,8 +135,8 @@
       "id": "T014",
       "phase": "4",
       "desc": "Preregister, implement, run, and independently verify the N=3 exact PROBE_GLOBAL baseline; save 320x7 tables and preference profile; this also completes exhaustive tuned-baseline parity",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Pre-run ledger verification will use `awk -F '\\t' ... results.tsv`; research-log/024 freezes mean_global_score_raw=8500000, interval 7.5m-9.5m, m16 fraction=1, reference-match=1, N=3 labels from committed config 354cc02, and explicitly forbids computing/reporting the core adaptive aggregate.",
       "parent": "T013"
     },
     {

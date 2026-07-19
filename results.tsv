@@ -26,3 +26,6 @@ orf-cal-v2-floor-margin	minimum_cliff_floor_distance	0.0000000000000000000000000
 poc	adaptive_gain_percent	35.0	beat-baseline	low	49.277489504413	confirm	0.053520203	0.679508220	keep	public non-target 40-stratum ORF PoC; support threshold 5%, prediction interval 20-50%
 poc	homogeneous_difference_raw	0	match-baseline	high	0	confirm	0.053520203	0.679508220	keep	exact homogeneous negative invariant
 poc	sdk_cases_verified	2	match-baseline	high	2	confirm	0.053520203	0.679508220	keep	actual SDK q=16e+2 and 16-hex score-cell fixture checks
+orf-p4-baseline	mean_global_score_raw	8500000	unclear	medium						exact N=3 public non-target PROBE_GLOBAL baseline and tuned parity
+orf-p4-baseline	global_length_16_fraction	1.0	match-baseline	high						calibration-derived prediction that every master selects m=16
+orf-p4-baseline	mechanical_reference_match_fraction	1.0	match-baseline	high						exact default tables must match immutable calibration reference
