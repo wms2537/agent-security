@@ -223,8 +223,8 @@
       "id": "T025",
       "phase": "4",
       "desc": "Sterile review of the unexecuted T019 exact coefficient recovery, five one-at-a-time transforms, scorer parity, evidence tables, and bundle bindings",
-      "status": "in_progress",
-      "evidence": "Immutable review target aefbe20 contains the 715-line ablation runner and 150-line toy suite described in research-log/033. Sterile reviewer may inspect source/run toy tests only and must not execute primary data; T019 remains blocked until SOUND.",
+      "status": "done",
+      "evidence": "research-log/034 records sterile SOUND with HIGH/MEDIUM/LOW none. Reviewer confirmed predictions at parent e0b9520, exact hashes/command/attempt, transaction-before-science, 960-row/6720-score parser parity, exact a/b/d algebra, all five OAT isolations, reviewed evaluator fairness, core-reference equality, 4800-row/15-master audit sufficiency, full bundle bindings, and no held-out/Kaggle action. Attempt absent at closure.",
       "parent": "T019"
     }
   ],
