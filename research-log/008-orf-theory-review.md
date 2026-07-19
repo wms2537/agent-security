@@ -455,3 +455,181 @@ locked contract `experiments/configs/orf-heldout-v1.json` (SHA-256
 `2a920b17630c00485ddb854825fff7ee2e714dd5bddb3bab50d74df26f2ccddd`). The prompt
 contains the six round-4 blockers in the allowed previous-review slot. This consumes
 review round 5/10; the held-out seed remains unopened.
+
+## Held-out round 5 returned verdict
+
+The reviewer returned the following report verbatim:
+
+Status: DONE
+
+Reviewed `research-log/010-hypothesis-iter-4-v3-heldout.md`: **395 lines**, verified with both `wc -l` and `git show HEAD:... | wc -l`. The locked JSON has 76 lines and SHA-256 `2a920b17630c00485ddb854825fff7ee2e714dd5bddb3bab50d74df26f2ccddd`. All four source hashes in the contract match the files on disk.
+
+### 1. Blind Assessment
+
+#### Justification Correctness
+
+**NEEDS_REVISION.**
+
+The claim is now appropriately narrow: it predicts performance on a specified synthetic split, not live-model or leaderboard behavior. The circular theorem-like condition has been removed, and the equations at lines 97–103 mostly define an algorithm rather than pretending to prove an effect.
+
+I re-derived the load-bearing mechanics:
+
+- With one unique finding containing exactly \(e\) severity-5 predicates, \(q=16e+2\) follows from the SDK scorer, provided the exclusivity and global-uniqueness assertions hold.
+- In the homogeneous block, \(c(m)=bm\), \(q(m)=16m+2\), and therefore \(q/c=16/b+2/(bm)\), strictly decreasing in \(m\). Since \(R=8100<G=9000\), \(b\in[5,12]\), the candidate cap is unbound (`floor(8100/b)≤1620`), and raw is below 200,000. Static \(m=1\) therefore dominates not merely every other pure length but every mixture: for a fixed number of message units it maximizes the number of `+2` candidate bonuses. The negative consequence is valid.
+- The timing correction `-sigma²/2` makes each lognormal factor mean one. Bursts deliberately raise the mean by \(p(B-1)\).
+- The entropy expression is normalized to \([0,1]\), assuming \(p_m\) means the fraction of profiles whose tied-resolved per-profile no-probe optimum is \(m\).
+
+Three central defects remain.
+
+First, the primary comparison does not isolate the proposed mechanism. ORF differs from static in at least three ways: it measures all lengths, it retains and scores a fixed 21-candidate multi-length probe portfolio, and it selects the fill length per profile. Lines 294–297 incorrectly call this only “measurement and selection.” A win could arise partly from the fixed probe mixture or a nonadaptive mixed-length allocation. A same-probe/global-fill comparator is required before attributing the result to adaptive information value.
+
+Second, the uncertainty analysis has no coherent estimand. The claim at lines 162–171 is about one fixed deterministic 256-profile split. Once opened, its mean difference is exact; a bootstrap is not sampling uncertainty for that finite-set claim. If the intended estimand is the generator population, fixing the static length selected on the original held-out sample inside every bootstrap conditions away its selection uncertainty. Each resample must reselect the best static length, or static selection must use an independent split.
+
+Third, the policy specification is internally inconsistent. Lines 87–89 say `n_z(m)` accounts for the raw cap and lines 92 and 101 say filling stops when the first constraint binds, but `n_z(m)` at lines 98–100 contains no raw-cap stopping term. `min(H, ...)` caps reported score, not emitted candidates or timing workload. This matters especially for the descriptive timing stress.
+
+The evidence chain is mostly auditable, but its exact source ranges are incomplete. `scoring.py:41-91` omits `SEVERITY_W` at line 14 and the 200,000 normalization/cap mechanics at lines 30–31 and 95–101. The severity-5 EXFIL construction depends on `core/predicates.py:263-281`, which is neither cited nor hashed.
+
+#### Mathematical Depth & Validity Domains
+
+**NEEDS_REVISION.**
+
+The useful abstraction is the distribution over profile parameters \((a,b,d,k,\lambda)\). It is a mixed discrete-continuous measure whose support is specified, and each draw maps deterministically to a seven-action cost/response curve. This is structurally intelligible; the notation is not floating.
+
+However:
+
+- Equal weighting and the probabilities/ranges in lines 120–139 have no provenance or coverage argument beyond “span” assertions. Why 40% no cliff, these cliff weights, or these log-uniform boundaries? Because the claimed mean gain is distribution-dependent, weights are load-bearing, not incidental.
+- Three probes per length are identical in the primary test. Thus there is no estimation problem and repetitions two and three provide no information; they are an arbitrary tax. Their validity domain is deterministic stationarity only.
+- Entropy measures diversity of winning labels, not separation between actions. High entropy can coexist with negligible oracle-static margin. The gain criterion handles the outcome, but entropy does not independently validate the mechanism.
+- The bootstrap lower bound is mathiness under the fixed-split wording: it creates the appearance of inferential uncertainty without defining a sampled population.
+- The optional timing model lacks a complete executable meaning: exact latent-key serialization, Normal sampler, burst substream, candidate ordinal semantics, and generation-timeout behavior are unspecified. `ordinal-or-block` at lines 227–230 is not an exact key derivation.
+
+#### Logical Soundness
+
+**NEEDS_REVISION.**
+
+The basic chain—heterogeneous optima can make adaptive selection repay a charged probe cost—is plausible, but the current experiment only establishes the end-to-end compound policy comparison.
+
+Socratic challenges:
+
+- Why assume a static *single length* is the correct nonadaptive null? A precommitted mixture or a policy retaining identical probes could predict a gain on heterogeneous profiles and a loss on the homogeneous block.
+- Why call a public deterministic seed “unopened”? Anyone can compute its outcomes from lines 116–134. `opened:false` is metadata, not blinding, and “refuse a second invocation” can be bypassed with another output path or implementation.
+- If the fixed split is the target, what random quantity is the bootstrap interval covering?
+- If the generator population is the target, why is the empirical best-static action treated as fixed after being selected on the same sample?
+- If a profile assertion fails, does “zero-valued profile row” zero only the affected policy or every policy? Zeroing both can conceal an ORF-specific failure.
+
+The claim verbs remain predictive and do not exceed the project’s question type.
+
+#### Assumption Completeness
+
+Missing or insufficiently bounded assumptions include:
+
+1. **Held-out integrity:** lines 110–158 rely on voluntary non-use of a public seed. Violation destroys the only claim to unseen evidence.
+2. **Generator-design independence:** the weights, ranges, three-probe tax, 0.75 eligibility gate, and 10% threshold may have been informed by prior synthetic outcomes; this history is not disclosed.
+3. **Treatment isolation:** retained probes and adaptive filling are assumed to be one indivisible mechanism.
+4. **Estimand:** fixed-split performance and generator-population performance are conflated.
+5. **Static/oracle definitions:** no exact formulas specify static capacity, per-profile oracle score, or whether oracle eligibility matches ORF.
+6. **Regret:** “mean oracle regret” is undefined—mean of profile percentages and ratio of aggregate means are different statistics.
+7. **Failure semantics:** shared generator failures versus policy-specific failures are not distinguished.
+8. **Timing-stress execution:** generation overrun, partial generation, and RNG substreams are unspecified.
+
+#### Taxonomy Verification
+
+**PASS.**
+
+`Evidence Gap × Optimization/Search / Empirical Mapping × replace` is defensible and matches the actual move: replace a fixed length with response-dependent selection and measure it. Resource Bottleneck could reasonably be dominant rather than secondary, but this is not Bridge × Synthesis and there is no tripwire-evasion concern.
+
+#### Anti-Stacking Check
+
+**FAIL.**
+
+The claimed distinguishing prediction at lines 347–351 only rules out adding actions followed by another single fixed length. It does not rule out a plain nonadaptive combination of those actions.
+
+A fixed mixed-length portfolio, or the same 21 retained probes followed by the globally chosen static fill, could also improve on the best pure static length in heterogeneous profiles and lose to \(m=1\) in the homogeneous block. Therefore the opposite-sign prediction is not yet specific to online adaptation.
+
+#### Occam’s Razor Check
+
+**FAIL.**
+
+Simpler alternatives should be tested first:
+
+- one probe per length, since repetitions are identical;
+- the same probe portfolio with global-static fill;
+- the best precommitted mixed-length allocation;
+- direct per-profile oracle selection minus an explicitly computed observation tax.
+
+Without these, the extra machinery is not demanded by the evidence.
+
+#### Alternative Explanations
+
+A confirmed headline result could arise from:
+
+- scoring and retaining the fixed multi-length probe portfolio;
+- an advantageous nonadaptive length mixture;
+- arbitrary generator weights chosen to make different lengths frequent;
+- candidate/raw-cap geometry rather than reset amortization or cliffs;
+- the `+2` per-finding novelty bonus;
+- undetected unique-hash or predicate-construction errors;
+- choosing the static comparator and then conditioning on that choice in the bootstrap.
+
+The homogeneous block catches gross accounting leakage, but not these alternatives.
+
+#### Fixed Bias-Surface Audit
+
+All eight required headings are present, but several are substantively incorrect or incomplete:
+
+- **Selection, lines 290–293:** addresses post-generation row selection but not researcher selection of generator support, weights, gates, or a publicly computable seed.
+- **Confounding, lines 294–297:** falsely treats a compound intervention as a single isolated method difference.
+- **Assignment, lines 298–300:** adequate for the deterministic paired comparison.
+- **Protocol deviation, lines 301–303:** unenforceable one-open rule; no frozen command for the mandatory homogeneous block or optional stress run.
+- **Missing data, lines 304–306:** zeroing scope is ambiguous and could mask policy-specific failures.
+- **Measurement, lines 307–309:** appropriate synthetic scope, but source coverage is incomplete.
+- **Analysis flexibility, lines 310–312:** contradicted by undefined regret/oracle formulas and the bootstrap estimand ambiguity.
+- **Selective reporting, lines 313–315:** intention is adequate, but no output schema or negative/stress command operationalizes it.
+
+#### Previous-review issue disposition
+
+| Prior issue | Status | Judgment |
+|---|---|---|
+| 1. Circular margin and deterministic table | **RESOLVED** | The tautology is deleted, the prediction is unconditional, and prior constructed tables are demoted to unit tests. |
+| 2. Held-out family, weighting rationale, homogeneous control | **IMPROVED** | A randomized split and valid negative block are added, but the public seed is not truly blind and the generator weights/ranges lack rationale. |
+| 3. Timing dependence, calibration, clamp, void bound | **IMPROVED** | Removing replay safety from confirmation is correct. The retained descriptive protocol still lacks exact substreams and generation-timeout semantics; it remains deliberately uncalibrated. |
+| 4. Synthetic/model-specific wording | **RESOLVED** | Claim scope is consistently synthetic and explicitly excludes live targets. |
+| 5. SDK and measured-artifact evidence | **IMPROVED** | Hashes and log references are present, but scorer line ranges omit weights/cap, predicates are uncited, and no raw measured trace artifact supports the profile distribution. |
+| 6. Commands, versions, bootstrap, disjoint boundaries | **IMPROVED** | Python, held-out commands, bootstrap indices, and non-overlapping regions are frozen. Negative/stress commands and several exact statistics remain unspecified. |
+
+#### Overall
+
+**NEEDS_REVISION**
+
+Required fixes, ordered by severity:
+
+1. **Lines 37–44, 80–103, 173–184, 294–297, 347–351:** add a same-probes/global-static-fill control and a strongest feasible precommitted nonadaptive mixed-length control. Make the adaptive-selection contrast primary for the mechanism claim.
+2. **Lines 110–158, 282–286; JSON lines 4 and 35–38:** replace the public “unopened” seed with a real commit–reveal or post-freeze randomness-beacon protocol and an atomic, path-independent opening ledger.
+3. **Lines 146–150 and 186–193:** choose one estimand. For a fixed split, drop inferential CI language. For generator-population inference, independently select the static control or reselect it inside every bootstrap resample.
+4. **Lines 87–103, 177–197, 319–333:** define raw-cap stopping, static scores, per-profile oracle, regret aggregation, eligibility, and policy-specific failure semantics exactly.
+5. **Lines 116–139, 162–168, 290–293:** justify or externally derive the generator ranges and weights. If it is purely coverage-based, use explicit strata, state their weights, report stratum-wise results, and avoid “benchmark-shaped” implications unsupported by traces.
+6. **Lines 207–240 and 259–286; JSON lines 60–68:** specify exact RNG keys/samplers, candidate indexing, generation timeout behavior, negative/stress commands, output schema, and all decision thresholds in the machine-readable contract.
+7. **Lines 62–76 and 244–257:** cite/hash scorer weights and cap lines plus the EXFIL predicate source. Label 8100 solely as a synthetic design constraint, not measured safety evidence.
+
+### 2. Actionable Coaching
+
+- Use three primary policies: zero-probe best pure static; identical 21-probe portfolio plus global-static fill; identical probes plus per-profile adaptive fill. The last contrast identifies adaptation while the first preserves the end-to-end system comparison.
+- Add one-probe ORF as an Occam ablation. In a deterministic profile it should dominate three-probe ORF unless the repetition tax is itself part of the intended constraint.
+- Formalize:
+  - `S_static,z(m)`;
+  - `S_oracle,z=max_m S_static,z(m)`;
+  - aggregate gain;
+  - one unambiguous regret statistic;
+  - actual emitted count when score saturation occurs.
+- Commit a seed hash, freeze code and predictions, then reveal a seed derived from a later public beacon or independent custodian. Log opening in an immutable manifest not controlled by `--out`.
+- If the scientific target is the generator distribution, use a separate selector-training split for the static comparator and evaluate both policies on untouched evaluation profiles. This avoids nonregular “max over seven means” bootstrap complications.
+- Convert arbitrary coverage probabilities into a factorial or stratified design: no-cliff/cliff location × low/high overhead × low/high curvature. Report each cell and sensitivity under several preregistered weightings.
+- Hash the full prose specification if JSON remains incomplete, or move generator draw order, error rules, RNG keys, commands, output schema, and disconfirm thresholds into a schema-validated contract.
+
+## Round 5 gate decision
+
+The adverse `NEEDS_REVISION` verdict stands. The reported hypothesis line count and
+contract hash are verified. The v3 hypothesis and `orf-heldout-v1` contract remain
+immutable; the held-out seed was never instantiated. Phase 2 stays closed while a
+new superseding, commit-reveal design is prepared under the remaining authorized
+review budget.

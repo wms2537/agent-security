@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding held-out hypothesis research-log/010-hypothesis-iter-4-v3-heldout.md and contract experiments/configs/orf-heldout-v1.json are frozen pre-data. Seed-independent negative-control verification returned `PASS homogeneous negative: m=1 is oracle-best for b grid [5,12], candidate/raw caps inactive`. Sterile round 5 dispatched against the committed 395-line entry with six prior blockers; contract SHA-256 is 2a920b17630c00485ddb854825fff7ee2e714dd5bddb3bab50d74df26f2ccddd. Review budget is 5/10, held-out seed 2026071902 remains unopened, Phase 2 is closed, and Kaggle actions are prohibited.",
+      "evidence": "Round 5 returned NEEDS_REVISION after verifying the 395-line v3, 76-line contract, contract SHA-256, and all source hashes. It accepted the non-circular held-out synthetic scope but found seven blockers: retained-probe/mixed-portfolio attribution, public-seed pseudo-blinding, incoherent fixed-split bootstrap, missing raw-cap/oracle/regret/failure formulas, arbitrary generator weights, incomplete executable protocol, and incomplete scorer/predicate citations. Full verdict: research-log/008-orf-theory-review.md. Budget is 5/10, Phase 2 remains closed, held-out seed has not been instantiated, and Kaggle actions are prohibited.",
       "parent": "T008"
     }
   ],
@@ -143,11 +143,29 @@
       "lesson": "Replay-deadline safety requires a calibrated tail/dependence model and an explicit void-risk target; observed maxima or an arbitrary margin are not coverage guarantees.",
       "apply_when": "A Phase-2 or Phase-4 design sizes a returned candidate set against the 9000-second replay deadline.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 2
+      "recurrences": 3
     },
     {
       "lesson": "A sufficient-condition decomposition must use independently specified loss bounds; defining the loss from the predicted outcome can reduce the antecedent to the conclusion.",
       "apply_when": "A Phase-2 hypothesis uses an oracle-margin or regret decomposition to justify a metric threshold.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "When probes are retained and scored, adaptation must be isolated from the fixed probe portfolio and from a nonadaptive mixed-length allocation.",
+      "apply_when": "A Phase-2 adaptive-policy experiment retains exploratory probes in the evaluated output.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "A public deterministic seed plus an opened flag is not held-out blinding; use commit-reveal or a post-freeze public randomness beacon with an append-only opening ledger.",
+      "apply_when": "A Phase-2/3 synthetic held-out test claims outcomes were unavailable when the protocol was frozen.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "Uncertainty machinery must match the estimand: fixed finite splits need exact descriptive contrasts, while generator-population bootstrap must include comparator selection or use an independent selection split.",
+      "apply_when": "A Phase-2/5 comparison bootstraps performance against a best-on-sample control.",
       "source": "research-log/008-orf-theory-review.md",
       "recurrences": 1
     }
