@@ -2,7 +2,7 @@
 
 **Supersedes:** the protocol-invalid run in
 `research-log/014-orf-support-calibration.md`  
-**Date:** 2026-07-19 · **Phase:** 2 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not run
+**Date:** 2026-07-19 · **Phase:** 2 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, exploratory
 
 ## Context
 
@@ -52,9 +52,44 @@ The output directory is new and fixed. V1 artifacts are never overwritten.
 
 ## Prediction vs. Reality
 
-Pending. No v2 output has been generated or inspected.
+**Support criterion passed; prediction direction confirmed in exploratory data.**
+The fixed command completed in 29.43 seconds on CPython 3.14.3. Results were:
+
+| Design | Masters clearing 5% | Minimum gain | Median gain | Maximum gain |
+|---|---:|---:|---:|---:|
+| equal, `H=200000` | 64/64 | 34.575811113981% | 40.924155277025% | 45.433610480180% |
+| balanced cliff presence, `H=200000` | 64/64 | 24.987661930465% | 32.324156091809% | 38.849300841017% |
+| no cliff only, `H=200000` | 64/64 | 5.117860088584% | 6.991608265969% | 9.793532503442% |
+| cliff only, `H=200000` | 64/64 | 35.101784203438% | 39.796867096003% | 44.613150778688% |
+| equal, `H=10^18` | 64/64 | 41.372040363181% | 44.204209608439% | 48.319935695095% |
+
+The no-cliff-only unsaturated sensitivity, not required for passage, cleared on
+62/64 masters with a 4.780664512982% minimum and 6.355745532101% median. The
+minimum distance of any cliff expression from an integer was
+`2.4702028345850861854631560389931149158158007314717302917408272803144660234725560E-8`,
+well above `1E-60`.
+
+An independent ledger check returned
+`validated_rows=512 unique_design_rows=512 masters=64 all_score_identities=true all_summary_counts=true support=true`.
+V1 and v2 output hashes are byte-identical, showing the repaired exact cost
+construction did not change a capacity floor, while only v2 conforms to the
+preregistered numeric implementation.
+
+Prediction versus reality: all five clearing-fraction predictions and the floor
+certificate were conservative and confirmed. Each row is marked `exploratory`,
+not `keep`; these outcomes support the plausibility of the future 5% prediction
+but cannot confirm it.
+
+Artifact hashes:
+
+- `summary.json`:
+  `602d3885232d44a26f22f002f463c314d37308188510e519512bea710e433c05`;
+- `masters.tsv`:
+  `9d0f5208a18b673713dcec3c80c08c20697bcf06b0d07f5d6470b920e117e235`.
 
 ## Decision
 
-Run once after the fixed code, this entry, and six unresolved retry rows are
-committed. Accept or reject the support criterion exactly as preregistered.
+Use the v2 distribution as explicitly exploratory support in the superseding ORF
+hypothesis. Retain the 5% threshold and target design unchanged. The iteration's
+exploratory budget is exhausted at 2/2 (one invalid, one valid); no further
+calibration run is permitted.

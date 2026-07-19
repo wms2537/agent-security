@@ -40,3 +40,4 @@
 2026-07-19 | P2 | T009 ORF-B non-target support calibration | preregistered | 64 public masters, 4 weightings, 2 saturations, 6 unresolved prediction rows; not run; no beacon/Kaggle action
 2026-07-19 | P2 | T009 ORF-B non-target support calibration v1 | crash | default Decimal precision 28 rounded cost polynomial before Fraction conversion; nominal pass rejected; exploratory budget 1/2; no beacon/Kaggle action
 2026-07-19 | P2 | T009 ORF-B non-target support calibration v2 | preregistered | exact per-parameter Decimal-to-Fraction repair only; same masters/predictions/support rule; exploratory budget 2/2 at run; not run; no beacon/Kaggle action
+2026-07-19 | P2 | T009 ORF-B non-target support calibration v2 | exploratory_support | all preregistered checks pass; equal H200k 64/64, min 34.576%, median 40.924%; floor distance 2.47e-8; exploratory budget 2/2; no beacon/Kaggle action
