@@ -33,3 +33,8 @@ orf-p4-core	mean_adaptive_gain_percent	40.0	beat-baseline	medium	40.249038022308
 orf-p4-core	all_masters_clear_fraction	1.0	beat-baseline	high	1.000000000000	confirm	0.515918732	0.132034047	keep	all three fixed public masters must have adaptive gain at least 5 percent
 orf-p4-core	homogeneous_zero_fraction	1.0	match-baseline	high	1.000000000000	confirm	0.515918732	0.132034047	keep	exact zero-regret distinguishing negative across three homogeneous masters
 orf-p4-core	homogeneous_length_one_fraction	1.0	match-baseline	high	1.000000000000	confirm	0.515918732	0.132034047	keep	all homogeneous rows and global policies must select fill length one
+orf-p4-ablations	no_cliff_mean_gain_percent	7.0	beat-baseline	low						one-at-a-time replacement of every event vector by e(m)=m
+orf-p4-ablations	no_curvature_mean_gain_percent	35.0	beat-baseline	low						one-at-a-time exact d=0 cost transform
+orf-p4-ablations	no_reset_mean_gain_percent	22.0	beat-baseline	low						one-at-a-time exact a=0 cost transform
+orf-p4-ablations	no_novelty_mean_gain_percent	40.0	beat-baseline	medium						one-at-a-time replacement of positive raw 16e+2 by 16e
+orf-p4-ablations	unsaturated_mean_gain_percent	44.0	beat-baseline	medium						one-at-a-time replacement of H=200000 by H=10^18

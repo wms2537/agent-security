@@ -175,8 +175,8 @@
       "id": "T019",
       "phase": "4",
       "desc": "Preregister and run the N=3 one-at-a-time attribution ablation batch for cliffs, curvature, reset cost, novelty, and saturation",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "research-log/032 fixes five OAT mechanisms and mean-gain predictions before implementation: no_cliff=7, no_curvature=35, no_reset=22, no_novelty=40, unsaturated=44 percent; same 3 masters and reviewed exact action engine; exact command/attempt/bundle/input hashes; 4,800-row evidence requirement; invalidity rules. Five results rows are unresolved and the final attempt is absent.",
       "parent": "T018"
     },
     {
