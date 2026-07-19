@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding hypothesis research-log/009-hypothesis-iter-4-v2.md resolves the 8 round-3 objections structurally and remains pre-data. Deterministic verification returned: `PASS picks=[1, 32, 8, 4] orf=[14100, 152250, 47934, 64080] mean=69591.0 best_static_m=32 best_static_mean=51914.0 gain=34.05% oracle_regret=3.15%`. Final sterile re-review dispatched against the committed 346-line entry with the prior issue list; review budget is 4/4 and Phase 2 remains closed pending verdict.",
+      "evidence": "Final round 4 returned NEEDS_REVISION. Reviewer independently reproduced the arithmetic and verified 346 lines, but rejected the circular oracle-margin condition, purpose-built profiles as confirmatory evidence, and uncalibrated independent-noise replay risk. Dispositions: issues 2,4,5,6,8 resolved; 1,3,7 improved. `git show HEAD:research-log/009-hypothesis-iter-4-v2.md | wc -l` returned 346. Full verbatim verdict: research-log/008-orf-theory-review.md. Budget is exhausted at 4/4; Phase 2 remains closed pending user direction.",
       "parent": "T008"
     }
   ],
@@ -132,7 +132,25 @@
     "Private guardrail is 'persistent_provenance' (aicomp_private_guardrails wheel, not shipped): a provenance/taint guardrail blocking untrusted->sensitive flows. Our SECRET_MARKER and email bodies originate in the USER message (trusted principal), so attacks are provenance-clean by construction and should transfer.",
     "gpt-oss uses harmony channels; its parser rejects >1 tool call per turn -> multi-post must be one http.post per hop across the 8-hop loop, not batched.",
     "Kaggle submission mechanics: this competition REQUIRES machine_shape=NvidiaTeslaT4 (P100 rejected with 400 FAILED_PRECONDITION); submit code comps via `kaggle competitions submit -k <kernel> -v <ver>` after the commit run COMPLETEs.",
-    "Code-comp submit needs a placeholder /kaggle/working/submission.csv written during the COMMIT run (4 rows: Id,Score for gpt_oss_public/private, gemma_public/private = 0.0); the rerun overwrites it. Without it: 400 'Did not find provided Notebook Output File'. Full flow verified against Kaggle docs tutorials.md."
+    "Code-comp submit needs a placeholder /kaggle/working/submission.csv written during the COMMIT run (4 rows: Id,Score for gpt_oss_public/private, gemma_public/private = 0.0); the rerun overwrites it. Without it: 400 'Did not find provided Notebook Output File'. Full flow verified against Kaggle docs tutorials.md.",
+    {
+      "lesson": "Constructed response profiles validate policy mechanics but cannot confirm that target-model response heterogeneity exists.",
+      "apply_when": "A Phase-2 empirical systems hypothesis uses purpose-built simulator profiles as evidence for a live target claim.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 2
+    },
+    {
+      "lesson": "Replay-deadline safety requires a calibrated tail/dependence model and an explicit void-risk target; observed maxima or an arbitrary margin are not coverage guarantees.",
+      "apply_when": "A Phase-2 or Phase-4 design sizes a returned candidate set against the 9000-second replay deadline.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 2
+    },
+    {
+      "lesson": "A sufficient-condition decomposition must use independently specified loss bounds; defining the loss from the predicted outcome can reduce the antecedent to the conclusion.",
+      "apply_when": "A Phase-2 hypothesis uses an oracle-margin or regret decomposition to justify a metric threshold.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    }
   ],
   "best_state": {
     "run_id": "v2-rebuild-single-post-verified-fill",

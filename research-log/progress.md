@@ -23,3 +23,4 @@
 2026-07-19 | P2 | T009 final scientific re-review authorization | approved | user said verbatim “yes, go on, I approve it”; hypothesis-review limit 3→4 only
 2026-07-19 | P2 | T009 superseding ORF hypothesis v2 | ready_review | deterministic verification PASS: picks=[1,32,8,4], mean=69591, +34.05% vs best static, 3.15% oracle regret; no experiment run
 2026-07-19 | P2 | T009 final theory re-review round 4 | in_progress | sterile review dispatched against committed 346-line superseding hypothesis with prior 8-issue list; budget 4/4
+2026-07-19 | P2 | T009 final theory re-review round 4 | needs_revision | reviewer verified 346 lines; 4 prior issues resolved, 3 improved, final gate fails on circular margin, purpose-built profiles, and uncalibrated correlated-latency risk; budget 4/4 exhausted

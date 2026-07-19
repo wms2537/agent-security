@@ -244,3 +244,197 @@ The final sterile theory re-review was dispatched against the committed 346-line
 superseding entry `research-log/009-hypothesis-iter-4-v2.md`. The dispatch includes
 the prior eight-issue list in the template's allowed re-review slot and consumes
 review round 4/4. The hypothesis is now immutable pending the verdict.
+
+## Final round 4 returned verdict
+
+The reviewer returned the following report verbatim:
+
+Status: DONE
+
+File reviewed: `research-log/009-hypothesis-iter-4-v2.md` — **346 lines**, matching both `wc -l` and `git show HEAD:research-log/009-hypothesis-iter-4-v2.md | wc -l`.
+
+### 1. Blind Assessment
+
+#### Justification Correctness
+
+**Verdict: NEEDS_REVISION.**
+
+I independently re-derived the frozen arithmetic. Under the stated model:
+
+- Best-static means are `{14,535; 21,666.5; 32,868; 40,820; 36,184.5; 44,390; 51,914}`, so `m=32` is correct.
+- ORF selects `{1,32,8,4}` and scores `{14,100; 152,250; 47,934; 64,080}`, mean `69,591`.
+- Oracle mean is `71,851.5`; the claimed `34.05%` static gain and `3.15%` regret are correct.
+- The P4 derivation at lines 315–322 is correct.
+- The lognormal parameterization at lines 164–167 indeed has mean 1 and CV 0.10.
+
+However, the central quantitative antecedent is circular. At lines 80–92,
+
+`S_oracle - D_ORF ≥ 1.20 S_best-static`
+
+with `D_ORF = S_oracle - S_ORF` reduces exactly to
+
+`S_ORF ≥ 1.20 S_best-static`.
+
+Why should this count as a mechanism-based sufficient condition when it is algebraically identical to the desired conclusion? It does not derive the effect from independently knowable response-curve properties, probe cost, or an estimation-error bound. This is mathiness: the equation appears to justify the 20% claim but merely restates it.
+
+The score model at lines 40–54 is now correct in structure: full set-level scoring is primary, and `16e+2` is restricted to explicit uniqueness/exclusivity conditions. The adaptation control is also substantially improved: ORF and the best static comparator share the same seven actions.
+
+The remaining empirical problem is that the four deterministic profiles are constructed with known heterogeneous optima and then analytically scored. Running them can catch an implementation bug, but it cannot establish that a relevant public-model response curve exists. The frozen “confirmation” is therefore a unit test of a predetermined table, not target-model predictive evidence.
+
+The replay-risk design remains insufficiently calibrated. The 0.90 clamp is motivated by one non-void submission, while the CV 0.10 lognormal model has no cited empirical calibration. The result is extremely sensitive to dependence: independent per-candidate noise averages away over hundreds of candidates, whereas run-level correlated drift can create substantial timeout risk. The entry neither specifies that dependence structure completely nor derives the clamp from a target void probability.
+
+#### Mathematical Depth & Validity Domains
+
+**Verdict: NEEDS_REVISION.**
+
+Most notation is now bound to concrete quantities. `Q(A)`, `q(m)`, candidate count, generation cost, replay allowance, cap, and regret all have operational meanings. The equations at lines 62–69 carry the decision rule rather than decorating it.
+
+The exception is the oracle-margin equation at lines 80–92. `D_ORF` is defined using the outcome it is supposed to justify, so it is not an independently measurable error or tax bound.
+
+The validity-domain section at lines 220–249 is much stronger and correctly limits:
+
+- reduced-score exactness;
+- within-run stationarity;
+- synthetic deterministic compliance;
+- action-set affordability;
+- measured-clamp coverage;
+- public observability;
+- profile-suite scope;
+- score saturation.
+
+But the stochastic domain remains incomplete:
+
+- Is each `Z` independent across candidates, lengths, phases, and profiles?
+- Is there any shared run-level or temporal component?
+- How are common-random-number traces indexed when policies consume different candidate counts?
+- What empirical evidence makes CV 0.10 the relevant regime?
+- What target void probability is the 0.90 clamp intended to control?
+
+Without these, the noisy result is not reproducible from the prose and its operating envelope is underdefined.
+
+#### Logical Soundness
+
+**Verdict: NEEDS_REVISION.**
+
+The core mechanism is logically plausible: heterogeneous profile optima plus sufficient oracle advantage can let online selection recover more than its probe tax, and the same-action-set static control isolates adaptation from action availability.
+
+Two leaps remain:
+
+1. Lines 80–92 assume the desired effect through the definition of `D_ORF`.
+2. Lines 94–96 call the claim “public/model-specific,” but the primary profiles are constructed local profiles. Lines 161, 230–232, and 329–331 correctly admit that they do not establish target-model behavior. The main claim should use the same synthetic-mechanics language.
+
+The decision thresholds also overlap at exactly 5% aggregate regret: lines 279–285 permit confirmation at `≤5%`, while lines 287–290 describe `5–10%` as inconclusive. Exact boundaries must be disjoint.
+
+#### Assumption Completeness
+
+**Verdict: NEEDS_REVISION.**
+
+The eight listed assumptions cover most internal mechanics. Still missing or insufficiently specified are:
+
+- a profile-generating or sampling process that is independent of the desired ORF result;
+- the stochastic dependence structure of timing noise;
+- an evidence-based basis for CV 0.10 and the 0.90 clamp;
+- exact trace-indexing and substream derivation;
+- a target void-risk criterion and uncertainty bound on that risk;
+- an explicit distinction between synthetic implementation confirmation and live public-model predictive confirmation in the claim itself.
+
+Violation of profile heterogeneity invalidates the benefit entirely: if one length dominates the target distribution, ORF loses to it through probe tax. Violation of timing stationarity or independence can invalidate the void analysis even while score-selection mechanics remain correct.
+
+#### Taxonomy Verification
+
+**Verdict: PASS.**
+
+`Evidence Gap × Optimization/Search × replace` matches the actual gap and contribution. ORF replaces a fixed action with exhaustive online response measurement and selection. This is not Bridge Opportunity × Synthesis/Unification, nor is “replace” being used to conceal an integration move.
+
+#### Anti-Stacking Check
+
+**Verdict: PASS, conditionally.**
+
+The same-full-action-set static `m=32` control at lines 305–311 is genuinely distinguishing. Merely adding intermediate lengths does not predict both the 20% aggregate margin and the sequence `{1,32,8,4}`. This resolves the earlier action-availability confound.
+
+The anti-stacking pass does not rescue the evidentiary weakness: the distinguishing outcome is hard-coded into the constructed profile table rather than predicted on an independently generated or observed curve set.
+
+#### Occam’s Razor Check
+
+**Verdict: FAIL for the present empirical framing.**
+
+For these exact deterministic profiles, a simpler account predicts the entire result: evaluate the frozen table directly. No empirical run is needed except as software verification.
+
+The scientifically meaningful hypothesis is narrower and harder: response-profile heterogeneity exists on the live public target, persists long enough for probing to inform filling, and has enough margin to repay exhaustive probing. The current deterministic suite does not test that proposition.
+
+A necessary negative consequence is also clear: on a homogeneous or single-dominant profile distribution, ORF should underperform the best static action by approximately its charged probe tax. That boundary should be a first-class control.
+
+#### Alternative Explanations
+
+The predicted local gain can arise because:
+
+- the four profiles were explicitly chosen to have different optima;
+- equal weighting makes rare or artificial regimes as influential as plausible common ones;
+- the constants were selected with the complete analytic outcome visible;
+- any exact exhaustive optimizer would produce the same result;
+- an oracle lookup keyed to known simulator identity would remove probe cost;
+- the independent, light-tailed noise model makes the replay clamp appear safer than correlated or bursty latency would;
+- unique-hash construction, rather than structure selection, could inflate raw if its assertions fail.
+
+The same-action-set static control rules out “intermediate lengths alone” as the local explanation, which is a real improvement.
+
+#### Fixed Bias-Surface Audit
+
+All eight required surfaces appear, so the audit is not formally partial. It remains substantively incomplete in three places:
+
+- **Selection, lines 253–254:** freezing purpose-built profiles prevents post-run dropping but does not address choosing profiles and equal weights to guarantee heterogeneous optima.
+- **Protocol deviation/analysis flexibility, lines 262–272:** the entry claims commands are fixed, but no commands are listed. Stochastic trace indexing, substream derivation, simulator version, and exact paired-bootstrap resampling algorithm remain open.
+- **Measurement, lines 267–269:** SDK scoring validates score mechanics, but constructed profiles cannot measure live public-model curve existence. The claim must not call that model-specific confirmation.
+
+Missing-data handling is now correct: timeout and crashes remain whole-run zeros.
+
+#### Previous-review issue disposition
+
+| Prior issue | Disposition | Re-review judgment |
+|---|---|---|
+| 1. Quantitative antecedent and frozen constants | **IMPROVED** | Constants and expected scores are frozen, but lines 80–92 replace the qualitative antecedent with a tautology, not an independent sufficient condition. Purpose-built profiles remain outcome-constructed. |
+| 2. Public/private transfer or claim narrowing | **RESOLVED** | Lines 94–96, 183–196, 216–218, and 292–294 exclude hidden-private transfer from confirmation and treat Kaggle as a case study. |
+| 3. Calibrated replay risk/no-void | **IMPROVED** | False max-of-two coverage is removed; timeout is a whole-run zero. The 0.90 clamp, CV 0.10, dependence model, and ≤2/200 criterion are not calibrated to a stated risk target. |
+| 4. Exact set-level score model | **RESOLVED** | Lines 40–54 define the full SDK score and restrict `16e+2` to checked uniqueness/exclusivity conditions. |
+| 5. Early-stop assumptions | **RESOLVED** | Both early stops are removed; all seven lengths are exhausted. |
+| 6. Best-static and exhaustive controls | **RESOLVED** | ORF itself is exhaustive, every fixed length is reported, and the primary control is the best static action over the full set. |
+| 7. Bias audit and full protocol | **IMPROVED** | Replication, pairing, estimator, aggregation, and whole-run timeout semantics are present, but selection mitigation and stochastic implementation details remain inadequate. |
+| 8. Synthetic versus target confirmation | **RESOLVED**, with wording correction needed | The staging is explicit and Kaggle is not broad confirmation. “Public/model-specific” at line 94 should be replaced with “synthetic policy-mechanics.” |
+
+#### New issues introduced by this revision
+
+1. **Circular oracle-margin condition, lines 80–92:** the antecedent is algebraically the conclusion.
+2. **Deterministic confirmation is analytically predetermined, lines 117–157 and 313–327:** it supplies implementation verification, not empirical evidence.
+3. **Unspecified stochastic dependence and clamp calibration, lines 159–181 and 226–240.**
+4. **Claim-language mismatch, lines 94–96:** “public/model-specific” exceeds what the constructed profiles measure.
+5. **Unsupported evidence references, lines 50, 109–111, and 237–240:** the SDK scorer and non-void v2 observation need direct source/artifact citations in the evidence chain.
+
+#### Overall
+
+**NEEDS_REVISION**
+
+Required fixes, ordered by severity:
+
+1. **Lines 80–92, 198–218, 313–327:** replace the circular condition with a decomposition using independently specified quantities, such as an oracle-static margin minus separately bounded probe, selection, and estimation losses. Treat the frozen table as a deterministic theorem/unit test, not confirmatory empirical evidence.
+2. **Lines 117–157, 244–246, 251–275:** add an independently generated or held-out profile family, or preregister target-derived public response curves before evaluating ORF. Define the sampling/weighting rationale and include a homogeneous/single-dominant negative-control regime.
+3. **Lines 159–181, 226–240:** fully specify timing dependence, trace indexing, and substream derivation; calibrate CV/tails from measured traces; derive the 0.90 clamp for a stated target void probability; report a confidence bound on void risk rather than treating ≤2/200 as a guarantee.
+4. **Lines 94–96 and 329–340:** label local confirmation consistently as synthetic policy-mechanics validation. If a public/model-specific claim is desired, add a preregistered target trace test that can confirm or disconfirm curve heterogeneity before the external leaderboard case study.
+5. **Lines 50–54, 237–240, 267–269:** cite the exact SDK source and measured profile artifacts supporting scoring, budgets, and clamp motivation.
+6. **Lines 262–272 and 287–290:** freeze actual commands/software versions/bootstrap algorithm and make all confirm/inconclusive/disconfirm boundaries non-overlapping.
+
+### 2. Actionable Coaching
+
+- Recast the deterministic section as a proposition: given frozen response tables and exact costs, exhaustive ORF returns the analytically derived choices and scores. Use the simulator only to verify implementation equivalence.
+- State a non-circular sufficient condition. For example, define an oracle-static margin `M`, an independently bounded probe loss `B_p`, selection loss `B_s`, and estimation loss `B_e`; require `M-(B_p+B_s+B_e) ≥ 0.20 S_static`.
+- Build a preregistered response-curve generator with held-out seeds and regimes spanning one dominant optimum, several optima, cliffs, smooth curves, saturation, and correlated latency shocks. Use calibration profiles only to set the clamp; evaluate the hypothesis on untouched profiles.
+- Model latency hierarchically: candidate-level variation plus shared run-level drift and burst events. Choose `R` so an analytic, bootstrap, or simulation upper confidence bound on `P(total replay > 9000)` lies below a declared tolerance.
+- If external submissions are scarce, preserve one as a case study but log the public search trace, chosen length, candidate count, measured costs, and static counterfactuals. Do not use leaderboard delta alone to identify the mechanism.
+- Add direct evidence links to the SDK scorer, T005 clamp result, and T006 score-geometry result so the justification chain is auditable from the entry.
+
+## Gate decision after final review
+
+The adverse `NEEDS_REVISION` verdict stands. The reported line count is verified by
+`git show HEAD:research-log/009-hypothesis-iter-4-v2.md | wc -l`, which returns
+`346`, matching the reviewer. The immutable superseding hypothesis was not edited.
+The review budget is exhausted at 4/4, so Phase 2 remains closed and no ORF
+implementation or confirmatory experiment is authorized.
