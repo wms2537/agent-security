@@ -88,3 +88,4 @@
 2026-07-19 | P4 | T021 orf-p4-scaling | preregistered | nested k=1/4/8 per 40 strata -> N=40/160/320 across 3 primary masters; predict all 9 cells >=5% fraction=1; exact command/evidence/stop rule fixed; attempt absent
 2026-07-19 | P4 | T021 scaling implementation | done_unexecuted | runner SHA 6f5fa9a8..., toys SHA 19f806da...; static PASS, toys 4/4 for exact nesting/prefix/evaluator/schema; attempt absent; focused T027 review required
 2026-07-19 | P4 | T027 scaling code review | in_progress | focused sterile review dispatched against immutable 73b1d3d; table parsing/scientific execution forbidden; T021 remains blocked pending SOUND
+2026-07-19 | P4 | T027 scaling code review | sound | no findings; strict 960-row parser/reviewed evaluator, exact per-stratum prefix nesting, 9 cells, k8 core equality, exact aggregate/evidence/provenance pass; attempts absent; one-use T021 run permitted

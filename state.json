@@ -239,8 +239,8 @@
       "id": "T027",
       "phase": "4",
       "desc": "Focused sterile review of T021 nested prefix selection, reviewed parser/evaluator reuse, full-scale core equality, nine-cell evidence, and bundle bindings",
-      "status": "in_progress",
-      "evidence": "Immutable target 73b1d3d contains the committed 325-line runner and 61-line toy suite in research-log/039; scaling attempt remains absent and execution is blocked until SOUND.",
+      "status": "done",
+      "evidence": "research-log/040 records focused SOUND with no findings. Reviewer confirmed prediction-before-code, exact hashes/command/transaction, strict 960-row parser and reviewed evaluator, exact replicate-prefix nesting k=1/4/8 across 40 strata, nine exact cells, k8 equality to all committed core records, exact all-clear/by-scale aggregates, sufficient bound evidence and COMPLETE provenance. Attempts absent at closure.",
       "parent": "T021"
     }
   ],
