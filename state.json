@@ -207,8 +207,8 @@
       "id": "T023",
       "phase": "4",
       "desc": "Fix the code-review provenance blocker with fresh attempt directories, completion manifests, failure-injection tests, and manifest verification before sterile re-review",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "research-log/027 pre-specifies fresh staging/final attempt directories, run-owned first-line log, COMPLETE.json last with source/input/output hashes, atomic absent-destination publication, exact-set verifier, failed-attempt preservation, repeat/corrupt/missing/extra/failure-injection tests, and no scientific core execution.",
       "parent": "T016"
     }
   ],

@@ -64,3 +64,4 @@
 2026-07-19 | P4 | T015 ORF core implementation | done_unexecuted | static compile PASS, 4 toy tests OK, committed table hash bound after deterministic inspection, no run.log/core outputs and no primary aggregation; ready for sterile code review
 2026-07-19 | P4 | T016 baseline+core code review | in_progress | sterile evidence-validity review dispatched against commit 9aa3d89; core runner 684 lines; no core run/output exists and no scientific execution authorized before verdict
 2026-07-19 | P4 | T016 baseline+core code review | needs_revision | data leakage, split hygiene, metrics, separation, baseline fairness, and seeds PASS; HIGH stale/partial artifact provenance blocker; T017 remains blocked, full verbatim report 026
+2026-07-19 | P4 | T023 fresh-bundle provenance fix | in_progress | pre-specified fresh staging/final dirs, run-owned log, COMPLETE last, atomic publish, exact hash verifier, failure/repeat/corruption tests; primary core remains unexecuted
