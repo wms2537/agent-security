@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 2,
-      "spent": 0
+      "spent": 1
     },
     "paper_review_rounds": {
       "limit": 2,
