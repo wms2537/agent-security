@@ -79,8 +79,8 @@
       "id": "T007",
       "phase": "4",
       "desc": "Push and submit the adaptive multi-message notebook for the discriminating real leaderboard experiment",
-      "status": "open",
-      "evidence": "User checkpoint required: Kaggle push/submission changes external account state. Interpretation thresholds pre-registered in research-log/006: >=106 lead, >=125 strong, 82-89 fallback, <78/void failure.",
+      "status": "failed",
+      "evidence": "Action not executed. User authorization boundary quoted verbatim: 'No Kaggle action is authorized.' The later instruction to continue through Phase 6 did not authorize external account mutation. This is an authorization failure, not scientific refutation; research-log/022 records the boundary.",
       "parent": "T006"
     },
     {

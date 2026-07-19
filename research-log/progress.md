@@ -56,3 +56,4 @@
 2026-07-19 | P3 | T012 ORF public non-target PoC preregistration | in_progress | untouched 40-stratum label, 35% prediction, >=5% support, exact homogeneous/SDK controls, environment and immutable evaluation contract committed before run; no held-out/Kaggle action
 2026-07-19 | P3 | T012 ORF public non-target PoC | done | gain 49.277489504413% vs predicted 35%, A=1470646 G=985176, homogeneous difference=0/m=1, SDK cases=2; artifact audit PASS, immutable diff empty, user advance go applied; Phase 4 entered without held-out/Kaggle action
 2026-07-19 | P4 | T003 multi-post ceiling source audit | done | gateway permits 32 messages per finding and applies max_tool_hops=8 per message; existing config constructs/clamps M32, local capability PASS; no live/Kaggle action
+2026-07-19 | P4 | T007 adaptive notebook Kaggle submission | failed_unauthorized | user boundary “No Kaggle action is authorized”; no external action taken; not a scientific disconfirmation
