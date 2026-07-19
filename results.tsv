@@ -11,9 +11,9 @@ local-replay-cap-parity	findings_ratio	1.210	beat-baseline	high	1.205	confirm	0.
 local-multi-fixed-overhead-3	normalized	1.950	beat-baseline	high	1.950	confirm	0.5	3	keep	adaptive router selected M8 multi-message under fixed reset overhead; official raw exactly 390=3*(16*8+2)
 local-multi-context-fallback-3	normalized	0.270	match-baseline	high	0.270	confirm	0.5	1	keep	M4 probe passed but M8 context-limited candidate failed 75pct gate; router fell back to three single-post findings, exact raw=54
 local-multi-default-50	normalized	96.50	beat-baseline	high	96.50	confirm	0.5	20	mechanics-only	production M24 default on compliant/harmony mocks: exact raw=19300=50*(16*24+2); not a real-model score prediction
-orf-cal-v1-equal-h200-clear	masters_clearing_5pct_fraction	0.750000000000	beat-baseline	low			NA	NA		equal-weight H=200000 non-target calibration; exploratory only
-orf-cal-v1-balanced-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		balanced cliff-presence H=200000 sensitivity; exploratory only
-orf-cal-v1-no-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		no-cliff-only H=200000 sensitivity; exploratory only
-orf-cal-v1-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		cliff-only H=200000 sensitivity; exploratory only
-orf-cal-v1-equal-unsat-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low			NA	NA		equal-weight H=10^18 saturation sensitivity; exploratory only
-orf-cal-v1-floor-margin	minimum_cliff_floor_distance	0.000000000000000000000000000000000000000000000000000000000001	beat-baseline	low			NA	NA		minimum distance from a cliff expression to an integer; no resampling
+orf-cal-v1-equal-h200-clear	masters_clearing_5pct_fraction	0.750000000000	beat-baseline	low	NA	null	NA	NA	crash	equal-weight H=200000 non-target calibration; exploratory only
+orf-cal-v1-balanced-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	NA	null	NA	NA	crash	balanced cliff-presence H=200000 sensitivity; exploratory only
+orf-cal-v1-no-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	NA	null	NA	NA	crash	no-cliff-only H=200000 sensitivity; exploratory only
+orf-cal-v1-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	NA	null	NA	NA	crash	cliff-only H=200000 sensitivity; exploratory only
+orf-cal-v1-equal-unsat-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	NA	null	NA	NA	crash	equal-weight H=10^18 saturation sensitivity; exploratory only
+orf-cal-v1-floor-margin	minimum_cliff_floor_distance	0.000000000000000000000000000000000000000000000000000000000001	beat-baseline	low	NA	null	NA	NA	crash	minimum distance from a cliff expression to an integer; no resampling

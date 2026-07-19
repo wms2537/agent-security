@@ -1,6 +1,6 @@
 # ORF-B non-target support calibration
 
-**Date:** 2026-07-19 · **Phase:** 2 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not run
+**Date:** 2026-07-19 · **Phase:** 2 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, protocol-invalid
 
 ## Context
 
@@ -73,9 +73,30 @@ prediction-ledger rows are committed before this command is executed.
 
 ## Prediction vs. Reality
 
-Pending. No calibration outcome has been generated or inspected.
+**Protocol-invalid; prediction unresolved.** The command completed in 26.43
+seconds and its nominal output passed the preregistered support criterion, but the
+post-run numeric audit found that cost construction at source line 117 evaluated
+`a + b*m + d*m*m` before conversion to `Fraction`. Although parameter `ln/exp`
+used an explicit precision-80 local context, this polynomial used the process
+default Decimal context. The deterministic check
+`comp/.venv/bin/python - <<... getcontext().prec ...` returned
+`default_decimal_precision=28`, and `rg` located the unguarded expression at line
+117. The implementation therefore did not realize the intended exact
+precision-80 numeric model. None of its nominal gains support or disconfirm the
+hypothesis. All six ledger rows resolve to `metric_value=NA`, `signal=null`, and
+`status=crash`.
+
+The invalid outputs are preserved rather than overwritten:
+
+- `summary.json` SHA-256
+  `602d3885232d44a26f22f002f463c314d37308188510e519512bea710e433c05`;
+- `masters.tsv` SHA-256
+  `9d0f5208a18b673713dcec3c80c08c20697bcf06b0d07f5d6470b920e117e235`;
+- 513 TSV lines and a two-line run log whose first line records the command.
 
 ## Decision
 
-Run once after this preregistration commit, resolve all six rows, and report the
-predeclared support criterion without threshold changes.
+The first exploratory slot is spent as an implementation crash. A second and
+final exploratory calibration may retry the identical prediction and masters only
+after a new script converts each Decimal parameter individually to `Fraction`
+before polynomial arithmetic, preregisters new ledger rows, and commits them.

@@ -38,3 +38,4 @@
 2026-07-19 | P2 | T009 conditional-regret theory review round 8 | in_progress | sterile review of committed 498-line v6 + 204-line contract + 231-line schema; budget 8/10; no freeze/target/profile/Kaggle action
 2026-07-19 | P2 | T009 conditional-regret theory review round 8 | needs_revision | core algebra/numeric floor/decision/taxonomy resolved; terminal outcome, pre-fetch marker, cross-field schema, libm reproducibility, primary support, terminal posting remain; budget 8/10
 2026-07-19 | P2 | T009 ORF-B non-target support calibration | preregistered | 64 public masters, 4 weightings, 2 saturations, 6 unresolved prediction rows; not run; no beacon/Kaggle action
+2026-07-19 | P2 | T009 ORF-B non-target support calibration v1 | crash | default Decimal precision 28 rounded cost polynomial before Fraction conversion; nominal pass rejected; exploratory budget 1/2; no beacon/Kaggle action
