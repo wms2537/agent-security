@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Theory review round 9 charged and dispatched against immutable commit 93c6932: 468-line v7, 227-line contract SHA fffd81d1b9f5b64b1a9d813e1ca0d57f0cf69708c71cc04b4889bdb340cf137c, and 353-line schema SHA 7536fda3e9d4d01ecff3e6dafd29e2c1d82874dfda457c963efaed8fe62c1f3a. Sterile prompt contains only template fields and six round-8 blockers. Review budget 9/10; exploratory budget 2/2. No implementation/freeze/target/profile/Kaggle action.",
+      "evidence": "Round 9 returned NEEDS_REVISION after verifying 468/227/353 lines, JSON/metaschema, hashes, calibration provenance, and CPython/libmpdec. Target-fetch safety, numeric reproducibility, calibration support as posed, selective-reporting scope, scientific algebra, taxonomy, and anti-stacking resolved. Remaining blockers: crash-atomic staged publication and idempotent ledger transaction/post-outcome terminalization; policy-error parameter/candidate fields plus mixture generation/saturation stopping; explicit SHA/PRNG calibration-to-target exchangeability heuristic. Full verdict verbatim in research-log/008-orf-theory-review.md. Budget 9/10; no held-out/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -191,11 +191,23 @@
       "lesson": "Machine-readable protocol prose is still underdetermined unless each state transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one value.",
       "apply_when": "A Phase-2 hypothesis claims a held-out protocol is executable from a JSON contract.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 3
+      "recurrences": 4
     },
     {
       "lesson": "Pinning a language/runtime version does not pin transcendental math; discontinuous floor decisions need a specific libm/container, correctly rounded functions, or a certified distance from integer boundaries.",
       "apply_when": "A Phase-2/3 generator uses log/exp results inside floor or threshold operations and claims exact reproducibility.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "Exclusive creation followed by writing is not crash-atomic; terminal artifacts and ledgers require same-directory staged bytes, atomic no-replace publication, directory fsync, and idempotent recovery states.",
+      "apply_when": "A Phase-2/3 held-out protocol claims every crash reaches one immutable terminal artifact or ledger resolution.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "A deterministic calibration ensemble supports a future randomness-derived target only under an explicit seed-domain exchangeability or cryptographic pseudorandomness assumption; unpredictability alone is insufficient.",
+      "apply_when": "A Phase-2 prediction uses fixed hash-derived calibration masters to support a future public-randomness master.",
       "source": "research-log/008-orf-theory-review.md",
       "recurrences": 1
     }
@@ -258,7 +270,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "Only after RIGOROUS review and later phase implementation/tests/predictions may one future freeze begin; pre-GET durable markers, minimal terminal OUTCOME, same-thread terminal hashes, and no Kaggle action are mandatory.",
-      "status": "locked-review-round-9-never-frozen"
+      "status": "reviewed-needs-revision-never-frozen"
     }
   },
   "gates": {

@@ -1245,3 +1245,161 @@ source hashes, two calibration hashes, and an absent held-out output directory.
 The sterile re-review contains only the six round-8 blockers in the template's
 previous-review slot. Dispatch consumes round 9/10. No held-out implementation,
 freeze, target, profile, evaluation, submission, or Kaggle action exists.
+
+## Calibrated conditional-regret round 9 returned verdict
+
+The reviewer returned the following report verbatim:
+
+**Status: DONE**
+
+The hypothesis entry has **468 lines**, matching `git show HEAD:research-log/016-hypothesis-iter-4-v7-conditional-regret.md | wc -l`. I reviewed all 468 lines, the complete 227-line contract, the complete 353-line artifact schema, and the calibration provenance. Both JSON files parse, the schema passes the Draft 2020-12 metaschema, all recorded artifact/source hashes match, and the runtime reports CPython 3.14.3 with libmpdec 4.0.1.
+
+## Blind assessment
+
+### Previous-review disposition
+
+1. **Invalid and terminal outcomes — IMPROVED, not resolved.** The discriminated `OUTCOME.json`, invalid branch without summary, inclusion of `IMPLEMENTED`, and `COMPLETED.json` are substantial improvements. However, direct exclusive creation followed by fsync is not crash-atomic, ledger mutation has no atomic/recovery protocol, and `COMPLETED_CREATE` cannot be represented consistently after an outcome already exists.
+
+2. **Target fetch crash safety — RESOLVED.** `TARGET_FETCH_STARTED.json` is exclusively created and file/directory-fsynced before network access; its presence permanently forbids another target GET. The anchor fetch has the analogous protection. A marker without raw bytes deterministically becomes invalid.
+
+3. **Machine specification — IMPROVED, not resolved.** Most requested enums, formulas, order constraints, binding-tie semantics, mixture validation, and failure keys were added. Several branches remain contradictory or underdetermined, especially policy-error TSV rows and mixture stopping semantics.
+
+4. **Numeric reproducibility — RESOLVED.** CPython, libmpdec, Decimal context, exact Decimal-to-Fraction bridges, and a cliff-distance certificate are pinned. Given correctly rounded libmpdec operations, the `1E-60` exclusion margin is vastly larger than the precision-80 rounding envelope in this numerical range.
+
+5. **Support for the primary prediction — RESOLVED as the previous issue was posed.** A preregistered, non-target 64-master ensemble was run with fixed factor weights and saturation sensitivities. The valid retry preserves the original choices and gives 64/64 equal-weight successes, minimum 34.5758%. A new validity-domain omission concerning calibration-to-target exchangeability remains below.
+
+6. **Selective-reporting claim — RESOLVED.** Both valid and invalid terminal hashes/statuses are required in the same external thread, and the claim is correctly limited to mitigation under honest reporting.
+
+### Justification correctness
+
+The scientific core is correct and appropriately narrow.
+
+Concretely, \(D\) is the fixed 320-profile primary table, \(z\) is one profile, \(m\) is one of seven fill lengths, and \(S_z(m)\) is the exact post-probe score from repeatedly using \(m\) under that profile’s remaining resources. \(A(D)\) allows a different maximizing \(m\) for each \(z\); \(S_{\mathrm{global}}(D)\) requires one shared \(m\). Therefore \(A-S_{\mathrm{global}}\ge0\) follows because the conditional action class contains the global action class. This identity establishes direction only—not the 5% magnitude—and the entry says so.
+
+The homogeneous negative proof is sound. Under \(c(m)=bm\), \(e(m)=m\), and the stated support for \(b\), replay binds before candidate, generation, or saturation. The inequality at lines 242–248 strictly establishes that \(m=1\) beats every \(m>1\).
+
+The paired measurement design controls the intended contrast: profiles, probes, findings, score function, resources, and candidate family are identical. Because this is a deterministic finite comparison, randomized assignment is unnecessary. The claim remains predictive/systems and does not acquire a general real-world causal verb.
+
+The equations are not mathiness: they define the estimand, derive the score, or prove the negative invariant. None supplies decorative pseudo-support for 5%.
+
+### Fixed bias surface
+
+All eight required categories are explicitly present, one by one.
+
+- **Selection:** Correctly acknowledges that the support, ranges, cliff prevalence, and equal weighting are designed; the claim remains on the finite stress design.
+- **Confounding:** Pairing isolates the global-versus-profile-conditioned action scope within the model. Engineered heterogeneity still explains magnitude.
+- **Assignment:** Complete paired evaluation and keyed policy-independent streams are adequate.
+- **Protocol deviation:** Pre-fetch markers close the GET ambiguity, but post-evaluation file transactions remain incomplete.
+- **Missing data:** The invalid-outcome union is the right design, but a partial final outcome or ledger write can still defeat terminal resolution.
+- **Measurement:** Source-hashed scoring and exact arithmetic are strong within the synthetic model.
+- **Analysis flexibility:** One primary contrast, fixed threshold, exact formulas, and frozen bins sharply limit researcher degrees of freedom.
+- **Selective reporting:** Correctly described as an honest-reporting mitigation, not prevention.
+
+### Mathematical depth and validity domains
+
+The appropriate lens is finite optimization and error-bound control, not geometry. The abstraction is well bound to concrete score tables, action sets, and resource constraints.
+
+The load-bearing scientific validity domain is stated: deterministic stationary continuation, additive per-profile resources, no cache/concurrency/shared overhead, exact predicate construction, and fully observed oracle selection. Violating any of the first four destroys the score-table interpretation; violating the oracle assumption turns this into a learning problem the experiment does not test.
+
+Two validity domains are still missing:
+
+- The inference from deterministic SHA-index calibration masters to a future beacon-derived master assumes that the domain-separated SHA-256/PRNG seeds behave as comparable samples over the same effective seed support.
+- The custody argument assumes crash-atomic publication of final artifacts, although the specified write protocol does not provide it.
+
+The `sciagent` mathematical lens influenced this assessment by treating the nonnegativity equations strictly as structural identities and requiring a separate validity domain for the empirical 5% inference.
+
+### Logical soundness
+
+The scientific derivation follows. The 5% prediction is not derived, but is now backed by properly separated exploratory evidence and retains low confidence.
+
+The terminal logic does not fully follow:
+
+- “Exclusive create, then fsync” does not imply an all-or-nothing final file.
+- “Mutate the ledger once” does not define what happens when a crash interrupts that mutation.
+- A `COMPLETED_CREATE` failure necessarily occurs after `OUTCOME_RECORDED` or `LEDGER_RESOLVED`, but the invalid outcome’s last-state enum stops at `EVALUATION_STARTED`.
+
+### Assumption completeness
+
+Most domain assumptions are explicit and honestly scoped. Missing assumptions are:
+
+- calibration-target seed exchangeability or its cryptographic heuristic;
+- the exact filesystem failure/atomicity model;
+- an unambiguous recovery rule for partial final artifacts and ledger replacement.
+
+The oracle and synthetic-stationarity assumptions are unrealistic for live models but do not invalidate the finite claim because the scope limitation is explicit.
+
+### Taxonomy verification
+
+The classification is defensible:
+
+- **Opportunity:** Evidence Gap dominant; Resource Bottleneck secondary.
+- **Method:** Empirical Mapping dominant; Optimization/Search secondary.
+- **Operation:** replace one split-global optimizer with profile-conditioned optimizers.
+
+This is not Bridge Opportunity × Synthesis/Unification. The contribution measures the value of one local structural relaxation rather than integrating separate methods.
+
+### Anti-stacking check
+
+Pass. This is one local replacement, not a component stack. Its distinguishing paired prediction is material regret on the crossed heterogeneous split but exactly zero on the homogeneous split, while the global control owns the identical probes and candidate family. A probe-portfolio addition alone does not imply this contrast.
+
+### Occam’s razor
+
+The scientific object is already minimal: one finite conditional-regret ratio plus one exact negative invariant. The beacon, schema, and custody machinery are justified as protection for a one-shot held-out measurement, although the unfinished transaction semantics currently make some of that complexity ineffective.
+
+A simpler explanation for a positive result is engineered heterogeneity plus 320 oracle choices versus one global choice. That is not a rival explanation excluded by the experiment—it is essentially the narrow estimand. The entry correctly avoids interpreting it as a deployable selector.
+
+### Alternative explanations
+
+The predicted magnitude could be caused by:
+
+- cliff-heavy equal weighting;
+- saturation and integer floors;
+- novelty bonuses;
+- chosen cost-band separations;
+- the generic flexibility of per-profile oracle actions;
+- restriction of the nonadaptive mixture class.
+
+The entry acknowledges these. The calibration shows the result is not exclusively a saturation artifact and survives the no-cliff `H=200000` slice, though that slice is close to the threshold.
+
+### Overall: NEEDS_REVISION
+
+Required fixes, ordered by severity:
+
+1. **Make terminal transitions genuinely crash-atomic.** At [hypothesis line 294](/home/soh/agent-security/research-log/016-hypothesis-iter-4-v7-conditional-regret.md:294), lines 294–357; [contract line 135](/home/soh/agent-security/experiments/configs/orf-heldout-v5.json:135), lines 135–158 and 184–194; and [schema line 323](/home/soh/agent-security/experiments/configs/orf-heldout-v5-artifacts.schema.json:323), lines 323–345:
+
+   - Why is `O_CREAT|O_EXCL`, followed by writing and fsync, treated as atomic? A crash during the write can leave a truncated final `OUTCOME.json` or `COMPLETED.json` whose existence blocks replacement.
+   - Why is a once-only `results.tsv` mutation safe without atomic replacement or an idempotent transaction marker?
+   - If `COMPLETED_CREATE` fails after the outcome and ledger exist, what artifact records that failure? The invalid outcome cannot name `OUTCOME_RECORDED` or `LEDGER_RESOLVED`, and the existing outcome cannot be rewritten.
+
+   Until these cases have deterministic recovery, the claim that every failure reaches a terminal ledger resolution is false.
+
+2. **Finish the remaining single-valued machine semantics.** At [contract line 80](/home/soh/agent-security/experiments/configs/orf-heldout-v5.json:80), lines 80–119 and 135–162:
+
+   - `primary_fields` says all parameter fractions equal the keyed realization, while `status_rule` says all fractions become `0/1` on `POLICY_ERROR`. Which fraction columns are meant?
+   - Mixture execution specifies candidate/replay stopping but not the exact action when the generation budget would be exceeded, nor whether scheduling stops immediately after saturation. These choices change candidate rows, resource totals, and \(M\).
+   - Candidate `POLICY_ERROR` rules do not fully determine `event_count`, cost, length, and phase fields.
+   - `V01..V24` summarize obligations but do not resolve these branches; calling them normative algorithms does not make ambiguous prose executable.
+
+3. **State the calibration-to-target inference assumption.** At [hypothesis line 98](/home/soh/agent-security/research-log/016-hypothesis-iter-4-v7-conditional-regret.md:98), lines 98–128 and 371–380:
+
+   - What probability measure makes the 64 fixed SHA-index masters informative about the beacon-derived target master?
+   - Forward unpredictability alone is not exchangeability or uniformity.
+
+   NIST describes each pulse as fresh 512-bit public randomness and documents the millisecond `/pulse/time/<unix time>` endpoint, so the target-side mechanism is credible. The missing step is the stated SHA-256/PRNG pseudorandomness assumption connecting that target to the calibration ensemble. See the [NIST Beacon 2.0 service](https://csrc.nist.gov/Projects/interoperable-randomness-beacons/beacon-20) and [NIST IR 8213](https://csrc.nist.gov/pubs/ir/8213/ipd).
+
+## Actionable coaching
+
+- Define a real transaction protocol: generate canonical bytes in memory, write to a unique same-directory staging file, fsync it, atomically publish it with no-replace semantics, then fsync the directory. Specify recovery for every possible staging/final-path combination.
+- Apply the same transaction to `results.tsv`, with the expected before/after hashes bound in `OUTCOME.json`. Make recovery idempotent rather than relying on “mutate once.”
+- Treat post-outcome terminalization failures separately from scientific validity, or extend the state/artifact model so `OUTCOME_RECORDED`, `LEDGER_RESOLVED`, and failed completion are representable without rewriting an immutable outcome.
+- Replace the remaining TSV prose with a per-column type/sentinel table and executable pseudocode for mixture scheduling, stopping, saturation, and policy-error rows. Add crash-during-outcome, crash-during-ledger-replace, generation-exhausted mixture, and saturation-crossing mixture golden cases.
+- State the seed-domain assumption explicitly. Conditional on an iid-equivalent seed model, report an exact uncertainty interval for 64/64 alongside the observed minimum; without that assumption, call the ensemble a deterministic coverage heuristic rather than a sample.
+- Keep the homogeneous result framed as a validator/invariant. Its failure diagnoses implementation or assumption violation; it is not independent empirical evidence for the 5% claim.
+
+## Round 9 gate decision
+
+The adverse `NEEDS_REVISION` verdict stands. The reported 468 hypothesis lines,
+227 contract lines, 353 schema lines, JSON/metaschema validity, artifact/source
+hashes, and CPython/libmpdec versions were independently verified against commit
+`93c6932`. V7 remains immutable. Phase 2 is closed; no held-out implementation,
+freeze, target, profile, evaluation, submission, or Kaggle action exists.

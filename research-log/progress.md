@@ -43,3 +43,4 @@
 2026-07-19 | P2 | T009 ORF-B non-target support calibration v2 | exploratory_support | all preregistered checks pass; equal H200k 64/64, min 34.576%, median 40.924%; floor distance 2.47e-8; exploratory budget 2/2; no beacon/Kaggle action
 2026-07-19 | P2 | T009 conditional-regret stress-test v7 | ready_review | 468-line hypothesis, 227-line v5 contract, 353-line union schema; metaschema/root samples/source/calibration hashes/V01-V24 PASS; no held-out run/target/Kaggle action
 2026-07-19 | P2 | T009 calibrated conditional-regret theory review round 9 | in_progress | sterile review of committed 468-line v7 + 227-line contract + 353-line schema; budget 9/10; no freeze/target/profile/Kaggle action
+2026-07-19 | P2 | T009 calibrated conditional-regret theory review round 9 | needs_revision | fetch/numeric/calibration/selective scope resolved; atomic terminal/ledger transaction, policy-error+mixture branches, seed-domain assumption remain; budget 9/10
