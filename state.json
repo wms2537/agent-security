@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 7 returned NEEDS_REVISION after verifying the 511-line v5, 265-line contract, JSON validity, contract SHA-256, and five source hashes. Beacon parsing/freeze enforcement, negative policy, normative threshold labeling, preregistration custody, and anti-stacking resolved. Remaining blockers: every exact sub-5% result must disconfirm; opening ledgers have an impossible master-digest order; schemas and post-run ledger resolution remain incomplete; notation collides and exact negative arithmetic is not execution-bound; taxonomy dominance is unstated. Full verdict is verbatim in research-log/008-orf-theory-review.md. Budget 7/10; Phase 2 closed; no beacon/Kaggle action.",
+      "evidence": "Superseding 498-line conditional-regret v6, 204-line v4 contract, and 231-line strict artifact schema are ready for review. Verification passed Draft 2020-12 schema checks on six full sample artifacts and the live NIST envelope, schema/source hashes, exact-Fraction negative endpoint proof, exhaustive binary materiality partition, 3003 mixtures, valid JSON, and zero seed fields. No target/profile was derived. Budget remains 7/10 until dispatch; Phase 2 closed; no Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -228,7 +228,19 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "One future freeze only after RIGOROUS review and committed implementation/tests/predictions; pre-pulse exact user-thread ACK is mandatory; reveal and evaluation are inseparable; no Kaggle action is authorized.",
-      "status": "reviewed-needs-revision-never-frozen"
+      "status": "superseded-reviewed-needs-revision-never-frozen"
+    },
+    "orf-heldout-v4": {
+      "contract": "experiments/configs/orf-heldout-v4.json",
+      "artifact_schema": "experiments/configs/orf-heldout-v4-artifacts.schema.json",
+      "seed": null,
+      "beacon_target_unix_ms": null,
+      "beacon_revealed": false,
+      "freeze_created": false,
+      "user_acknowledged": false,
+      "opened_at": null,
+      "rule": "One monotone future freeze only after RIGOROUS review and committed implementation/tests/predictions; exact pre-pulse user ACK; one-file crash-terminal transitions; no Kaggle action.",
+      "status": "locked-pre-review"
     }
   },
   "gates": {
