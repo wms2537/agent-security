@@ -159,8 +159,8 @@
       "id": "T017",
       "phase": "4",
       "desc": "Preregister and run the N=3 ORF core per-profile-vs-global comparison plus homogeneous distinguishing negative",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "research-log/031 preregisters the exact one-use command/attempt/bundle/binding hashes; mean-gain prediction 40% with [30,50] confirmation interval; all-masters-clear, homogeneous-zero, and homogeneous-length-one fractions 1.0; confirm/partial/disconfirm/invalid rules. Four results.tsv rows are unresolved before dispatch. T016 is SOUND and the final attempt is absent.",
       "parent": "T016"
     },
     {
