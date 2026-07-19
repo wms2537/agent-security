@@ -1,59 +1,69 @@
-# Writing rationale matrix — ORF internal technical report
+# Writing rationale matrix — PS-PIR revision 2
 
-| Row ID | Manuscript Unit | Planned Function | Idea-DNA Link | Exemplar Pattern (research-log/045) | Venue Norm | Evidence Anchor | Operation | Final Text Check |
-|---|---|---|---|---|---|---|---|---|
-| whole-paper | Controlling structure | Use a disconfirmation-led systems arc rather than generic IMRaD: live mock-transfer failure motivates an exact proxy isolation; the 40.249%/zero pair is the pivot; operational non-conclusion resolves it. | Problem + Assumption + Novelty claim | Snell contradiction→conditioning; Paglieri fixed extremes→learned gap; BAVT bottleneck→component evidence | Internal ML systems report: artifact and boundary are co-equal contributions | narrative-arc.md; PROBLEM.md; /002; /042-/045 | REWRITE | Assembly preserves both exact finite proposition and operational non-conclusion in Abstract, Introduction, Discussion, Conclusion. |
-| abs-opening | Abstract sentence 1-2 | Establish finite replay-budget tension and shared-length restriction. | Problem | BAVT abstract concrete wasted budget | No generic field opening; 150-300 words total | C01 | REWRITE | First sentence names fixed length and finite generation/replay budget. |
-| abs-method | Abstract method sentence | Name ORF-B and one action-scope replacement. | Novelty claim | Snell names conditioning choice after comparator | Define contribution before result | C09-C12 | REWRITE | Says identical probes/actions/resources/scores and global vs profile-wise argmax. |
-| abs-result | Abstract result sentence | Report paired positive/negative headline with n/unit and descriptive status. | Assumption | Paglieri result plus fixed-pattern control | Headline number + n + uncertainty type | C15-C17,C21 | REWRITE | Contains 40.249%, n=3 fixed masters, s.d. 1.855 pp, homogeneous zero, no p-value. |
-| abs-close | Abstract closing sentence | State changed-regime/OAT support and deny live/held-out conclusion. | Problem + Assumption | Snell hardest-regime boundary | Limitation adjacent to value | C18-C24,C27 | REWRITE | Uses “public synthetic oracle information value”; names learner/live/replay/heldout gaps. |
-| intro-p1 | Introduction ¶1 | Make replay void risk and candidate structure the operational fire. | Problem | BAVT Intro ¶1-4 | Systems intro opens on measured bottleneck | C01 | REWRITE | Mentions whole-run consequence and finite budget without implying new measurement. |
-| intro-p2 | Introduction ¶2 | Preserve mock-to-live disconfirmation and redirect from fixed recipe to identification. | Problem | Paglieri failed alternatives retained | Prediction journey disclosed early | C02 | REWRITE | Labels historical live result outside ORF study and reports 36.705 vs predicted ~85. |
-| intro-p3 | Introduction ¶3 | Position adaptive allocation prior art and remaining scorer-specific evidence gap. | Novelty claim | Snell mixed results→conditional question | Fair related-work bridge, no priority claim | C03-C08 | REWRITE | Says broad adaptivity is prior art; narrows gap to exact benchmark-shaped oracle value. |
-| intro-p4 | Introduction ¶4 | Define ORF-B in plain language and distinguish oracle value from learnability. | Assumption + Novelty claim | Snell oracle vs predicted difficulty | Method preview before contributions | C09-C12,C23 | REWRITE | Uses concept name; explicitly calls ADAPTIVE oracle. |
-| intro-p5 | Introduction numbered contributions | Promise exact estimand, controlled evidence, and bounded artifact—not broad novelty. | All | BAVT contribution map with anti-stacking | Three numbered contributions | C09-C21,C29 | REWRITE | Each item maps to one measured deliverable; custody not claimed as science. |
-| intro-p6 | Introduction closing outline | Promise three tests answered by Discussion opening. | Assumption | Snell policy/evaluation promise | Short roadmap | C15-C20 | ADD | Names material crossed, homogeneous zero, and secondary boundary checks. |
-| rw-p1 | Related Work opening | State organizing axis: granularity and observability of conditional allocation. | Novelty claim | Snell strategy families | Technique families, not chronology | C03-C08 | REWRITE | No numeric comparison across incompatible tasks. |
-| rw-p2 | Prompt/subproblem allocation | Compare Snell, Plan-and-Budget, SCALE fairly. | Assumption | Snell/Plan/SCALE move tables | Specific methods and bounded numbers | C03,C04,C06 | REWRITE | Each sentence stays within math/reasoning domains and verified results. |
-| rw-p3 | Learned agent planning | Position Paglieri as evidence for learnability that ORF lacks. | Problem + Assumption | Paglieri fixed extremes→learned gate | Contrast without strawman | C05,C23 | REWRITE | Says their learned live-environment policy answers a different question. |
-| rw-p4 | Budget-aware tool search | Position BAVT as closest tool-agent neighbor and name differences. | Problem | BAVT step-level controller | Strongest neighbor gets most detail | C07,C23 | REWRITE | Mentions 5 vs 20 calls, one-tool uniform-cost limitation, and ORF's exact scorer focus. |
-| rw-p5 | Scope/novelty close | Deny general adaptive-allocation novelty; state bounded differentiator. | Novelty claim | Decision-archaeology synthesis | No “first/novel” claim | C08,C09 | REWRITE | Uses “bounded search identified” rather than “no work exists.” |
-| meth-p1 | Problem formulation | Define profiles, legal lengths, scores, global/adaptive policies. | Assumption | Snell §3 setup | Notation before use | C09-C12 | REWRITE | Defines z,m,L,S,A,G,Delta and gain once. |
-| meth-eq1 | Containment derivation | Prove finite nonnegative regret and separate direction from magnitude. | Assumption | Snell formal objective | Short theorem/proof acceptable | C10,C11 | REWRITE | “Proof” applies only to algebra; states no 5% implication. |
-| meth-p2 | Score identity | Bind synthetic score to frozen SDK path and seven actions. | Assumption | BAVT measurement choice tied to failure | Method claim source-hashed | C12 | REWRITE | Includes q=16e+2, cell-hash boundary, cap/resources without unnecessary custody detail. |
-| meth-p3 | Primary and negative constructions | Explain crossed heterogeneity and homogeneous equality. | Assumption | Paglieri fixed-pattern distinguishing control | Distinguishing prediction explicit | C09,C17 | REWRITE | States why same optimum forces zero and length one. |
-| meth-p4 | Prediction taxonomy | Define material/zero/subthreshold/invalid outcomes. | Assumption | Snell operating regimes | Pre-specification visible | research-log/018; results.tsv predictions | REWRITE | 5% threshold and invalid-not-evidence rule are explicit. |
-| meth-p5 | Assumptions/nonclaims | List finite stationarity, additive resources, exact score, oracle observability, and no live prevalence. | Problem + Assumption | Paglieri explicit cost assumptions | Bias surface before results | C23,C24,C27 | REWRITE | Every operational gap named; no future tense used as mitigation. |
-| setup-p1 | Experimental unit/scope | Define fixed masters and prohibit pseudoreplication. | Assumption | Snell selection/evaluation hygiene | n/unit first | C13,C21 | REWRITE | Says public deterministic; n=3 masters; profiles/rows/cells not n. |
-| setup-p2 | Frozen primary generation | Specify 40 strata×8 replicates=320, 3 master labels, 7 actions, H/resources. | Assumption | Snell exact dataset/model protocol | Reproducible from section | config; /023; /024 | REWRITE | All counts/constants and config path present. |
-| setup-p3 | Baseline/core | Specify exhaustive PROBE_GLOBAL and one-change ADAPTIVE. | Novelty claim | Snell matched strategy controls | Strongest baseline tuned equivalently | C14,C09 | REWRITE | States exact argmax over same score table and tie rule. |
-| setup-p4 | Secondary experiments | Define five OAT transforms, disjoint unsaturated balanced-cliff regime, nested prefixes. | Assumption | BAVT component-to-bottleneck ablation | Secondary/descriptive labels | /031-/040; config | REWRITE | Names every transform, master reuse/disjointness, N values, and nonadditivity. |
-| setup-p5 | Metrics/statistics | Define raw score, gain, all-clear threshold, descriptive summaries. | Assumption | Snell matched compute and bins | No population test from fixed masters | C15-C21 | REWRITE | Names s.d. over masters, finite min-max, test:none, p:n/a. |
-| setup-p6 | Provenance/resources | Describe sterile review, COMPLETE manifests, exact audits, runtime/memory. | Problem | Systems artifact convention | Reproducibility and compute disclosure | /026-/041; C26,C29 | REWRITE | Includes code-before-run reviews, hashes/manifests, audit counts, environment. |
-| results-p1 | Baseline + core | Answer material primary comparison with table and Figure 1. | Assumption | Snell core comparison before stratification | Primary visibly pre-specified | C14-C16 | REWRITE | Reports baseline 8,602,550.667, three gains, mean/s.d./range, no p. |
-| results-p2 | Homogeneous negative | Present exact zero as co-headline distinguishing result. | Assumption | Paglieri fixed-control contrast | Negative control adjacent to primary | C17 | REWRITE | 3/3 zero, length one, exact not “non-significant.” |
-| results-p3 | OAT attribution | Present five paired deltas and Figure 2. | Novelty claim | BAVT harmful-partial-system ablation | Secondary/nonadditive | C18,C22 | REWRITE | Exact deltas, n=3, no causal/population wording. |
-| results-p4 | Changed regime | Present disjoint public robustness with Figure 1. | Assumption | Snell conditional regime comparison | Do not call held-out/generalization population | C19 | REWRITE | 36.394%, 3 fixed disjoint masters, all clear. |
-| results-p5 | Nested scale | Present three mean curves and Figure 3. | Assumption | BAVT budget frontier | Reused units disclosed | C20,C21 | REWRITE | N=40/160/320, means, all 9 clear; not learning curve. |
-| results-p6 | Prediction/resources close | Audit 15/15 Phase-4 predictions and compute. | Problem + Assumption | Paglieri journey preserves outcomes | Forking/status disclosure | results.tsv; C25,C26 | REWRITE | No “perfect calibration” beyond local design; family runtime counted once. |
-| disc-p1 | Discussion opening | Answer Intro promise: finite claim held, operational question did not. | All | Snell boundary at result granularity | Direct answer, no victory lap | C15-C24 | REWRITE | First paragraph contains both propositions from narrative contract. |
-| disc-p2 | Mechanism interpretation | Interpret heterogeneity, cliffs/reset, novelty/saturation with OAT limits. | Assumption | BAVT ablation-to-mechanism | Separate fact from inference | C17,C18,C22 | REWRITE | “In this construction/OAT pattern” hedges partial causal support. |
-| disc-p3 | Robustness/failure cases | State homogeneous zero, no-cliff near threshold, nested reuse, constructed-profile limitation. | Assumption | Snell hardest-regime exclusions | Concrete failures, not boilerplate | C17-C23 | REWRITE | Names exact failure values and units. |
-| disc-p4 | Prediction ledger journey | Preserve disconfirm/partial/null history and fixes. | Problem | Paglieri discarded prompting/reward shaping | Disconfirmations primary material | full results.tsv; tried_and_failed; /044 | REWRITE | Includes two disconfirm, two partial, seven null categories; excluded from ORF statistics. |
-| disc-p5 | Literature/novelty | Explain why broad contribution-paper claim is rejected. | Novelty claim | Decision-archaeology bounded synthesis | Honest concurrent-work positioning | C03-C08 | REWRITE | Says five-paper bounded search; no universal novelty denial/claim. |
-| disc-p6 | Problem alignment/future test | Specify learner, unopened test, tail model, live/private comparison needed. | Problem | BAVT limitations follow measured bottlenecks | Evidence-based next steps; no authorization implied | C23,C24,C27 | REWRITE | No instruction to execute Kaggle/heldout; says would require separate authorization. |
-| concl-p1 | Conclusion synthesis | State exact result/control/attribution in compressed form. | Assumption + Novelty claim | Snell contribution plus regime limit | No abstract repetition | C15-C22 | REWRITE | Includes one number, zero boundary, and oracle qualifier. |
-| concl-p2 | Final implication | State precise public-synthetic target and operational non-conclusion. | Problem | Paglieri/BAVT limitations close | Final sentence from surface map verbatim | C23,C24,C27 | REWRITE | Ends with “not a claim that those tests have already succeeded.” |
-| refs | Reference list | Provide only five verified sources actually cited. | Novelty claim | Standard scholarly apparatus | Full fields/URLs; no unused entries | lit/phase6-primary.json | ADD | 5/5 fields match verified database; every entry cited. |
-| supp-s1 | Full prediction ledger | Preserve all 42 rows/statuses including crashes/discards/exploratory. | Problem + Assumption | Systems reproducibility supplement | Failures labeled, not findings | results.tsv | ADD | Exact TSV content or faithful complete table; no NA→0 conversion. |
-| supp-s2 | Reproducibility/artifacts | Map configs, commands, manifests, source data, environment, restrictions. | Problem | Snell setup hygiene + systems artifact | Standalone checklist | configs; bundles; environment.md; state | ADD | All paths exist; locked artifacts explicitly absent/unopened. |
-| supp-s3 | Disclosures | Report forking paths, AI assistance, compute, data/code availability. | All | Top-venue disclosure practice | Internal-report transparency | C25-C29 | ADD | Iteration/review counts, AI role, compute, repository-only availability, no venue policy claim. |
+This matrix operationalizes `paper/revision-round1-blueprint.md`. `KEEP` is
+prohibited for scientific prose; the historical ledger is the only immutable
+archive item.
 
-## Matrix depth check
+| ID | Manuscript unit | Function | Evidence anchor | Operation | Completion check |
+|---|---|---|---|---|---|
+| whole | Controlling structure | Recast an engineered oracle comparison as a deterministic VOI worked example. | Review issues 1–5; narrative arc | REWRITE | No external opportunity or novelty claim. |
+| abs-1 | Abstract opening | Name PS-PIR and established perfect-information framing. | Howard; equations | REWRITE | `worked example` or equivalent appears. |
+| abs-2 | Abstract result | Report three gains/range and exact equality. | core/homogeneous TSV | REWRITE | No SD or standardized mean. |
+| abs-3 | Abstract cutoff | Qualify 5% as internal numerical cutoff. | log 018 | REWRITE | No `material`. |
+| abs-4 | Abstract limit | Deny learner/live/untouched/beacon/Kaggle inference. | state | REWRITE | Limit adjacent to result. |
+| intro-1 | SDK decision | Ground shared length and resources in audited files. | scoring.py; gateway.py; contracts.py | REWRITE | Paths cited. |
+| intro-2 | Conceptual question | Explain value of auditing perfect information without claiming availability. | Howard | REWRITE | Information value separated from observability. |
+| intro-3 | Historical miss | Preserve observation, downgrade proposed causes to hypotheses. | results.tsv; log 002 | REWRITE | No causal verb. |
+| intro-4 | Evidence tier | State calibration and absence of untouched test. | logs 007–041 | ADD | Before contributions. |
+| intro-5 | Contributions | Exact calculation, diagnostics, reproducibility. | tables; manifests | REWRITE | No theorem/algorithm/phenomenon claim. |
+| rw-1 | VOI foundation | Identify decision-theoretic owner. | Howard | ADD/MOVE | Opens Related Work. |
+| rw-2 | Contextual policies | Explain observable context-to-action learning. | Langford; Dudík; Athey-Wager | ADD | Explicit missing step. |
+| rw-3 | Adaptive optimization | Contrast partial observations with full counterfactual table. | Golovin-Krause | ADD | No equivalence claim. |
+| rw-4 | Recent neighbors | Compress five LLM allocation papers by axis. | phase6-primary.json | MERGE | Fair domain qualifiers. |
+| rw-5 | Novelty close | State scorer-specific application only. | ten-source synthesis | REWRITE | Deny new regret concept. |
+| meth-1 | Objects | Define Z, M, q, S, G, A, Delta, ratio. | runner/config | REWRITE | q >= 0. |
+| meth-2 | Zero branch | Evaluate q=0 before saturation; H per profile. | scorer/checker | REWRITE | Formal ambiguity removed. |
+| meth-3 | Containment | Give finite inequality/equality condition. | algebra | REWRITE | Only statement called proved. |
+| meth-4 | Table dependence | Relate gap to row optima/margins descriptively. | score table | ADD | Not a novel theorem. |
+| meth-5 | Constructions | Call crossed table a stress test and homogeneous table a sanity check. | generator/config | REWRITE | No empirical discriminator wording. |
+| meth-6 | Provenance | Attribute each constant to SDK or engineering choice. | SDK/config/logs | ADD | No unexplained range/weight/cutoff. |
+| meth-7 | Oracle | State full counterfactual observability; probes unused for choice. | runner | REWRITE | No attainable fraction implied. |
+| setup-1 | Chronology | Separate exploration, public freeze, absent untouched tier. | git/log timeline | REWRITE | Phase 4 called post-calibration verification. |
+| setup-2 | Units | Define named deterministic masters, profiles, actions. | manifests | REWRITE | No sample language. |
+| setup-3 | Policies | Define exhaustive shared and row-wise perfect-information policies. | core runner | REWRITE | Both use identical tables. |
+| setup-4 | Sensitivities | Define OAT, changed construction, nested prefixes. | configs | REWRITE | No generalization/robustness. |
+| setup-5 | Reproduction | Give repo-relative bootstrap and commands. | reproducibility README | REWRITE | No absolute home path. |
+| setup-6 | Outputs | Define exact values/range/counts/strata/raw scores. | generated tables | REWRITE | test:none; p:n/a. |
+| results-1 | Primary | Lead with global m=16 and all three gains/range. | core TSV | REWRITE | Mean is optional/descriptive secondary. |
+| results-2 | Equality | Report homogeneous zero and length one as sanity check. | homogeneous TSV | REWRITE | Not independent empirical control. |
+| results-3 | Actions | Add per-master action distribution. | action TSV | ADD | Counts sum to 320/master. |
+| results-4 | Strata | Add complete decomposition summary and source. | stratum TSV | ADD | 960 profiles; regret 10,380,000. |
+| results-5 | OAT | Report raw A/G/Delta and ratio for six rows. | OAT raw TSV | REWRITE | `removal-associated`; nonadditive. |
+| results-6 | Changed | Report second public construction. | changed TSV | REWRITE | No transfer implication. |
+| results-7 | Prefixes | Report reused nested sensitivity values. | scaling TSV | REWRITE | n remains 3 named masters. |
+| results-8 | Statistics | Explain why no inferential statistic is supplied. | design stance | REWRITE | No sample SD/effect size. |
+| disc-1 | Scope | Interpret table arithmetic and design selection. | provenance | REWRITE | Magnitude not externalized. |
+| disc-2 | Heterogeneity | Interpret action/stratum patterns as engineered-table descriptors. | new diagnostics | REWRITE | Not natural prevalence. |
+| disc-3 | OAT | Explain interacting numerator/denominator changes. | OAT raw table | REWRITE | No component share. |
+| disc-4 | History | Keep live miss separate; proposed causes remain hypotheses. | results/log 002 | REWRITE | No diagnostic conclusion. |
+| disc-5 | Missing science | Map learner/test/live gaps to policy literature. | foundational refs | REWRITE | Concrete requirements, no execution instruction. |
+| disc-6 | Governance | Consolidate prohibited/unperformed actions. | state/permissions | MERGE | One short subsection. |
+| concl-1 | Contribution | State reproducible scorer case study. | results/artifacts | REWRITE | No concept novelty. |
+| concl-2 | Non-conclusion | Deny agent-security opportunity/deployable gain. | limitations | REWRITE | Final sentence preserves gap. |
+| refs-1 | References | Include all ten verified sources actually cited. | two literature JSON files | REWRITE | 10/10 cited and field-verified. |
+| supp-1 | Ledger | Embed historical 42-row TSV byte-faithfully. | results.tsv | KEEP-AS-ARCHIVE | Bytes identical; old labels identified as historical. |
+| supp-2 | Timeline | Add committed exploration/freeze/run/review chronology. | git/logs | REWRITE | Untouched tier visibly absent. |
+| supp-3 | Artifact map | List repo-relative code/data/table/figure paths. | repository | REWRITE | Every path exists. |
+| supp-4 | Diagnostics | Include or map full action/stratum/OAT tables. | generated tables | ADD | Audit totals present. |
+| supp-5 | Reproducibility limit | Distinguish local determinism from absent archive/durability. | repo state | REWRITE | No public-release promise. |
+| supp-6 | Disclosure | Update AI/review/iteration and compute disclosures. | state/logs | REWRITE | Counts and limits exact. |
 
-- Whole-paper row names the structural pivot and story-integrity test.
-- Every factual unit has a concrete evidence anchor.
-- Dominant operation is `REWRITE`, appropriate for a v1 manuscript assembled
-  from research notes; `ADD` is limited to connective/supplementary apparatus.
-- No row uses “improve clarity” or another non-functional rationale.
-- Every planned figure, table, equation, disclosure, and reference has a row.
+## Matrix audit
+
+- Total rows: 50.
+- `REWRITE`: 35; `ADD`: 8; `ADD/MOVE`: 1; `MERGE`: 3;
+  `KEEP-AS-ARCHIVE`: 1; controlling/audit rows: 2.
+- Dominant scientific-prose operation: `REWRITE`.
+- Scientific-prose `KEEP` rows: 0/43 = 0%.
+- Every round-1 reviewer issue maps to at least one row.
+- Every numerical Results row maps to a committed or newly generated TSV.

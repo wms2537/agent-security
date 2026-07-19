@@ -1,46 +1,50 @@
-# Claim-to-source map — ORF internal technical report
+# Claim-to-source map — PS-PIR revision 2
 
-Support grades follow `reference/citation-integrity.md`. Local committed artifacts
-are treated as primary evidence; external citations are restricted to
-`research-log/lit/phase6-primary.json`. No row is metadata-only.
+Support grades follow `reference/citation-integrity.md`. Local repository files
+are primary evidence for SDK and experiment claims. External conceptual claims
+use the field-verified `phase6-foundational.json` and `phase6-primary.json`
+databases. The final wording column is binding.
 
-| ID | Section | Substantive claim | Type | Evidence | Support grade | Epistemic label | Final wording constraint |
-|---|---|---|---|---|---|---|---|
-| C01 | Abstract/Introduction | Candidate structure consumes finite generation/replay resources and whole-run timeout is an operational failure surface in the benchmark. | method/background | `PROBLEM.md`; SDK/gateway audit in research-log/001, /004, /005 | strong | fact within audited benchmark | Say benchmark/audited implementation, not all agents. |
-| C02 | Introduction/Discussion | A prior high mock score failed to transfer to the live four-cell aggregate because latency and dead reserves were mis-modeled. | quantitative/association | `results.tsv:real-lb-v1-multipost`; research-log/002 | strong | fact plus documented diagnosis | Historical context only; not ORF evidence and no new Kaggle claim. |
-| C03 | Related Work | The best test-time strategy can vary with prompt difficulty; difficulty-conditioned allocation used up to fourfold less compute than best-of-N in reported regimes. | method/quantitative | `phase6-primary.json:snell2025scaling`, abstract and §1/§5.3 | strong | source fact | Preserve “reported regimes/nearly” qualifiers. |
-| C04 | Related Work | Plan-and-Budget allocates tokens by sub-question complexity rather than one global schedule and reports accuracy/cost efficiency gains. | method/quantitative | `phase6-primary.json:lin2026plan`, arXiv v3 abstract | strong | source fact | Use current v3 numbers only: up to 70%, 39%, 193.8%. |
-| C05 | Related Work | A learned LLM-agent planning decision can outperform fixed planning patterns in Crafter while using fewer tokens. | method/quantitative | `phase6-primary.json:paglieri2026planning`, §5.3 | strong | source fact | Name Crafter, model comparison, 0.387/0.379 and 85%; do not generalize to security. |
-| C06 | Related Work | SCALE selectively allocates reasoning resources by sub-problem difficulty and reports AIME25 improvement with lower cost. | method/quantitative | `phase6-primary.json:xiao2026scale`, AAAI abstract | strong | source fact | State 57.50→71.25 and 33-53% cost only if needed; domain=math. |
-| C07 | Related Work | BAVT adapts step-level tool-agent search to remaining budget and reports 5-call performance comparable to a 20-call parallel baseline on multi-hop QA. | method/quantitative | `phase6-primary.json:li2026bavt`, §3/§4.2 | strong | source fact | Use 0.338 vs 0.334 on OSS-20B; call it reported comparison, not universal dominance. |
-| C08 | Introduction/Related Work | Adaptive allocation is established prior art, so ORF does not claim the general principle as new. | background/association | C03-C07; research-log/043 systematic record | strong | our synthesis | Phrase as bounded literature conclusion, not exhaustive priority proof. |
-| C09 | Introduction/Methodology | ORF-B replaces only split-global action scope with per-profile action scope while holding probes, actions, resources, score, and profiles fixed. | method | research-log/018 §§named concept/variables; /023 plan; config | strong | project fact | “Replace” is the scientific operation; custody machinery is not a component. |
-| C10 | Methodology | For a fixed table, `A=sum_z max_m S_z(m) >= G=max_m sum_z S_z(m)`. | mechanism/formal | research-log/018 finite-regret derivation; /019 independent re-derivation | strong | proved finite identity | `prove` is permitted only for this algebraic containment statement. |
-| C11 | Methodology | The inequality fixes direction but cannot imply a 5% material magnitude. | mechanism | research-log/018; /019 review | strong | fact about derivation | Keep threshold normative/empirical. |
-| C12 | Methodology/Setup | The score path uses actual SDK predicate evaluation, 16-hex cell signatures, singleton raw `q=16e+2`, and exact finite action set `{1,2,4,8,16,24,32}`. | method | research-log/018; v7 fixtures/checker; source hashes | strong | project fact | State only frozen audited SDK behavior. |
-| C13 | Setup | Three primary and three disjoint changed-regime master labels were fixed before their outcomes; no label was replaced. | method | experiments/configs/orf-phase4-v1.json; /023; run manifests | strong | project fact | Public deterministic, never call held-out/random sample. |
-| C14 | Setup/Results | PROBE_GLOBAL is an exhaustive seven-action argmax and therefore has no unsearched tuning degree on the table. | method | research-log/023, /024, /041; baseline table | strong | project fact | Say exact local comparator, not literature SOTA. |
-| C15 | Results | Primary gain values are 41.438%, 38.111%, 41.198%; mean 40.249%, s.d. 1.855 pp, min-max 38.111-41.438. | quantitative | core-by-master.tsv; results.tsv:orf-p4-core; research-log/042,/044 | strong | project fact | n=3 fixed masters; no population CI/p. |
-| C16 | Results | Standardized mean over measured master s.d. is 21.694, descriptive only. | quantitative | research-log/042,/044 recomputation | strong | project fact | Not Cohen's d and not population effect. |
-| C17 | Results | Homogeneous controls show zero raw difference and length one for all three masters. | quantitative/mechanism | homogeneous-by-master.tsv; results.tsv:orf-p4-core | strong | project fact | Exact boundary, not an independent live negative control. |
-| C18 | Results | Removing cliffs, reset, curvature, novelty, or saturation changes mean core gain by -32.627, -21.275, -2.389, -0.154, +4.106 pp. | quantitative | ablation-by-master.tsv; research-log/042 | strong | project fact | OAT, paired, secondary, non-additive, no test. |
-| C19 | Results | Disjoint changed-regime masters average 36.394% and all clear 5%. | quantitative | generalization-by-master.tsv; results.tsv | strong | project fact | Public changed construction, not held-out generalization. |
-| C20 | Results | Nested N=40/160/320 means are 48.953/42.794/40.249%, with all nine cells above 5%. | quantitative | scaling-by-cell.tsv; results.tsv; research-log/042 | strong | project fact | Reused masters; deterministic robustness, not nine replicates or learning curve. |
-| C21 | Results/Discussion | The primary fixed-finite result requires no population p-value; n is three masters, not rows/profiles/cells. | method/statistical | research-log/042,/044; statistical declaration | strong | project analytic decision | Say `test:none; p:not applicable`; min-max is not CI. |
-| C22 | Discussion | Cliffs and reset overhead explain most OAT magnitude, novelty is negligible, and saturation suppresses some value. | mechanism/association | C18; research-log/032,/042 | strong for association, partial for explanation | our inference | Use “in this construction” and “OAT pattern”; do not claim causal population mechanism. |
-| C23 | Discussion | Constructed profiles cannot establish live response heterogeneity or learnability. | method/limitation | research-log/018,/019,/041,/044; promoted learning | strong | project design fact | Direct limitation, not hedge-only future work. |
-| C24 | Discussion/Conclusion | The result advances a proxy but does not solve `PROBLEM.md`'s live replay-safe transfer objective. | association | PROBLEM.md; C15-C23; no held-out/live runs | strong | our inference | State missing learner, test tier, tail model, private transfer. |
-| C25 | Disclosures | The cycle used one research iteration, active hypothesis iteration 4, nine written ORF revisions, and eleven theory-review rounds. | method/background | state.json; research-log/007,/009-/019 | strong | project fact | Forking-path disclosure; do not imply nine independent hypotheses. |
-| C26 | Disclosures | Reported Phase-4 scientific runtime totals 4.456198161 s; maximum peak memory 0.583507538 GB. | quantitative | research-log/041,/042; results.tsv family rows | strong | project fact | Family runtimes counted once; not hardware-normalized energy. |
-| C27 | Disclosures | The locked v7 set remains unfrozen/unopened and no Kaggle action occurred in this study phase. | method/limitation | state.json heldout_sets; research-log/041,/044 | strong | project fact | Do not describe as a passed locked-test gate. |
-| C28 | Disclosures | The manuscript was planned, drafted, analyzed, and reviewed with autonomous AI assistance under human direction. | background | task record and repository provenance | strong | disclosure fact | Internal-report disclosure; no target-venue policy claim. |
-| C29 | Supplement | Code, configs, public score tables, run manifests, figures, and source CSVs are in the repository; held-out outputs do not exist. | method/availability | repository paths; state heldout status | strong | project fact | Do not promise public URL or external release not performed. |
+| ID | Claim | Type | Evidence | Grade | Required final wording |
+|---|---|---|---|---|---|
+| C01 | The audited gateway sets a 9,000-second default budget and bounds candidate/replay slices. | SDK fact | `comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py` | strong | Say audited local gateway, not universal benchmark behavior. |
+| C02 | The scorer gives +2 per unique qualifying cell and applies a normalization/cap path with H=200,000. | SDK fact | `comp/sdk/aicomp_sdk/scoring.py` | strong | Cite path; distinguish SDK fact from synthetic generator. |
+| C03 | Attack contracts expose a time-budget field whose semantics constrain candidate generation. | SDK fact | `comp/sdk/aicomp_sdk/attacks/contracts.py` | strong | Do not infer an empirical latency distribution. |
+| C04 | Perfect-information value is an established decision-theoretic concept. | background | Howard 1966 | strong | PS-PIR is an application, not a new concept. |
+| C05 | Contextual-bandit and policy-learning work chooses actions from observable context and evaluates a policy under partial feedback/identification assumptions. | background | Langford-Zhang 2007; Dudík et al. 2011; Athey-Wager 2021 | strong | Contrast with full counterfactual access; do not claim identical setting. |
+| C06 | Adaptive-submodular optimization distinguishes adaptive policies conditioned on observations from fixed choices. | background | Golovin-Krause 2011 | strong | Use as conceptual contrast, not claim PS-PIR satisfies submodularity. |
+| C07 | Recent LLM work adapts inference, planning, or tool-search allocation by prompt/subproblem/step information. | background | five papers in `phase6-primary.json` | strong | Preserve each paper's task/domain qualifiers. |
+| C08 | General adaptive allocation is prior art; PS-PIR has no general novelty claim. | synthesis | C04–C07 | strong | `scorer-specific worked example`. |
+| C09 | On any fixed finite table, A=sum row maxima is at least G=max shared-action sum. | formal | log 018 derivation; log 019 review | strong | Only policy-class containment is proved. |
+| C10 | Equality holds when a single action is row-optimal everywhere; positive gap requires loss from a shared action on at least one row. | formal | elementary derivation; score tables | strong | No population/mechanism inference. |
+| C11 | PS-PIR grants every row's complete counterfactual action scores; retained probes do not choose the action. | method | hypothesis v9; Phase-4 runner | strong | Call it perfect-information/oracle, never deployable adaptive policy. |
+| C12 | Legal lengths are {1,2,4,8,16,24,32}; q may be zero and the zero branch precedes saturation. | method | config/checker/generator | strong | Define q>=0 and evaluation order. |
+| C13 | The crossed construction deliberately varies reset, linear, curvature, and cliff factors over equally weighted strata. | method | Phase-4 config/generator | strong | `designer-specified stress test`; no empirical prevalence. |
+| C14 | The homogeneous construction fixes the row-wise optimum at length one by construction. | method | generator/homogeneous TSV | strong | `boundary/code-path sanity check`, not empirical discriminator. |
+| C15 | Every synthetic range, weight, replay reserve, and cutoff is an engineering choice unless directly inherited from SDK code. | provenance | config/log 018 + C01–C03 | strong | Table each origin; do not say empirically calibrated. |
+| C16 | The 5% line was selected internally before Phase-4 calculations but has no external utility calibration. | decision record | log 018; review issue 8 | strong | `preselected numerical cutoff`, never `material`. |
+| C17 | Phase 4 followed adaptive public exploration/calibration and had no untouched evaluation tier. | chronology | logs 007–041; state | strong | `post-calibration frozen public verification`. |
+| C18 | The three named crossed-table gains are 41.437632336565%, 38.111186959411%, and 41.198294770946%; range 38.111186959411–41.437632336565%. | quantitative | `core-by-master.tsv` | strong | Report named values/range; no SD, CI, p, or standardized score. |
+| C19 | The shared comparator selects length 16 for each crossed master. | quantitative | core/action TSV | strong | Exact table fact. |
+| C20 | Homogeneous tables have zero raw regret and both policies select length one. | quantitative | homogeneous TSV | strong | Sanity-check scope only. |
+| C21 | Row-wise selections across the three masters use lengths 4/8/16/24/32 with counts recorded per master; lengths 1/2 are unused. | quantitative | `paper/tables/action-distributions.tsv` | strong | Descriptor of engineered tables only. |
+| C22 | The stratum decomposition covers 40 strata, 960 profile rows, total regret 10,380,000; four strata have zero regret and the top five contribute about 47.843%. | quantitative | `paper/tables/stratum-regret-decomposition.tsv` | strong | Contribution accounting, not causal shares. |
+| C23 | Core mean raw A/G/Delta are 12,062,550.667/8,602,550.667/3,460,000.000; each OAT row has analogous raw values. | quantitative | `paper/tables/oat-raw-summary.tsv` | strong | Report removal-associated changes and nonadditivity. |
+| C24 | Removing cliffs and reset produces the two largest decreases in the displayed percentage ratio; unsaturation increases it. | association | OAT raw summary + ablation TSV | strong | `largest removal-associated changes`; never `account for`. |
+| C25 | The second public construction has gains above 5% for its three named masters and mean 36.393868336949%. | quantitative | generalization-by-master TSV | strong | `changed public construction`, not generalization/replication. |
+| C26 | Nested prefixes N=40/160/320 yield means 48.952971791444/42.794164975019/40.249038022308% on reused masters. | quantitative | scaling-by-cell TSV | strong | `numerical sensitivity`; not robustness, learning curve, or n=9. |
+| C27 | A previous live aggregate scored 36.705 against an approximately 85 forecast. | historical result | results.tsv; log 002 | strong | Historical context outside PS-PIR. |
+| C28 | Latency, reserve, parsing, and aggregation explanations for that miss were proposed project hypotheses, not identified causes in PS-PIR. | historical interpretation | log 002; absence of protocol in current methods | strong for classification | Use `hypotheses` or `possible explanations`; no causal conclusion. |
+| C29 | No learner, live target, beacon, held-out freeze/open, or Kaggle action was executed for PS-PIR. | scope | state; run artifacts; user authorization | strong | Direct non-claim; not a passed test. |
+| C30 | Local code/config/tables/manifests/figures can be replayed from the repository, but no external archive, DOI, or durability guarantee exists. | availability | repository; reproducibility manifest | strong | Internal reproducibility only; no publication-readiness claim. |
+| C31 | Scientific Phase-4 runtime totals 4.456198161 s and maximum peak memory is 0.583507538 GB. | compute | logs 041/042; results.tsv | strong | Not hardware-normalized energy. |
+| C32 | The report used AI-assisted planning, drafting, analysis, and review under human direction. | disclosure | project record | strong | Internal disclosure; no venue-policy claim. |
 
-## Gate summary
+## Gate audit
 
-- Metadata-only claims: **0**.
-- Mechanism/method/quantitative claims resting only on background support: **0**.
-- Partial support: C22 only; its wording is explicitly limited to the OAT pattern
-  in this construction.
-- Contradictory/limiting evidence is retained in C02 and C23-C24 rather than
-  laundered into support.
+- Metadata-only substantive claims: 0.
+- Method, mechanism, and numerical claims backed only by background sources: 0.
+- Unsupported causal claims: 0 after C28 downgrade.
+- New numerical claims without an identified table: 0.
+- Claims of learner value, live transfer, held-out confirmation, beacon use, or
+  Kaggle improvement: prohibited by C11, C17, and C29.

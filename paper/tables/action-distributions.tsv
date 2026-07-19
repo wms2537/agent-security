@@ -1,0 +1,4 @@
+master_index	global_fill_length	adaptive_count_m1	adaptive_count_m2	adaptive_count_m4	adaptive_count_m8	adaptive_count_m16	adaptive_count_m24	adaptive_count_m32
+0	16	0	0	66	96	72	53	33
+1	16	0	0	66	85	83	52	34
+2	16	0	0	65	96	69	58	32

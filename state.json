@@ -272,7 +272,7 @@
       "phase": "6",
       "desc": "Write, review, and verify the source-backed Phase-6 ORF report at the evidence strength authorized by the Phase-5 decision",
       "status": "in_progress",
-      "evidence": "Committed 629-line draft at 08f300f with deterministic checks in research-log/046; Medium-intensity sterile paper-review round 1 charged at dispatch, budget 1/2. Scope remains internal report/no submission with explicit public-synthetic/oracle/no-heldout limits.",
+      "evidence": "Committed 629-line v1 draft at 08f300f and verbatim round-1 NEEDS_REVISION verdict in research-log/047; Medium paper-review budget remains 1/2. The 12 issues are routed at branch-of-origin in paper/revision-round1-blueprint.md. Revision 2 renames the executed evidence PS-PIR and downgrades it to an established perfect-information scorer worked example; foundational literature, deterministic action/stratum/raw-OAT diagnostics, and local reproducibility records are prepared in research-log/048. Section reconstruction is in progress; no Kaggle, held-out, beacon, live, private, submission, or external-release action.",
       "parent": "T030"
     },
     {

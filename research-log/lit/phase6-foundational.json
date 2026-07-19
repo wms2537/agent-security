@@ -1,0 +1,133 @@
+{
+  "tier": 1,
+  "search_record": {
+    "date": "2026-07-19",
+    "trigger": "Phase-6 paper-review round 1, issue 5",
+    "question": "What foundational literatures own perfect-information value, context-conditioned policy choice, offline contextual-policy evaluation, adaptive versus nonadaptive policy value, and heterogeneous policy learning?",
+    "sources": [
+      "IEEE DOI metadata plus DBLP/OpenAIRE",
+      "official NeurIPS proceedings",
+      "arXiv author record for ICML 2011",
+      "AAAI/JAIR record plus DOI metadata",
+      "Econometrica/Wiley version of record"
+    ],
+    "conclusion": "The executed ORF calculation is a scorer-specific deterministic application of established perfect-information/policy-class value. Contextual bandits and policy learning study the harder missing step: choosing actions from observable context and evaluating a learned policy. Adaptive-submodularity work further distinguishes adaptive policies from fixed choices under partial observability. No general regret-concept novelty is tenable."
+  },
+  "papers": [
+    {
+      "citation_key": "howard1966information",
+      "title": "Information Value Theory",
+      "authors": "Howard, 1966",
+      "authors_full": ["Ronald A. Howard"],
+      "year": 1966,
+      "venue": "IEEE Transactions on Systems Science and Cybernetics, 2(1), 22–26",
+      "url": "https://doi.org/10.1109/TSSC.1966.300074",
+      "doi": "10.1109/TSSC.1966.300074",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Develops a decision-analytic value-of-information theory in which information is valued through the consequences of decisions rather than probability alone.",
+      "methodology": "Compares decision value before and after resolving uncertainty; perfect information is the limiting case relevant to an oracle that sees all counterfactual action values.",
+      "key_results": "Establishes the decision-theoretic information-value framing that owns the conceptual form of max-after-information versus max-before-information.",
+      "reviewed": "yes",
+      "relevance": "high",
+      "relevance_reason": "Closest conceptual foundation: ORF's sum of row-wise maxima versus one shared maximum is a deterministic perfect-information value calculation.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "IEEE DOI metadata cross-checked against DBLP and OpenAIRE",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    },
+    {
+      "citation_key": "langford2007epoch",
+      "title": "The Epoch-Greedy Algorithm for Multi-armed Bandits with Side Information",
+      "authors": "Langford and Zhang, 2007",
+      "authors_full": ["John Langford", "Tong Zhang"],
+      "year": 2007,
+      "venue": "Advances in Neural Information Processing Systems 20",
+      "url": "https://proceedings.neurips.cc/paper/2007/hash/4b04a686b0ad13dce35fa99fa4161c65-Abstract.html",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Introduces Epoch-Greedy for bandits with observable side information, connecting action choice from context to a supervised policy class and regret.",
+      "methodology": "Alternates exploration with greedy use of a learned context-to-action rule and bounds regret through the hypothesis class's sample complexity.",
+      "key_results": "Reports regret scaling of O(T^(2/3) S^(1/3)) or better, where S is the supervised-learning complexity term.",
+      "reviewed": "yes",
+      "relevance": "high",
+      "relevance_reason": "Shows the operational distinction ORF does not test: selecting actions from observed context rather than from full counterfactual scores.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "Official NeurIPS proceedings record",
+        "critical_mismatches": 0,
+        "warnings": ["The proceedings landing-page title says 'side information'; the PDF title uses 'contextual multi-armed bandits'. The report uses the proceedings title."]
+      }
+    },
+    {
+      "citation_key": "dudik2011doubly",
+      "title": "Doubly Robust Policy Evaluation and Learning",
+      "authors": "Dudík et al., 2011",
+      "authors_full": ["Miroslav Dudík", "John Langford", "Lihong Li"],
+      "year": 2011,
+      "venue": "International Conference on Machine Learning (ICML 2011)",
+      "url": "https://arxiv.org/abs/1103.4601",
+      "arxiv": "1103.4601",
+      "doi": "10.48550/arXiv.1103.4601",
+      "source_type": "peer-reviewed-preprint-record",
+      "core_contribution": "Studies contextual-policy evaluation and optimization from historical data with partially observed rewards using doubly robust estimation.",
+      "methodology": "Combines a reward model with a past-policy model so value estimation remains accurate when either component is well specified.",
+      "key_results": "Provides accuracy guarantees under either a good reward model or a good logging-policy model and reports lower-variance evaluation and better learned policies.",
+      "reviewed": "yes",
+      "relevance": "high",
+      "relevance_reason": "Makes explicit that an operational conditional policy needs observable context, logged action data, and policy evaluation—none supplied by the ORF oracle table.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "arXiv author record stating publication at ICML 2011",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    },
+    {
+      "citation_key": "golovin2011adaptive",
+      "title": "Adaptive Submodularity: Theory and Applications in Active Learning and Stochastic Optimization",
+      "authors": "Golovin and Krause, 2011",
+      "authors_full": ["Daniel Golovin", "Andreas Krause"],
+      "year": 2011,
+      "venue": "Journal of Artificial Intelligence Research, 42, 427–486",
+      "url": "https://aaai-21.aaai.org/Library/JAIR/Vol42/jair42-012.php",
+      "doi": "10.1613/jair.3278",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Formalizes adaptive submodularity for sequential choices under partial observability and derives guarantees for adaptive greedy policies.",
+      "methodology": "Compares policies that condition later actions on observed item states with nonadaptive selections and characterizes when greedy adaptation is competitive.",
+      "key_results": "Provides approximation guarantees for adaptive stochastic maximization and coverage and analyzes adaptivity gaps in its problem class.",
+      "reviewed": "yes",
+      "relevance": "medium-high",
+      "relevance_reason": "Foundational precedent for separating the value of an adaptive policy from a fixed policy under observations; ORF instead grants perfect counterfactual observability.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "AAAI/JAIR volume record plus DOI and author publication records",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    },
+    {
+      "citation_key": "athey2021policy",
+      "title": "Policy Learning With Observational Data",
+      "authors": "Athey and Wager, 2021",
+      "authors_full": ["Susan Athey", "Stefan Wager"],
+      "year": 2021,
+      "venue": "Econometrica, 89(1), 133–161",
+      "url": "https://onlinelibrary.wiley.com/doi/10.3982/ECTA15732",
+      "doi": "10.3982/ECTA15732",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Learns constrained treatment-assignment policies from observational data using semiparametrically efficient, doubly robust scores.",
+      "methodology": "Optimizes a policy class over observable individual characteristics under identification assumptions and application constraints.",
+      "key_results": "Establishes asymptotic utilitarian-regret guarantees for the learned policy.",
+      "reviewed": "yes",
+      "relevance": "high",
+      "relevance_reason": "A mature analogue of heterogeneous action assignment versus one uniform action; unlike ORF, it addresses learned policy value and identification.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "Econometrica/Wiley version of record",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    }
+  ]
+}

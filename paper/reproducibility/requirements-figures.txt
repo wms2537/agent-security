@@ -1,0 +1,2 @@
+# Recorded Phase-5 figure environment.
+matplotlib==3.10.9

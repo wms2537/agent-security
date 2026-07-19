@@ -1,0 +1,2 @@
+# Recorded Phase-4 environment; standard-library dependencies omitted.
+jsonschema==4.26.0

@@ -1,82 +1,75 @@
-# Narrative arc — ORF internal technical report
+# Narrative arc — PS-PIR internal technical report, revision 2
 
 ## Five-sentence spine
 
-**Tension.** In the agent-security benchmark, candidate structure consumes the
-same finite generation and replay budgets that determine whether any finding is
-scored, yet a single fixed fill length assumes every observed response profile
-should spend those budgets in the same way. **Gap.** Recent work shows that
-adaptive inference allocation can outperform uniform policies in reasoning and
-tool-using agents, but it does not answer how much profile-conditioned candidate
-length is worth under this benchmark's exact scorer—and our authorized data do
-not reveal whether a live target exposes a learnable signal. **Insight.**
-Beacon-Held-Out Conditional Regret (ORF-B) isolates the exact finite score lost
-when identical retained probes and resources are forced to share one global
-fill length rather than choosing a legal length per profile. **Evidence.** On
-three pre-specified public synthetic masters, the profile-conditioned oracle
-gained 40.249% over an exhaustive seven-action global comparator, while three
-homogeneous masters produced exact zero regret; cliffs and reset overhead
-accounted for most of the one-at-a-time magnitude. **Resolution.** The study
-establishes a large, auditable public-synthetic oracle information value and its
-main boundary conditions, but it does not establish learnability, live-model
-heterogeneity, replay-tail safety, private transfer, or Kaggle improvement.
+**Decision.** The audited scorer exposes a finite action table in which one
+candidate fill length can be shared across all response profiles or, under an
+oracle, selected separately for each profile. **Conceptual owner.** The
+difference is an elementary deterministic instance of value of perfect
+information and policy-class containment, not a new regret concept or learned
+algorithm. **Worked example.** Public-Synthetic Perfect-Information Regret
+(PS-PIR) computes that difference on three named, designer-specified crossed
+tables and checks the equality code path on three homogeneous tables. **Result.**
+The named crossed-table gains are 41.437632%, 38.111187%, and 41.198295%, whereas
+the homogeneous tables have exact zero regret; action and stratum diagnostics
+show how the engineered heterogeneity appears in these tables. **Boundary.**
+These calculations establish neither informative live observations, a learnable
+selector, an untouched-test result, a practical utility threshold, nor a Kaggle
+or agent-security performance gain.
 
-## The research journey
+## Research journey without hindsight repair
 
-The project began with a live leaderboard failure: a high constructed-mock score
-did not transfer because multi-message candidates were latency-bound, ineffective
-reserves diluted the dominant mechanism, and one mock cell had been mistaken for
-the four-cell aggregate. That disconfirmation redirected the durable-moat question
-away from another fixed recipe and toward online system identification: measure
-which candidate structure a model can support, then allocate within the replay
-budget.
+An earlier live aggregate underperformed its public mock forecast. Project notes
+proposed latency, reserve, parsing, and aggregation explanations, but the current
+study did not run a diagnostic protocol that identifies those causes. Revision 2
+therefore retains only the observed miss as historical context and labels the
+proposed explanations as diagnostic hypotheses.
 
-ORF-B is the deliberately narrower scientific step. Its action-scope replacement
-compares a per-profile oracle with the strongest matched global policy, not with
-an under-tuned default. The finite inequality gives direction but not materiality;
-the hypothesis therefore committed to a 5% threshold and a homogeneous equality
-control. The design accumulated nine written hypothesis revisions and eleven
-theory-review rounds because exact SDK identity, mixture scheduling, numeric
-reproducibility, crash-atomic evidence publication, and held-out custody each
-exposed blockers. Those engineering constraints are part of the evidential story,
-not claimed scientific components.
+The project then narrowed the question to a table-level audit: if every
+counterfactual action score were known, how much score would one shared action
+lose to row-wise choices on a specified construction? This is a useful scorer
+unit test, but it bypasses the operational learning problem. The retained probes
+do not choose actions, and no context-to-action policy is trained or evaluated.
 
-The public PoC supported the mechanism, after which Phase 4 froze three primary
-masters, three disjoint changed-regime masters, five one-at-a-time ablations, and
-three nested scales. The core result and homogeneous negative both confirmed.
-The changed regime and every scale cell preserved material direction. The most
-informative secondary result was attribution: cliff behavior and reset overhead
-dominated, novelty was negligible, and saturation suppressed rather than created
-the effect. No Phase-4 prediction missed; that local calibration does not repair
-the absence of an unopened test tier.
+The public generator was adaptively repaired and calibrated before Phase 4.
+Phase 4 subsequently froze labels and predictions for a public verification
+calculation, but there was no untouched evaluation tier. The exact outcomes are
+valid descriptions of the selected deterministic tables; their magnitude has no
+confirmatory force outside those tables.
 
-The load-bearing assumption is not the algebra. It is that real target behavior
-contains stable, inferable response-profile heterogeneity under a replay-safe
-budget. Constructed profiles cannot establish that assumption. The authorized
-held-out beacon chain remains unfrozen and unopened, no Kaggle action is allowed,
-and the profile-conditioned policy is an oracle rather than a learned controller.
-The report must keep this limit adjacent to every broad interpretation.
-
-## Why this approach, not the alternatives
-
-- A copied fixed public recipe cannot be a durable moat and cannot test whether
-  the exposed live response curve has information value.
-- A mixed nonadaptive portfolio changes allocation and action scope together;
-  ORF instead holds probes, actions, scores, and resources fixed and replaces only
-  the shared argmax.
-- A live or private experiment would answer more of `PROBLEM.md`, but it is not
-  authorized. Public deterministic evidence is reported at its true scope.
-- A contribution-paper narrative is rejected for now: adaptive allocation is
-  crowded prior art, the test tier is unopened, and no learnable selector exists.
+Round-1 paper review correctly identified that the original narrative assigned
+too much scientific meaning to an engineered construction. Revision 2 therefore
+moves the conceptual center to established information-value theory, supplies
+the omitted action and stratum diagnostics, exposes the engineering provenance
+of every synthetic choice, and treats sensitivity transforms as interacting
+descriptive contrasts.
 
 ## Argument contract
 
-Every section advances one of two linked propositions:
+Every scientific section must preserve all four propositions:
 
-1. **Exact finite proposition:** profile conditioning has material oracle value
-   on the frozen public synthetic construction, with a homogeneous zero boundary.
-2. **Operational non-conclusion:** this value is not evidence that the live agent
-   exposes, reveals, or safely permits exploitation of that information.
+1. For any fixed finite score table, the row-wise perfect-information policy
+   weakly contains the best shared action.
+2. The reported magnitudes belong only to three named designer-specified tables;
+   the homogeneous equality is a boundary/code-path sanity check.
+3. The 5% line was a preselected internal numerical cutoff with no externally
+   calibrated utility meaning.
+4. No learner, live target, beacon, held-out tier, freeze action, Kaggle action,
+   or external publication was executed.
 
-The paper succeeds only if a reader can state both propositions after the
-abstract and again after the discussion.
+## Contribution boundary
+
+The report contributes an auditable scorer-specific worked example, diagnostics,
+and a reproducible internal record. It does not contribute a new theorem, regret
+definition, adaptive algorithm, empirical population finding, or demonstrated
+agent-security opportunity. ORF-B / Beacon-Held-Out Conditional Regret is retained
+only as the name of a prospective protocol that was not executed; PS-PIR names
+the executed public calculation.
+
+## End state
+
+The final sentence must leave the reader with the right unit of knowledge: these
+tables show how to calculate a perfect-information shared-action gap exactly,
+while the operational question—whether observable probes support safe action
+selection on an untouched target—remains unanswered and would require separate
+authorization.
