@@ -1,31 +1,36 @@
-# Phase-6 report outline
+# Phase-6 report outline — revision 2
 
-**Working title:** *Conditional Regret of Global Candidate Length in a Public
-Synthetic Agent-Security Model*
+**Working title:** *Perfect-Information Regret of a Shared Candidate-Length
+Constraint on Deterministic Synthetic Score Tables*
 
-**Document class:** paper-shaped internal technical report; no venue submission.
+**Document class:** internal technical report and scorer worked example; no venue
+submission, external release, archive, or held-out evaluation.
 
-| Position | Section | Story-arc job | Primary source material |
+| Position | Section | Required argument | Primary evidence |
 |---:|---|---|---|
-| 01 | Abstract | State the exact finite result and operational non-conclusion in 150-300 words. | narrative arc; research-log/042, /044 |
-| 02 | Introduction | Make the replay-budget structure decision concrete, position the adaptive-allocation gap, name ORF-B, and list bounded contributions. | PROBLEM.md; state idea DNA; /002, /018, /043-/045 |
-| 03 | Related Work | Organize neighbors into prompt-conditioned compute, learned planning, and budget-aware tool search; deny broad novelty. | lit/phase6-primary.json; /043; /045 |
-| 04 | Methodology | Define the finite action-scope estimand, exact containment proof, controls, score identity, assumptions, and prediction taxonomy. | /018; /019; config; SDK fixture description |
-| 05 | Experimental Setup | Make public Phase-4 generation, masters, baseline, ablations, changed regime, scales, metrics, provenance, compute, and exclusions reproducible. | environment.md; /023-/041; configs and bundle tables |
-| 06 | Results | Present baseline/core, homogeneous negative, attribution, changed-regime, and scaling evidence with descriptive fixed-master statistics and Figures 1-3. | /042; /044; comparison.tsv; figures |
-| 07 | Discussion | Explain mechanism, preserve historical disconfirmations and nulls, state concrete failure cases, assess novelty, and distinguish proxy progress from the operational problem. | /002; all results.tsv rows; tried_and_failed; /042-/045 |
-| 08 | Conclusion | State what is now known, what failed, and the evidence-bound next step without implying authorization. | narrative arc; full journey; /044 |
-| 09 | References | List only the five field-verified primary sources actually cited. | lit/phase6-primary.json |
-| S1 | Supplementary material | Full 42-row ledger, configs/artifacts, exact proof, reproducibility, data/code availability, and AI-assistance disclosure. | results.tsv; config; run bundles; state; data-governance.md if present |
+| 01 | Abstract | Identify established perfect-information framing, give three named results/range and equality check, then state the operational non-conclusion. | Howard; core/homogeneous TSV; scope record |
+| 02 | Introduction | Ground the SDK-local shared-length decision, classify the historical miss carefully, disclose public calibration, and list three artifact-level contributions. | SDK files; results.tsv; logs 002/018/041 |
+| 03 | Related Work | Lead with VOI/contextual policies/adaptive optimization, then compress recent LLM neighbors and deny conceptual novelty. | both Phase-6 literature databases |
+| 04 | Methodology | Define PS-PIR, zero-first score arithmetic, containment/equality, stress-test constructions, design provenance, and oracle boundary. | SDK/config/generator; logs 018/019 |
+| 05 | Experimental Setup | Separate exploration from public freeze and absent untouched tier; define named tables, comparators, sensitivities, outputs, and local reproduction. | config; logs 023–041; reproducibility guide |
+| 06 | Results | Report named core/equality results, action distributions, stratum contributions, raw OAT values, second public construction, and nested sensitivity. | Phase-4 TSVs; reviewer tables; figures |
+| 07 | Discussion | Restrict interpretation to designed tables, explain interacting sensitivities, preserve the live miss as history, and specify the missing learner/test steps. | full ledger/tried-and-failed; foundational refs |
+| 08 | Conclusion | State the reproducible scorer case study and deny demonstrated opportunity or deployment value. | complete claim map |
+| 09 | References | List ten field-verified sources in citation order. | foundational + recent literature JSON |
+| S1 | Supplementary material | Preserve the complete ledger, chronology, artifact/reproduction map, full diagnostics, availability limits, and disclosures. | results.tsv; Git/logs; manifests; state |
 
 ## Assembly rules
 
-- Markdown is the primary format because Phase 0 selected a working note and the
-  user requested a paper/report, not a submission package.
-- Main-text figures are numbered by basename: Figure 1 `comparison_chart`,
-  Figure 2 `ablation_heatmap`, Figure 3 `scaling_curve`.
-- Primary comparison is pre-specified; every ablation/generalization/scale result
-  is labeled secondary or descriptive.
-- No headline is called held-out. The locked-test absence appears in Abstract,
-  Results, Discussion, disclosures, and the final conclusion boundary.
-- No population significance language is permitted. `n=3` means fixed masters.
+- PS-PIR names the executed public calculation. ORF-B / Beacon-Held-Out names
+  only the unexecuted prospective protocol.
+- Figures retain their existing basenames, but captions use `worked example`,
+  `removal-associated sensitivity`, and `nested numerical sensitivity` language.
+- Phase 4 is `post-calibration frozen public verification`, not confirmation.
+- The 5% line is a preselected numerical cutoff without external utility
+  calibration; `material` is prohibited as an interpretation.
+- No sample SD, standardized score, population significance, CI, p-value,
+  generalization, or robustness claim is permitted for the named tables.
+- The full 42-row ledger is archival evidence and may retain historical labels;
+  narrative prose must identify those labels as historical decision records.
+- No text may imply a beacon fetch, held-out freeze/open, target evaluation,
+  Kaggle action, learner experiment, external archive, or publication action.

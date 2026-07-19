@@ -26,7 +26,14 @@ def main() -> None:
     missing = [str(path.relative_to(ROOT.parent)) for path in SECTIONS if not path.is_file()]
     if missing:
         raise SystemExit(f"missing sections: {missing}")
-    text = "\n\n".join(path.read_text(encoding="utf-8").strip() for path in SECTIONS)
+    section_texts = []
+    for path in SECTIONS:
+        section_text = path.read_text(encoding="utf-8").strip()
+        # Section sources resolve figures from paper/sections; the assembled
+        # report resolves them from paper/.
+        section_text = section_text.replace("](../figures/", "](figures/")
+        section_texts.append(section_text)
+    text = "\n\n".join(section_texts)
     OUTPUT.write_text(text + "\n", encoding="utf-8", newline="\n")
     print(f"assembled={OUTPUT.relative_to(ROOT.parent)} sections={len(SECTIONS)} lines={len(text.splitlines())}")
 

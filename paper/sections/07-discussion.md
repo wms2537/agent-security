@@ -1,37 +1,131 @@
 # Discussion
 
-The registered finite claim held in every public master, but the operational live question did not get answered. Across three fixed primary masters, profile-conditioned selection produced a mean 40.249% gain over the exact shared-length comparator, and three separately derived homogeneous masters returned exact zero regret with length one. The disjoint changed public construction and nested profile prefixes preserved the material direction. These observations establish oracle value for relaxing one shared-action restriction on the specified deterministic tables. They do not establish that a live model exposes stable response-profile heterogeneity, that retained probes reveal the correct action, or that exploiting such a signal is replay-safe. The positive result and this operational non-conclusion are therefore inseparable.
+## Scope of the calculation
 
-## Interpretation of the action-scope gap
+PS-PIR answers a narrow deterministic question. On the three named crossed
+tables, allowing a row-wise perfect-information choice instead of one exhaustive
+shared choice produced ratios of 41.437632336565%, 38.111186959411%, and
+41.198294770946%; the shared action was length 16 in all three tables. On the
+three homogeneous tables, both policy classes selected length one and the raw
+gap was exactly zero. These are exact properties of those score tables and a
+boundary check of the implementation. They are not estimates of an
+agent-security population.
 
-The finite inequality explains direction, while the construction explains why the gap can be large. `ADAPTIVE` contains every action available to `PROBE_GLOBAL`, so its score cannot be lower on the same table. A material gap additionally requires profiles whose maximizing legal lengths differ. The crossed construction supplied such profile-dependent cost and event-yield curves; the homogeneous construction removed that variation and forced both policies to the same optimum. Its exact zero is a boundary condition, not a nonsignificant positive result and not evidence about a live population.
+The direction of the comparison follows from policy-class containment, while
+the positive magnitude comes from the tables that were supplied. The crossed
+generator deliberately varies reset cost, linear cost, curvature, and yield
+cliffs over equally weighted strata. Its ranges, factor frequencies, replay
+reserve, and weights are engineering stress-test choices rather than measured
+features of live response profiles. Moreover, the generator family was
+adaptively developed and repaired during public proof-of-concept and calibration
+work before the Phase-4 config was frozen. The ensuing calculation is therefore
+post-calibration frozen public verification: freezing prevented further
+within-stage changes, but it did not remove construction-selection bias or
+create an untouched evidence tier.
 
-The one-at-a-time removals sharpen this interpretation only **in this construction and OAT pattern**. Removing cliff behavior reduced mean gain by 32.627 percentage points, from 40.249% to 7.622073949240%, while removing reset overhead reduced it by 21.275 points. Curvature removal changed the gain by -2.389 points, and removing the two-point novelty term changed it by only -0.154 points. Removing saturation increased gain by 4.106 points, consistent with the cap suppressing some available action-scope value. These paired descriptive contrasts suggest that cliffs and reset overhead account for most of the observed OAT magnitude here, that novelty is nearly inert, and that saturation masks rather than creates part of the gap. They are non-additive interventions on three fixed masters; they do not identify separable causal effects in a model population.
+The second public construction and the nested prefixes do not change that
+inference. A mean ratio of 36.393868336949% under a different public weighting
+and means of 48.952971791444%, 42.794164975019%, and 40.249038022308% for the
+40-, 160-, and 320-row prefixes are further arithmetic descriptions within the
+same design program. The prefixes reuse rows from the three primary tables, and
+the changed construction remains designer specified. Likewise, the 5% line was
+a preselected numerical cutoff without external utility calibration; crossing
+it says nothing about practical importance.
 
-## Robustness and concrete failure surfaces
+## Heterogeneity represented in the engineered tables
 
-The public robustness checks delimit, but do not dissolve, the construction dependence. Three disjoint changed-regime masters averaged 36.394% after changing master labels, saturation, and cliff weighting. The same three primary masters also remained above 5% at nested profile-set sizes of 40, 160, and 320. Because those scale cells reuse both masters and nested profile rows, they are three reused deterministic trajectories, not nine independent units and not a learning curve. The changed regime is likewise a second public construction, not a held-out sample.
+The action counts make the source of the finite gap visible without extending
+it beyond the construction. Although the best shared action is length 16 for
+each table, the row-wise comparator uses lengths 4, 8, 16, 24, and 32. Across
+the three tables, the respective per-table count ranges are 65--66, 85--96,
+69--83, 52--58, and 32--34; lengths 1 and 2 are unused. This dispersion shows
+that the constructed score rows have different maximizing columns. It does not
+show that naturally occurring profiles have these frequencies, that the five
+actions are distinguishable from retained probes, or that a realizable policy
+could select them.
 
-The homogeneous control gives the clearest failure case: if every profile shares one maximizing action, conditional regret is exactly zero. A second warning is the no-cliff result. Its 7.622073949240% mean remains above the 5% materiality threshold, but it is close enough that a less heterogeneous support could cross below materiality. More generally, the oracle gap can disappear when cost and yield curves align, when probe observations do not distinguish the relevant profile, or when a learned selector's errors exceed the value of conditioning. Constructed profiles can verify arithmetic and policy mechanics, but they cannot confirm live heterogeneity or its prevalence. This is the central external-validity limit, not a caveat that can be repaired by adding more deterministic rows from the same generator.
+The stratum accounting adds the score margins that an action histogram omits.
+Across 960 rows, 36 of the 40 designed strata have positive regret and four
+(`13`, `28`, `33`, and `38`) have zero regret. Total raw regret is 10,380,000,
+and the five largest stratum shares sum to approximately 47.843%. Thus the gap
+is distributed across many cells of this table but is also concentrated in a
+few of the largest designed cells. Because strata were crossed and equally
+weighted by construction, these shares are bookkeeping over engineered support,
+not causal contributions or prevalence estimates.
 
-## What the complete prediction ledger teaches
+## Interacting removal contrasts
 
-The full 42-row ledger is broader than the Phase-4 fixed-table analysis. Its cumulative statuses are 26 `keep`, seven `exploratory`, six `crash`, one `discard`, one `superseded`, and one `mechanics-only`. Signals comprise 31 confirmations, two partial outcomes, two disconfirmations, and seven nulls. Only the 15 `orf-p4-*` `keep` rows enter the reported ORF statistics. Historical rows measure different targets, the PoC and calibration rows precede the fixed Phase-4 estimand, exploratory and mechanics-only rows are not scientific effect estimates, and crashes have no numeric outcome. Preserving those rows in the ledger while excluding them from the fixed-table statistics avoids both selective reporting and invalid pooling.
+The one-at-a-time calculations should be read as transformations of the whole
+score table, not as a decomposition. In the primary condition, mean raw
+perfect-information score (A), shared score (G), and gap (A-G) are
+12,062,550.667, 8,602,550.667, and 3,460,000.000. Removing cliffs changes those
+three quantities to 15,937,335.333, 14,808,566.667, and 1,128,768.667 and lowers
+the displayed ratio from 40.249038022308% to 7.622073949240%. Removing reset
+cost instead changes them to 31,031,426.667, 26,082,096.000, and 4,949,330.667,
+while the ratio falls to 18.973588191963%. These examples show why a ratio
+change cannot be assigned to one component: its numerator and denominator both
+move, and the raw gap may increase while the ratio decreases.
 
-The first disconfirmation was an equal round-robin ensemble fill. It predicted 66 but scored 56.76 because equal allocation diluted high-severity multi-post `EXFILTRATION` candidates with severity-four `CONFUSED_DEPUTY` candidates. Weighted allocation repaired that local dilution and produced the partial weighted result, but this correction did not establish live transfer.
+Among the five displayed transforms, cliff and reset removal produced the two
+largest decreases in the percentage ratio. Curvature removal produced
+37.860007927303%, novelty removal produced 40.094682770562%, and removing
+saturation produced 44.355152104598%. The transforms interact and were not
+combined factorially, so their changes are neither additive shares nor
+identified mechanisms. They describe how the selected deterministic tables
+respond to five specified edits.
 
-The second disconfirmation made that distinction decisive. The v1 design used multi-post-8 as the primary structure, reserved 22% for `CONFUSED_DEPUTY`, and retained additional hedges. It was expected to score about 85 but returned a live leaderboard value of 36.705. Source-level diagnosis showed that multi-post candidates were latency-bound: roughly proportional extra replay time yielded fewer findings and fewer distinct-cell bonuses per second than single-post candidates. The reserve, hedge, and laundering paths almost never fired on real models and were unnecessary because clean exfiltration already fired on private cells. Harmony-token templates also harmed the Gemma parsing path. Finally, the local 198.6 figure had described one compliant-mock cell, not the mean of four independently normalized cells. The later single-post rebuild was only partial relative to its forecast—69.570 against an expected 84–90—despite improving markedly over v1. Together, these rows show why a strong constructed score cannot be treated as a live aggregate prediction.
+## Historical failures are separate evidence
 
-The other partial result was the weighted local ensemble, which reached 100.68 rather than its predicted 120. The seven nulls also remain informative as engineering evidence, though not as effect estimates. One was an exploratory Go-Explore run that exhausted its 20-second budget; a valid retry would require cost prescreening or an adequate declared search budget. Six came from the first ORF calibration implementation: equal, balanced-cliff, no-cliff, cliff-only, unsaturated, and cliff-floor checks all crashed because Decimal parameters were combined before exact rational conversion. Converting each realized parameter separately to `Fraction` repaired the numeric design in the explicitly exploratory v2 calibration. None of these nulls is silently recoded as zero or included in the Phase-4 fixed statistics.
+The project history contains disconfirmations that should not be retrofitted as
+support for PS-PIR. A local equal round-robin ensemble was forecast to score 66
+but scored 56.76. A subsequent weighted allocation improved that local result,
+yet it did not establish transfer. More importantly, an earlier multi-post live
+design was forecast at approximately 85 and returned 36.705. Project notes
+proposed latency, reserve allocation, parser behavior, and aggregation mismatch
+as possible explanations. The PS-PIR methods contain no timing, firing,
+parsing, or attribution protocol capable of identifying those causes, so they
+remain diagnostic hypotheses rather than findings. A later single-post rebuild
+returned 69.570 against a forecast of 84--90, another reminder that local or
+synthetic score calculations were not reliable live aggregate predictions.
 
-## Baseline strength and novelty boundary
+The public synthetic path was itself adaptive. Six first-pass calibration rows
+crashed because of an exact-numeric conversion defect and were rerun only after
+the numeric implementation repair; the proof of concept and repaired calibration
+outcomes then informed the selected Phase-4 construction. Preserving these failures in
+the ledger is essential to interpreting the final tables: the exact arithmetic
+is reproducible, but the construction was selected after substantial public
+development. Neither the failed live forecasts nor the repaired calibration
+establishes why the engineered table has its reported magnitude.
 
-The local contrast is not explained by an under-tuned comparator. `PROBE_GLOBAL` exhaustively searches all seven legal lengths on the same profiles, retained probes, scores, caps, resources, and tie rule. It has no unsearched action or training hyperparameter on the finite table. The result thus measures the cost of one global action scope relative to profile-wise action scope; it does not compare against a literature leaderboard or claim numerical superiority across tasks.
+## Missing operational evidence
 
-A bounded freshness search of five primary papers found adaptive resource allocation at prompt, subproblem, planning-decision, and tool-search granularity already represented in the literature. That record includes difficulty-conditioned test-time compute, Plan-and-Budget, learned decisions about when to plan, SCALE, and budget-aware value-tree search. The search is sufficient to reject a broad claim that conditional allocation itself is new. It is not an exhaustive priority search and does not support a universal statement that no narrower predecessor exists. ORF's remaining differentiator is correspondingly limited: an SDK-faithful, exactly auditable finite conditional-regret estimand for candidate length, paired with an exhaustive shared-action comparator and homogeneous equality boundary. Given adjacent work, the absence of a learner, and the unopened test tier, that contribution supports an internal technical report rather than a contribution-paper claim.
+The difference between PS-PIR and an operational policy is the information and
+evaluation problem. PS-PIR grants the row-wise comparator all seven
+counterfactual scores before it acts. A deployable study would first need to
+define observations available before the length choice and a policy class that
+maps those observations to legal actions, as contextual-bandit and heterogeneous
+policy-learning work does [2], [4]. It would then need to train or select that
+policy without leaking unavailable counterfactuals and evaluate its value under
+the relevant feedback and identification assumptions [3]. If the probes were
+themselves selected sequentially, the information-acquisition policy and its
+structural assumptions would also need to be explicit rather than equated with
+full-table access [5].
 
-## Proxy progress and the unresolved operational problem
+None of those steps is an implementation detail that can be inferred from the
+oracle gap. The retained probes in this study never choose a fill length, no
+selector-error curve is measured, and no partial-feedback policy value is
+estimated. The study also supplies no calibrated latency-tail model or
+whole-run failure-risk guarantee. Consequently, it neither demonstrates an
+agent-security opportunity nor establishes that any fraction of the
+perfect-information difference is attainable as a replay-safe, deployable gain.
 
-ORF advances a controlled proxy for the project's objective: it quantifies how much score is available if the correct candidate length is known separately for each synthetic profile. It does not supply the replay-safe algorithm required by the operational problem. Four evidence gaps remain load-bearing. First, a learner must infer a legal action from limited retained probes without observing all seven counterfactual scores. Second, the locked v7 specification remains unfrozen and unopened, so public-construction tuning and validation-overfitting risk remain unresolved. Third, replay safety requires a calibrated latency-tail and cross-candidate dependence model together with an explicit whole-run void-risk target; the deterministic replay budget is not such a model. Fourth, evaluation would have to compare the learned policy on authorized live and private conditions rather than infer transfer from synthetic score tables.
+## Governance and availability boundary
 
-No held-out, beacon, freeze, target-derivation, private-evaluation, or Kaggle action occurred in this study phase. None is implied by this discussion. Any learner experiment, opening of the locked test, live/private comparison, or Kaggle action would require separate explicit authorization and its own prospective protocol. Without those steps, the 40.249% finite gap is an opportunity bound on a public deterministic construction, not a deployable gain or evidence that the benchmark's live replay-safe transfer objective has been solved.
+For PS-PIR, no beacon was fetched; the prospective ORF-B protocol was not
+frozen or opened; and no held-out, live-target, private-target, or Kaggle action
+was performed. No external archive, DOI, submission, or public release was
+created. The repository supports internal deterministic replay, but it does not
+provide an externally durable publication package. Any learner study or target
+evaluation would be new work requiring its own prospective design and explicit
+authorization. The present evidence ends with a reproducible calculation on
+designer-specified public synthetic tables, not a passed external evaluation.
