@@ -1,21 +1,88 @@
 # Introduction
 
-In this benchmark, candidate structure is a replay-budget decision: if the returned set overruns a model deadline, the whole submission is voided rather than merely losing the late candidate. Every additional tool hop consumes generation and replay resources that could have produced another independently scored finding, while only the first 2,000 returned candidates can be replayed. A fixed candidate length therefore makes a consequential systems assumption. It spends the same finite resources on response profiles that may differ in event yield, latency, and the point at which a longer trajectory stops paying for itself. Because the attacker observes each live model during search, leaving that response curve unidentified discards one of the few signals that could support model-specific allocation.
+The audited local SDK couples attack scoring to finite generation and replay
+resources. `AttackRunConfig.time_budget_s` is defined as the wall-clock budget
+for a full attack run in `comp/sdk/aicomp_sdk/attacks/contracts.py`. The local
+gateway sets a 9,000-second generation deadline for each configured model and a
+separate 9,000-second deadline for each model–guardrail replay, and it replays
+only the candidate prefix bounded by the imported `MAX_REPLAY_FINDINGS`
+constant
+(`comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py`). The
+scorer sums predicate severity weights, adds two raw points for every distinct
+score-cell hash, normalizes by the 200,000 raw-score reference, and caps the
+normalized attack score at 1,000 (`comp/sdk/aicomp_sdk/scoring.py`). These are
+facts about the audited repository, not claims about every benchmark or attack
+system. Public-Synthetic Perfect-Information Regret (PS-PIR) adds a deliberately
+synthetic decision to this local accounting: whether one fill length must be
+shared across all rows of a specified score table or may be selected separately
+for each row after all seven action scores are revealed.
 
-The project history makes this concern concrete. Before the ORF study, a multi-post design was forecast to score approximately 85 but returned **36.705** on the live four-cell leaderboard aggregate. That historical run is context, not evidence from the ORF experiment. Source-level diagnosis found that its longer candidates were latency-bound, so they generated fewer replayable findings and fewer distinct-cell bonuses per second than short candidates. Reserves for alternative predicates rarely fired, model-specific formatting hurt one target, and a high local mock value had described one compliant cell rather than the mean of four independently normalized cells. The failure showed that a constructed score and one fixed structural recipe can conceal both replay cost and aggregation error. It redirected the question from choosing another universal template toward identifying which candidate structure a model can support under its budget.
+Auditing that comparison is useful because it makes the score lost to the
+shared-action restriction exactly calculable and exercises the finite
+calculation's scorer-accounting and equality code paths. Its conceptual form is
+established value of perfect information: information has value through the
+decision it changes and
+the resulting consequence [1]. In PS-PIR, however, the relevant information is
+granted by construction. The row-wise comparator sees the complete
+counterfactual score vector before choosing, so a positive difference cannot
+show that informative observations exist or are available before an operational
+choice. Contextual-bandit, off-policy evaluation, adaptive-optimization, and
+heterogeneous-policy work instead makes observable context, partial feedback,
+identification assumptions, or sequential observations part of the learning
+problem [2]–[5]. Recent LLM systems likewise condition prompt-, subproblem-,
+planning-, or step-level resource allocation on estimated or learned signals
+[6]–[10]. PS-PIR defines no such signal-to-action mapping: its retained probes
+do not choose the fill length.
 
-Broad adaptive allocation is established prior art in the bounded literature record. A search of five verified primary studies found difficulty-conditioned strategy choice at prompt level, complexity-conditioned token allocation within a query, learned decisions about when an agent should plan, selective resource assignment across mathematical subproblems, and remaining-budget control in tool-agent search [Snell et al., 2025; Lin et al., 2026; Paglieri et al., 2026; Xiao et al., 2026; Li et al., 2026]. These studies differ in task, allocation unit, observability, cost, and outcome, and their reported numbers are not comparable to this benchmark. The search was deliberately narrow and does not establish exhaustive priority. The remaining question here is correspondingly specific: what exact score is lost in this benchmark-shaped finite construction when candidate length must be global rather than conditioned on the response profile?
+One earlier live result provides historical motivation for checking structural
+and aggregation assumptions, but it is not evidence for PS-PIR. The recorded
+multi-post design was forecast at approximately 85 and returned an aggregate of
+36.705 (`results.tsv`; `research-log/002-rootcause-and-rebuild.md`). Project
+notes proposed latency, reserve allocation, parser behavior, and aggregation
+mismatch as possible explanations. The present methods include no timing,
+reserve-firing, parsing, or causal-attribution protocol that could identify
+those explanations. They therefore remain diagnostic hypotheses. The observed
+miss motivated an exact audit of one shared structural choice; it neither
+explains the miss nor validates the synthetic table construction.
 
-We isolate that restriction as **Beacon-Held-Out Conditional Regret (ORF-B)**. For a fixed table of synthetic profiles and seven legal candidate lengths, the matched `PROBE_GLOBAL` policy exhaustively selects one length for the entire table. `ADAPTIVE` instead selects the best legal length separately for each profile. Profiles, retained probes, candidate actions, generation and replay resources, score semantics, and tie rules are identical; only the scope of the final argmax changes. In plain language, ORF-B asks how much an omniscient allocator gains by choosing structure profile by profile instead of forcing every profile to share one choice. Because `ADAPTIVE` observes all counterfactual action scores, it is an **oracle**, not a trained router or deployable online controller.
+The evidence tier is correspondingly limited. The generator family, ranges,
+weights, and analysis choices were developed adaptively through a public proof
+of concept, numeric repair, calibration, and repeated hypothesis review. The
+public configuration was then frozen before Phase 4, making that stage a
+post-calibration frozen public verification of the selected deterministic
+tables, not an untouched test. The 5% line was a preselected internal numerical
+cutoff without external utility calibration. No context-to-length learner,
+untouched evaluation tier, live target, private target, beacon operation,
+held-out freeze or opening, or Kaggle action supplied evidence to the executed
+study. **PS-PIR** names that executed public-synthetic calculation;
+**ORF-B / Beacon-Held-Out Conditional Regret** is reserved for a prospective
+protocol that was not executed.
 
-This distinction separates a finite information-value question from the operational problem. The profile-wise action space contains the shared-action space, so its score cannot be lower on a fixed table; that containment proves direction but not a material magnitude. A positive oracle gap also says nothing about whether retained probes reveal the maximizing length, whether a live model has stable profile heterogeneity, or whether a fallible learner can exploit it. The deterministic replay accounting is not a calibrated latency-tail model and does not establish whole-run safety. Public synthetic masters likewise do not establish private transfer, held-out confirmation, or Kaggle improvement. The locked v7 construction remained unfrozen and unopened, and no held-out, private, beacon, or Kaggle action entered this study.
+This internal report contributes only three artifacts:
 
-This report makes three bounded contributions:
+1. **An exact scorer calculation.** It instantiates the established
+   perfect-information comparison on three named designer-specified crossed
+   tables, reports the best shared action and every row-wise maximum, and checks
+   exact equality on three homogeneous boundary tables. This is an
+   implementation of finite-table arithmetic, not a new theorem or regret
+   concept.
 
-1. **An exact finite estimand.** We define conditional regret as the difference between the sum of profile-wise maxima and the maximum shared-length column sum under the audited SDK-shaped score table. We prove only the finite containment inequality and explicitly leave the registered 5% materiality threshold to measurement.
+2. **Direct table diagnostics.** Per-table action histograms show the row-wise
+   choices, a complete 40-stratum accounting assigns all 10,380,000 raw points
+   of finite regret across 960 engineered rows, and one-at-a-time displays
+   report raw perfect-information score \(A\), shared score \(G\), and
+   \(A-G\) before their percentage ratios. These diagnostics describe the
+   specified tables; they do not identify a causal mechanism or establish
+   naturally occurring heterogeneity.
 
-2. **Controlled public evidence and boundary checks.** On three pre-specified public synthetic masters, the oracle comparison yields a 40.249% mean gain over the exhaustive shared-length comparator; three separately derived homogeneous masters yield exact zero regret and length one. Secondary one-at-a-time transforms, a disjoint changed public construction, and nested profile prefixes test which mechanisms support the magnitude and whether the finite direction persists. These are fixed-master descriptions, not population inference or live transfer evidence.
+3. **An internally reproducible record.** Repository-relative code, configs,
+   score tables, manifests, figures, diagnostic tables, and the complete
+   42-row prediction ledger preserve the calculations and their adaptive
+   history. The record has no external archive, DOI, or durability guarantee
+   and is not a publication package.
 
-3. **An auditable repository artifact.** The repository contains the code, frozen configs, exact public score tables, run logs, completion manifests, figures, and source CSVs needed to trace the reported calculations; no held-out output exists. Source review preceded result-generating runs, and independent audits recomputed the finite tables. This evidence package supports reproducibility; its custody machinery is not a scientific component of ORF-B and does not substitute for an unopened test tier.
-
-The contribution is therefore an opportunity bound, not an attack policy. A system that used the bound would still need to learn an action from limited probes, model replay latency and dependence against an explicit void-risk target, and survive separately authorized live and private evaluation. Without those steps, the public deterministic result does not solve the benchmark's replay-safe transfer objective. The evaluation tests three promises: material crossed-table regret, exact homogeneous equality, and persistence under mechanism removals, a changed construction, and nested scale.
+Accordingly, PS-PIR is a reproducible scorer worked example rather than a
+learned method, empirical population result, or deployable allocation policy.
+It establishes no live-transfer or agent-security performance claim. Whether
+observations available before a length choice can support a safe selector on an
+untouched target remains unanswered and would be separate work.

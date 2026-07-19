@@ -88,6 +88,15 @@ def main() -> None:
     main_text = "\n".join(path.read_text(encoding="utf-8") for path in SECTIONS[:8])
     full_text = report.read_text(encoding="utf-8")
 
+    expected_parts = []
+    for path in SECTIONS:
+        part = path.read_text(encoding="utf-8").strip()
+        expected_parts.append(part.replace("](../figures/", "](figures/"))
+    expected_report = "\n\n".join(expected_parts) + "\n"
+    require(full_text == expected_report, "assembled report differs from ordered section sources")
+    for relative in re.findall(r"!\[[^\]]*\]\(([^)]+)\)", full_text):
+        require((PAPER / relative).is_file(), f"missing assembled figure: {relative}")
+
     require("Public-Synthetic Perfect-Information Regret" in main_text, "PS-PIR name missing")
     require("value of perfect information" in main_text.lower(), "VOI framing missing")
     require("post-calibration" in main_text.lower(), "calibration chronology missing")

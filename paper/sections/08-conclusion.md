@@ -1,9 +1,27 @@
 # Conclusion
 
-ORF-B turns one candidate-structure restriction into an exact finite estimand: the score lost when every profile must share one legal fill length. On three fixed public synthetic masters, replacing the exhaustive shared-length argmax with profile-wise oracle argmaxes yielded a mean gain of **40.249%**. The homogeneous construction supplied the necessary boundary: when every profile shared the same optimum, conditional regret was exactly zero. In this construction's non-additive OAT pattern, cliff behavior and reset overhead accounted for most of the measured magnitude, novelty contributed little, and saturation suppressed some value. These findings characterize an oracle action-scope gap on audited deterministic tables; they do not establish a learned decision rule or a population mechanism.
+The executed Public-Synthetic Perfect-Information Regret (PS-PIR) calculation
+is a reproducible scorer case study on three named, designer-specified crossed
+tables. Relative to the exhaustive shared length 16, the row-wise
+perfect-information comparator produced exact gains of **41.437632336565%** on
+P0, **38.111186959411%** on P1, and **41.198294770946%** on P2, a finite range
+of **38.111186959411--41.437632336565%**. On the three homogeneous tables, both
+comparators selected length one and the raw gap was exactly zero; this is the
+constructed boundary and code-path sanity check.
 
-The project's earlier mock-to-live failure makes that scope substantive. Synthetic mechanics that appear strong under a compliant construction do not transfer by implication: replay latency, ineffective reserves, model-specific parsing, and aggregation semantics can reverse the operational outcome. The Phase-4 result therefore identifies a well-specified opportunity rather than repairing the transfer gap. Constructed profiles cannot show that live targets exhibit stable heterogeneity or that limited probes reveal the maximizing action.
+The action histograms and stratum accounting describe the heterogeneity built
+into the crossed tables. Among the one-at-a-time transformations, cliff and
+reset removal produced the two largest removal-associated decreases in the
+displayed ratio, but those interacting contrasts do not identify component
+shares or mechanisms. Because the table family, coefficient ranges, strata,
+weights, and numerical cutoff were engineering choices, none of these exact
+magnitudes establishes behavior beyond the specified tables.
 
-Closing the operational gap would require evidence from a learner that selects length from retained probes, an appropriately governed locked tier, a calibrated replay-tail and dependence model with an explicit whole-run void-risk target, and authorized live and private comparisons. The locked v7 tier remains unfrozen and unopened. No held-out, beacon, private-evaluation, or Kaggle action occurred, and this report grants no authorization for any of them. Until those missing evidence layers exist, ORF-B remains a precise public-synthetic proxy rather than a replay-safe transferable algorithm.
-
-What is now justified is a precise public-synthetic target for future learning and transfer tests—not a claim that those tests have already succeeded.
+PS-PIR contributes no new regret concept, theorem, algorithm, or learner, and
+it demonstrates neither an agent-security opportunity nor a deployable gain.
+ORF-B / Beacon-Held-Out Conditional Regret names only a prospective protocol
+that was not executed; it is not part of the PS-PIR evidence. The unanswered
+operational question is: can observations available before the candidate-length
+choice, without counterfactual action scores, support a context-to-length policy
+that exceeds the best shared length under the same resource and scoring
+constraints on an untouched operational target?

@@ -1,20 +1,7 @@
-# Abstract
+# Perfect-Information Regret of a Shared Candidate-Length Constraint on Deterministic Synthetic Score Tables
 
-A fixed candidate length spends the same finite generation and replay budgets on
-response profiles that may prefer different structures. We study this restriction
-with Beacon-Held-Out Conditional Regret (ORF-B), which makes one action-scope
-replacement: with identical retained probes, legal actions, resources, and
-scores, it replaces one exhaustive global fill-length argmax with profile-wise
-oracle argmaxes. On `n=3` fixed public synthetic masters, the profile-conditioned
-oracle gained a mean **40.249%** over the exact global comparator, with a
-measured-master s.d. of **1.855 percentage points**; `test: none; p: not
-applicable`, because these masters form a deterministic finite census rather than
-a population sample. Three separately derived homogeneous masters returned exact
-zero regret, and both policies selected length one for every homogeneous profile.
-In secondary public checks, three disjoint changed-construction masters averaged
-**36.394%**, while paired one-at-a-time removals of cliff behavior and reset
-overhead produced the largest decreases from the core gain. These results measure
-public-synthetic oracle information value for the benchmark-shaped scorer. The
-locked test was not run, and no Kaggle action occurred. Accordingly, the result
-does not establish a learner, live response heterogeneity or transfer, replay
-safety, private transfer, or held-out confirmation.
+Public-Synthetic Perfect-Information Regret (PS-PIR) is a deterministic scorer worked example that applies the established value-of-perfect-information comparison to a shared candidate-length constraint. On each completely specified score table, an exhaustive comparator selects one fill length for every row, while a perfect-information comparator selects separately after receiving every row's counterfactual scores. The resulting difference is an exact policy-class calculation, not a new regret concept, theorem, or learning method.
+
+On the three named designer-specified crossed tables, the perfect-information gains over the shared comparator were 41.437632%, 38.111187%, and 41.198295%, spanning 38.111187--41.437632%. On three homogeneous tables constructed to have length one as the row-wise optimum, both comparators selected length one and had exactly equal scores, giving zero raw regret. These results describe only the supplied tables and the homogeneous boundary/code-path check. The crossed-table values exceeded a preselected 5% numerical cutoff, but that cutoff has no external utility calibration and does not imply practical importance.
+
+PS-PIR grants full counterfactual observability; retained probes do not select an action. No learner was trained, and no live target, untouched test, beacon, held-out evaluation, Kaggle action, or transfer evaluation supplied evidence. The calculation therefore demonstrates neither an agent-security opportunity nor an attainable or deployable performance gain.

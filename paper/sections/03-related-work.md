@@ -68,7 +68,7 @@ Recent LLM work demonstrates conditional resource allocation at several
 granularities, using information that must itself be estimated or learned.
 At whole-prompt granularity, Snell et al.'s ICLR study conditions test-time
 strategy and compute on model-specific estimates of mathematical-problem
-difficulty [6]. At subproblem granularity, the Plan-and-Budget preprint
+difficulty [6]. At subproblem granularity, the ICLR 2026 Plan-and-Budget paper
 decomposes queries and schedules token budgets from estimated relative
 complexity across reasoning, instruction-following, and planning tasks [7],
 while the peer-reviewed SCALE study selects reasoning modes and resource levels
