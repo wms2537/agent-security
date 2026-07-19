@@ -202,6 +202,14 @@
       "status": "open",
       "evidence": null,
       "parent": "T021"
+    },
+    {
+      "id": "T023",
+      "phase": "4",
+      "desc": "Fix the code-review provenance blocker with fresh attempt directories, completion manifests, failure-injection tests, and manifest verification before sterile re-review",
+      "status": "open",
+      "evidence": null,
+      "parent": "T016"
     }
   ],
   "parked_candidates": [],
