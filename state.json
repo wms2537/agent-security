@@ -271,8 +271,8 @@
       "id": "T031",
       "phase": "6",
       "desc": "Write, review, and verify the source-backed Phase-6 ORF report at the evidence strength authorized by the Phase-5 decision",
-      "status": "in_progress",
-      "evidence": "Committed 1184-line PS-PIR revision 2 at 057f854; deterministic verification in research-log/049 reports 0/75 near-identical prose paragraphs, all ten references field-verified/cited, complete 3-master/960-profile/40-stratum/raw-OAT diagnostics, byte-identical 42-row ledger, 75-file manifest, and 18 passing scorer/transformation tests. Round-1 issues are resolved or transparently downgraded except external archival reproducibility, which is improved and disclosed incomplete. Medium paper-review round 2 is charged at sterile dispatch; budget 2/2. No Kaggle, held-out, beacon, live, private, submission, or external-release action.",
+      "status": "done",
+      "evidence": "Committed 1184-line PS-PIR revision 2 at 057f854; deterministic verification in research-log/049 reports 0/75 near-identical prose paragraphs, all ten references field-verified/cited, complete 3-master/960-profile/40-stratum/raw-OAT diagnostics, byte-identical 42-row ledger, 75-file manifest, and 18 passing scorer/transformation tests. Sterile round-2 verdict is logged verbatim in research-log/051: NEEDS_REVISION for a top-tier publication because novelty/learner/external evidence require new work, but SUFFICIENT for the claimed internal deterministic worked-example scope; 10 prior issues RESOLVED, conceptual novelty and external reproducibility IMPROVED, with one moderate chronology clarification and one minor probe-state self-containment clarification open. Paper-review budget exhausted 2/2. No Kaggle, held-out, beacon, live, private, submission, or external-release action.",
       "parent": "T030"
     },
     {
