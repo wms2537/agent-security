@@ -1,0 +1,11 @@
+family	condition	metric	predicted	actual	delta_vs_primary_core_pp	minimum	maximum	status	scope
+primary	default	mean_adaptive_gain_percent	40.0	40.249038022308	0.000000000000	38.111186959411	41.437632336565	confirm	public_primary
+ablation	no_cliff	mean_adaptive_gain_percent	7.0	7.622073949240	-32.626964073068	7.358152493680	7.908360846799	confirm	public_primary_oat
+ablation	no_curvature	mean_adaptive_gain_percent	35.0	37.860007927303	-2.389030095004	36.085277169782	39.584879778944	confirm	public_primary_oat
+ablation	no_reset	mean_adaptive_gain_percent	22.0	18.973588191963	-21.275449830344	18.384108984102	19.554006200377	confirm	public_primary_oat
+ablation	no_novelty	mean_adaptive_gain_percent	40.0	40.094682770562	-0.154355251746	37.932378143820	41.288606188524	confirm	public_primary_oat
+ablation	unsaturated	mean_adaptive_gain_percent	44.0	44.355152104598	4.106114082290	42.860593503566	46.447864344166	confirm	public_primary_oat
+generalization	unsaturated_balanced_cliff	mean_generalization_gain_percent	35.0	36.393868336949	-3.855169685359	35.175681399541	37.352060597349	confirm	public_disjoint_regime
+scaling	N40	mean_adaptive_gain_percent	NA	48.952971791444	8.703933769136	45.344531072985	52.609341554583	confirm	public_nested_primary
+scaling	N160	mean_adaptive_gain_percent	NA	42.794164975019	2.545126952711	39.592292530738	45.400277409186	confirm	public_nested_primary
+scaling	N320	mean_adaptive_gain_percent	NA	40.249038022308	0.000000000000	38.111186959411	41.437632336565	confirm	public_nested_primary

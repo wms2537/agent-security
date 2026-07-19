@@ -90,3 +90,4 @@
 2026-07-19 | P4 | T027 scaling code review | in_progress | focused sterile review dispatched against immutable 73b1d3d; table parsing/scientific execution forbidden; T021 remains blocked pending SOUND
 2026-07-19 | P4 | T027 scaling code review | sound | no findings; strict 960-row parser/reviewed evaluator, exact per-stratum prefix nesting, 9 cells, k8 core equality, exact aggregate/evidence/provenance pass; attempts absent; one-use T021 run permitted
 2026-07-19 | P4 | T021 orf-p4-scaling | done_keep | all 9 cells clear; means N40=48.952971791444, N160=42.794164975019, N320=40.249038022308%, range 38.111-52.609; COMPLETE, 9-cell independent audit and immutable diff PASS
+2026-07-19 | P4 | T022 experiment-batch audit | pass | 15/15 ledger metrics confirm/keep; all bundles/hashes/immutables/commits/resources and independent row/score audits pass; comparison.tsv + report 041; claim fixed to public synthetic validation; Phase 5 entered
