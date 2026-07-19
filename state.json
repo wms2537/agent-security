@@ -152,7 +152,7 @@
       "phase": "4",
       "desc": "Sterile code-review gate on the committed baseline and unexecuted core code before any core result may be believed",
       "status": "in_progress",
-      "evidence": "Round-2 review 028 marks the original stale/partial-artifact HIGH RESOLVED and again passes leakage, split hygiene, metrics, separation, baseline fairness, and seeds, but returns NEEDS_REVISION on a new HIGH: resolving a raw attempt path before lexical identity checks permits live/dangling symlink aliases. T024 owns the required lstat/lexists/exact-lexical-child repair and adversarial tests. No core run or scientific output exists.",
+      "evidence": "Rounds 1-2 found sequential provenance and symlink-alias blockers. T023/T024 are complete; immutable repair commit 06239e3 adds lexical direct-child, lexists/lstat, O_NOFOLLOW, no-replace, and five adversarial alias/race cases atop the 24 structural failure tests. Sterile code re-review round 3 is being dispatched against 06239e3. No core run or scientific output exists.",
       "parent": "T015"
     },
     {
