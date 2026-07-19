@@ -152,7 +152,7 @@
       "phase": "4",
       "desc": "Sterile code-review gate on the committed baseline and unexecuted core code before any core result may be believed",
       "status": "in_progress",
-      "evidence": "Sterile code-review dispatch target is commit 9aa3d89: baseline runner plus unexecuted core runner/toy tests. Pre-dispatch deterministic checks: `git show HEAD:experiments/orf-p4-core/run_core.py | wc -l` -> 684; no core run.log or scientific outputs exist. Reviewer is asked only for evidence-validity audit against the frozen contracts.",
+      "evidence": "Initial review 026 returned NEEDS_REVISION solely on stale/partial artifact provenance after passing leakage, split hygiene, metrics, separation, baseline fairness, and seed handling. Commit bb896ab implements and locally verifies T023's transactional provenance repair; a fresh sterile re-review is being dispatched against that immutable commit. No core run or scientific output exists.",
       "parent": "T015"
     },
     {
