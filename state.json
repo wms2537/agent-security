@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 6 returned NEEDS_REVISION after verifying the 573-line v4, 180-line contract, contract SHA-256, and five source hashes. It resolved primary treatment isolation, fixed estimand, factorial weighting, source coverage, and anti-stacking, but found an unsatisfiable ISO-string versus Unix-ms beacon comparison, ambiguous negative-split global selection, unsupported 5% expectation, incomplete executable/output schemas, and an underbound prediction ledger. Full verdict is logged verbatim in research-log/008-orf-theory-review.md. Budget is 6/10; Phase 2 remains closed and no beacon/Kaggle action exists.",
+      "evidence": "Superseding 511-line ORF-B v5 and 265-line v3 contract are ready for review. Verification parsed the live NIST ISO timestamp to aligned integer milliseconds without deriving a target/profile; checked contiguous indices 0..319, 3003 mixture controls, strict negative m=1 at both b endpoints, valid JSON, zero seed fields, and all five source hashes. The 5% cut is now explicitly normative/low-confidence. Budget remains 6/10 until dispatch; Phase 2 is closed and no beacon/Kaggle action exists.",
       "parent": "T008"
     }
   ],
@@ -205,7 +205,18 @@
       "beacon_revealed": false,
       "opened_at": null,
       "rule": "Only after RIGOROUS review, committed implementation/unit checks/prediction rows, and a clean freeze may a future NIST pulse create the fixed-path atomic opening ledger. No Kaggle action is authorized.",
-      "status": "reviewed-needs-revision-never-opened"
+      "status": "superseded-reviewed-needs-revision-never-opened"
+    },
+    "orf-heldout-v3": {
+      "contract": "experiments/configs/orf-heldout-v3.json",
+      "seed": null,
+      "beacon_target_unix_ms": null,
+      "beacon_revealed": false,
+      "freeze_created": false,
+      "user_acknowledged": false,
+      "opened_at": null,
+      "rule": "One future freeze only after RIGOROUS review and committed implementation/tests/predictions; pre-pulse exact user-thread ACK is mandatory; reveal and evaluation are inseparable; no Kaggle action is authorized.",
+      "status": "locked-pre-review"
     }
   },
   "gates": {
