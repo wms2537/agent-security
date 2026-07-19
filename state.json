@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 9 returned NEEDS_REVISION after verifying 468/227/353 lines, JSON/metaschema, hashes, calibration provenance, and CPython/libmpdec. Target-fetch safety, numeric reproducibility, calibration support as posed, selective-reporting scope, scientific algebra, taxonomy, and anti-stacking resolved. Remaining blockers: crash-atomic staged publication and idempotent ledger transaction/post-outcome terminalization; policy-error parameter/candidate fields plus mixture generation/saturation stopping; explicit SHA/PRNG calibration-to-target exchangeability heuristic. Full verdict verbatim in research-log/008-orf-theory-review.md. Budget 9/10; no held-out/Kaggle action.",
+      "evidence": "V8 is ready for final review: `wc -l` returned 433 hypothesis, 180 contract, 148 schema; Draft 2020-12 and root samples for summary, valid/invalid outcomes, workspace transaction, completed and custody failure passed, malformed invalid outcome rejected. Contract audit: V01-V16 exact, 23 identical unique error keys, 3003 mixtures, five source and two calibration hashes, heldout_dir=absent. V8 adds staged hard-link no-replace publication, authoritative RESOLVED_RESULTS sidecar/idempotent mirror, separate custody-failure branch, complete-only TSVs, exact mixture stop pseudocode, and explicit conditional seed-domain assumption/interval. Budget 9/10; no implementation/target/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -271,6 +271,18 @@
       "opened_at": null,
       "rule": "Only after RIGOROUS review and later phase implementation/tests/predictions may one future freeze begin; pre-GET durable markers, minimal terminal OUTCOME, same-thread terminal hashes, and no Kaggle action are mandatory.",
       "status": "reviewed-needs-revision-never-frozen"
+    },
+    "orf-heldout-v6": {
+      "contract": "experiments/configs/orf-heldout-v6.json",
+      "artifact_schema": "experiments/configs/orf-heldout-v6-artifacts.schema.json",
+      "seed": null,
+      "beacon_target_unix_ms": null,
+      "beacon_revealed": false,
+      "freeze_created": false,
+      "user_acknowledged": false,
+      "opened_at": null,
+      "rule": "Only after RIGOROUS review and later implementation/tests/predictions may one future freeze begin; POSIX transaction preflight, pre-GET markers, atomic outcome/resolved-ledger sidecar, same-thread terminal hashes, and no Kaggle action are mandatory.",
+      "status": "locked-pre-final-review-never-frozen"
     }
   },
   "gates": {

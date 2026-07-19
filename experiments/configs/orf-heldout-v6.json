@@ -1,0 +1,180 @@
+{
+  "contract_version": "orf-heldout-v6",
+  "status": "locked-pre-review-no-implementation-no-freeze-no-target",
+  "purpose": "One post-freeze finite ORF-B conditional-regret stress test. Calibration is a deterministic coverage heuristic unless the stated seed-domain assumption is accepted.",
+  "constants": {
+    "lengths": [1, 2, 4, 8, 16, 24, 32],
+    "B_gen": 9000,
+    "B_rep": 8100,
+    "candidate_cap": 2000,
+    "objective_saturation": 200000,
+    "primary_profiles": 320,
+    "negative_profiles": 64,
+    "strata": 40,
+    "replicates": 8,
+    "mixture_denominator": 8,
+    "mixture_count": 3003,
+    "materiality_percent": "5.000000000000",
+    "floor_certificate_minimum": "1E-60"
+  },
+  "seed_domain_assumption": {
+    "assumption": "Conditional on the SHA-256 random-oracle/PRF heuristic, SHA256 of 64 distinct calibration labels and SHA256('orf-heldout-v6|master|' || a fresh 512-bit NIST output) are iid-equivalent uniform 256-bit masters. Seeding CPython random.Random with their big-endian integers therefore induces comparable profile-stream distributions.",
+    "limitation": "Forward unpredictability alone does not imply exchangeability. Without the random-oracle/PRF and fresh-uniform-pulse assumptions, the 64 fixed masters are only a deterministic coverage heuristic and give no probability statement about the target.",
+    "conditional_interval": "Under iid Bernoulli sampling from that master distribution, 64/64 clearing 5% gives exact one-sided 95% Clopper-Pearson lower bound 0.95427029766923753936976169563270450199231817533648, since p_lower=0.05^(1/64). This interval is conditional on the assumption, not unconditional evidence."
+  },
+  "numeric_execution": {
+    "runtime": "CPython 3.14.3",
+    "decimal_backend": "libmpdec 4.0.1",
+    "context": "All Decimal operations use localcontext(prec=80,rounding=ROUND_HALF_EVEN,Emin=-999999,Emax=999999,capitals=1,clamp=0) with CPython 3.14.3 default traps.",
+    "draw": "u_num,u_den=rng.random().as_integer_ratio(); u=Decimal(u_num)/Decimal(u_den) in the frozen context.",
+    "log_uniform": "x=(Decimal(lo).ln()+(Decimal(hi).ln()-Decimal(lo).ln())*u).exp() in the frozen context.",
+    "bridge": "Convert each generated Decimal separately to Fraction. Cost uses only aF+bF*m+dF*m*m; negative cost uses bF*m.",
+    "cliff": "r=Decimal(m)*(-lambda*Decimal(m-k)/Decimal(k)).exp(); e=clamp(floor(r),0,m); distance=min(r-floor(r),ceil(r)-r), all inside the frozen context.",
+    "certificate": "If any distance<1E-60, atomically publish PROTOCOL_INVALID/NUMERIC_STABILITY; never regenerate.",
+    "storage": "Parameters and all resources are reduced integer/positive-denominator Fraction pairs. Absent d=0/1 and absent lambda=-1/1.",
+    "percent": "For reduced n/d, Decimal(100)*Decimal(n)/Decimal(d) is quantized to 0.000000000001 in the frozen context and formatted with exactly 12 fractional digits."
+  },
+  "generator": {
+    "master": "SHA256(ASCII('orf-heldout-v6|master|')||bytes.fromhex(NIST_outputValue))",
+    "substream": "random.Random(int.from_bytes(SHA256(master||ASCII('|'+stream_key)).digest(),'big'))",
+    "primary_levels": {"reset_band": ["LOW", "HIGH"], "linear_band": ["LOW", "HIGH"], "curvature_band": ["NONE", "HIGH"], "cliff": [-1, 4, 8, 16, 24]},
+    "primary_index": "stratum=(((reset_index*2)+linear_index)*2+curvature_index)*5+cliff_index; profile=8*stratum+replicate; indices use listed level order; replicate 0..7.",
+    "primary_stream": "primary|stratum={stratum:02d}|replicate={replicate:02d}",
+    "primary_draws": "Fresh stream; draw a,b; d iff HIGH; lambda iff cliff!=-1; no other draw/rejection. a LOW[5,20], HIGH[40,80]; b LOW[0.1,1], HIGH[2,8]; d HIGH[0.05,0.2]; lambda[0.5,3], all LogUniform.",
+    "primary_events": "e(m)=m if cliff=-1 or m<=cliff; otherwise certified cliff floor.",
+    "negative": "Profiles 0..63 use stream negative|profile={profile:02d}; only b=LogUniform[5,12], a=d=0, lambda absent, cliff=-1; cost=bF*m; e(m)=m.",
+    "weighting": "Every primary profile has weight 1; no weights override exists."
+  },
+  "score_and_policies": {
+    "candidate": "For e>0, exact trace yields e severity-5 EXFILTRATION predicates and one unique non-null score-cell hash, so q=16*e+2. For e=0, no finding and q=0.",
+    "objective": "SDK raw Q; S=min(200000,Q). Every score/predicate/hash is recomputed against source-hashed SDK code.",
+    "probe": "Attempt one candidate in length order. Generation charges all probes; replay/returned/raw charge only e>0 probes.",
+    "fill": "For q>0, n=max(0,min(2000-p,floor((9000-gF)/cF),floor((8100-rF)/cF),0 if Q>=200000 else ceil((200000-Q)/q))); S_z(m)=min(200000,Q+n*q). For q=0 n=0 and S_z(m)=min(200000,Q).",
+    "selection": "ADAPTIVE argmaxes per profile; PROBE_GLOBAL_PRIMARY and PROBE_GLOBAL_NEGATIVE independently argmax aggregate on their split; all ties choose smaller length.",
+    "static0": "For q>0 n=min(2000,floor(9000/cF),floor(8100/cF),ceil(200000/q)); score=min(200000,n*q), else zero. Report seven lengths, per-profile ORACLE0, and aggregate best with smaller-length ties.",
+    "mixture_compositions": "All nonnegative seven-tuples h summing to 8, exactly C(14,6)=3003, ascending lexicographic order. Cycle slot t chooses available m maximizing (t+1)*h_m-8*count_m, ties to smaller m.",
+    "mixture_step_pseudocode": "For each next scheduled m: compute exact c,e,q before attempt. If remaining_generation<c, STOP without attempt or charge. If e>0 and (remaining_candidates<1 or remaining_replay<c), STOP without attempt or charge. Otherwise emit one attempted candidate row and charge generation c. If e=0, advance scheduler and continue. If e>0, charge replay c, retain finding, decrement candidate capacity, and add q. If objective reaches 200000, STOP immediately after retaining that crossing candidate. Otherwise advance scheduler. No candidate occurs after any STOP.",
+    "mixture_selection": "Aggregate each composition over all 320 profiles. selected is lowercase true for exactly the maximum aggregate; ties choose lexicographically smallest h."
+  },
+  "valid_tsv_rule": {
+    "principle": "Final TSV paths contain only complete valid OK rows. They have no status or error columns. Any profile, predicate, score, policy, schema, or row error aborts evaluation and produces PROTOCOL_INVALID; no malformed or zero-substitute row is published at a final TSV path. A staging prefix may remain only as non-authoritative partial evidence counted in OUTCOME.",
+    "profiles_columns": ["split", "profile_index", "stratum_index", "reset_band", "linear_band", "curvature_band", "cliff", "replicate_index", "a_num", "a_den", "b_num", "b_den", "d_num", "d_den", "lambda_num", "lambda_den", "policy_id", "policy_parameter", "h_1", "h_2", "h_4", "h_8", "h_16", "h_24", "h_32", "generation_num", "generation_den", "replay_num", "replay_den", "attempted_count", "returned_count", "probe_attempted_count", "probe_returned_count", "fill_length", "fill_count", "cap_generation", "cap_replay", "cap_candidate", "cap_saturation", "bind_generation", "bind_replay", "bind_candidate", "bind_saturation", "binding_none", "sdk_raw", "objective_raw"],
+    "profiles_types": {
+      "split": "PRIMARY|NEGATIVE",
+      "bands": "PRIMARY uses exact generator enum; NEGATIVE uses NA",
+      "indices_lengths_counts_caps_raw_h": "canonical base-10 integers",
+      "parameter_and_resource_denominators": "strictly positive canonical integers; paired numerators canonical integers; pairs reduced",
+      "bind_fields": "lowercase true|false|NA",
+      "policy_id": "closed policy enum",
+      "policy_parameter": "length or -1 exactly by policy"
+    },
+    "primary_policy_order": ["STATIC0_01", "STATIC0_02", "STATIC0_04", "STATIC0_08", "STATIC0_16", "STATIC0_24", "STATIC0_32", "ORACLE0", "PROBE_GLOBAL_CANDIDATE_01", "PROBE_GLOBAL_CANDIDATE_02", "PROBE_GLOBAL_CANDIDATE_04", "PROBE_GLOBAL_CANDIDATE_08", "PROBE_GLOBAL_CANDIDATE_16", "PROBE_GLOBAL_CANDIDATE_24", "PROBE_GLOBAL_CANDIDATE_32", "PROBE_GLOBAL_PRIMARY", "ADAPTIVE", "MIX8_GLOBAL_PRIMARY"],
+    "negative_policy_order": ["STATIC0_01", "PROBE_GLOBAL_NEGATIVE", "ADAPTIVE"],
+    "profiles_shape": "Primary profiles 0..319 each in 18-policy order (5760 rows), then negative 0..63 each in 3-policy order (192 rows), total 5952. Parameter fractions always equal the keyed profile for every policy row; they are never replaced on failure because failure rows do not exist.",
+    "profile_sentinels_and_policy_fields": "PRIMARY uses exact stratum/bands/cliff/replicate; NEGATIVE uses stratum=-1,bands=NA,cliff=-1,replicate=-1,a=0/1,d=0/1,lambda=-1/1. STATIC0_xx and PROBE_GLOBAL_CANDIDATE_xx policy_parameter equal named length; ORACLE0 equals its per-profile selected static length; PROBE_GLOBAL_PRIMARY/NEGATIVE equal the split-selected length; ADAPTIVE equals its profile-selected length; MIX8 policy_parameter=-1. Non-MIX h fields are all -1; MIX h fields are 0..8 summing 8. fill_length equals the selected/named length only for probe candidate/global/adaptive policies and is -1 for STATIC0,ORACLE0,MIX8. cap fields are exact nonnegative integers only for single-length fill rows and -1 otherwise; bind fields then follow the binding rule.",
+    "candidate_columns": ["split", "profile_index", "policy_id", "candidate_ordinal", "phase", "phase_ordinal", "length", "cost_num", "cost_den", "event_count", "attempted", "retained", "candidate_id", "score_cell_hash", "predicate_count", "sdk_candidate_raw"],
+    "candidate_types": "split/policy closed enums; phase PROBE|FILL|STATIC|MIXED; ordinals/length/event/predicate/raw canonical integers; cost reduced fraction; attempted literal true; retained lowercase true|false; candidate_id 64 lowercase hex; score_cell_hash same hash or NA.",
+    "candidate_order": "Profiles key order then candidate_ordinal. candidate_ordinal is contiguous 0..attempted_count-1. phase_ordinal is contiguous 0..phase_count-1 within key/phase. No row exists for an unattempted action.",
+    "candidate_phase_by_policy": "STATIC0 and ORACLE0 rows use phase=STATIC only. PROBE_GLOBAL_CANDIDATE, PROBE_GLOBAL_PRIMARY, PROBE_GLOBAL_NEGATIVE, and ADAPTIVE use seven phase=PROBE rows followed by zero or more phase=FILL rows. MIX8 uses phase=MIXED only.",
+    "candidate_conditional": "event_count=0 iff retained=false, score_cell_hash=NA, predicate_count=0, sdk_candidate_raw=0. event_count>0 iff retained=true, score_cell_hash=candidate_id, predicate_count=event_count, sdk_candidate_raw=16*event_count+2. length,cost,event_count,phase are always the exact scheduled attempted action.",
+    "candidate_id": "SHA256(UTF8('orf-heldout-v6|split={split}|profile={profile:03d}|policy={policy}|phase={phase}|candidate={candidate:04d}|m={length:02d}')).hexdigest()",
+    "mixtures_columns": ["h_1", "h_2", "h_4", "h_8", "h_16", "h_24", "h_32", "aggregate_objective", "selected"],
+    "mixtures_types_shape": "Exactly 3003 lexicographic rows; h and aggregate canonical nonnegative integers; each h sum exactly 8; selected lowercase true|false and exactly one true under the frozen maximum/tie rule.",
+    "binding": "For positive-q single-length fill, bind_X=true iff cap_X equals fill_count, so ties retain multiple true flags and binding_none=false. For q=0 all bind_X=false,binding_none=true. Where no single-length capacity exists, bind_X=NA,binding_none=true."
+  },
+  "protocol_error_codes": ["BEACON_FETCH", "BEACON_SCHEMA", "BEACON_TIMESTAMP", "ACK_LATE", "GIT_DIRTY", "GIT_HEAD_MISMATCH", "GIT_DIFF_MISMATCH", "HASH_MISMATCH", "PREDICTION_LEDGER", "PROFILE_SCHEMA", "PREDICATE_ASSERTION", "SCORE_ASSERTION", "POLICY_EXCEPTION", "ROW_COUNT", "DUPLICATE_ROW", "OUTPUT_SCHEMA", "FREEZE_STARTED_CREATE", "TARGET_FETCH_STARTED_CREATE", "OPENED_CREATE", "EVALUATION_STARTED_CREATE", "EVALUATION_CRASH", "NUMERIC_STABILITY", "UNEXPECTED_PROCESS_CRASH"],
+  "metrics": {
+    "aggregates": "A=sum primary ADAPTIVE; G=sum selected PROBE_GLOBAL_PRIMARY; T=sum aggregate-best STATIC0 length; O=sum ORACLE0; M=selected mixture aggregate. All denominators G,T,O,M are positive.",
+    "primary": "reduced (A-G)/G; conditional_regret=A-G. CONFIRMED/MATERIAL iff 100*(A-G)>=5*G. Every other valid result DISCONFIRMED: ZERO iff A-G=0, POSITIVE_SUBTHRESHOLD iff 0<100*(A-G)<5*G. A-G<0 is invalid.",
+    "profile_stratum": "Profile regret is ADAPTIVE minus the selected global candidate score. Count >0 and serialize reduced count/320. For ordered strata 0..39 sum eight adaptive/global scores, regret, >0 profiles, and reduced regret/global. Count positive strata and reduced count/40.",
+    "histogram": "Per primary profile, sort seven candidate scores descending with duplicates; separation=first-second; ordered bins [0,1),[1,100),[100,1000),[1000,10000),[10000,100000),[100000,infinity), counts sum 320.",
+    "secondary": "adaptive_over_static=(A-T)/T; adaptive_over_mixed8=(A-M)/M; signed_oracle0_gap=(A-O)/O; probe_generation_share=P/U where P is exact seven-probe generation total and U total ADAPTIVE generation. Each is a reduced rational plus fixed-12 percent.",
+    "negative": "Exact proof requires both policies select m=1 and aggregate difference=0; failure is protocol invalid and the negative row never confirms."
+  },
+  "atomic_publication": {
+    "filesystem_model": "Before freeze, a disposable preflight must verify one local POSIX filesystem/device for workspace and run directory, an exclusive flock released on process death, atomic same-directory link(2) no-replace, atomic same-directory rename/replace, hard links, file fsync, and directory fsync. Every mutating command holds the fixed workspace flock, so concurrent mutation is forbidden. Process crashes and partial writes are in scope. Permanent ENOSPC, media corruption, kernel/filesystem violation of these primitives, and inability ever to publish a terminal thread message are outside the experiment; preflight failure forbids freeze.",
+    "publish_noreplace": "Canonical bytes and SHA256 are known first. Use fixed same-directory `.NAME.orf-stage`; if final exists require exact hash and clean any matching stage. If stage exists and validates exact bytes/hash, continue; if partial/wrong and final absent, unlink stage and fsync directory, then recreate. Create stage O_CREAT|O_EXCL, write all bytes, fsync file, close, verify hash, link(stage,final) atomically without replace, fsync directory, unlink stage, fsync directory. Recovery repeats this state machine. A final path is therefore absent or a complete verified inode, never a truncated authoritative file.",
+    "raw_exception": "For fetched raw bytes, a complete schema/timestamp-valid stage may be published after recovery without another GET. An incomplete/invalid raw stage with a pre-GET marker yields protocol invalid; it is never refetched.",
+    "replace_existing": "For results.tsv/progress.md, first atomically publish an immutable after-image sidecar and WORKSPACE_TRANSACTION.json with before/after hashes. Create a same-directory hard-link stage to the sidecar, fsync directory, os.replace(stage,destination), fsync directory. Recovery accepts only destination hash=before (perform replace) or =after (already done); any third hash publishes TERMINALIZATION_FAILED without changing scientific OUTCOME."
+  },
+  "scientific_outcome": {
+    "valid": "OUTCOME VALID requires complete valid-summary and final TSV hashes, exact materiality/subtype, results_before_sha256 frozen at I, and deterministic resolved_results_sha256.",
+    "invalid": "OUTCOME PROTOCOL_INVALID requires no summary; last_scientific_state IMPLEMENTED|FREEZE_FETCH_STARTED|FROZEN|ACKNOWLEDGED|TARGET_FETCH_STARTED|PULSE_PRESERVED|OPENED|EVALUATION_STARTED; reason; nullable artifact hashes; partial staging row counts; results before/after hashes; and NA/null/crash resolutions.",
+    "publication": "OUTCOME bytes are deterministic from durable state and published with publish_noreplace. A crash during staging is idempotently recovered; OUTCOME is never rewritten.",
+    "resolved_ledger": "From the exact implementation-commit results blob and OUTCOME, construct full resolved bytes. Atomically publish immutable RESOLVED_RESULTS.tsv before touching root results.tsv. This sidecar is the authoritative terminal prediction resolution even if later workspace mirroring fails.",
+    "post_outcome": "Post-outcome failures never rewrite scientific status. Atomically publish WORKSPACE_TRANSACTION.json, mirror results/progress and publish terminal log idempotently. If destinations reach intended hashes, publish COMPLETED.json. If results, progress, or terminal-log destination has a third hash, publish TERMINALIZATION_FAILED.json naming that destination and its expected/observed hashes. No COMPLETED_CREATE scientific error exists; partial staging is recoverable under the filesystem model.",
+    "terminal_post": "For COMPLETED or TERMINALIZATION_FAILED, post one line in this thread containing scientific STATUS, CUSTODY status, terminal commit, OUTCOME, RESOLVED_RESULTS, terminal artifact, optional SUMMARY, and root RESULTS hashes; record exact message in TERMINAL_PUBLICATION.json."
+  },
+  "custody": {
+    "chain": ["IMPLEMENTED", "FREEZE_FETCH_STARTED", "FROZEN", "ACKNOWLEDGED", "TARGET_FETCH_STARTED", "PULSE_PRESERVED", "OPENED", "EVALUATION_STARTED", "OUTCOME_RECORDED", "RESOLVED_LEDGER_PUBLISHED", "WORKSPACE_TRANSACTION_PUBLISHED", "COMPLETED_OR_TERMINALIZATION_FAILED", "TERMINAL_PUBLISHED"],
+    "freeze": "From clean I after preflight/tests/predictions, publish FREEZE_STARTED before the only anchor GET. Preserve/validate raw, set target=anchor+1440*60000 by integer UTC parsing, publish FREEZE, commit F parent I. Marker without recoverable raw/freeze is invalid.",
+    "ack": "Before target, post exact F/freeze hash/target here, require exact ACK, preserve USER_ACK/PUBLICATION, commit A parent F; late/missing ACK invalid.",
+    "target": "After target from clean A, publish TARGET_FETCH_STARTED before only target GET. Marker forbids another GET. Preserve exact response, require exact target time, derive master, publish OPENED then EVALUATION_STARTED; no profile stream before both.",
+    "evaluate": "Evaluate both splits once into staging, validate all rows/summary, then publish final TSVs/summary. Any exception or partial ledger yields invalid OUTCOME; never resume scientific evaluation.",
+    "claim": "Pre/post thread hashes and atomic artifacts mitigate selective reporting under honest operation. They do not cryptographically prevent suppression."
+  },
+  "validator_predicates": {
+    "V01": "Hashes, source files, exact I->F->A ancestry/diff allowlists, prediction rows, and fixed paths match.",
+    "V02": "POSIX preflight and publish_noreplace crash-state tests pass before freeze.",
+    "V03": "Pre-GET markers exist before network and permanently prevent a second GET; raw staging recovery follows raw_exception.",
+    "V04": "Runtime/libmpdec/context, draws, indices, bands, fractions, events, and floor certificate recompute exactly.",
+    "V05": "Final TSVs contain only exact headers/types/canonical cells and complete row orders/counts; no error row or malformed final ledger exists.",
+    "V06": "Candidate ordinals, phases, exact attempted action fields, zero/positive event biconditionals, IDs, hashes, predicate counts, raw, and parent counts recompute.",
+    "V07": "All cost/resource fractions, probes, capacities, fill, binding sets/ties, and profile scores recompute.",
+    "V08": "Static, oracle, adaptive, primary global, and negative global selections/ties recompute.",
+    "V09": "Mixture step pseudocode is followed for generation, replay, candidates, zero events, and immediate saturation stop.",
+    "V10": "Exactly 3003 ordered sum-8 mixtures exist; aggregates recompute; exactly one lowercase selected row obeys maximum/lexicographic tie rule.",
+    "V11": "Primary decision, conditional regret, all profile/stratum/fraction/percent formulas, ordered unique strata, exact bins/count sum, and four secondary metrics recompute.",
+    "V12": "Negative exact preconditions, m=1 choices, and aggregate equality hold.",
+    "V13": "Valid summary has all mandatory zero-valued failure keys, exact hashes/counts, and ordered V01..V16 list.",
+    "V14": "OUTCOME matches exactly one branch, contains before/after result hashes, and its resolved after-image bytes recompute.",
+    "V15": "RESOLVED_RESULTS and WORKSPACE_TRANSACTION publish atomically; recovery reaches after hashes or a custody-failure branch without changing OUTCOME.",
+    "V16": "COMPLETED or TERMINALIZATION_FAILED and exact same-thread terminal publication hashes/statuses agree."
+  },
+  "golden_tests_before_freeze": {
+    "scientific": ["primary profile", "negative profile", "zero event", "positive candidate", "binding tie", "mixture generation stop", "mixture replay stop", "mixture saturation crossing", "sum-8 and selected mixture", "valid summary", "valid OUTCOME", "pre-freeze invalid OUTCOME"],
+    "transaction": ["crash during outcome stage write", "crash after outcome link", "partial raw stage after marker", "complete raw stage after marker", "crash before ledger replace", "crash after ledger replace", "results before hash recovery", "results after hash recovery", "third-hash custody failure", "crash during COMPLETED stage", "terminal publication hash mismatch"],
+    "negative": ["wrong band", "skipped ordinal", "attempted=false", "retained zero event", "unretained hash", "parameter zero-substitution", "error row at final path", "two selected mixtures", "mixture sum 7", "candidate after generation stop", "candidate after saturation", "duplicate stratum", "wrong bin", "missing failure key", "percent mismatch", "second GET"]
+  },
+  "calibration": {
+    "classification": "exploratory deterministic coverage; conditional sample only under seed_domain_assumption",
+    "preregister_commit": "47f50a2",
+    "result_commit": "a120336",
+    "summary_sha256": "602d3885232d44a26f22f002f463c314d37308188510e519512bea710e433c05",
+    "masters_sha256": "9d0f5208a18b673713dcec3c80c08c20697bcf06b0d07f5d6470b920e117e235",
+    "result": "Equal H=200000 64/64, minimum 34.575811113981%, median 40.924155277025%; all preregistered weight/saturation checks passed; threshold/support unchanged."
+  },
+  "prediction_ledger": {
+    "rows_after_rigorous_implementation_only": [["orf-b-v8-primary", "adaptive_gain_over_probe_global_primary_percent", "5.000000000000", "beat-baseline", "low", "", "", "NA", "NA", "", "finite conditional-regret prediction; calibration conditional on explicit seed heuristic"], ["orf-b-v8-negative", "adaptive_minus_probe_global_negative_raw", "0", "match-baseline", "high", "", "", "NA", "NA", "", "homogeneous implementation invariant"]],
+    "resolution": "VALID primary uses summary fixed-12 and confirm/keep iff material, else disconfirm/discard; negative 0/confirm/keep. PROTOCOL_INVALID gives both NA/null/crash. RESOLVED_RESULTS.tsv preserves every other cell."
+  },
+  "canonical": {
+    "json": "UTF-8 json.dumps(sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False)+'\\n'",
+    "tsv": "UTF-8 LF tabs exact header no embedded tab/newline",
+    "integer_fraction": "canonical base-10; reduced fraction with positive denominator",
+    "raw": "exact nonempty HTTPS bytes"
+  },
+  "commands": {
+    "validate": "comp/.venv/bin/python -I experiments/poc/orf_heldout_eval.py validate --contract experiments/configs/orf-heldout-v6.json",
+    "unit": "comp/.venv/bin/python -I experiments/poc/orf_heldout_eval.py unit --contract experiments/configs/orf-heldout-v6.json",
+    "freeze": "comp/.venv/bin/python -I experiments/poc/orf_heldout_eval.py freeze --contract experiments/configs/orf-heldout-v6.json",
+    "acknowledge": "comp/.venv/bin/python -I experiments/poc/orf_heldout_eval.py acknowledge --contract experiments/configs/orf-heldout-v6.json",
+    "reveal_evaluate": "comp/.venv/bin/python -I experiments/poc/orf_heldout_eval.py reveal-evaluate --contract experiments/configs/orf-heldout-v6.json",
+    "recover_terminal": "comp/.venv/bin/python -I experiments/poc/orf_heldout_eval.py recover-terminal --contract experiments/configs/orf-heldout-v6.json",
+    "forbidden_arguments": ["--seed", "--pulse", "--target", "--out", "--overwrite", "--retry", "--profiles", "--weights"]
+  },
+  "outputs": {
+    "directory": "experiments/runs/orf-heldout-v6",
+    "schema": "experiments/configs/orf-heldout-v6-artifacts.schema.json",
+    "valid_scientific": ["FREEZE_STARTED.json", "freeze-anchor.raw.json", "FREEZE.json", "USER_ACK.txt", "PUBLICATION.json", "TARGET_FETCH_STARTED.json", "revealed-pulse.raw.json", "OPENED.json", "EVALUATION_STARTED.json", "profiles.tsv", "candidate_records.tsv", "mixtures.tsv", "valid-summary.json", "OUTCOME.json", "RESOLVED_RESULTS.tsv", "WORKSPACE_TRANSACTION.json"],
+    "terminal_success": "COMPLETED.json then TERMINAL_PUBLICATION.json",
+    "terminal_custody_failure": "TERMINALIZATION_FAILED.json then TERMINAL_PUBLICATION.json; OUTCOME and RESOLVED_RESULTS remain authoritative"
+  },
+  "source_hashes_sha256": {
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f",
+    "comp/sdk/aicomp_sdk/core/predicates.py": "9d9de5118d8883a0074a5405ed85cf2dec3f68e8516908cbc48f409e3ba56f37",
+    "comp/sdk/aicomp_sdk/evaluation/ops.py": "455a835e0a58abab79b24c986a937b99712e69ef83d6068fc68873e3c051fe74",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "experiments/attack.py": "8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d"
+  }
+}
