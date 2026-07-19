@@ -1,5 +1,5 @@
 {
-  "phase": "5",
+  "phase": "6",
   "cycle": 1,
   "iteration": 4,
   "entry_mode": "idea",
@@ -247,8 +247,8 @@
       "id": "T028",
       "phase": "5",
       "desc": "Dispatch and independently verify the SciAgent results analysis, effect sizes, statistical declaration, prediction audit, tables, and publication figures",
-      "status": "in_progress",
-      "evidence": "Dispatch scope fixes the independent unit as one public master (n=3 paired fixed masters), forbids profile/row/cell pseudoreplication, excludes crash/discard/exploratory rows from analysis, and preserves the no-held-out/no-Kaggle boundary.",
+      "status": "done",
+      "evidence": "Analyzer report research-log/042 and three reproducible SVG/PNG/source-CSV figure triples independently pass row-count, exclusion, editable-text, 300-dpi, source equality, deterministic-rerun, declaration and P0 checks. Orchestrator recomputation: gains 41.437632336565/38.111186959411/41.198294770946%, mean 40.249038022308%, sample SD 1.855296739857 pp, descriptive 21.694124264676 master-SD units; exact finite census, no population p-value. Full verification: research-log/044.",
       "parent": "T022"
     },
     {
@@ -263,17 +263,25 @@
       "id": "T030",
       "phase": "5",
       "desc": "Complete search diagnosis, budget audit, locked-test boundary analysis, and the user publication-path checkpoint",
-      "status": "pending",
-      "evidence": null,
+      "status": "done",
+      "evidence": "research-log/044 records all seven answers, healthy one-entry metric search, outcome=improved, 6/7 iteration/cumulative nulls with fixes, calibration, budgets, validation-tier absence and the publish steelman. Chosen path is internal technical report/no submission under the user's quoted through-Phase-6 authorization. The normal locked test was NOT RUN and is an explicit user-scope exception because held-out/beacon/freeze/target/evaluation actions remain prohibited.",
       "parent": "T029"
     },
     {
       "id": "T031",
       "phase": "6",
       "desc": "Write, review, and verify the source-backed Phase-6 ORF report at the evidence strength authorized by the Phase-5 decision",
+      "status": "in_progress",
+      "evidence": "Phase-5 decision permits a paper-shaped internal technical report only, with no submission and explicit public-synthetic/oracle/no-heldout limitations. Paper review budget is 0/2 before dispatch.",
+      "parent": "T030"
+    },
+    {
+      "id": "T032",
+      "phase": "6",
+      "desc": "Write and present the cycle retrospective after the verified Phase-6 internal report",
       "status": "pending",
       "evidence": null,
-      "parent": "T030"
+      "parent": "T031"
     }
   ],
   "parked_candidates": [],
@@ -282,7 +290,7 @@
       "iteration": 4,
       "varies": "candidate-structure-policy",
       "kind": "metric",
-      "outcome": "confirmed-public-synthetic: primary mean gain 40.249%, homogeneous zero exact, attribution/generalization/scaling robust; no live or held-out transfer claim"
+      "outcome": "improved"
     }
   ],
   "tried_and_failed": [
@@ -425,11 +433,20 @@
     }
   ],
   "best_state": {
-    "run_id": "v2-rebuild-single-post-verified-fill",
-    "real_lb": 69.570,
-    "real_lb_note": "v2 (kernel v4, submitted 2026-07-18 12:49) = 69.570 public, +89% over v1's 36.705. Mid-pack; top ~103.67. Confirms the 4-cause root-cause fix. Mock scores remain mechanics-only, not LB predictions.",
-    "prior_lb": 36.705,
-    "commit": "pending"
+    "run_id": "orf-p4-core",
+    "primary_metric": "mean_adaptive_gain_percent",
+    "metric_value": 40.249038022308,
+    "independent_units": 3,
+    "baseline_run_id": "orf-p4-baseline",
+    "scope": "Exact public deterministic synthetic oracle information value only; no held-out, live, private-transfer, replay-safety, learnability, or Kaggle claim.",
+    "commit": "02b90ff",
+    "prior_historical_live_state": {
+      "run_id": "v2-rebuild-single-post-verified-fill",
+      "real_lb": 69.570,
+      "real_lb_note": "v2 (kernel v4, submitted 2026-07-18 12:49) = 69.570 public, +89% over v1's 36.705. Mid-pack; top ~103.67. Confirms the 4-cause root-cause fix. Mock scores remain mechanics-only, not LB predictions.",
+      "prior_lb": 36.705,
+      "commit": "pending"
+    }
   },
   "heldout_sets": {
     "orf-heldout-v1": {
@@ -554,6 +571,17 @@
       "generalization": "Sterile-reviewed disjoint public unsaturated balanced-cliff regime independently verified across 960 rows/6720 scores: mean gain 36.393868336949% vs predicted 35%, all 3 masters material, exact 256+256 weighting, COMPLETE bundle, immutable diff empty.",
       "scaling": "Sterile-reviewed nested 40/160/320 robustness independently recomputed for all 9 cells: all clear fraction 1.0, means 48.953/42.794/40.249%, range 38.111-52.609%, full scale equals core, COMPLETE and immutable diff pass.",
       "experiment_batch": "PASS in research-log/041: all 15 predictions resolved confirm/keep; baseline plus four verified run families, attribution/generalization/scaling, independent row/score audits, immutable inputs, commits/resources and authorization boundaries complete. Claim scope is public synthetic validation only."
+    },
+    "5": {
+      "analysis": "Independent analyzer report research-log/042 verified against 42-row ledger and committed master tables; all three figure triples pass editable-SVG/300-dpi/source-data/deterministic-rerun QA and excluded statuses never enter rankings/statistics/figures.",
+      "statistical_rigor": "Independent unit is one fixed public master, n=3 paired. Orchestrator recomputation gives mean gain 40.249038022308%, sample SD 1.855296739857 pp, standardized descriptive effect 21.694124264676 master-SD; exact finite census with no population test/p-value. All P0 checks pass.",
+      "seven_questions": "research-log/044 explicitly answers result, mechanism, attribution/distinguishing prediction, robustness/failures, surprises/null fixes, literature/tuned comparator, and proxy-vs-problem alignment.",
+      "freshness": "research-log/043 checks five primary sources through 2026-07-19; adjacent adaptive-allocation literature makes broad novelty untenable but does not refute the exact ORF finite result.",
+      "search_diagnosis": "kind=metric confirmed; iteration/cumulative keep rates 60%/65%; nulls 6/7 with fixes; confidence calibration recorded; one candidate-structure-policy iteration improved best public-synthetic state; healthy, no escalation/diminishing-return trigger.",
+      "budgets": "research 1/5, hypothesis review 11/20, paper review 0/2; no retryable implementation_defeated entry; public changed regime tracks direction but no locked validation/test tier exists.",
+      "path": "Internal technical report/no submission. User advance authorization quoted: 'then go on with next phases up until phase 6 then, define a goal', followed by 'continue working'; goal expressly requests a Phase-6 paper/report under no-Kaggle/no-heldout boundaries.",
+      "locked_test_exception": "NOT RUN and not represented as passed. The empirical Path-C locked-test step conflicts with the user's explicit prohibition on held-out/beacon/freeze/target/evaluation actions; this remains a headline limitation.",
+      "status": "PASS for transition to a local Phase-6 internal report with the explicit locked-test exception; not a venue/submission decision"
     }
   }
 }
