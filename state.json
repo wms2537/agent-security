@@ -167,8 +167,8 @@
       "id": "T018",
       "phase": "4",
       "desc": "Apply the baseline+core user checkpoint decision only if the preregistered gates pass",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "T014 exact baseline/tuning parity passed; T016 sterile review is SOUND; T017 first-attempt verified core satisfied every confirm rule (mean 40.249038022308% in [30,50], all 3 masters >=5%, homogeneous controls exact, immutable diff empty). Applied the user's advance authorization verbatim: 'then go on with next phases up until phase 6 then, define a goal'. Scope remains local public non-target work only; held-out/beacon/Kaggle actions remain prohibited.",
       "parent": "T017"
     },
     {
