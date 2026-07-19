@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "3",
   "cycle": 1,
   "iteration": 4,
   "entry_mode": "idea",
@@ -111,9 +111,17 @@
       "id": "T011",
       "phase": "2",
       "desc": "Independently theory-review immutable ORF v9 under the user-extended hypothesis-review budget",
-      "status": "in_progress",
-      "evidence": "User authorization: 'I give you another 10 review budget'. Limit raised to 20. Round 11 charged at dispatch against immutable commit 74d1836: 500-line v9, 214-line contract SHA d53b5920d178ddee622bcb53283652006a0e4089a539d9c21e424ee7b67d5235, 159-line schema SHA 64d7ac6d775d92a6edcc22fc7925996aadd69c66c37aed339a9e45dcd4e3c321, 230-line reference checker, and 146-line fixture. Sterile prompt contains only the theory-review template and the four round-10 blockers. Budget 11/20; no held-out, beacon, evaluator, profile, submission, or Kaggle action.",
+      "status": "done",
+      "evidence": "User authorization: 'I give you another 10 review budget'. Limit raised to 20; round 11 charged at dispatch. Reviewer returned RIGOROUS with scrutiny: all four round-10 issues RESOLVED; re-derived feasible-set regret, actual SDK q=16e+2 path, homogeneous m=1 proof, and conditional 64/64 interval; audited all eight bias classes, assumptions, taxonomy, anti-stacking, Occam, and alternatives; strongest engineered-table objection rejected only within the narrow finite-table scope. Verification `git show 74d1836:research-log/018-hypothesis-iter-4-v9-conditional-regret.md | wc -l` -> `500`; immutable artifact diff through dispatch commit 512885e is empty; public checker returns 3003 exact cycles, 3 valid terminal samples, 6 source hashes, 24 errors, 18 validators, and absent held-out run. Full report verbatim: research-log/019-orf-theory-review-round-11.md. Budget 11/20; no held-out/beacon/evaluator/profile/submission/Kaggle action.",
       "parent": "T010"
+    },
+    {
+      "id": "T012",
+      "phase": "3",
+      "desc": "Design a minutes-scale public non-target PoC of the reviewed ORF core assumptions with pre-specified confirm/reject criteria and transferability limits",
+      "status": "open",
+      "evidence": null,
+      "parent": "T011"
     }
   ],
   "parked_candidates": [],
@@ -329,7 +337,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "No freeze is permitted unless a separately authorized independent review returns RIGOROUS, a later source-hashed held-out evaluator and predictions are authorized/committed, both POSIX and authenticated idempotent-thread preflights pass, and the user explicitly authorizes the irreversible freeze chain. No Kaggle action is authorized.",
-      "status": "theory-review-round-11-in-progress-never-frozen"
+      "status": "theory-reviewed-rigorous-round-11-never-frozen-phase-3"
     }
   },
   "gates": {
@@ -341,6 +349,17 @@
     },
     "0.moat_amendment": {
       "problem_md": "User explicitly redirected the project on 2026-07-19: 'we should develop our own moat instead of relying on others ya'; PROBLEM.md now anchors online system identification and constrained optimization."
+    },
+    "2": {
+      "hypothesis": "Immutable v9 at commit 74d1836: research-log/018-hypothesis-iter-4-v9-conditional-regret.md, 500 lines; v7 contract/schema/checker/fixture hashes verified.",
+      "falsifiable_variables_controls_primary": "V9 defines per-profile versus split-global fill-length scope, exact dependent ratio (A-G)/G, identical profiles/probes/SDK/resources/action set, and one decisive >=5% primary comparison; subthreshold valid results disconfirm.",
+      "search_log": "Iteration 4 varies=candidate-structure-policy, kind=metric; no Phase-5 escalation constraint is active.",
+      "concept": "Beacon-Held-Out Conditional Regret is named, explained in plain language, and formally defined as finite feasible-set regret.",
+      "justification": "Round 11 independently re-derived feasible-set containment, actual SDK score identity, homogeneous m=1 invariant, and the explicitly conditional Clopper-Pearson statement; validity domains and all eight bias classes were stress-tested.",
+      "failure_modes_metrics_taxonomy": "V9 specifies invalid versus disconfirm outcomes, exact primary/secondary metrics, alternatives, Evidence Gap x Empirical Mapping x replace classification, and the engineered-table scope limitation.",
+      "anti_stacking": "Reviewer found the crossed-positive/homogeneous-zero action-scope prediction genuinely distinguishing and not a component stack.",
+      "problem_alignment": "Confirmation would establish material benchmark-shaped synthetic value of profile-conditioned structure selection, without claiming live/Kaggle transfer or learnability.",
+      "theory_review": "Round 11 RIGOROUS with evidence of scrutiny; all four prior issues RESOLVED. Full report: research-log/019-orf-theory-review-round-11.md. `git show 74d1836:research-log/018-hypothesis-iter-4-v9-conditional-regret.md | wc -l` -> 500; budget 11/20."
     }
   }
 }
