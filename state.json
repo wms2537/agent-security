@@ -18,7 +18,7 @@
       "spent": 1
     },
     "hypothesis_review_rounds": {
-      "limit": 3,
+      "limit": 4,
       "spent": 3
     },
     "paper_review_rounds": {
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Replacement review round 3 returned NEEDS_REVISION with 8 required fixes; the approach was judged salvageable, not fundamentally flawed. Reviewer reported 232 lines and `git show HEAD:research-log/007-hypothesis-iter-4.md | wc -l` returned 232. Full verbatim verdict: research-log/008-orf-theory-review.md. Review budget is exhausted at 3/3; the frozen hypothesis was not edited and Phase-2 remains closed pending explicit user direction.",
+      "evidence": "Replacement review round 3 returned NEEDS_REVISION with 8 required fixes; full verdict is in research-log/008-orf-theory-review.md. The user then authorized the proposed final scientific re-review verbatim: 'yes, go on, I approve it'. Review limit is now 4, spent remains 3 until dispatch, and Phase 2 remains closed while a superseding hypothesis is prepared.",
       "parent": "T008"
     }
   ],

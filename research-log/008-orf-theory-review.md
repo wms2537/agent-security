@@ -230,3 +230,10 @@ The adverse `NEEDS_REVISION` verdict stands. The reported line count is verified
 The immutable hypothesis entry was not edited. The review budget is exhausted at
 3/3, so T009 returns to a user checkpoint: Phase 2 remains closed and no ORF
 implementation or confirmatory experiment is authorized.
+
+## User authorization for final scientific re-review
+
+The user approved the proposed final scientific re-review verbatim: “yes, go on, I
+approve it”. In context, this authorizes a superseding ORF hypothesis and raises
+only `hypothesis_review_rounds.limit` from 3 to 4. It does not authorize an
+experiment, Kaggle push, or Kaggle submission.

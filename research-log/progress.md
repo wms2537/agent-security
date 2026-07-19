@@ -20,3 +20,4 @@
 2026-07-19 | P2 | T009 replacement-review authorization | approved | user replied verbatim “yes, go on” to the proposed one-round extension; hypothesis-review limit 2→3 only
 2026-07-19 | P2 | T009 replacement theory review round 3 | in_progress | sterile independent review dispatched against unchanged 232-line hypothesis; review budget now 3/3
 2026-07-19 | P2 | T009 replacement theory review round 3 | needs_revision | reviewer verified 232 lines; ORF is salvageable but 8 required fixes remain; review budget 3/3 exhausted and Phase-2 gate stays closed
+2026-07-19 | P2 | T009 final scientific re-review authorization | approved | user said verbatim “yes, go on, I approve it”; hypothesis-review limit 3→4 only
