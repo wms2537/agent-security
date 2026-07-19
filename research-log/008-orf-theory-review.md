@@ -44,3 +44,11 @@ mistaken for the independently justified proprietary moat required by `PROBLEM.m
 Pause T009 at a user checkpoint. The user may explicitly authorize one replacement
 review round for the infrastructure-blocked dispatches, or conclude this hypothesis
 without implementation. The existing review budget is not changed automatically.
+
+## User authorization
+
+The user authorized the recommended single replacement review round verbatim:
+“yes, go on”. In the immediately preceding checkpoint, “yes” referred to the stated
+proposal to raise the T009 hypothesis-review limit from 2 to 3 because the prior
+dispatches produced no scientific verdict. No other budget or external action was
+authorized.
