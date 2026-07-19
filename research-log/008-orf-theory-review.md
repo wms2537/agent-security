@@ -652,3 +652,209 @@ template's previous-review slot. No project learnings or assurances are included
 Dispatch consumes round 6/10. No NIST target pulse has been selected, no opening
 ledger or profile exists, and no implementation, experiment, external submission,
 or Kaggle action has occurred.
+
+## Beacon-held-out round 6 returned verdict
+
+The reviewer returned the following report verbatim:
+
+**Status: DONE**
+
+Reviewed [research-log/011-hypothesis-iter-4-v4-beacon-heldout.md](/home/soh/agent-security/research-log/011-hypothesis-iter-4-v4-beacon-heldout.md:1), verified at **573 lines**. Also reviewed the complete 180-line machine-readable contract and checked every cited repository SHA-256; all five hashes match the current files.
+
+## 1. Blind assessment
+
+### Overall: NEEDS_REVISION
+
+The primary contrast is now structurally meaningful and most previous confounds are removed. However, the executable beacon protocol is currently unsatisfiable as written, the negative control is ambiguously defined across prose and contract, and no evidence or derivation supports the load-bearing 5% effect prediction.
+
+### Previous-review disposition
+
+1. **Same-probes/global-static and nonadaptive mixture controls: RESOLVED.**
+   Lines 38–45, 65–80, and 240–261 make `ADAPTIVE` versus identical-probe `PROBE_GLOBAL` primary and add a fully enumerated denominator-eight mixture class.
+
+2. **Real commit–reveal/beacon and atomic ledger: IMPROVED.**
+   The public seed is gone and a future pulse plus fixed ledgers is a genuine advance. It is not resolved because the timestamp rule cannot accept the NIST response as specified, `FREEZE.json` lacks a complete machine-readable exclusive-creation schema, and reveal/evaluate do not explicitly require a clean worktree at the frozen implementation commit.
+
+3. **Single estimand/no incoherent CI: RESOLVED.**
+   Lines 63, 81–82, and 376–380 consistently define one realized finite split and no inferential interval.
+
+4. **Stopping, static scores, oracle, regret, eligibility, failures: IMPROVED.**
+   The principal formulas and failure semantics are now precise. The unresolved negative-split meaning of `PROBE_GLOBAL` prevents a fully resolved rating.
+
+5. **Generator ranges and weights: RESOLVED.**
+   Lines 263–302 use 40 explicit equal-weight coverage strata, require stratum-wise results, and restrict conclusions to designed support rather than target prevalence.
+
+6. **RNG, indexing, commands, schema, thresholds: IMPROVED.**
+   RNG keys, samplers, commands, row counts, and thresholds are much better. Exact profile/candidate indexing, finding/hash construction, prediction-ledger schema, output types/order, numeric serialization, and error-code vocabulary remain absent.
+
+7. **Scorer/predicate/caps hashes and 8100 scope: RESOLVED.**
+   Lines 89–145 and 446–466 correctly derive the SDK objective, cite the relevant sources, and label 8100 solely as a synthetic design constraint. All recorded source hashes match.
+
+### Justification correctness
+
+The load-bearing score derivation is correct under the stated synthetic construction:
+
+\[
+\text{normalized}(Q)=\min(1000,Q/200),
+\]
+
+so maximizing normalized score is equivalent to maximizing \(S=\min(200000,Q)\). A successful unique-hash candidate with \(e_z(m)\) severity-5 predicates contributes \(q_z(m)=16e_z(m)+2\). The ceiling in the saturation term is correct because the candidate that first reaches or crosses \(H\) is retained.
+
+The resource count
+
+\[
+n_z(m)=\max(0,\min\{C-p_z,\lfloor(G-g_z)/c_z(m)\rfloor,
+\lfloor(R-r_z)/c_z(m)\rfloor,\lceil(H-Q_z)/q_z(m)\rceil\})
+\]
+
+is also correct only in the deterministic, additive, stationary regime where one probe reveals the exact cost and future yield of every fill candidate.
+
+The primary comparison reduces to
+
+\[
+A=\sum_z\max_m S_z(m),\qquad G=\max_m\sum_zS_z(m).
+\]
+
+Therefore \(A\ge G\) is an identity, not an empirical discovery. Equality holds exactly when a common fill length can attain every profile’s maximum; a 5% result means
+
+\[
+A-G\ge 0.05G,
+\]
+
+so the global choice accumulates at least that much aggregate regret. This does isolate response-dependent selection from the shared probe portfolio, but the only falsifiable scientific content is the magnitude threshold. No cited trace, replication, pilot, support-volume argument, or analytical bound justifies **5%**. Lines 290–296 explicitly concede that the ranges are stress-support choices, and the evidence chain supports score mechanics rather than effect magnitude.
+
+The homogeneous proof is valid if `PROBE_GLOBAL` is reselected within the negative split. After seven probes, the remaining replay budget in message-cost units is
+
+\[
+T=8100/b-87\in[588,1533].
+\]
+
+Thus the candidate cap \(1993\), generation budget, and saturation do not bind. Pure \(m=1\) gives \(18\lfloor T\rfloor\), while for \(m>1\),
+
+\[
+\lfloor T/m\rfloor(16m+2)
+<18\lfloor T\rfloor.
+\]
+
+Hence \(m=1\) strictly wins. But the contract defines `PROBE_GLOBAL` only as maximizing over the **primary split** (JSON line 115). Reusing that primary-selected length on the negative split does not imply equality. The prose and `negative_equality` metric instead assume a separately reselected negative optimum. This must be resolved explicitly.
+
+### Fatal beacon-contract defect
+
+The NIST API returns `pulse.timeStamp` as an ISO-8601 string such as `"2026-07-19T05:53:00.000Z"`, while JSON lines 38–39 require adding `600000` to the anchor timestamp and later require `pulse.timeStamp == target_unix_ms`. Strict string-versus-integer equality can never pass. NIST documents the request parameter as Unix milliseconds but returns the pulse timestamp in its schema representation; `/pulse/time/...` may also return the nearest pulse, making the explicit parsed-timestamp equality check essential. See the [official NIST description](https://csrc.nist.gov/Projects/interoperable-randomness-beacons/beacon-20) and [live API shape](https://beacon.nist.gov/beacon/2.0/pulse/last).
+
+The protocol also freezes a clean `HEAD` only at `freeze`. It does not explicitly require and enforce a clean worktree and the same frozen `HEAD` at `reveal` and `evaluate`. A modified uncommitted evaluator could therefore consume the pulse under the written checks. JSON line 139 vaguely declares implementation violations invalid, but no reveal/evaluate rule defines the required check.
+
+### Mathematical depth and validity domains
+
+The equations generally carry the argument rather than decorate it. Symbols are mostly concretely bound, and entropy is correctly demoted to a descriptive metric.
+
+The missing validity domains are load-bearing:
+
+- Probe measurements and all future fills must be exactly stationary.
+- Costs and scores must be deterministic and additive across candidates.
+- A single probe must reveal the exact future \(c_z(m)\) and \(e_z(m)\).
+- Candidate order must have no interaction with score, latency, guardrails, or profile state.
+- Every retained finding must have one unique score-cell hash and exactly the claimed predicates.
+- No hidden shared overhead, concurrency, cache, or deadline dependence may exist.
+- NIST outputs must be forward-unpredictable under the trusted-provider assumption.
+- Frozen code, contract, predictions, and output schemas must be the code actually executed.
+
+Violating the first four invalidates the interpretation as an online selection mechanism; violating finding/hash assumptions invalidates \(q_z(m)\); violating beacon/code-freeze assumptions invalidates held-out status.
+
+### Logical soundness
+
+The conditional mechanism is sound: material positive regret against an oracle-best global action implies profile-dependent action value within the synthetic model.
+
+The unsupported leap is from “the crossed support can create heterogeneous optima” to “the aggregate gap will be at least 5%.” Heterogeneity alone does not imply material separation; profiles can have different tie-resolved optima with nearly identical scores.
+
+The description also calls the profiles “unseen” while the full generator, support, and deterministic outcome equations are known. Only realized parameter draws are unseen. That distinction matters because the hypothesis can be analytically tailored to the generator even without opening the beacon.
+
+### Threats-to-validity audit
+
+Lines 470–497 do contain all eight required categories, one numbered item each: selection, confounding, allocation/assignment, protocol deviation, missing data, measurement, analysis flexibility, and selective reporting.
+
+Two entries are incomplete:
+
+- **Protocol deviation:** no explicit clean-HEAD/worktree verification at reveal and evaluation.
+- **Selective reporting:** mandatory output fields do not prevent fetching the public target pulse independently, previewing the deterministic split, and declining to evaluate or publish. A locally committed freeze is not a third-party timestamped preregistration.
+
+### Taxonomy verification
+
+The narrow taxonomy is defensible:
+
+- Opportunity: Evidence Gap, with Resource Bottleneck secondary.
+- Paradigm: Optimization/Search plus Empirical Mapping.
+- Dominant operation: replace a global argmax with profile-conditioned argmax.
+
+This is a genuine local decision-scope change, not Bridge Opportunity × Synthesis/Unification. The grand “frontier” naming exceeds the actual contribution, but that is not itself a correctness defect.
+
+### Anti-stacking check
+
+Passes narrowly. A plain combination of the same probes and fill components does not predict a difference against `PROBE_GLOBAL`, because that control has the identical retained probes and resources. The distinguishing prediction is specifically conditional selection on heterogeneous profiles plus equality on the homogeneous split.
+
+The result would still be a deterministic oracle-information advantage, not evidence that a noisy deployable selector works.
+
+### Occam’s Razor check
+
+The protocol is disproportionately elaborate for a claim about one arbitrary finite synthetic draw. A simpler first-principles formulation is the aggregate conditional-regret identity
+
+\[
+\Delta(D)=\sum_z\max_mS_z(m)-\max_m\sum_zS_z(m),
+\]
+
+followed by an exhaustive deterministic map of where \(\Delta(D)\) is materially positive over the declared support. The beacon is useful only as an anti-tuning check; it does not add population validity.
+
+The 3,003-policy control is useful for limiting an end-to-end claim, but its denominator-eight boundary has no scientific justification beyond feasibility. It should not be described as globally strongest.
+
+### Alternative explanations
+
+A confirmed result could arise because:
+
+- Equal weighting deliberately assigns substantial mass to abrupt compliance cliffs.
+- The selector receives noiseless exhaustive oracle information and evaluates fills on the same stationary profile.
+- Integer floors, caps, and saturation amplify small action differences.
+- The result is the generic optimization gap from allowing 320 decisions instead of one.
+- The chosen global comparator class is constrained, while adaptive uses per-profile choices.
+- Synthetic predicate/hash construction guarantees linear score additivity absent in live traces.
+
+These explanations do not invalidate the narrow arithmetic claim, but they block broader mechanism language unless explicitly treated as the validity domain.
+
+### Required fixes, severity order
+
+1. **Repair the beacon timestamp and freeze enforcement** at hypothesis lines 304–353 and JSON lines 27–60. Define exact ISO-8601 parsing to UTC milliseconds, validate millisecond alignment, specify exact `FREEZE.json` fields and exclusive atomic creation, and require clean worktree plus frozen `HEAD` at freeze, reveal, and evaluate.
+
+2. **Define the negative global policy unambiguously** at lines 355–374 and JSON lines 97–116, 132, and 166–167. Either define `PROBE_GLOBAL_NEG` as a negative-split-specific global argmax, or reuse the primary global length and drop the exact-equality theorem.
+
+3. **Justify or relabel the 5% prediction** at lines 55–61, 81–87, 290–296, and 537–549. Provide an analytical support-volume/regret argument or independently sourced frozen evidence. Otherwise label 5% as a normative materiality threshold rather than mechanism-derived expectation.
+
+4. **Complete the executable schema** at lines 89–127 and 412–444 and JSON lines 15–25 and 160–171: exact profile-index mapping, candidate ordinals, trace/finding construction, literal sentinel, unique-hash rule, row ordering/types, numeric serialization, error-code enum, and exact summary metric keys.
+
+5. **Define the prediction ledger and selective-opening safeguards** at JSON lines 33–36. Name its path, schema, hash, freeze binding, and publication/timestamp mechanism. Require preservation/reporting of every freeze even if evaluation is never completed.
+
+## 2. Actionable coaching
+
+- Express the mechanism through the regret decomposition
+  \[
+  A-G=\sum_z[\max_mS_z(m)-S_z(m_G)].
+  \]
+  Predeclare the fraction of profiles/strata with positive regret and the distribution of action-separation margins. This directly measures the proposed structure; entropy does not.
+
+- For NIST, parse `timeStamp` canonically, derive `target_unix_ms`, and then reject the “next closest” API behavior unless the parsed returned timestamp exactly equals the target. Preserve and hash the raw response before parsing.
+
+- Add a split-specific policy namespace: `PROBE_GLOBAL_PRIMARY` and `PROBE_GLOBAL_NEGATIVE`. This removes an otherwise experiment-invalidating ambiguity.
+
+- Bind all later commands to `FREEZE.json`: current `HEAD`, clean worktree, contract hash, evaluator/test hashes, prediction-ledger hash, and source hashes must match before reveal or evaluation reads the pulse.
+
+- Make the synthetic finding generator auditable by emitting or hashing candidate-level records. Aggregate TSV rows cannot independently verify predicate exclusivity and global hash uniqueness.
+
+- Treat the present experiment as a best-case deterministic oracle-information test. A subsequent hypothesis should use independent/noisy continuation outcomes after probes; otherwise the same-profile argmax does not test estimation robustness.
+
+- Consider an exhaustive deterministic support map before the beacon run. It would reveal whether 5% is structurally robust or merely dependent on a small set of cliff-heavy cells without consuming the held-out pulse.
+
+## Round 6 gate decision
+
+The adverse `NEEDS_REVISION` verdict stands. The reviewer-reported 573 hypothesis
+lines, 180 contract lines, contract SHA-256, and all five source hashes were
+independently verified against commit `7bd49e5`. The v4 hypothesis and v2 contract
+remain immutable, the future beacon target does not exist, and Phase 2 remains
+closed.

@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Theory review round 6 was charged and dispatched against committed 573-line ORF-B v4 plus 180-line contract SHA-256 5bcdc78af0e406ddf52f6f3cc70ef2bfb497fa3d811b8b5df5f795e6019401ac. The sterile prompt contains only the theory-review template, artifact path, claim/question types, and the seven round-5 blockers. Budget is 6/10; Phase 2 remains closed. No beacon target, digest, profile, implementation, experiment, or Kaggle action exists.",
+      "evidence": "Round 6 returned NEEDS_REVISION after verifying the 573-line v4, 180-line contract, contract SHA-256, and five source hashes. It resolved primary treatment isolation, fixed estimand, factorial weighting, source coverage, and anti-stacking, but found an unsatisfiable ISO-string versus Unix-ms beacon comparison, ambiguous negative-split global selection, unsupported 5% expectation, incomplete executable/output schemas, and an underbound prediction ledger. Full verdict is logged verbatim in research-log/008-orf-theory-review.md. Budget is 6/10; Phase 2 remains closed and no beacon/Kaggle action exists.",
       "parent": "T008"
     }
   ],
@@ -168,6 +168,18 @@
       "apply_when": "A Phase-2/5 comparison bootstraps performance against a best-on-sample control.",
       "source": "research-log/008-orf-theory-review.md",
       "recurrences": 1
+    },
+    {
+      "lesson": "A post-freeze randomness protocol must parse provider timestamps canonically and bind clean code, contract, predictions, and ledgers at freeze, reveal, and evaluation; a future pulse alone is not an executable holdout protocol.",
+      "apply_when": "A Phase-2/3 held-out design derives outcomes from an external randomness beacon.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "A directional identity such as per-unit argmax being no worse than a global argmax does not justify a materiality magnitude; the threshold needs an independent bound or must be labeled normative.",
+      "apply_when": "A Phase-2 hypothesis sets an effect-size threshold for a deterministic optimization advantage.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
     }
   ],
   "best_state": {
@@ -193,7 +205,7 @@
       "beacon_revealed": false,
       "opened_at": null,
       "rule": "Only after RIGOROUS review, committed implementation/unit checks/prediction rows, and a clean freeze may a future NIST pulse create the fixed-path atomic opening ledger. No Kaggle action is authorized.",
-      "status": "locked-pre-review"
+      "status": "reviewed-needs-revision-never-opened"
     }
   },
   "gates": {
