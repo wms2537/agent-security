@@ -1,7 +1,7 @@
 {
-  "phase": "4",
+  "phase": "2",
   "cycle": 1,
-  "iteration": 3,
+  "iteration": 4,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
@@ -15,7 +15,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 0
+      "spent": 1
     },
     "hypothesis_review_rounds": {
       "limit": 2,
@@ -82,6 +82,14 @@
       "status": "open",
       "evidence": "User checkpoint required: Kaggle push/submission changes external account state. Interpretation thresholds pre-registered in research-log/006: >=106 lead, >=125 strong, 82-89 fallback, <78/void failure.",
       "parent": "T006"
+    },
+    {
+      "id": "T008",
+      "phase": "2",
+      "desc": "Replace the stale public-recipe/predicate-diversity framing with the user-directed proprietary-moat problem anchor",
+      "status": "in_progress",
+      "evidence": "User direction received 2026-07-19: 'we should develop our own moat instead of relying on others ya'",
+      "parent": null
     }
   ],
   "parked_candidates": [],
