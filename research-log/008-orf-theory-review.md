@@ -52,3 +52,10 @@ The user authorized the recommended single replacement review round verbatim:
 proposal to raise the T009 hypothesis-review limit from 2 to 3 because the prior
 dispatches produced no scientific verdict. No other budget or external action was
 authorized.
+
+## Replacement round 3 dispatch
+
+The sterile theory reviewer was dispatched against the unchanged, committed
+`research-log/007-hypothesis-iter-4.md`. The replacement dispatch consumed the
+authorized third review round. Its blind assessment must be verified before any
+Phase-2 gate decision.

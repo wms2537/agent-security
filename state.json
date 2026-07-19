@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 3,
-      "spent": 2
+      "spent": 3
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Selected after T008; varies=candidate-structure-policy, kind=metric. The original 2/2 review budget produced no scientific verdict. At the replacement-review checkpoint the user replied verbatim: 'yes, go on', explicitly approving the proposed one-round extension; hypothesis-review limit is now 3 while spent remains 2 until dispatch. Phase-2 gate remains closed pending a verified verdict.",
+      "evidence": "Selected after T008; varies=candidate-structure-policy, kind=metric. The original 2/2 review budget produced no scientific verdict. At the replacement-review checkpoint the user replied verbatim: 'yes, go on', explicitly approving the proposed one-round extension. Replacement round 3 was dispatched against the unchanged committed hypothesis; `git show HEAD:research-log/007-hypothesis-iter-4.md | wc -l` returned 232. Review budget is 3/3; Phase-2 gate remains closed pending a verified verdict.",
       "parent": "T008"
     }
   ],

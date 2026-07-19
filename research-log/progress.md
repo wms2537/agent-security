@@ -18,3 +18,4 @@
 2026-07-19 | P2 | T009 theory review round 1 | blocked-no-verdict | reviewer returned `Agent errored: Request blocked.`; logged verbatim, hypothesis remains frozen, final review round dispatched methodology-only
 2026-07-19 | P2 | T009 theory-review recovery | blocked-user-checkpoint | review budget 2/2 consumed; no recoverable round-2 verdict; Phase-2 gate remains closed and no experiment is authorized
 2026-07-19 | P2 | T009 replacement-review authorization | approved | user replied verbatim “yes, go on” to the proposed one-round extension; hypothesis-review limit 2→3 only
+2026-07-19 | P2 | T009 replacement theory review round 3 | in_progress | sterile independent review dispatched against unchanged 232-line hypothesis; review budget now 3/3
