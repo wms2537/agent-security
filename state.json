@@ -255,8 +255,8 @@
       "id": "T029",
       "phase": "5",
       "desc": "Run the required narrow fresh-literature search on profile-conditioned versus globally shared finite-action selection and record primary-source findings",
-      "status": "pending",
-      "evidence": null,
+      "status": "done",
+      "evidence": "research-log/043 checks five primary papers through 2026-07-19. New adaptive-compute and budget-aware agent work makes broad conditional-allocation novelty untenable, but does not invalidate ORF's exact finite SDK-shaped result. This is a material publishability/novelty trigger; no Kaggle, held-out, beacon, target, or private action occurred.",
       "parent": "T028"
     },
     {
