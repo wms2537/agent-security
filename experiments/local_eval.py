@@ -31,7 +31,6 @@ from aicomp_sdk.evaluation.runner import evaluate_redteam  # noqa: E402
 from mock_agents import (  # noqa: E402
     CompliantAgent,
     HarmonyOnlyAgent,
-    JsonOnlyAgent,
     StochasticAgent,
 )
 
@@ -72,5 +71,4 @@ if __name__ == "__main__":
 
     run("compliant", lambda: CompliantAgent(), cfg, budget_s)
     run("harmony_only", lambda: HarmonyOnlyAgent(), cfg, budget_s)
-    run("json_only", lambda: JsonOnlyAgent(), cfg, budget_s)
     run("stochastic", lambda: StochasticAgent(), cfg, budget_s)

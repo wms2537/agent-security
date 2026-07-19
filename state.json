@@ -63,15 +63,15 @@
       "id": "T005",
       "phase": "4",
       "desc": "Reproduce strong public replay-safe baseline: direct measured cost to 0.99*9000 with the proven single-post floor; validate mechanics before the structural experiment",
-      "status": "in_progress",
-      "evidence": "Pre-registered in research-log/004: v2 effective measured cap 7364s vs public 8910s (1.210x); predicted real LB 82-89, void/lower-than-78 is failure.",
+      "status": "done",
+      "evidence": "research-log/005: real SDK controlled-latency run returned 39 findings under old 0.90/1.10 accounting vs 47 under public 0.99/direct accounting, ratio 1.205 vs predicted 1.210; three mock mechanics runs each returned/scored 50 findings.",
       "parent": null
     },
     {
       "id": "T006",
       "phase": "4",
       "desc": "Implement adaptive multi-message amortization selected only by live raw-per-second and >=75% message fire count; preserve single-post fallback",
-      "status": "open",
+      "status": "in_progress",
       "evidence": "Pre-registered in research-log/004: SDK replays up to 32 messages after one reset and scores every EXFIL event; public TensorLiu v125 provides a testable M=24 efficiency-gated baseline.",
       "parent": "T005"
     }

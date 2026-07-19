@@ -9,3 +9,5 @@
 2026-07-19 | P4 | ORIENT + close stale T004 private-diversity branch | failed | `rg -n` confirms v1 actual 36.705 vs ~85 predicted and 28% dead reserve; mechanics smoke passed on four mocks
 2026-07-19 | P4 | T002 live leaderboard + Kaggle strong-baseline audit | done | v2 telemetry unavailable; leader=105.635; 0.99/direct-cost predicts ~84.2; multi-message amortization is the only credible 2x lever
 2026-07-19 | P4 | SELECT T005 replay-safe baseline parity | in_progress | prediction 82-89 real LB; mechanics first, no Kaggle submission without checkpoint
+2026-07-19 | P4 | T005 replay-safe baseline parity | done | controlled SDK run 39->47 findings = 1.205x vs predicted 1.210x; expected real band ~84, not enough to lead
+2026-07-19 | P4 | SELECT T006 adaptive multi-message amortization | in_progress | predict fixed-overhead mock selects multi, zero-overhead mock falls back; live gate requires >1.10x raw/s and >=75% messages firing
