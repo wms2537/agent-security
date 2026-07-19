@@ -14,3 +14,4 @@
 2026-07-19 | P4 | T006 adaptive multi-message amortization | done | negative routes single; fixed-overhead routes multi and exact raw=390; full-context failure falls back with exact raw=54; M24 smoke exact raw=19300
 2026-07-19 | P4 | USER CHECKPOINT T007 real Kaggle experiment | open | submission-ready notebook; approve push+submit to measure >=106 lead / >=125 strong / 82-89 fallback / <78 failure
 2026-07-19 | P2 | T008 proprietary-moat problem reframing | done | user redirected away from copied recipes; PROBLEM.md now anchors online system identification, constrained chain-length optimization, and a distinguishing-prediction moat
+2026-07-19 | P2 | SELECT T009 Online Replay Frontier hypothesis | in_progress | varies=candidate-structure-policy; fixed-M replacement must pass Phase-2 anti-stacking and independent theory review before implementation

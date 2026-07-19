@@ -90,9 +90,25 @@
       "status": "done",
       "evidence": "User direction: 'we should develop our own moat instead of relying on others ya'. Verification: `rg -n 'Our moat must|Question type|Durable moat' PROBLEM.md` -> lines 17,35,46 define online system identification, predictive systems optimization, and reject repackaging public constants.",
       "parent": null
+    },
+    {
+      "id": "T009",
+      "phase": "2",
+      "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
+      "status": "in_progress",
+      "evidence": "Selected after T008; varies=candidate-structure-policy, kind=metric. No implementation or experiment is authorized before the Phase-2 rigor gate passes.",
+      "parent": "T008"
     }
   ],
   "parked_candidates": [],
+  "search_log": [
+    {
+      "iteration": 4,
+      "varies": "candidate-structure-policy",
+      "kind": "metric",
+      "outcome": null
+    }
+  ],
   "tried_and_failed": [
     {
       "approach": "equal round-robin ensemble fill",
