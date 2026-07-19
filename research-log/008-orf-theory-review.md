@@ -858,3 +858,20 @@ lines, 180 contract lines, contract SHA-256, and all five source hashes were
 independently verified against commit `7bd49e5`. The v4 hypothesis and v2 contract
 remain immutable, the future beacon target does not exist, and Phase 2 remains
 closed.
+
+## Beacon-held-out round 7 dispatch
+
+The superseding entry
+`research-log/012-hypothesis-iter-4-v5-beacon-heldout.md` and machine contract
+`experiments/configs/orf-heldout-v3.json` were committed at `f4098e9` before
+dispatch. Deterministic verification found 511 hypothesis lines, 265 contract
+lines, contract SHA-256
+`15cca91e5865b652453104c873b0e2acb3a95dd65eeb27e070c3177cc59596e5`, a valid
+live NIST ISO-to-integer parse without target derivation, contiguous profile indices
+0–319, 3,003 enumerated mixture controls, strict negative `m=1` at both support
+endpoints, zero seed fields, valid JSON, and matching source hashes.
+
+The sterile re-review contains the five round-6 blockers in the template's allowed
+previous-review slot and no project learnings or assurances. Dispatch consumes
+round 7/10. No freeze, pulse target, opening ledger, profile, implementation,
+experiment, external submission, or Kaggle action exists.

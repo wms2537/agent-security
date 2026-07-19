@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 10,
-      "spent": 6
+      "spent": 7
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding 511-line ORF-B v5 and 265-line v3 contract are ready for review. Verification parsed the live NIST ISO timestamp to aligned integer milliseconds without deriving a target/profile; checked contiguous indices 0..319, 3003 mixture controls, strict negative m=1 at both b endpoints, valid JSON, zero seed fields, and all five source hashes. The 5% cut is now explicitly normative/low-confidence. Budget remains 6/10 until dispatch; Phase 2 is closed and no beacon/Kaggle action exists.",
+      "evidence": "Theory review round 7 was charged and dispatched against committed 511-line ORF-B v5 plus 265-line v3 contract SHA-256 15cca91e5865b652453104c873b0e2acb3a95dd65eeb27e070c3177cc59596e5. The sterile prompt contains only the template, artifact path, claim/question types, and the five round-6 blockers. Budget is 7/10; Phase 2 remains closed. No freeze, beacon target/digest/profile, implementation, experiment, or Kaggle action exists.",
       "parent": "T008"
     }
   ],
