@@ -1,96 +1,203 @@
 # Methodology
 
-## Finite conditional regret under a shared-action restriction
+## PS-PIR on one fixed finite score table
 
-For a fixed table, ORF-B is the score lost solely because all profiles must share one legal fill length. Let \(z\in\mathcal{Z}\) index a synthetic response profile, let \(m\) denote a candidate fill length, and let the finite legal action set be
+Public-Synthetic Perfect-Information Regret (PS-PIR) is a deterministic
+comparison between two policy classes on one completely specified score table.
+It is an instance of established value-of-perfect-information reasoning, not a
+new regret definition or an operational routing algorithm. The earlier name
+ORF-B / Beacon-Held-Out Conditional Regret denotes only a prospective protocol
+that was not executed in this study.
 
-\[
-\mathcal{L}=\{1,2,4,8,16,24,32\}.
-\]
-
-For each profile and action, \(S_z(m)\) is the exact capped score obtained after the common probes have been retained and the remaining generation and replay resources have been spent on length \(m\). The profile-conditioned oracle, called `ADAPTIVE`, has aggregate objective
-
-\[
-A=\sum_{z\in\mathcal{Z}}\max_{m\in\mathcal{L}}S_z(m).
-\]
-
-The matched shared-action policy, called `PROBE_GLOBAL`, exhaustively evaluates the same seven lengths but must select one length for the complete table:
+Let \(\mathcal{Z}\) be the finite set of rows in a named synthetic table and let
 
 \[
-G=\max_{m\in\mathcal{L}}\sum_{z\in\mathcal{Z}}S_z(m).
+\mathcal{M}=\{1,2,4,8,16,24,32\}
 \]
 
-Both policies therefore use identical profiles, probes, candidate construction, legal actions, resources, scoring semantics, and arithmetic. They differ only in the scope of the final argmax. Ties choose the smaller legal length. We define conditional regret as \(\Delta=A-G\), and, when \(G>0\), define percentage gain as \(100\Delta/G\).
-
-**Finite containment proof.** Let \(m_G\) be a maximizing global action. For every profile, \(\max_m S_z(m)\geq S_z(m_G)\). Summing these finite inequalities gives
+be the designer-specified candidate fill lengths. For profile \(z\), the common
+seven probes leave generation charge \(g_z\), replay charge \(r_z\), retained
+candidate count \(p_z\), and raw score \(Q_z\). At fill length \(m\), the exact
+candidate cost is \(c_z(m)>0\), the event yield is \(e_z(m)\geq 0\), and the
+singleton raw-score increment is \(q_z(m)\geq0\), defined by
 
 \[
-A-G=\sum_z\left[\max_m S_z(m)-S_z(m_G)\right]\geq 0.
+q_z(m)=
+\begin{cases}
+0, & e_z(m)=0,\\
+16e_z(m)+2, & e_z(m)>0.
+\end{cases}
 \]
 
-The containment fixes the expected direction: the product action space available to `ADAPTIVE` contains every diagonal, shared-length action available to `PROBE_GLOBAL`. It does not establish that the gain reaches the registered 5% materiality threshold. Magnitude remains an empirical property of the fixed table.
+The positive branch follows the audited scorer: each severity-five predicate
+contributes 16 and each distinct score cell contributes 2
+(`comp/sdk/aicomp_sdk/scoring.py`). The synthetic trace constructor requires
+distinct score-cell hashes within a complete trajectory before using this
+shortcut. A zero-yield attempt produces no finding and therefore has
+\(q_z(m)=0\).
 
-### Exact score and resource identity
-
-The table is evaluated through the frozen SDK path rather than a surrogate score. A constructed positive candidate produces a trace whose \(e\) successful `http.post` events send `SECRET_MARKER` to candidate-specific `.invalid` domains. Each event is marked successful, has source `user` and side effect `SHARE`, and is accompanied by an explicit synthetic user authorization. SDK predicate evaluation must return exactly \(e\) severity-five `EXFILTRATION` predicates and no others. The trace's tool events are passed to the SDK cell-signature function, the resulting finding is passed through the score-cell lookup, and the finding list is scored by the SDK raw attack scorer. For one positive singleton finding, the exact raw contribution is
+The zero branch is evaluated *before* any saturation quotient. Specifically,
+with generation budget \(B_{\mathrm{gen}}\), synthetic replay budget
+\(B_{\mathrm{rep}}\), returned-candidate cap \(C\), and per-profile raw cap
+\(H\), define
 
 \[
-q=16e+2,
+n_z(m)=0\qquad\text{if }q_z(m)=0.
 \]
 
-where the additive two points are the distinct-cell contribution. A zero-event attempt produces no finding and contributes zero.
+For \(q_z(m)>0\), first set
 
-The identity boundary is strict. A 64-hex `candidate_id` identifies bookkeeping and constructs an isolated `.invalid` URL; it is not a score identity. The score identity is the actual 16-lowercase-hex cell-signature hash returned from the trace's tool events. Before the singleton shortcut is used, retained score-cell hashes must be pairwise distinct within each complete profile-policy trajectory. A collision invalidates the protocol rather than being replaced with the candidate identifier. The full retained finding list is also scored once through the SDK, and its objective is capped at \(H=200{,}000\).
+\[
+h_z(m)=
+\begin{cases}
+0, & Q_z\geq H,\\
+\left\lceil\dfrac{H-Q_z}{q_z(m)}\right\rceil, & Q_z<H,
+\end{cases}
+\]
 
-Every profile first attempts the seven probe lengths once in ascending order. Let \(g\), \(r\), \(p\), and \(Q\) be, respectively, generation already charged, replay already charged, retained probe count, and probe raw score. Let \(c_z(m)\) be the exact candidate cost and \(q_z(m)>0\) the singleton raw score at action \(m\). With generation budget \(B_{\mathrm{gen}}=9000\), replay budget \(B_{\mathrm{rep}}=8100\), and returned-candidate cap \(C=2000\), the number of fill candidates is
+and then set
 
 \[
 n_z(m)=\max\!\left(0,\min\!\left\{
-C-p,
-\left\lfloor\frac{B_{\mathrm{gen}}-g}{c_z(m)}\right\rfloor,
-\left\lfloor\frac{B_{\mathrm{rep}}-r}{c_z(m)}\right\rfloor,
-\left\lceil\frac{H-Q}{q_z(m)}\right\rceil
-\right\}\right),
+C-p_z,
+\left\lfloor\frac{B_{\mathrm{gen}}-g_z}{c_z(m)}\right\rfloor,
+\left\lfloor\frac{B_{\mathrm{rep}}-r_z}{c_z(m)}\right\rfloor,
+h_z(m)
+\right\}\right).
 \]
 
-with the saturation term set to zero when \(Q\geq H\). If \(q_z(m)=0\), no fill is retained. Thus \(S_z(m)=\min\{H,Q+n_z(m)q_z(m)\}\). Probe generation is charged for every attempt, while replay and the returned-candidate cap are charged only for positive retained findings. These are deterministic synthetic resources; the replay budget is not a model of a live latency tail.
+The corresponding table entry is
 
-### Crossed and homogeneous constructions
+\[
+S_z(m)=\min\{H,Q_z+n_z(m)q_z(m)\}.
+\]
 
-The crossed construction is designed to create profile-dependent cost and yield curves while preserving exact paired evaluation. Candidate cost is
+Here \(H\) is applied separately to each profile; it is not an aggregate-table
+cap. Probe generation is charged for every attempted probe, while replay and
+the candidate count are charged only for positive retained findings. These
+rules define the synthetic table and do not model a measured live latency
+distribution.
+
+The shared-action comparator (`PROBE_GLOBAL` in the implementation) exhausts
+all seven columns but selects one length for every row:
+
+\[
+G=\max_{m\in\mathcal{M}}\sum_{z\in\mathcal{Z}}S_z(m).
+\]
+
+The row-wise perfect-information comparator (`ADAPTIVE` in the implementation)
+selects a column separately after observing every counterfactual entry:
+
+\[
+A=\sum_{z\in\mathcal{Z}}\max_{m\in\mathcal{M}}S_z(m).
+\]
+
+Ties choose the smaller length. We report the raw gap
+\(\Delta=A-G\) and, because \(G>0\) in every reported table, the displayed
+ratio
+
+\[
+R=100\frac{A-G}{G}.
+\]
+
+### Finite policy-class containment
+
+Let \(m_G\) maximize the shared objective. Row by row,
+\(\max_m S_z(m)\geq S_z(m_G)\). Summation yields only the elementary
+containment result
+
+\[
+\Delta=\sum_z\left[\max_m S_z(m)-S_z(m_G)\right]\geq 0.
+\]
+
+Equality holds exactly when at least one shared action is row-optimal for every
+profile. In one direction, a common row-wise maximizer attains \(A\) inside the
+shared class, so \(G=A\). In the other, if \(G=A\), every nonnegative row loss
+under \(m_G\) must be zero, so \(m_G\) is row-optimal everywhere. No stronger
+theorem, distributional statement, or empirical mechanism is claimed.
+
+For descriptive accounting, define the loss margin of shared action \(m\) on
+row \(z\) as
+
+\[
+\ell_z(m)=\max_{m'\in\mathcal{M}}S_z(m')-S_z(m)\geq0.
+\]
+
+Then the reported gap is the smallest aggregate loss among the seven shared
+columns, \(\Delta=\min_m\sum_z\ell_z(m)\). Thus an action histogram alone does
+not determine the gap: the result depends both on which lengths maximize which
+rows and on the score margins lost when the best shared column is used. This is
+a description of finite-table arithmetic, not a novel regret characterization.
+
+## Designer-specified table constructions
+
+The primary crossed construction is an engineering stress test deliberately
+made heterogeneous. It does not represent an estimated population of live
+profiles. Candidate cost has the form
 
 \[
 c_z(m)=a_z+b_zm+d_zm^2.
 \]
 
-Its 40 strata cross reset band (`LOW` or `HIGH`), linear-cost band (`LOW` or `HIGH`), curvature (`NONE` or `HIGH`), and cliff location \(k\in\{-1,4,8,16,24\}\). Each stratum has eight keyed replicates. Reset draws use ranges \([5,20]\) and \([40,80]\); linear draws use \([0.1,1]\) and \([2,8]\); high curvature uses \([0.05,0.2]\). For no cliff, or for \(m\leq k\), event yield is \(e_z(m)=m\). Above a positive cliff,
+Forty equally weighted strata cross reset band (`LOW`, `HIGH`), linear-cost band
+(`LOW`, `HIGH`), curvature (`NONE`, `HIGH`), and cliff location
+\(k\in\{-1,4,8,16,24\}\). Each stratum has eight keyed replicates. Keyed
+pseudorandom log-uniform draws use \(a_z\in[5,20]\) or \([40,80]\),
+\(b_z\in[0.1,1]\) or \([2,8]\), \(d_z=0\) or
+\(d_z\in[0.05,0.2]\), and, when a cliff is present,
+\(\lambda_z\in[0.5,3]\). With no cliff or \(m\leq k\),
+\(e_z(m)=m\). Above a positive cliff,
 
 \[
-e_z(m)=\operatorname{clamp}\!\left(\left\lfloor m\exp\!\left[-\lambda_z(m-k)/k\right]\right\rfloor,0,m\right),
+e_z(m)=\operatorname{clamp}\!\left(
+\left\lfloor m\exp[-\lambda_z(m-k)/k]\right\rfloor,0,m
+\right).
 \]
 
-with \(\lambda_z\in[0.5,3]\). These crossed factors allow the best legal length to differ across profiles; they do not assert that analogous heterogeneity occurs in a live target.
+The construction therefore supplies the action and margin variation whose exact
+consequences PS-PIR tabulates. The ranges, cliff frequency, and equal weights
+are design choices; they carry no claim about empirical prevalence.
 
-Generation is reproducible from domain-separated SHA-256 master and stream labels. CPython pseudorandom floats are converted through their exact binary ratios into a precision-80, half-even Decimal context. Each realized parameter is then converted separately to an exact rational before polynomial cost arithmetic. The cliff floor must remain at least \(10^{-60}\) from an integer boundary; failure is invalid rather than redrawn. This sequence prevents implementation-dependent reassociation from changing a profile.
+The homogeneous companion uses 64 keyed profiles with
+\(c_z(m)=b_zm\), \(e_z(m)=m\), and \(b_z\in[5,12]\). Under the same finite
+resource rules, length one is the unique row-wise maximizer by construction.
+The shared and row-wise calculations must consequently agree. This is a
+boundary and code-path sanity check, not an empirical discriminator or
+additional support for any crossed-table magnitude.
 
-The homogeneous companion construction contains 64 keyed profiles and instead uses \(c_z(m)=b_zm\), \(e_z(m)=m\), and \(b_z\in[5,12]\), with no reset or curvature. Under the same legal actions and resource accounting, length one is the unique maximizer for every homogeneous profile. Consequently the profile-wise and shared argmaxes select the same action and must have \(\Delta=0\). This equality is the distinguishing control: conditioning is expected to matter on the crossed table but cannot create value when all profiles have the same optimum. The control checks the action-scope explanation; it is not separate support for a 5% crossed-table magnitude.
+### Design provenance
 
-### Registered outcome taxonomy
+The following table separates facts read from the audited local SDK from the
+choices used to construct PS-PIR. A value derived from an SDK constant can still
+be a study choice when it is applied at a different aggregation level.
 
-The finite primary result is classified before interpretation:
+| Quantity | Value used in PS-PIR | Provenance and interpretation |
+|---|---:|---|
+| Generation budget \(B_{\mathrm{gen}}\) | 9,000 | SDK fact adopted by the study: the audited gateway sets `DEFAULT_BUDGET_S = 9000.0` for generation and separately for replay (`comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py`). The attack contract defines `time_budget_s` as a full-run wall-clock budget (`comp/sdk/aicomp_sdk/attacks/contracts.py`). |
+| Synthetic replay budget \(B_{\mathrm{rep}}\) | 8,100 | Engineering choice in `experiments/poc/orf_support_calibration.py`; a conservative deterministic reserve, not an SDK deadline and not fitted to replay latency. |
+| Returned-candidate cap \(C\) | 2,000 | SDK fact adopted by the study: `MAX_REPLAY_FINDINGS = 2_000` in `comp/sdk/aicomp_sdk/evaluation/ops.py`, imported and enforced as a replay slice by the audited gateway. |
+| Raw saturation \(H\) | 200,000 per profile | Mixed provenance: the scorer uses `ATTACK_ELITE_RAW = 200000` and caps the corresponding normalized score at 1,000. Applying the equivalent raw saturation separately to every synthetic profile is a PS-PIR modeling choice. |
+| Positive singleton score | \(16e+2\) | SDK scoring fact conditional on the constructed finding having \(e\) severity-five predicates and a distinct score cell; zero events produce no finding. |
+| Legal/probe lengths | \(\{1,2,4,8,16,24,32\}\) | Engineering discretization fixed in the project config and generator; it is not asserted to be an SDK-mandated action set. |
+| Cost form and reset ranges | \(a+bm+dm^2\); \([5,20]\), \([40,80]\) | Designer-specified stress-test choices; no empirical calibration to live reset cost. |
+| Linear and curvature ranges | \(b\in[0.1,1]\) or \([2,8]\); \(d=0\) or \([0.05,0.2]\) | Designer-specified stress-test choices; no empirical frequency or latency interpretation. |
+| Cliff locations and decay | \(k\in\{-1,4,8,16,24\}\); \(\lambda\in[0.5,3]\) | Designer-specified yield choices; the five cliff cells are equally represented rather than prevalence-weighted. |
+| Stratum weights and replicates | 40 strata, equal weight, 8 replicates each | Engineering coverage choice producing 320 rows per named crossed table; not a probability sample. |
+| Homogeneous slope range | \(b\in[5,12]\) | Engineering choice selected for the constructed length-one equality path. |
+| Numerical cutoff | \(R\geq5\%\) | Preselected internal numerical cutoff fixed before the frozen public calculation, without external utility calibration. Crossing it does not imply practical importance. |
 
-- `MATERIAL` when \(100\Delta\geq5G\);
-- `ZERO` when \(\Delta=0\);
-- `POSITIVE_SUBTHRESHOLD` when \(0<100\Delta<5G\); and
-- `PROTOCOL_INVALID` when \(\Delta<0\), the homogeneous difference is nonzero, a score-cell collision occurs, or any generator, numeric, SDK, resource, schema, or completeness requirement is violated.
+## Oracle information and non-operational scope
 
-`ZERO` and `POSITIVE_SUBTHRESHOLD` disconfirm the primary materiality claim. `PROTOCOL_INVALID` is not evidence for or against it and cannot be converted into a scientific retry. The homogeneous control is separately required to return integer zero with global length one.
+PS-PIR grants complete counterfactual access to every \(S_z(m)\) before the
+row-wise argmax. The seven retained probes affect \(g_z,r_z,p_z,Q_z\) equally in
+both policy classes, but their observations are never used to choose a fill
+length. No context-to-action learner, probe-only classifier, selector-error
+curve, or partial-feedback estimator is part of the calculation. Accordingly,
+\(A\) is a perfect-information comparator on the named table, not evidence that
+any fraction of \(\Delta\) is achievable by an agent.
 
-## Assumptions and non-claims
-
-- **Stationarity.** Each profile is a deterministic finite table: the trace and score for an action do not change across evaluation. Crossed synthetic profiles cannot confirm the prevalence, stability, or even existence of corresponding response heterogeneity in a live target.
-- **Additive resource accounting.** Generation, replay, and candidate charges are independent and additive per profile. There is no cross-profile cache, shared concurrency, interference, batching, or shared overhead. Replay safety therefore remains unestablished; it requires a calibrated latency-tail and dependence model together with an explicit whole-run void-risk target.
-- **Exact execution.** The estimand depends on the frozen SDK predicate, cell-signature, and scoring behavior and on the specified Decimal-to-rational execution. Different SDK or numeric semantics define a different table.
-- **Oracle observability.** `ADAPTIVE` observes the counterfactual score for every legal length. No learner infers an action from retained probes, so the method measures oracle value of profile-conditioned action scope, not learnability or deployable routing.
-- **Operational scope.** The construction does not establish live prevalence, private transfer, Kaggle improvement, latency-tail safety, or a replay-safe live policy. It advances a controlled proxy rather than the benchmark's full learning-and-transfer objective.
-- **Prospective evidence governance.** The beacon, freeze, custody, schema, and crash-recovery machinery belongs to a prospective evidence-governance protocol, not to the scientific mechanism. That machinery remained unused: no freeze, beacon, target derivation, held-out evaluation, private action, or Kaggle action occurred. Any executable held-out protocol would additionally require every state transition, artifact schema, recovery branch, and terminal outcome to be fully computable before use; a written custody intention alone is insufficient.
+The executed PS-PIR study consists only of deterministic public synthetic
+tables. It makes no inference about live response heterogeneity, transfer,
+deployable routing, or an untouched evaluation tier. No beacon, held-out
+evaluation, private target, live target, or Kaggle action contributes to this
+method or its results.

@@ -1,50 +1,139 @@
-# Frozen public constructions and exact evaluation
+# Experimental setup
 
-The experiment uses three pre-specified deterministic masters per condition; profiles and score rows are not independent replicates. The experimental unit for finite-condition summaries is therefore the master (`n=3`), not any of the 960 physical profiles, 6,720 action scores, ablation rows, or nested-scale cells derived from those masters. All constructions are public, synthetic, deterministic, and non-target. They measure an oracle action-scope contrast on a fixed finite table; they do not sample a population of agents or expose a live target.
+## Evidence chronology
 
-## Public masters and profile generator
+The calculations followed three distinct evidence stages. First, the generator
+and analysis choices were developed through adaptive public exploration and
+calibration. That stage included a 40-profile proof of concept, repairs to the
+public support construction, and repeated hypothesis review. Its outputs
+informed the crossed-table family, coefficient ranges, weights, and numerical
+cutoffs used later. Second, the labels, actions, predictions, and public config
+were frozen in `experiments/configs/orf-phase4-v1.json`, after which Phase 4 ran
+a **post-calibration frozen public verification** of those choices. Freezing the
+calculation after public calibration prevents outcome-dependent relabeling
+within Phase 4, but it does not make the selected construction untouched.
+Third, there was no untouched evaluation stage. The locked v7 construction was
+neither frozen nor opened, and no live target, beacon, held-out evaluation, or
+Kaggle action contributed evidence to PS-PIR.
 
-The complete design is frozen in `experiments/configs/orf-phase4-v1.json`. The three primary ASCII preimages are `orf-public-phase4-v1|master|000`, `orf-public-phase4-v1|master|001`, and `orf-public-phase4-v1|master|002`. The changed-regime preimages are the disjoint labels `orf-public-phase4-generalization-v1|master|000`, `orf-public-phase4-generalization-v1|master|001`, and `orf-public-phase4-generalization-v1|master|002`. Each master is exactly `SHA256(ASCII preimage)`. These six labels, their order, the generator, thresholds, and regime definitions were committed before their corresponding outcomes; no label was replaced or resampled. The changed-regime set is a second fixed public construction, not a held-out set or a population sample.
+## Named deterministic tables
 
-For each master, the generator crosses two reset-cost bands, two linear-cost bands, two curvature settings, and five cliff settings. This gives `2 x 2 x 2 x 5 = 40` strata, with eight keyed replicates per stratum and thus 320 physical profiles per master. The reset coefficient `a` is log-uniform on `[5,20]` or `[40,80]`; the linear coefficient `b` is log-uniform on `[0.1,1]` or `[2,8]`; and curvature `d` is either zero or log-uniform on `[0.05,0.2]`. Costs follow the exact quadratic `c(m)=a+b*m+d*m^2`. Cliff values are `{-1,4,8,16,24}`, where `-1` denotes no cliff. For a finite cliff, the decay parameter is log-uniform on `[0.5,3]`; event counts equal `m` through the cliff and thereafter use the clipped floor of `m exp[-lambda(m-cliff)/cliff]`. Random streams are keyed by master, stratum, and replicate, so row identity is recoverable without mutable seed state.
+The primary calculation uses three designer-specified crossed tables, named by
+their ASCII master preimages:
 
-Every profile is scored at the seven legal fill lengths
-`L={1,2,4,8,16,24,32}`. The primary regime uses saturation `H=200000`, generation budget `B_gen=9000`, replay budget `B_rep=8100`, and a returned-candidate cap of 2,000. Probe and fill costs use exact `Fraction` arithmetic. Generator transcendentals use decimal precision 80 with round-half-even; floor distances are retained as numerical certificates. Positive singleton findings use the audited SDK raw-score identity `q=16e+2`, and final scores are capped at `H`. The implementation stores exact cost numerators and denominators, event counts, and all seven integer scores for independent recomputation.
+1. `orf-public-phase4-v1|master|000`;
+2. `orf-public-phase4-v1|master|001`;
+3. `orf-public-phase4-v1|master|002`.
 
-The distinguishing homogeneous construction derives one master from each primary preimage by appending `|homogeneous` before SHA-256. It creates 64 profiles per master from keyed streams `negative|profile={profile:02d}`. Each profile has `a=d=0`, no cliff, `b` log-uniform on `[5,12]`, `c(m)=bm`, and `e(m)=m`. This construction fixes the profile-wise optimum by design and is a finite equality control, not a live negative control.
+Each name is mapped once by SHA-256 to a deterministic master. Each primary
+table has 320 profile rows and seven score columns, one for each legal fill
+length in \(\mathcal M=\{1,2,4,8,16,24,32\}\). The 320 rows are the complete
+cross of 40 designer-specified strata and eight keyed replicates per stratum.
+The strata cross two reset-cost bands, two linear-cost bands, two curvature
+settings, and five cliff settings. Equal stratum weights and all coefficient
+ranges are engineering stress-test choices; they do not represent estimated
+frequencies in a population. Keys include the master, stratum, and replicate,
+so every row is recoverable without mutable random state. The reporting unit is
+one complete named table; rows, score columns, strata, and nested prefixes are
+components or views of those tables, not additional reporting units.
 
-## Matched policies and secondary constructions
+Three homogeneous tables append `|homogeneous` to the corresponding primary
+preimages before hashing. Each contains 64 deterministic rows for which the
+row-wise optimum is fixed at length one by construction. These tables exercise
+the equality and tie-handling code paths; they are not an independently observed
+negative condition.
 
-`PROBE_GLOBAL` is the strongest exact shared-action comparator available on the constructed table. For each master, it sums every one of the seven score columns and exhaustively selects the maximum column total. It has no unsearched initialization, training setting, or fill-length hyperparameter. `ADAPTIVE` consumes the identical rows and instead selects the maximum among the same seven scores separately for each profile before summing. Both policies retain the same probes, actions, costs, budgets, caps, score function, profiles, and table. Whenever scores tie, both choose the smaller legal length. The comparison therefore changes only the scope of the argmax: once per master versus once per profile.
+The score cells are exact outputs of the construction described in Methodology.
+The primary tables use \(H=200{,}000\), a 9,000-second generation budget, and an
+8,100-second synthetic replay allocation. The 9,000-second value and scorer cap
+are inherited from the audited SDK; the replay allocation, factor ranges, equal
+weights, and 5% line are project choices. The 5% line was fixed before the
+Phase-4 calculations solely as an internal numerical cutoff and has no external
+utility calibration.
 
-Five one-at-a-time (OAT) transforms are secondary attribution analyses on the same three primary masters. `no_cliff` replaces every event vector with `e(m)=m` while preserving realized costs. `no_curvature` sets `d=0` and recomputes `a+b*m`. `no_reset` sets `a=0` and recomputes `b*m+d*m^2`. `no_novelty` changes positive singleton raw score from `16e+2` to `16e`. `unsaturated` changes only `H` from 200,000 to `10^18`. No condition is retuned, and OAT contrasts are not assumed additive.
+## Matched finite-table comparators
 
-The disjoint changed-regime analysis regenerates 320 profiles for each of its three public labels, scores them at `H=10^18`, and changes the finite aggregation weights. Each no-cliff profile has weight four and each cliff profile weight one. The physical design contains 64 no-cliff and 256 cliff profiles per master, so the effective weights are `64*4=256` and `256*1=256`, or 512 total. Exact row replication passes these weights to the same reviewed evaluator, preserving both policy definitions and the smaller-length tie rule.
+Both comparators receive the identical complete score table and the same seven
+legal actions. The exhaustive shared comparator computes the column total for
+every \(m\in\mathcal M\) and chooses the maximizing length once for the whole
+named table. The perfect-information row-wise comparator chooses the maximizing
+length separately in every row and then sums those row maxima. Both choose the
+smaller legal length on a tie. Thus the comparison changes only the scope of the
+argmax; it does not change profiles, actions, costs, caps, budgets, or scores.
+The row-wise comparator is an oracle because it is granted all counterfactual
+action scores. Retained probes do not select an action, and no context-to-length
+learner is trained or evaluated.
 
-The scaling analysis reuses the committed primary score table; it generates no new master. For replicate-prefix size `k in {1,4,8}`, it includes replicate indices `0,...,k-1` in every stratum. The resulting sets are strictly nested and contain `N={40,160,320}` profiles per master. The nine master-by-scale cells are deterministic views of the same three masters, not nine independent replicates and not a learning curve.
+## Sensitivity calculations
 
-## Metrics and fixed-finite summaries
+Three secondary calculation families describe how the displayed finite-table
+ratio changes under specified transformations. They do not provide untouched
+transfer evidence.
 
-For each master, the retained raw quantities are global score `G`, adaptive score `A`, conditional regret `A-G`, the selected global length, and adaptive length counts. The per-master effect is `100(A-G)/G`, maintained as an exact fraction until fixed-decimal rendering. The primary scientific metric is the arithmetic mean of this gain across the three primary masters; the baseline metric is mean raw `G`. The homogeneous control records exact raw difference and action identities. Secondary metrics are OAT mean gains and paired differences from the primary construction, changed-regime mean gain, and the fraction of the nine nested-scale cells meeting the materiality rule.
+The one-at-a-time (OAT) family applies five transforms to the same three primary
+tables: remove the cliff transform; set curvature to zero; set reset cost to
+zero; remove the two-point novelty term; or replace \(H=200{,}000\) with
+\(H=10^{18}\). No action set or comparator is retuned. Because a transform can
+change both oracle and shared totals and the transforms interact, these are
+removal-associated sensitivity calculations rather than component shares.
 
-Materiality was fixed inclusively at 5% before execution. Across masters, the report may give the arithmetic mean, measured-master standard deviation, minimum, and maximum. These are fixed-finite descriptions of three named constructions. The minimum--maximum span is not a confidence interval, and the master standard deviation does not estimate a superpopulation. No population hypothesis test or population confidence interval is defined: `test: none; p: not applicable`.
+The changed-construction family uses the three public labels
+`orf-public-phase4-generalization-v1|master|000` through `|002`. Despite the
+legacy string in those labels and artifact paths, this is a second
+designer-specified public construction, not an untouched replication. It uses
+\(H=10^{18}\) and weights each no-cliff row four times and each cliff row once,
+giving equal aggregate weight to the two groups within each named table.
 
-## Execution order, commands, and evidence custody
+The nested-prefix family reuses each primary table and includes replicate
+indices \(0\) through \(k-1\) in every stratum for \(k\in\{1,4,8\}\), producing
+40-, 160-, and 320-row prefixes. These nine master-by-prefix cells are dependent
+views of three tables. They are a numerical sensitivity display, not additional
+independent evidence or a learning curve.
 
-All programs ran from `/home/soh/agent-security` in Python isolated mode. The exact scientific commands were:
+## Descriptive outputs
 
-| Family | Command |
-|---|---|
-| Baseline | `comp/.venv/bin/python -I experiments/orf-p4-baseline/run_baseline.py --config experiments/configs/orf-phase4-v1.json` |
-| Core and homogeneous control | `comp/.venv/bin/python -I experiments/orf-p4-core/run_core.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-core-v1` |
-| OAT ablations | `comp/.venv/bin/python -I experiments/orf-p4-ablations/run_ablations.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-ablations-v1` |
-| Changed regime | `comp/.venv/bin/python -I experiments/orf-p4-generalization/run_generalization.py --config experiments/configs/orf-phase4-v1.json --attempt-dir experiments/runs/orf-p4-generalization-v1` |
-| Nested scale | `comp/.venv/bin/python -I experiments/orf-p4-scaling/run_scaling.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-scaling-v1` |
+For every named primary table, the report retains the exact shared total
+\(G\), perfect-information total \(A\), raw gap \(\Delta=A-G\), percentage ratio
+\(100\Delta/G\), selected shared length, and the complete row-wise action count
+over all seven legal lengths. The primary display reports all three named ratios
+and their exact minimum--maximum range. It does not replace those values with a
+sampling model.
 
-The baseline first published the committed exact score table used by later matched comparisons. The core evaluator was then implemented without evaluating that table and underwent sterile source review. That review identified stale-output and lexical-attempt-identity failure modes; the transaction helper and its adversarial tests were repaired before a source-only re-review returned `SOUND`. Each later runner likewise had its design and predictions recorded before implementation, passed toy tests, and received a focused `SOUND` review before its scientific command was permitted.
+The stratum accounting reports, for each of the 40 crossed strata, the 24 rows
+formed by that stratum across the three named tables, raw regret, share of the
+finite total regret, and modal row-wise action. This accounting describes where
+the engineered tables contain the finite gap; it is not a causal decomposition.
+The OAT display reports raw \(A\), \(G\), and \(\Delta\), alongside the ratio,
+for the primary condition and all five transforms. Homogeneous outputs retain
+exact action identities and raw equality. Changed-construction and nested-prefix
+outputs are reported as named-table or named-prefix values, with arithmetic
+aggregates used only as deterministic summaries.
 
-For the core and the three secondary run families, the final attempt directory had to be a fresh, exact direct child of `experiments/runs/`. The bundle opened exclusive staging and wrote the canonical command as the first log line before scientific data access. It bound source, config, support, upstream evidence, and outputs by SHA-256; flushed files and directories; wrote canonical `COMPLETE.json` last; and published by an atomic `renameat2(RENAME_NOREPLACE)` operation. Lexical-path, `lstat`, `O_NOFOLLOW`, inode, file-type, and content-stability checks reject aliases or replacement. A missing or mismatched completion manifest is not accepted as evidence. Independent audits subsequently recomputed the 960 primary rows, 4,800 OAT rows and 33,600 transformed scores, 960 changed-regime rows and 6,720 scores, and all nine nested cells from the bound artifacts.
+No population standard deviation, standardized score, confidence interval, or
+hypothesis test is defined for these finite tables. The analysis declaration is
+therefore `test: none; p: not applicable`. Passing the preselected 5% numerical
+cutoff is a statement about these exact ratios only.
 
-The recorded environment was Linux kernel 6.11.0-29-generic on x86_64, glibc 2.40, CPython 3.14.3 at `comp/.venv/bin/python`, and `jsonschema==4.26.0`. Runs were CPU-only with no accelerator or network. Counting each Phase-4 scientific family once, aggregate runtime was 4.456198161 s and maximum reported peak memory was 0.583507538 GB. These are execution-resource measurements, not scientific effects, hardware-normalized energy estimates, or additional experimental units.
+## Execution and internal reproducibility
 
-The locked v7 construction was not frozen or opened, and no Kaggle action occurred during this study. No beacon, target derivation, private evaluation, or external post entered any score. Constructed profiles cannot confirm that a live model exhibits stable response heterogeneity or that a learner can infer the oracle action. Replay-deadline safety would additionally require a calibrated tail and dependence model plus an explicit void-risk target; an observed maximum or arbitrary margin is not a coverage guarantee. Finally, machine-readable custody is trustworthy only when every transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one defined value. The public deterministic evidence reported here does not satisfy the missing live, learnability, replay-safety, private-transfer, or locked-test steps by implication.
+All scientific commands are repository-relative and are run from the repository
+root. The Phase-4 calculations used Linux x86_64, glibc 2.40, CPython 3.14.3 at
+`comp/.venv/bin/python`, and `jsonschema==4.26.0`; they were CPU-only and made no
+network calls. Dependency records are pinned in
+`paper/reproducibility/requirements-core.txt` and
+`paper/reproducibility/requirements-figures.txt`. Exact verification commands,
+fresh-attempt rules, canonical inputs and outputs, and the separate figure
+environment are listed in `paper/reproducibility/README.md`.
+
+The core and secondary runners bind source, config, upstream evidence, and
+outputs by SHA-256 in their `COMPLETE.json` manifests. The reviewer-requested
+action, stratum, and raw OAT tables are regenerated with the repository-relative
+command:
+
+```bash
+comp/.venv/bin/python experiments/orf-phase5-analysis/generate_reviewer_tables.py
+```
+
+This constitutes internal reproducibility from the present repository, not an
+external availability claim. There is no public clone, externally archived
+release, DOI, operating-system container, or durability guarantee.

@@ -1,104 +1,104 @@
 # Related Work
 
-We organize related work by two properties of conditional allocation: the
-granularity at which a decision is made and the information available when it is
-made. Existing systems condition computation at the prompt, subproblem, or agent
-step using estimated difficulty, learned state, or model-generated value. ORF-B
-instead conditions a finite candidate-length choice on a fully observed synthetic
-response profile and measures an oracle gap. These objectives, domains, and units
-are incompatible, so the numbers below characterize results within each cited
-study rather than a common ranking.
+## Value of information
 
-## Prompt- and subproblem-conditioned compute
+The conceptual owner of Public-Synthetic Perfect-Information Regret (PS-PIR)
+is decision-theoretic value of information. Howard values information through
+the decisions it changes and the resulting consequences, with perfect
+information as the limiting case in which the relevant uncertainty is resolved
+before a choice is made [1]. PS-PIR has this established form in a deterministic
+finite table: viewed across rows, the shared comparator is restricted to one
+candidate length and cannot condition its action on the current row, whereas
+the row-wise comparator is granted every counterfactual score for that row
+before choosing. The difference between those two values is therefore a
+scorer-specific perfect-information calculation. It does not establish that
+such information is observable in operation, and the max-before/max-after
+comparison is not a new information-value or regret concept.
 
-Snell et al. study test-time strategy selection at whole-prompt granularity on
-mathematical reasoning. They stratify MATH problems by model-specific difficulty,
-compare iterative revision and verifier-guided search within fixed inference
-budgets, and construct a per-prompt compute-optimal policy. In reported regimes,
-that policy nearly matched or exceeded best-of-N while using up to fourfold less
-test-time compute; the hardest problems benefited little from additional compute,
-and estimating difficulty itself incurred inference cost [Snell et al., 2025].
-The study therefore establishes both the value and the boundary of prompt-level
-conditioning in its reasoning setting. Its conditioning statistic is an estimate
-used to select a strategy; it does not measure candidate length under a security
-benchmark scorer.
+## Context-conditioned policy learning and evaluation
 
-Plan-and-Budget moves the allocation unit inside a query. It decomposes a
-reasoning problem into subquestions, estimates their relative complexity, and
-assigns token budgets with an adaptive schedule rather than applying one global
-budget. The current report for its reasoning, instruction-following, and
-tool-free planning evaluations gives gains of up to 70% in accuracy, a 39% token
-reduction, and a 193.8% increase in its E3 efficiency metric [Lin et al., 2026].
-Those values describe that paper's own objectives and baselines. The method
-depends on a useful complexity ordering and substitutes practical schedules for
-parameters that cannot be estimated exactly at deployment.
+Contextual policy research addresses the harder step that PS-PIR leaves open:
+mapping information available at decision time to an action. Langford and Zhang
+study bandits with observable side information, learning a context-to-action
+rule while trading off exploration and exploitation and analyzing regret through
+the policy class and its learning complexity [2]. Their setting makes the
+contextual selector an object to be learned. By contrast, PS-PIR defines no
+observable context-to-length rule; it directly supplies the complete score
+vector for every legal length on each row.
 
-SCALE likewise allocates at subproblem granularity, selecting System 1 or System
-2 processing and a resource level from estimated mathematical difficulty. On
-AIME25, its reported comparison raises accuracy from 57.50% to 71.25% while
-reducing computation by 33--53% relative to uniform-scaling baselines
-[Xiao et al., 2026]. The result reinforces the case against uniform reasoning allocation
-in that domain, while leaving its benefits dependent on decomposition and
-difficulty classification. Together, these studies show that broad adaptive
-allocation across heterogeneous reasoning instances is prior art. They do not,
-however, determine the value of replacing one shared candidate-length action
-with profile-wise actions under ORF-B's finite score table.
+Dudík et al. study evaluation and optimization of contextual policies from
+historical data when only the reward for the logged action is observed [3].
+Their doubly robust approach combines reward and logging-policy models, with
+explicit assumptions governing what policy value can be identified from partial
+feedback. PS-PIR bypasses that central estimation problem because its synthetic
+table contains every action's counterfactual score. Consequently, the reported
+oracle value is neither an off-policy estimate nor evidence that a policy could
+recover the row-wise actions from retained probes.
 
-## Learned planning decisions in agents
+Athey and Wager provide a related heterogeneous-assignment perspective: they
+learn constrained treatment policies from observable individual
+characteristics in observational data, using identification conditions and
+doubly robust scores to obtain policy-value guarantees [4]. The contrast between
+heterogeneous assignments and a uniform assignment resembles the action-class
+comparison in PS-PIR, but the evidentiary problems differ. PS-PIR performs exact
+arithmetic on designer-specified score tables; it does not estimate treatment
+effects, identify policy value from observational data, or learn an assignment
+rule. Together, these contextual-policy literatures show that moving from an
+oracle table gap to an operational selector would require observations,
+identification or feedback assumptions, a specified policy class, and an
+evaluation protocol that are absent here.
 
-Paglieri et al. move from estimated task difficulty to a state-dependent planning
-decision inside a long-horizon agent. Their unified model learns when to plan
-through supervised priming followed by reinforcement learning, with no-planning
-and fixed-frequency policies as controls. In the reported Crafter comparison, an
-8B dynamic-planning agent attains reward 0.387 versus 0.379 for a 70B zero-shot
-baseline while generating 85% fewer tokens [Paglieri et al., 2026]. The paper
-also records boundaries that matter for interpreting the result: the agents do
-not fully solve Crafter, the evaluation covers two environments, and planning
-latency is effectively absent in the turn-based setting.
+## Adaptive optimization under partial observation
 
-Their learned live-environment policy answers a different question from ORF-B.
-It tests whether an agent can infer when planning has positive net value and act
-on that inference. ORF-B measures the information value of an oracle that already
-knows each synthetic profile's score table; it neither trains nor evaluates a
-selector. Constructed response profiles can validate the mechanics of that
-conditional action but cannot confirm that a target model exhibits stable,
-observable response heterogeneity. We therefore do not treat the synthetic oracle
-gap as evidence that a live agent can learn the corresponding decision.
+Golovin and Krause formalize adaptive submodular optimization for sequential
+choices under partial observability, where later actions can depend on states
+revealed by earlier selections [5]. Their guarantees concern adaptive policies
+and greedy optimization under structural assumptions such as adaptive
+submodularity. This supplies a useful distinction between observation-conditioned
+and fixed policies, but PS-PIR is not an instance of their problem class: it
+makes one candidate-length choice per profile after granting the full
+counterfactual score row, has no sequential information-acquisition process, and
+does not claim adaptive submodularity. The finite PS-PIR difference should thus
+not be read as an operational adaptivity gap or as evidence that partial
+observations suffice to realize the perfect-information value.
 
-## Budget-aware tool-agent search
+## Recent LLM allocation neighbors
 
-Budget-Aware Value Tree Search (BAVT) is the closest tool-agent neighbor in the
-bounded set. It expands alternative tool-use paths, uses a shared LLM critic to
-estimate residual step value, prunes low-value paths, and changes selection from
-exploration toward exploitation as the remaining tool and token budget shrinks.
-Across its multi-hop question-answering evaluation, the reported low-budget
-OSS-20B comparison gives average exact match 0.338 with five tool calls, versus
-0.334 for parallel sampling with 20 calls [Li et al., 2026]. Its ablation is also
-informative: random tree structure alone degrades performance, static step-level
-value helps, and remaining-budget conditioning supplies the resource-aware
-control.
+Recent LLM work demonstrates conditional resource allocation at several
+granularities, using information that must itself be estimated or learned.
+At whole-prompt granularity, Snell et al.'s ICLR study conditions test-time
+strategy and compute on model-specific estimates of mathematical-problem
+difficulty [6]. At subproblem granularity, the Plan-and-Budget preprint
+decomposes queries and schedules token budgets from estimated relative
+complexity across reasoning, instruction-following, and planning tasks [7],
+while the peer-reviewed SCALE study selects reasoning modes and resource levels
+for mathematical subproblems according to estimated difficulty [9]. These
+studies evaluate performance--cost tradeoffs in their own reasoning domains;
+they do not evaluate candidate-length actions under the scorer used by PS-PIR.
 
-BAVT performs online, step-level search with a model-generated value signal;
-ORF-B evaluates an exact, scorer-specific action-scope relaxation after retaining
-the same probes, legal lengths, resources, and score. BAVT's critic adds inference
-overhead, and its experiments use one external tool with a uniform discrete cost,
-leaving asymmetric tool costs outside the evaluated setting [Li et al., 2026].
-Correspondingly, ORF-B's finite resource accounting does not establish replay-
-deadline safety. Such a safety claim would require a calibrated latency-tail and
-dependence model together with an explicit acceptable void-risk target, neither
-of which is measured here.
+At agent and step granularity, the Paglieri et al. preprint trains a unified
+agent to decide when planning has positive value in long-horizon environments,
+comparing its learned decisions with fixed planning patterns [8]. The
+Budget-Aware Value Tree Search preprint instead uses model-generated
+residual-value estimates and remaining tool/token budget to control step-level
+tool-agent search [10]. Their observation and control mechanisms are precisely
+what the PS-PIR oracle calculation does not supply: the former learns a planning
+gate from task interaction, and the latter performs online budget-conditioned
+search using a critic. Their domains, actions, costs, and outcome measures also
+differ from the deterministic candidate-length score tables considered here.
+Accordingly, their reported quantitative results are not directly comparable
+with the PS-PIR percentages.
 
-## Bounded positioning of ORF-B
+## Positioning of PS-PIR
 
-Our bounded search identified prompt-conditioned reasoning policies,
-subproblem-level token schedulers, learned planning gates, and budget-conditioned
-tool search. This five-paper set cannot establish exhaustive priority, but it is
-sufficient to reject a broad claim that adaptive allocation itself is new. ORF-B's
-narrower distinction is an exact SDK-shaped finite conditional-regret measurement:
-for identical synthetic profiles, retained probes, legal actions, resources, and
-scores, it compares one exhaustive global fill-length argmax with profile-wise
-argmaxes and includes a homogeneous equality control. It is not a learned or live
-controller, and its public synthetic evidence does not establish target-model
-heterogeneity, private transfer, or replay safety. With that scope fixed, the next
-section defines the finite estimand and the single action-scope replacement used
-to measure it.
+The foundational literature establishes value of perfect information,
+context-to-action policy learning and evaluation, heterogeneous assignment, and
+observation-conditioned optimization [1]–[5]. The recent LLM literature applies
+conditional allocation to prompts, subproblems, planning decisions, and tool
+search [6]–[10]. Against that background, PS-PIR contributes only a
+scorer-specific worked example and reproducible implementation of an established
+perfect-information policy-class comparison on named deterministic synthetic
+tables. It is not a new regret concept, theorem, adaptive algorithm, learned
+selector, or empirical phenomenon. In particular, it provides no evidence that
+retained probes reveal the row-wise best length or that any operational policy
+can attain a fraction of the computed oracle value.
