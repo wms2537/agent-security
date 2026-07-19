@@ -97,3 +97,4 @@
 2026-07-19 | P6 | T031 manuscript foundation | planned | 5-paper verified citation DB, 3-exemplar decision archaeology, narrative arc, outline, motivation surface map, 46-row rationale matrix and 29-claim source map complete before writer dispatch; internal-report/no-submission scope
 2026-07-19 | P6 | T031 assembled draft | verified | 629-line/9,323-word Markdown report at commit 08f300f; complete ledger, 3 figure triples, all numbers/citations/disclosures and random 5-sentence citation check PASS; locked test NOT RUN; no Kaggle action
 2026-07-19 | P6 | T031 paper review round 1 | in_progress | Medium sterile reviewer dispatched on committed 629-line paper; paper-review budget charged 1/2 at dispatch
+2026-07-19 | P6 | T031 paper review round 1 | needs_revision | reviewer verified 629 lines; 12 issues led by engineered synthetic phenomenon, elementary EVPI containment, post-calibration/no untouched tier, and no learner; full verbatim report 047; budget 1/2
