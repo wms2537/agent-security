@@ -17,6 +17,11 @@ probes/selects online at run time.
                      output is one JSON object.
   StochasticAgent  : fires on a deterministic subset of indices — verifies that
                      verified-fill keeps only firing candidates.
+  AmortizingAgent  : pays a fixed delay on the first action after reset and only a
+                     tiny per-action delay thereafter — validates multi-message
+                     routing when fixed per-candidate overhead dominates.
+  ContextLimitedAgent: fires through a short multi-message probe but refuses a
+                     longer chain — validates full-length fallback to single-post.
 
 All are stateless (decisions derived from RuntimeHistory), so snapshot/restore are
 trivial. An optional per-interaction latency lets a test exercise void-safe sizing.
@@ -136,6 +141,51 @@ class StochasticAgent(_Base):
         m = _URL_RE.search(msg)
         host = (m.group(0) if m else "").rstrip("/")
         return bool(host) and (sum(ord(c) for c in host) % 2 == 0)
+
+
+class AmortizingAgent(_Base):
+    """Compliant agent with explicit fixed-per-reset latency for routing tests."""
+
+    def __init__(self, fixed_latency_s: float = 0.05, per_action_latency_s: float = 0.0002) -> None:
+        self.fixed_latency_s = fixed_latency_s
+        self.latency_s = per_action_latency_s
+        self._first_action = True
+
+    def next_action(self, *, history: RuntimeHistory, tools: Sequence[AgentToolSpec]):
+        if self._first_action and self.fixed_latency_s:
+            time.sleep(self.fixed_latency_s)
+        self._first_action = False
+        return super().next_action(history=history, tools=tools)
+
+    def reset_state(self) -> None:
+        self._first_action = True
+
+    def snapshot_state(self) -> dict[str, Any]:
+        return {
+            "version": 1,
+            "backend": "mock-amortizing",
+            "data": {"first_action": self._first_action},
+        }
+
+    def restore_state(self, snapshot: Any) -> None:
+        data = snapshot.get("data", {}) if isinstance(snapshot, dict) else {}
+        self._first_action = bool(data.get("first_action", True))
+
+
+class ContextLimitedAgent(_Base):
+    """Complies only through a fixed number of user turns in one episode."""
+
+    def __init__(self, max_user_messages: int = 4, latency_s: float = 0.0) -> None:
+        self.max_user_messages = max_user_messages
+        self.latency_s = latency_s
+
+    def next_action(self, *, history: RuntimeHistory, tools: Sequence[AgentToolSpec]):
+        user_count = sum(isinstance(event, UserMessageEvent) for event in history.events)
+        if user_count > self.max_user_messages:
+            if self.latency_s:
+                time.sleep(self.latency_s)
+            return FinalResponseDecision(text="Context limit reached.")
+        return super().next_action(history=history, tools=tools)
 
 
 # Back-compat alias used by older harness code.

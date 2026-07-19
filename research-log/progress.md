@@ -11,3 +11,5 @@
 2026-07-19 | P4 | SELECT T005 replay-safe baseline parity | in_progress | prediction 82-89 real LB; mechanics first, no Kaggle submission without checkpoint
 2026-07-19 | P4 | T005 replay-safe baseline parity | done | controlled SDK run 39->47 findings = 1.205x vs predicted 1.210x; expected real band ~84, not enough to lead
 2026-07-19 | P4 | SELECT T006 adaptive multi-message amortization | in_progress | predict fixed-overhead mock selects multi, zero-overhead mock falls back; live gate requires >1.10x raw/s and >=75% messages firing
+2026-07-19 | P4 | T006 adaptive multi-message amortization | done | negative routes single; fixed-overhead routes multi and exact raw=390; full-context failure falls back with exact raw=54; M24 smoke exact raw=19300
+2026-07-19 | P4 | USER CHECKPOINT T007 real Kaggle experiment | open | submission-ready notebook; approve push+submit to measure >=106 lead / >=125 strong / 82-89 fallback / <78 failure

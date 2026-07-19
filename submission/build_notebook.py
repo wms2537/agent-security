@@ -14,7 +14,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ATTACK_SRC = (ROOT / "experiments" / "attack.py").read_text()
-OUT = ROOT / "submission" / "kaggle_notebook.ipynb"
+OUTS = (
+    ROOT / "submission" / "kaggle_notebook.ipynb",
+    ROOT / "submission" / "kernel" / "kaggle_notebook.ipynb",
+)
 
 setup = """\
 import sys, glob
@@ -68,8 +71,10 @@ nb = {
     "nbformat_minor": 5,
 }
 
-OUT.write_text(json.dumps(nb, indent=1))
-print(f"wrote {OUT} ({OUT.stat().st_size} bytes)")
+rendered = json.dumps(nb, indent=1)
+for out in OUTS:
+    out.write_text(rendered)
+    print(f"wrote {out} ({out.stat().st_size} bytes)")
 
 # Sanity: the embedded attack.py must round-trip to valid Python.
 import ast

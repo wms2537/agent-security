@@ -71,9 +71,17 @@
       "id": "T006",
       "phase": "4",
       "desc": "Implement adaptive multi-message amortization selected only by live raw-per-second and >=75% message fire count; preserve single-post fallback",
-      "status": "in_progress",
-      "evidence": "Pre-registered in research-log/004: SDK replays up to 32 messages after one reset and scores every EXFIL event; public TensorLiu v125 provides a testable M=24 efficiency-gated baseline.",
+      "status": "done",
+      "evidence": "research-log/006: real-SDK negative control chose single at 1.079x (<1.10); fixed-overhead control chose multi at 2.517x and scored exact raw 390=3*(16*8+2); short-probe/full-context failure fell back and scored exact single raw 54; production M=24 smoke scored exact 19,300 raw for 50 findings.",
       "parent": "T005"
+    },
+    {
+      "id": "T007",
+      "phase": "4",
+      "desc": "Push and submit the adaptive multi-message notebook for the discriminating real leaderboard experiment",
+      "status": "open",
+      "evidence": "User checkpoint required: Kaggle push/submission changes external account state. Interpretation thresholds pre-registered in research-log/006: >=106 lead, >=125 strong, 82-89 fallback, <78/void failure.",
+      "parent": "T006"
     }
   ],
   "parked_candidates": [],
