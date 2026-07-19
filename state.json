@@ -240,7 +240,7 @@
       "phase": "4",
       "desc": "Focused sterile review of T021 nested prefix selection, reviewed parser/evaluator reuse, full-scale core equality, nine-cell evidence, and bundle bindings",
       "status": "in_progress",
-      "evidence": "Target is the committed 325-line runner and 61-line toy suite in research-log/039; scaling attempt remains absent and execution is blocked until SOUND.",
+      "evidence": "Immutable target 73b1d3d contains the committed 325-line runner and 61-line toy suite in research-log/039; scaling attempt remains absent and execution is blocked until SOUND.",
       "parent": "T021"
     }
   ],
