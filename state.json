@@ -192,7 +192,7 @@
       "phase": "4",
       "desc": "Preregister and run nested 40/160/320-profile robustness and scaling checks across the three primary public masters",
       "status": "in_progress",
-      "evidence": "research-log/038 fixes scales k=[1,4,8] / N=[40,160,320], nested replicate selection 0..k-1 in each of 40 strata, same 3 primary masters/committed table/reviewed evaluator, all-nine-clear prediction 1.0 at >=5%, exact command/attempt/evidence and stop rules. Ledger row unresolved; attempt absent.",
+      "evidence": "research-log/038 fixes design/prediction before code. research-log/039 records unexecuted runner SHA 6f5fa9a8... and toys SHA 19f806da...; static PASS and 4/4 nested-count/prefix/evaluator/schema tests. Attempt absent; T027 focused review blocks execution.",
       "parent": "T020"
     },
     {
@@ -234,6 +234,14 @@
       "status": "done",
       "evidence": "research-log/037 records focused SOUND with no findings. Reviewer confirmed predictions-before-code, exact bindings/command/attempt/transaction ordering, three disjoint SHA labels, immutable 320-profile generator, legal 64/256 cliff split, H=1e18, balanced 256+256 replication, reviewed evaluator fairness, 960-row/3-master audit evidence, exact aggregates/provenance and toy-only nature of fixture corrections. Attempt absent at closure.",
       "parent": "T020"
+    },
+    {
+      "id": "T027",
+      "phase": "4",
+      "desc": "Focused sterile review of T021 nested prefix selection, reviewed parser/evaluator reuse, full-scale core equality, nine-cell evidence, and bundle bindings",
+      "status": "in_progress",
+      "evidence": "Target is the committed 325-line runner and 61-line toy suite in research-log/039; scaling attempt remains absent and execution is blocked until SOUND.",
+      "parent": "T021"
     }
   ],
   "parked_candidates": [],
