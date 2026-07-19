@@ -106,3 +106,11 @@ held-out/beacon/freeze/target/evaluation actions. No Kaggle action occurred.
 
 Phase 6 is not yet closed: the sterile paper-review verdict, any routed fixes,
 the user draft-review checkpoint, and the post-review retrospective remain.
+
+### Paper-review round 1 dispatch
+
+The committed review target is `paper/orf-internal-technical-report.md` at
+commit `08f300f`, with 629 lines. Medium-intensity sterile review round 1 was
+charged before dispatch; paper-review budget is now 1/2. The reviewer receives
+only the SciAgent paper-reviewer template fields (title and path), with no
+project history, assurances, deterministic-check detail, or known pitfalls.

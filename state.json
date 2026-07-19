@@ -23,7 +23,7 @@
     },
     "paper_review_rounds": {
       "limit": 2,
-      "spent": 0
+      "spent": 1
     }
   },
   "tasks": [
@@ -272,7 +272,7 @@
       "phase": "6",
       "desc": "Write, review, and verify the source-backed Phase-6 ORF report at the evidence strength authorized by the Phase-5 decision",
       "status": "in_progress",
-      "evidence": "Phase-5 decision permits a paper-shaped internal technical report only, with no submission and explicit public-synthetic/oracle/no-heldout limitations. Paper review budget is 0/2 before dispatch.",
+      "evidence": "Committed 629-line draft at 08f300f with deterministic checks in research-log/046; Medium-intensity sterile paper-review round 1 charged at dispatch, budget 1/2. Scope remains internal report/no submission with explicit public-synthetic/oracle/no-heldout limits.",
       "parent": "T030"
     },
     {
