@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Round 8 returned NEEDS_REVISION after verifying 498/204/231 lines, contract/schema/source hashes, JSON and Draft 2020-12 validity. Binary decision, exact Fraction capacity, notation, taxonomy, and anti-stacking resolved. Remaining blockers: minimal invalid/complete terminal artifacts and ledger resolution; pre-fetch crash marker; cross-field TSV/metric rules; pinned math runtime/cliff stability; non-target support for 5%; terminal status posting or weaker selective-reporting claim. Full verdict verbatim in research-log/008-orf-theory-review.md. Budget 8/10; Phase 2 closed; no beacon/Kaggle action.",
+      "evidence": "Round 8 returned NEEDS_REVISION after verifying 498/204/231 lines, contract/schema/source hashes, JSON and Draft 2020-12 validity. Binary decision, exact Fraction capacity, notation, taxonomy, and anti-stacking resolved. Before any calibration outcome, `comp/.venv/bin/python -m py_compile experiments/poc/orf_support_calibration.py` returned exit 0 and six unresolved exploratory rows plus rationale were committed for 64 public non-target masters, four weightings, and two saturations. Remaining blockers: terminal union/fetch marker/cross-fields/numeric execution plus calibration outcome and terminal posting. Budget 8/10; no held-out beacon/Kaggle action.",
       "parent": "T008"
     }
   ],
