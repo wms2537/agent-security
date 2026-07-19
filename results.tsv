@@ -23,6 +23,6 @@ orf-cal-v2-no-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	bea
 orf-cal-v2-cliff-h200-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	1.000000000000	confirm	NA	29.43	exploratory	retry after v1 numeric crash; cliff-only H=200000; exploratory only
 orf-cal-v2-equal-unsat-clear	masters_clearing_5pct_fraction	0.500000000000	beat-baseline	low	1.000000000000	confirm	NA	29.43	exploratory	retry after v1 numeric crash; equal-weight H=10^18; exploratory only
 orf-cal-v2-floor-margin	minimum_cliff_floor_distance	0.000000000000000000000000000000000000000000000000000000000001	beat-baseline	low	2.4702028345850861854631560389931149158158007314717302917408272803144660234725560E-8	confirm	NA	29.43	exploratory	retry after v1 numeric crash; no-resampling floor certificate
-poc	adaptive_gain_percent	35.0	beat-baseline	low						public non-target 40-stratum ORF PoC; support threshold 5%, prediction interval 20-50%
-poc	homogeneous_difference_raw	0	match-baseline	high						exact homogeneous negative invariant
-poc	sdk_cases_verified	2	match-baseline	high						actual SDK q=16e+2 and 16-hex score-cell fixture checks
+poc	adaptive_gain_percent	35.0	beat-baseline	low	49.277489504413	confirm	0.053520203	0.679508220	keep	public non-target 40-stratum ORF PoC; support threshold 5%, prediction interval 20-50%
+poc	homogeneous_difference_raw	0	match-baseline	high	0	confirm	0.053520203	0.679508220	keep	exact homogeneous negative invariant
+poc	sdk_cases_verified	2	match-baseline	high	2	confirm	0.053520203	0.679508220	keep	actual SDK q=16e+2 and 16-hex score-cell fixture checks

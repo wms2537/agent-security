@@ -1,6 +1,6 @@
 # ORF public non-target core PoC
 
-**Date:** 2026-07-19 · **Phase:** 3 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, not run
+**Date:** 2026-07-19 · **Phase:** 3 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, confirmed within public non-target scope
 
 ## Context
 
@@ -79,7 +79,21 @@ partial, violated, or invalid result into a go decision.
 
 ## Gate Check
 
-Pending execution and independent verification.
+- **Core assumptions supported:** `adaptive_gain_percent=49.277489504413`,
+  inside the preregistered `[20,50]` prediction interval and above the 5%
+  materiality threshold; homogeneous raw difference `0`, homogeneous global
+  length `1`, and two SDK cases verified.
+- **Metrics verified directly:** independent artifact command returned
+  `artifact_audit=PASS profiles=40 adaptive=1470646 global=985176 regret=485470 gain=49.277489504413 global_m=16`.
+- **Immutable paths unchanged:** `git diff --exit-code 9b0d94a -- <eight read-only paths>`
+  returned exit 0 with empty output.
+- **Run provenance:** `wc -l experiments/poc/poc-profiles.tsv experiments/poc/run.log`
+  returned `41` and `13`; the first log line is the exact preregistered command,
+  and the output mtimes span a plausible 0.679508220-second local run.
+- **Go decision:** the user's advance authorization was: “then go on with next
+  phases up until phase 6 then, define a goal”. Because the PoC confirmed rather
+  than landed in a partial/violated/invalid branch, this is sufficient approval
+  to proceed within the no-Kaggle/no-held-out-action boundary.
 
 ## Problem alignment
 
@@ -89,10 +103,21 @@ without pretending the public probe is the live leaderboard.
 
 ## Decision
 
-Preregister and commit the immutable design, prediction ledger, environment, and
-evaluation contract before dispatching one `RUN_ID=poc` implementer.
+**Proceed to Phase 4.** The public non-target mechanics assumption is confirmed.
+This does not confirm the beacon-held-out v9 claim or justify any live/Kaggle
+claim. The simplicity criterion passes: the implementation is a thin wrapper
+over immutable reference functions rather than a new method stack.
 
 ## Next Steps
 
-Implement, run, and independently verify the public non-target PoC. No beacon,
-held-out, external-post, or Kaggle action is allowed.
+Enter Phase 4 and design only local public non-target experiments whose outcomes
+can discriminate mechanism attribution and robustness. No beacon, held-out,
+external-post, or Kaggle action is allowed.
+
+## Prediction vs. Reality
+
+The 35.0% prediction was conservative but confirmed: actual gain was
+49.277489504413%, a +14.277489504413 percentage-point delta that remained inside
+the preregistered 20–50% interval. The gap suggests one replicate per factorial
+cell preserved more cross-profile disagreement than the calibration minimum, but
+it does not revise the threshold or support any population-transfer claim.

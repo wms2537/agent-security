@@ -1,0 +1,13 @@
+comp/.venv/bin/python -I experiments/poc/orf_core_poc.py --config experiments/configs/orf-poc-v1.json
+adaptive_gain_percent: 49.277489504413
+conditional_regret_raw: 485470
+global_score_raw: 985176
+adaptive_score_raw: 1470646
+global_fill_length: 16
+homogeneous_difference_raw: 0
+homogeneous_global_fill_length: 1
+sdk_cases_verified: 2
+profiles_evaluated: 40
+minimum_cliff_floor_distance: 9.2033801521882802776776897067443051076668702414786634850291191446154331777821616E-7
+peak_memory_gb: 0.053520203
+runtime_seconds: 0.679508220

@@ -1,5 +1,5 @@
 {
-  "phase": "3",
+  "phase": "4",
   "cycle": 1,
   "iteration": 4,
   "entry_mode": "idea",
@@ -119,8 +119,8 @@
       "id": "T012",
       "phase": "3",
       "desc": "Design a minutes-scale public non-target PoC of the reviewed ORF core assumptions with pre-specified confirm/reject criteria and transferability limits",
-      "status": "in_progress",
-      "evidence": "Preregistration verification `comp/.venv/bin/python -m json.tool experiments/configs/orf-poc-v1.json >/dev/null && awk -F '\\t' ... results.tsv` returned `results_tsv_fields=11 all_rows=true`; research-log/020 fixes an untouched 40-stratum public label, 35% prediction, 5% support threshold, exact homogeneous/SDK controls, and transferability limits before dispatch.",
+      "status": "done",
+      "evidence": "Independent artifact verification returned `artifact_audit=PASS profiles=40 adaptive=1470646 global=985176 regret=485470 gain=49.277489504413 global_m=16`; run.log directly reports exact homogeneous difference 0, homogeneous length 1, SDK cases 2, floor distance 9.20338e-7, runtime 0.6795s; `git diff --exit-code 9b0d94a -- <immutable paths>` exited 0 with empty output. User advance go decision: 'then go on with next phases up until phase 6 then, define a goal'.",
       "parent": "T011"
     }
   ],
@@ -360,6 +360,13 @@
       "anti_stacking": "Reviewer found the crossed-positive/homogeneous-zero action-scope prediction genuinely distinguishing and not a component stack.",
       "problem_alignment": "Confirmation would establish material benchmark-shaped synthetic value of profile-conditioned structure selection, without claiming live/Kaggle transfer or learnability.",
       "theory_review": "Round 11 RIGOROUS with evidence of scrutiny; all four prior issues RESOLVED. Full report: research-log/019-orf-theory-review-round-11.md. `git show 74d1836:research-log/018-hypothesis-iter-4-v9-conditional-regret.md | wc -l` -> 500; budget 11/20."
+    },
+    "3": {
+      "poc_support": "Public non-target `poc` produced adaptive_gain_percent=49.277489504413, above 5% and inside the preregistered 20-50% interval; exact artifact audit recomputed A=1470646, G=985176, regret=485470.",
+      "metrics_verified": "`artifact_audit=PASS profiles=40 adaptive=1470646 global=985176 regret=485470 gain=49.277489504413 global_m=16`; direct run.log metrics include homogeneous_difference_raw=0, homogeneous_global_fill_length=1, sdk_cases_verified=2.",
+      "provenance": "The log's first line is the exact command; 13 log lines and output mtimes are plausible for runtime_seconds=0.679508220; immutable-path diff from preregistration commit 9b0d94a is empty.",
+      "user_go": "User advance authorization quoted verbatim: 'then go on with next phases up until phase 6 then, define a goal'. Applies only after a confirmed gate and preserves no-Kaggle/no-held-out-action boundaries.",
+      "scope": "Mechanics and finite public synthetic conditional regret only; no held-out v9, live prevalence, learnability, private-transfer, deadline-tail, or Kaggle inference."
     }
   }
 }
