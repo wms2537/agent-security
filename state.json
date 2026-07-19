@@ -8,9 +8,9 @@
   "output_format": "notebook+working-note",
   "idea_dna": {
     "problem": "Maximize the MEAN of 4 independently-normalized-and-capped leaderboard cells ({gpt_oss,gemma}x{public,private}) on the Kaggle AI-Agent-Security benchmark.",
-    "assumption": "The score-optimal candidate structure is a model-specific constrained frontier over chain length, fired events, latency, reliability, the 2000-candidate cap, and the 9000s replay cap. Fixed public recipes leave this live response curve unidentified even though run(env) exposes the target model during search.",
-    "assumption_source": "SDK/gateway/scorer source plus real v1/v2 leaderboard evidence and controlled latency-profile experiments; the real gpt-oss/Gemma frontier remains unknown until measured online.",
-    "novelty_claim": "Online Replay Frontier: identify the live model's score-latency-reliability curve over message-chain length and choose the conservative budget-optimal structure, replacing fixed-M public recipes rather than copying them."
+    "assumption": "No single chain length dominates when the observable public target's score-cost-reliability profile changes across regimes; measuring all seven legal lengths can beat the best static full-action policy when the charged oracle margin exceeds the adaptation tax. Hidden-private transfer is not assumed.",
+    "assumption_source": "SDK/gateway/scorer source, real v1/v2 evidence, T005/T006 controlled measurements, and the frozen four-profile derivation in research-log/009-hypothesis-iter-4-v2.md; the live public and hidden-private target profiles remain unknown.",
+    "novelty_claim": "Online Replay Frontier: replace fixed-length routing with exhaustive, budget-charged online mapping over all seven legal chain lengths, then select the public model's constrained optimum; private transfer is an external case study, not part of the local confirmation claim."
   },
   "budgets": {
     "research_iterations": {
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Replacement review round 3 returned NEEDS_REVISION with 8 required fixes; full verdict is in research-log/008-orf-theory-review.md. The user then authorized the proposed final scientific re-review verbatim: 'yes, go on, I approve it'. Review limit is now 4, spent remains 3 until dispatch, and Phase 2 remains closed while a superseding hypothesis is prepared.",
+      "evidence": "Superseding hypothesis research-log/009-hypothesis-iter-4-v2.md resolves the 8 round-3 objections structurally and remains pre-data. Deterministic verification returned: `PASS picks=[1, 32, 8, 4] orf=[14100, 152250, 47934, 64080] mean=69591.0 best_static_m=32 best_static_mean=51914.0 gain=34.05% oracle_regret=3.15%`. The user authorized final review verbatim: 'yes, go on, I approve it'. Limit is 4, spent is 3 until dispatch; Phase 2 remains closed pending verdict.",
       "parent": "T008"
     }
   ],
