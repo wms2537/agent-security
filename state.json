@@ -18,7 +18,7 @@
       "spent": 1
     },
     "hypothesis_review_rounds": {
-      "limit": 10,
+      "limit": 20,
       "spent": 10
     },
     "paper_review_rounds": {
@@ -106,6 +106,14 @@
       "status": "done",
       "evidence": "User direction: 'ok, then lets fix these blockers properly. Remmebr to do the right thing not the easy thing'. Commit 74d1836 adds immutable 500-line v9, 214-line v7 contract, 159-line schema, 230-line public checker, and 146-line hashed fixture. Verification command `comp/.venv/bin/python -I experiments/poc/orf_v7_contract_reference.py --contract experiments/configs/orf-heldout-v7.json --schema experiments/configs/orf-heldout-v7-artifacts.schema.json --fixtures experiments/fixtures/orf-heldout-v7-golden-fixtures.json` returned `sdk_golden_cases=2`, `mixture_compositions=3003 cycles_exact=3003`, `terminal_artifact_samples=3 schema_valid=true`, `source_hashes=6 valid=true`, `protocol_errors=24 validators=18 aligned=true`, and `heldout_run_absent=true`. Artifact hashes are bound into v9. Review budget remains 10/10, scientific gate is unreviewed/closed, and no beacon/target/evaluator/profile/Kaggle action occurred.",
       "parent": "T009"
+    },
+    {
+      "id": "T011",
+      "phase": "2",
+      "desc": "Independently theory-review immutable ORF v9 under the user-extended hypothesis-review budget",
+      "status": "in_progress",
+      "evidence": "User authorization: 'I give you another 10 review budget'. Interpreted append-only as raising hypothesis_review_rounds.limit from 10 to 20 while spent remains 10 until the next dispatch. Review target is committed v9 at 74d1836; no held-out, beacon, evaluator, profile, submission, or Kaggle action is authorized.",
+      "parent": "T010"
     }
   ],
   "parked_candidates": [],
@@ -321,7 +329,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "No freeze is permitted unless a separately authorized independent review returns RIGOROUS, a later source-hashed held-out evaluator and predictions are authorized/committed, both POSIX and authenticated idempotent-thread preflights pass, and the user explicitly authorizes the irreversible freeze chain. No Kaggle action is authorized.",
-      "status": "specification-verified-unreviewed-review-budget-exhausted-never-frozen"
+      "status": "specification-verified-review-budget-extended-ready-round-11-never-frozen"
     }
   },
   "gates": {
