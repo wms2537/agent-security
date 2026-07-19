@@ -1,7 +1,7 @@
 {
-  "phase": "6",
-  "cycle": 1,
-  "iteration": 4,
+  "phase": "1",
+  "cycle": 2,
+  "iteration": 5,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
@@ -15,7 +15,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 1
+      "spent": 2
     },
     "hypothesis_review_rounds": {
       "limit": 20,
@@ -282,6 +282,14 @@
       "status": "done",
       "evidence": "User continuation and budget authorization quoted in research-log/052. Verification command checks required headings and proposal rows and returns `retrospective_check=PASS sources=5 proposals=8 skill_files_modified=0`; paper-review limit raised 2->4 with spent unchanged at 2. Domain/process lessons and next Phase-1 re-entry decision are recorded without Kaggle/held-out/beacon/live/private/publication action.",
       "parent": "T031"
+    },
+    {
+      "id": "T033",
+      "phase": "1",
+      "desc": "Build a July-2026 primary-source literature map of agent harness, loop, and graph orchestration engineering and recent defensive jailbreak/agent-attack research; verify the exact identity of the user-mentioned Fable 5 term; derive candidate directions without running attacks or taking Kaggle/held-out action",
+      "status": "in_progress",
+      "evidence": null,
+      "parent": "T032"
     }
   ],
   "parked_candidates": [],
