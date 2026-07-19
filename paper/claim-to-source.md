@@ -1,0 +1,46 @@
+# Claim-to-source map — ORF internal technical report
+
+Support grades follow `reference/citation-integrity.md`. Local committed artifacts
+are treated as primary evidence; external citations are restricted to
+`research-log/lit/phase6-primary.json`. No row is metadata-only.
+
+| ID | Section | Substantive claim | Type | Evidence | Support grade | Epistemic label | Final wording constraint |
+|---|---|---|---|---|---|---|---|
+| C01 | Abstract/Introduction | Candidate structure consumes finite generation/replay resources and whole-run timeout is an operational failure surface in the benchmark. | method/background | `PROBLEM.md`; SDK/gateway audit in research-log/001, /004, /005 | strong | fact within audited benchmark | Say benchmark/audited implementation, not all agents. |
+| C02 | Introduction/Discussion | A prior high mock score failed to transfer to the live four-cell aggregate because latency and dead reserves were mis-modeled. | quantitative/association | `results.tsv:real-lb-v1-multipost`; research-log/002 | strong | fact plus documented diagnosis | Historical context only; not ORF evidence and no new Kaggle claim. |
+| C03 | Related Work | The best test-time strategy can vary with prompt difficulty; difficulty-conditioned allocation used up to fourfold less compute than best-of-N in reported regimes. | method/quantitative | `phase6-primary.json:snell2025scaling`, abstract and §1/§5.3 | strong | source fact | Preserve “reported regimes/nearly” qualifiers. |
+| C04 | Related Work | Plan-and-Budget allocates tokens by sub-question complexity rather than one global schedule and reports accuracy/cost efficiency gains. | method/quantitative | `phase6-primary.json:lin2026plan`, arXiv v3 abstract | strong | source fact | Use current v3 numbers only: up to 70%, 39%, 193.8%. |
+| C05 | Related Work | A learned LLM-agent planning decision can outperform fixed planning patterns in Crafter while using fewer tokens. | method/quantitative | `phase6-primary.json:paglieri2026planning`, §5.3 | strong | source fact | Name Crafter, model comparison, 0.387/0.379 and 85%; do not generalize to security. |
+| C06 | Related Work | SCALE selectively allocates reasoning resources by sub-problem difficulty and reports AIME25 improvement with lower cost. | method/quantitative | `phase6-primary.json:xiao2026scale`, AAAI abstract | strong | source fact | State 57.50→71.25 and 33-53% cost only if needed; domain=math. |
+| C07 | Related Work | BAVT adapts step-level tool-agent search to remaining budget and reports 5-call performance comparable to a 20-call parallel baseline on multi-hop QA. | method/quantitative | `phase6-primary.json:li2026bavt`, §3/§4.2 | strong | source fact | Use 0.338 vs 0.334 on OSS-20B; call it reported comparison, not universal dominance. |
+| C08 | Introduction/Related Work | Adaptive allocation is established prior art, so ORF does not claim the general principle as new. | background/association | C03-C07; research-log/043 systematic record | strong | our synthesis | Phrase as bounded literature conclusion, not exhaustive priority proof. |
+| C09 | Introduction/Methodology | ORF-B replaces only split-global action scope with per-profile action scope while holding probes, actions, resources, score, and profiles fixed. | method | research-log/018 §§named concept/variables; /023 plan; config | strong | project fact | “Replace” is the scientific operation; custody machinery is not a component. |
+| C10 | Methodology | For a fixed table, `A=sum_z max_m S_z(m) >= G=max_m sum_z S_z(m)`. | mechanism/formal | research-log/018 finite-regret derivation; /019 independent re-derivation | strong | proved finite identity | `prove` is permitted only for this algebraic containment statement. |
+| C11 | Methodology | The inequality fixes direction but cannot imply a 5% material magnitude. | mechanism | research-log/018; /019 review | strong | fact about derivation | Keep threshold normative/empirical. |
+| C12 | Methodology/Setup | The score path uses actual SDK predicate evaluation, 16-hex cell signatures, singleton raw `q=16e+2`, and exact finite action set `{1,2,4,8,16,24,32}`. | method | research-log/018; v7 fixtures/checker; source hashes | strong | project fact | State only frozen audited SDK behavior. |
+| C13 | Setup | Three primary and three disjoint changed-regime master labels were fixed before their outcomes; no label was replaced. | method | experiments/configs/orf-phase4-v1.json; /023; run manifests | strong | project fact | Public deterministic, never call held-out/random sample. |
+| C14 | Setup/Results | PROBE_GLOBAL is an exhaustive seven-action argmax and therefore has no unsearched tuning degree on the table. | method | research-log/023, /024, /041; baseline table | strong | project fact | Say exact local comparator, not literature SOTA. |
+| C15 | Results | Primary gain values are 41.438%, 38.111%, 41.198%; mean 40.249%, s.d. 1.855 pp, min-max 38.111-41.438. | quantitative | core-by-master.tsv; results.tsv:orf-p4-core; research-log/042,/044 | strong | project fact | n=3 fixed masters; no population CI/p. |
+| C16 | Results | Standardized mean over measured master s.d. is 21.694, descriptive only. | quantitative | research-log/042,/044 recomputation | strong | project fact | Not Cohen's d and not population effect. |
+| C17 | Results | Homogeneous controls show zero raw difference and length one for all three masters. | quantitative/mechanism | homogeneous-by-master.tsv; results.tsv:orf-p4-core | strong | project fact | Exact boundary, not an independent live negative control. |
+| C18 | Results | Removing cliffs, reset, curvature, novelty, or saturation changes mean core gain by -32.627, -21.275, -2.389, -0.154, +4.106 pp. | quantitative | ablation-by-master.tsv; research-log/042 | strong | project fact | OAT, paired, secondary, non-additive, no test. |
+| C19 | Results | Disjoint changed-regime masters average 36.394% and all clear 5%. | quantitative | generalization-by-master.tsv; results.tsv | strong | project fact | Public changed construction, not held-out generalization. |
+| C20 | Results | Nested N=40/160/320 means are 48.953/42.794/40.249%, with all nine cells above 5%. | quantitative | scaling-by-cell.tsv; results.tsv; research-log/042 | strong | project fact | Reused masters; deterministic robustness, not nine replicates or learning curve. |
+| C21 | Results/Discussion | The primary fixed-finite result requires no population p-value; n is three masters, not rows/profiles/cells. | method/statistical | research-log/042,/044; statistical declaration | strong | project analytic decision | Say `test:none; p:not applicable`; min-max is not CI. |
+| C22 | Discussion | Cliffs and reset overhead explain most OAT magnitude, novelty is negligible, and saturation suppresses some value. | mechanism/association | C18; research-log/032,/042 | strong for association, partial for explanation | our inference | Use “in this construction” and “OAT pattern”; do not claim causal population mechanism. |
+| C23 | Discussion | Constructed profiles cannot establish live response heterogeneity or learnability. | method/limitation | research-log/018,/019,/041,/044; promoted learning | strong | project design fact | Direct limitation, not hedge-only future work. |
+| C24 | Discussion/Conclusion | The result advances a proxy but does not solve `PROBLEM.md`'s live replay-safe transfer objective. | association | PROBLEM.md; C15-C23; no held-out/live runs | strong | our inference | State missing learner, test tier, tail model, private transfer. |
+| C25 | Disclosures | The cycle used one research iteration, active hypothesis iteration 4, nine written ORF revisions, and eleven theory-review rounds. | method/background | state.json; research-log/007,/009-/019 | strong | project fact | Forking-path disclosure; do not imply nine independent hypotheses. |
+| C26 | Disclosures | Reported Phase-4 scientific runtime totals 4.456198161 s; maximum peak memory 0.583507538 GB. | quantitative | research-log/041,/042; results.tsv family rows | strong | project fact | Family runtimes counted once; not hardware-normalized energy. |
+| C27 | Disclosures | The locked v7 set remains unfrozen/unopened and no Kaggle action occurred in this study phase. | method/limitation | state.json heldout_sets; research-log/041,/044 | strong | project fact | Do not describe as a passed locked-test gate. |
+| C28 | Disclosures | The manuscript was planned, drafted, analyzed, and reviewed with autonomous AI assistance under human direction. | background | task record and repository provenance | strong | disclosure fact | Internal-report disclosure; no target-venue policy claim. |
+| C29 | Supplement | Code, configs, public score tables, run manifests, figures, and source CSVs are in the repository; held-out outputs do not exist. | method/availability | repository paths; state heldout status | strong | project fact | Do not promise public URL or external release not performed. |
+
+## Gate summary
+
+- Metadata-only claims: **0**.
+- Mechanism/method/quantitative claims resting only on background support: **0**.
+- Partial support: C22 only; its wording is explicitly limited to the OAT pattern
+  in this construction.
+- Contradictory/limiting evidence is retained in C02 and C23-C24 rather than
+  laundered into support.

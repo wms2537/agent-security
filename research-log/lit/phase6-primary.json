@@ -1,0 +1,222 @@
+{
+  "tier": 1,
+  "search_record": [
+    {
+      "query": "2025 2026 paper adaptive test-time compute per instance dynamic inference language model agents resource allocation | 2025 paper contextual test-time scaling adaptive reasoning budget per query language models | 2025 2026 paper adaptive tool use trajectory length per task LLM agents compute budget",
+      "platform": "web search with authoritative-source follow-through",
+      "date": "2026-07-19",
+      "result_count": 39
+    },
+    {
+      "query": "paper adaptive trajectory length tool-using LLM agents security evaluation resource budget dynamic action allocation 2025 2026",
+      "platform": "web search with authoritative-source follow-through",
+      "date": "2026-07-19",
+      "result_count": 18
+    }
+  ],
+  "papers": [
+    {
+      "citation_key": "snell2025scaling",
+      "title": "Scaling LLM Test-Time Compute Optimally Can be More Effective than Scaling Parameters for Reasoning",
+      "authors": "Snell et al., 2025",
+      "authors_full": [
+        "Charlie Snell",
+        "Jaehoon Lee",
+        "Kelvin Xu",
+        "Aviral Kumar"
+      ],
+      "year": 2025,
+      "venue": "International Conference on Learning Representations (ICLR 2025)",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/1b623663fd9b874366f3ce019fdfdd44-Abstract-Conference.html",
+      "arxiv": "2408.03314",
+      "doi": "10.48550/arXiv.2408.03314",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Studies how the effectiveness of test-time inference strategies varies with prompt difficulty and constructs a per-prompt compute-optimal allocation strategy.",
+      "methodology": "Compares iterative revision and verifier-guided search on MATH, stratifies problems by model-specific difficulty, and chooses test-time strategies within a fixed compute budget.",
+      "key_results": "The compute-optimal strategy nearly matches or exceeds best-of-N with up to 4x less test-time compute in reported regimes; a FLOPs-matched smaller-model strategy is compared against a model with 14x more parameters.",
+      "key_results_location": "ICLR abstract; arXiv §1 paragraphs 8-11 and Fig. 4 discussion",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The practical difficulty estimate still costs inference compute; the study uses capability-specific fine-tuning and MATH, and the hardest questions benefit little from more test-time compute.",
+      "math_foundations": "Defines a prompt-conditioned compute-optimal policy over test-time strategy hyperparameters under a compute budget.",
+      "motivation": "The authors frame mixed prior results on test-time scaling as evidence that a single allocation rule hides prompt- and model-dependent regimes.",
+      "constraints_inferred": "Inference: available PaLM 2 models lacked revision and verification behavior without task-specific fine-tuning, and the experiment needed a tractable benchmark with automatic correctness.",
+      "key_decisions": "The paper uses difficulty bins to expose heterogeneity hidden by aggregate curves, best-of-N as the canonical uniform comparator, and FLOPs matching to separate allocation from raw scale.",
+      "tried_and_discarded": "A PRM800k-trained verifier was ineffective under distribution shift; ORM aggregation underperformed the PRM; lookahead search often underperformed at matched generation cost.",
+      "load_bearing_assumptions": "The chosen difficulty statistic is sufficiently predictive of which test-time strategy works, and the compute accounting makes alternative strategies comparable.",
+      "relevance": "high",
+      "relevance_reason": "Closest established conceptual precedent for conditioning a finite inference-action choice on the current instance rather than applying one global policy.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "ICLR proceedings plus arXiv author record",
+        "critical_mismatches": 0,
+        "warnings": [
+          "The arXiv preprint title differs slightly from the final ICLR proceedings title; the report uses the proceedings title."
+        ]
+      }
+    },
+    {
+      "citation_key": "lin2026plan",
+      "title": "Plan and Budget: Effective and Efficient Test-Time Scaling on Reasoning Large Language Models",
+      "authors": "Lin et al., 2026",
+      "authors_full": [
+        "Junhong Lin",
+        "Xinyue Zeng",
+        "Jie Zhu",
+        "Song Wang",
+        "Julian Shun",
+        "Jun Wu",
+        "Dawei Zhou"
+      ],
+      "year": 2026,
+      "venue": "International Conference on Learning Representations (ICLR 2026; accepted, arXiv record)",
+      "url": "https://arxiv.org/abs/2505.16122",
+      "arxiv": "2505.16122",
+      "doi": "10.48550/arXiv.2505.16122",
+      "source_type": "preprint",
+      "core_contribution": "Formalizes budget allocation across sub-questions and implements adaptive token scheduling after query decomposition.",
+      "methodology": "A Budget Allocation Model motivates complexity-weighted schedules; Plan-and-Budget compares adaptive scheduling with vanilla and global-budget strategies on reasoning, instruction following, and planning tasks.",
+      "key_results": "The current arXiv v3 abstract reports up to 70% accuracy gains, 39% token reduction, and 193.8% improvement in the E3 efficiency metric.",
+      "key_results_location": "arXiv v3 abstract",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The framework relies on estimated sub-question complexity and heuristic scheduling; its objectives and task domains differ from tool-trajectory security scoring.",
+      "math_foundations": "Constrained allocation model distributes a query budget across sub-questions according to uncertainty/complexity terms.",
+      "motivation": "The authors focus on the paired failures of fixed reasoning budgets: overthinking easy subproblems and underthinking hard ones.",
+      "constraints_inferred": "Inference: exact uncertainty parameters are unavailable in deployment, motivating lightweight decay schedules rather than solving the theoretical allocation exactly.",
+      "key_decisions": "The paper decomposes at sub-question granularity, evaluates a joint effectiveness-efficiency metric, and uses global-budget controls to isolate local allocation.",
+      "tried_and_discarded": "Exact theoretical parameter estimation is acknowledged as infeasible in practice; the implementation substitutes decay schedules.",
+      "load_bearing_assumptions": "The planner's estimated complexity orders sub-questions well enough that nonuniform token allocation improves the accuracy-cost tradeoff.",
+      "relevance": "high",
+      "relevance_reason": "A close adaptive-versus-global resource-allocation neighbor that limits ORF's broad novelty claim.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "arXiv v3 author record",
+        "critical_mismatches": 0,
+        "warnings": [
+          "The authoritative arXiv v3 title and reported E3 improvement differ from the earlier v1 wording/numbers; the report uses v3."
+        ]
+      }
+    },
+    {
+      "citation_key": "paglieri2026planning",
+      "title": "Learning When to Plan: Efficiently Allocating Test-Time Compute for LLM Agents",
+      "authors": "Paglieri et al., 2026",
+      "authors_full": [
+        "Davide Paglieri",
+        "Bartlomiej Cupial",
+        "Jonathan Cook",
+        "Ulyana Piterbarg",
+        "Jens Tuyls",
+        "Edward Grefenstette",
+        "Jakob Nicolaus Foerster",
+        "Jack Parker-Holder",
+        "Tim Rocktaschel"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2509.03581",
+      "arxiv": "2509.03581",
+      "doi": "10.48550/arXiv.2509.03581",
+      "source_type": "preprint",
+      "core_contribution": "Trains a unified LLM agent to decide dynamically when to spend test-time compute on planning in long-horizon environments.",
+      "methodology": "A two-stage SFT-plus-RL pipeline primes and refines a planning decision within Crafter and a synthetic graph environment, with fixed-frequency and no-planning controls.",
+      "key_results": "The tuned 8B dynamic-planning agent reports Crafter reward 0.387 versus 0.379 for a 70B zero-shot baseline while generating 85% fewer tokens; zero-shot planning-frequency experiments use 100 seeds per environment.",
+      "key_results_location": "Main text §5.3 (adaptive planning efficacy) and Fig. 1 caption",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The authors report that autonomous agents did not fully solve Crafter, evaluation covered specific models and two environments, and planning latency was effectively zero in their turn-based setting.",
+      "math_foundations": "Planning is framed as a state-dependent advantage-versus-cost decision optimized through task reward and token cost.",
+      "motivation": "The paper treats always-plan and never-plan policies as two costly extremes and asks whether the planning decision itself can be learned.",
+      "constraints_inferred": "Inference: long-horizon RL cost restricted model scale and domains; the turn-based environments avoid real-time planning-latency costs.",
+      "key_decisions": "It uses a learned gate inside one model rather than a separate router, fixed-frequency policies as distinguishing controls, and SFT priming because RL alone did not reliably induce planning behavior.",
+      "tried_and_discarded": "Natural-language frequency instructions were unreliable; explicit reward penalties for invalid/long/frequent planning caused agents to stop planning and were removed.",
+      "load_bearing_assumptions": "Task reward and token penalties provide enough signal for the unified policy to learn when planning has positive net value.",
+      "relevance": "high",
+      "relevance_reason": "Direct agentic evidence that a learnable conditional structure policy can outperform fixed planning patterns, the major capability ORF has not demonstrated.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "arXiv v3 author record and full PDF",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    },
+    {
+      "citation_key": "xiao2026scale",
+      "title": "SCALE: Selective Resource Allocation for Overcoming Performance Bottlenecks in Mathematical Test-time Scaling",
+      "authors": "Xiao et al., 2026",
+      "authors_full": [
+        "Yang Xiao",
+        "Chunpu Xu",
+        "Ruifeng Yuan",
+        "Jessie Wang",
+        "Wenjie Li",
+        "Pengfei Liu"
+      ],
+      "year": 2026,
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence, 40(40), 34034-34042",
+      "url": "https://doi.org/10.1609/aaai.v40i40.40697",
+      "doi": "10.1609/aaai.v40i40.40697",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Selects different reasoning modes and resource levels for sub-problems based on estimated difficulty rather than allocating resources uniformly.",
+      "methodology": "Decomposes mathematical problems, assesses sub-problem difficulty, assigns System 1 or System 2 processing, and executes sequentially with context propagation.",
+      "key_results": "The abstract reports AIME25 accuracy increasing from 57.50% to 71.25% while computational costs fall by 33-53% relative to uniform-scaling baselines.",
+      "key_results_location": "AAAI abstract",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The evidence is limited to mathematical reasoning and a different cost/performance objective; it does not evaluate tool-use security trajectories.",
+      "math_foundations": "Selective allocation follows a difficulty-conditioned dual-process framing.",
+      "motivation": "The authors identify uniform resource allocation as a bottleneck because hard sub-problems are under-resourced while routine steps consume excess compute.",
+      "constraints_inferred": "Inference: the framework must estimate difficulty before allocation, so its gains depend on decomposition and classification quality.",
+      "key_decisions": "It uses the strongest uniform-scaling baseline, reports both accuracy and cost, and allocates at sub-problem rather than whole-query granularity.",
+      "tried_and_discarded": "not visible from the authoritative abstract inspected",
+      "load_bearing_assumptions": "Sub-problem difficulty can be estimated reliably enough to select the beneficial processing mode.",
+      "relevance": "medium",
+      "relevance_reason": "Confirms the broad selective-versus-uniform allocation pattern in another domain, limiting general novelty but not matching ORF's method or metric.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "Crossref DOI record and AAAI proceedings page",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    },
+    {
+      "citation_key": "li2026bavt",
+      "title": "Spend Less, Reason Better: Budget-Aware Value Tree Search for LLM Agents",
+      "authors": "Li et al., 2026",
+      "authors_full": [
+        "Yushu Li",
+        "Wenlong Deng",
+        "Jiajin Li",
+        "Xiaoxiao Li"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2603.12634",
+      "arxiv": "2603.12634",
+      "doi": "10.48550/arXiv.2603.12634",
+      "source_type": "preprint",
+      "core_contribution": "Introduces a training-free tool-agent search tree with step-level residual value estimates and selection that changes with remaining budget.",
+      "methodology": "Budget-Aware Value Tree Search uses a shared LLM as generator and critic, prunes low-value paths, and shifts from exploration to exploitation as tool/token budget declines.",
+      "key_results": "Across four multi-hop QA benchmarks, the paper reports low-budget BAVT with 5 tool calls at average exact match 0.338 versus 0.334 for a parallel-sampling baseline with 20 calls on OSS-20B.",
+      "key_results_location": "arXiv §4.2 and Fig. 3 discussion",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The critic adds inference overhead; experiments use one external tool with a uniform discrete cost, leaving asymmetric real-world tool costs open.",
+      "math_foundations": "Provides a finite-budget terminal-reachability guarantee under stated assumptions and a budget-conditioned node-selection distribution.",
+      "motivation": "The authors focus on agents wasting scarce tool and token budgets on redundant or dead-end steps that trajectory-level controls cannot interrupt.",
+      "constraints_inferred": "Inference: training-free control avoids expensive fine-tuning but relies on the same LLM to provide usable step-level value deltas.",
+      "key_decisions": "The paper uses matched tool-call budgets, a parallel-sampling control, residual rather than absolute value prediction, and an ablation that separates tree structure, critic, and budget conditioning.",
+      "tried_and_discarded": "A random tree alone degraded performance; static step-level values improved it but lacked resource-aware control, motivating the final budget-conditioned selector.",
+      "load_bearing_assumptions": "The LLM critic's relative progress estimates are sufficiently calibrated to prune paths before their evaluation overhead erases the budget gain.",
+      "relevance": "high",
+      "relevance_reason": "Closest fresh tool-agent neighbor and evidence that ORF's missing learnable, online budget-aware selector is the decisive external gap.",
+      "reference_verification": {
+        "status": "verified",
+        "authority": "arXiv v1 author record and full HTML",
+        "critical_mismatches": 0,
+        "warnings": []
+      }
+    }
+  ]
+}
