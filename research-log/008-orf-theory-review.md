@@ -1074,3 +1074,163 @@ hash checks, and zero seed fields. The sterile re-review contains only the six
 round-7 blockers in the allowed slot. Dispatch consumes round 8/10. No evaluator,
 freeze, pulse target, opening, profile, experiment, submission, or Kaggle action
 exists.
+
+## Conditional-regret round 8 returned verdict
+
+The reviewer returned the following report verbatim:
+
+- **Status:** DONE
+
+The hypothesis entry has **498 lines**, matching `git show HEAD:research-log/013-hypothesis-iter-4-v6-conditional-regret.md | wc -l`. I reviewed all 498 lines, the complete 204-line contract, and the complete 231-line artifact schema. Both JSON files parse; the artifact schema passes the Draft 2020-12 metaschema check; its recorded SHA-256 and all five source hashes match the current files.
+
+## Blind assessment
+
+### Previous-review disposition
+
+1. **Decision partition — RESOLVED.** Hypothesis lines 80–93 and contract lines 86–97 make every valid sub-5% result `DISCONFIRMED`; zero and positive-subthreshold are descriptive subtypes only.
+
+2. **Opening state machine — IMPROVED, not resolved.** Target bytes now precede master derivation; `OPENED.json` precedes `EVALUATION_STARTED.json`; profile generation is gated on both. However, the target-fetch transition remains non-executable under crash recovery: after the HTTP response is received but before `revealed-pulse.raw.json` is durably created, the next invocation cannot distinguish “never fetched” from “fetched then crashed.” Retrying violates the claimed one-fetch rule; abandoning cannot distinguish a legitimate first invocation. See hypothesis 370–380 and contract 162–166.
+
+3. **Schemas — IMPROVED, not resolved.** Widths, major enums, canonical decimals, JSON object trees, and raw pulse preservation were added. The specification is still not single-valued; details follow below.
+
+4. **Prediction-ledger resolution — IMPROVED, not resolved.** Valid-result mappings and commit obligations are now concrete. Invalid-result resolution contradicts the terminal-output model: resolution requires summary validation, while shared failures preserve partial data and may produce no schema-valid summary.
+
+5. **Notation and capacity arithmetic — RESOLVED.** `B_gen`, `S_global(D)`, `A(D)`, and `Delta(D)` are distinct, and all capacity floors operate on exact `Fraction` values. A new cross-platform `math.log/exp` reproducibility issue remains, but the previous capacity-floor defect is fixed.
+
+6. **Taxonomy ordering — RESOLVED.** Empirical Mapping is explicitly dominant and Optimization/Search secondary.
+
+### Justification correctness
+
+The core score and regret algebra is correct:
+
+\[
+q_z(m)=16e_z(m)+2
+\]
+
+follows from the source-hashed scorer for positive-yield findings with unique non-null score-cell hashes, and
+
+\[
+A(D)-S_{\mathrm{global}}(D)
+=\sum_z\left[\max_m S_z(m)-S_z(m_{\mathrm{global}})\right]\ge0
+\]
+
+is an exact identity on the common score table. The denominator is positive because the \(m=1\) probe always succeeds.
+
+The negative-control proof is substantively correct under the operational arithmetic. With \(T=8100/b_F-87\in[588,1533]\), \(m=1\) strictly dominates every \(m>1\). The asserted nonbinding conditions also hold, although they should be written into the proof: replay capacity is at most 1533 versus candidate capacity 1993; generation capacity exceeds replay capacity; and maximum additional raw score is below \(18\cdot1533=27{,}594\), far below the remaining saturation margin \(198{,}594\).
+
+The primary 5% prediction has no substantive justification. The document establishes only nonnegativity. Crossed heterogeneous support does not mathematically imply a 5% ratio: saturation, floors, or near-common optima can make regret arbitrarily small. Calling 5% “normative” explains the decision threshold, not why the predictive claim is plausible. This is acceptable as a low-confidence conjecture only if clearly treated as such; it is not a mechanism-derived prediction.
+
+### Mathematical depth and validity domains
+
+The conditional-regret abstraction is well bound to a concrete finite score table. Its domain is correctly restricted to deterministic, stationary, fully observed profiles with additive independent resources and oracle per-profile action selection. It says nothing about learning, noisy selection, population prevalence, or deployment.
+
+The remaining numeric validity defect is that “CPython 3.14.3” does not uniquely specify `math.log/exp` results across platforms and libm implementations. `Fraction.from_float` makes capacity arithmetic exact only after those floats exist; it does not make parameter or cliff-event generation reproducible. Because `floor(m*exp(...))` is discontinuous at integers, an unbounded libm discrepancy can change event counts. Hypothesis 150–164 and contract 21–27, 136–144 need a pinned runtime/container and libm, a correctly-rounded reference implementation, or a certified distance-from-integer check.
+
+### Logical soundness
+
+The scientific outcome partition is now sound. The terminal protocol is not.
+
+The largest contradiction spans hypothesis 331–345 and 356–383, contract 146–178, and schema 102–210:
+
+- Ledger mutation is forbidden before summary validation.
+- Shared crashes preserve partial outputs and produce `ABANDONED.json`.
+- The summary schema nevertheless requires complete fixed row counts, all 40 strata, all metrics and hashes, `source_hash_check=true`, and `negative_difference_integer=0`.
+- Thus many protocol-invalid outcomes cannot produce the prerequisite validated summary and consequently cannot receive the promised `status=crash` ledger resolution.
+- An abandonment during `IMPLEMENTED→FROZEN` is also unrepresentable: `ABANDONED.json` excludes `IMPLEMENTED` as `last_completed_state` and requires a freeze hash that does not yet exist.
+- No artifact or unambiguous rule marks the `COMPLETED` transition after summary, ledger, log, progress, and commit.
+
+These gaps weaken missing-data and selective-reporting guarantees.
+
+### Assumption completeness
+
+Most load-bearing scientific assumptions are explicitly listed. Missing or insufficiently enforced assumptions include:
+
+- Bitwise stability of `math.log/exp`, not merely CPython identity.
+- Exact semantics for crashes before a pulse-preservation artifact exists.
+- Honest completion and publication of terminal outcomes; local git commits alone are mutable and omittable.
+- A deterministic definition of all secondary summaries and resource-binding ties.
+- A guarantee that protocol-invalid outcomes can always be serialized and resolve both prediction rows.
+
+### Fixed eight-part bias surface
+
+- **Selection:** The target realization is held out, but the public generator, equal weighting, ranges, cliff prevalence, and 5% threshold remain analytically selectable. The stated finite-support scope is appropriate; the beacon does not neutralize design-selection bias.
+- **Confounding:** Pairing isolates the intended relaxation from one global action to per-profile oracle actions. Magnitude remains driven by engineered heterogeneity, saturation, integer floors, and novelty bonuses.
+- **Assignment:** Complete paired evaluation and policy-free substreams are appropriate for a deterministic finite estimand.
+- **Protocol deviation:** Not adequately controlled because target-fetch crash state and pre-freeze abandonment are not durably representable.
+- **Missing data:** Invalid runs are declared non-evaluable, but the summary/ledger contradiction prevents deterministic terminal recording of many such runs.
+- **Measurement:** SDK scoring and predicate construction are well anchored by matching source hashes. Exact reproducibility remains underdetermined by the numeric environment.
+- **Analysis flexibility:** The primary estimand and binary decision are fixed. Secondary metrics, resource binding, and several schema cross-fields remain flexible.
+- **Selective reporting:** Pre-pulse ACK and hashes are useful custody evidence. They do not “prevent” suppression of an unfavorable terminal result because only pre-outcome information is externally posted and later obligations are local.
+
+### Schema defects
+
+The most consequential remaining underdetermination is at contract 126–135 and schema 115–210:
+
+- `reset_band`, `linear_band`, and `curvature_band` lack closed, split-conditional vocabularies.
+- Candidate and phase ordinal origins, ranges, and relationships are unspecified.
+- `mixtures.tsv.selected` has no exact type or spelling.
+- Conditional relationships among `status`, `error_code`, `attempted`, `retained`, score hash, and returned counts are not defined.
+- The single-valued `binding` enum has no precedence rule when multiple capacities tie.
+- The formulas for positive-regret fractions, stratum gain, all four secondary rational metrics, and probe-cost share are absent.
+- `percent_fixed_12` is syntactically constrained but not linked to its numerator and denominator.
+- Forty stratum objects need not be unique or ordered; six histogram objects need not be the frozen bins or sum to 320.
+- The selected mixture array need not sum to eight.
+- `failure_counts_by_error_code` does not require every enum key despite the prose claiming all keys, including zeros, are mandatory.
+- The invalid-summary case is not modeled separately from the complete valid-summary case.
+
+These are not cosmetic limitations of JSON Schema: several underlying formulas and conditional semantics are absent from the contract itself.
+
+### Taxonomy verification
+
+The taxonomy is defensible:
+
+- Opportunity: Evidence Gap dominant; Resource Bottleneck secondary.
+- Method: Empirical Mapping dominant; Optimization/Search secondary.
+- Operation: replace one split-global argmax with profile-conditioned argmaxes.
+
+### Anti-stacking check
+
+Pass. The intervention is one structural relaxation, not a stack of components. Same-probe global and adaptive policies make the paired conditional-regret contrast interpretable. The denominator-eight mixture is correctly described as a restricted secondary comparator, not a universal nonadaptive optimum.
+
+### Occam’s razor
+
+The core scientific statement is simple: measure finite oracle conditional regret on one heterogeneous table and verify zero regret on a homogeneous table. The extensive beacon, schema, and custody machinery is infrastructure, not mechanism. That distinction is stated correctly, though the infrastructure currently exceeds what its incomplete terminal semantics can guarantee.
+
+### Alternative explanations
+
+A positive result can be explained by engineered equal weighting of heterogeneous/cliff-heavy cells, the generic advantage of 320 oracle decisions over one, saturation and integer floors, the uniqueness bonus, perfect probe stationarity, or restriction of the mixture class. The document acknowledges most of these and appropriately limits scope.
+
+### Overall: NEEDS_REVISION
+
+Required fixes, in severity order:
+
+1. **Close invalid and terminal outcomes** across hypothesis 331–345, 356–383; contract 146–178; schema 102–210. Define a minimal schema-valid terminal outcome for every failure, make invalid ledger resolution depend on that artifact rather than an impossible complete summary, permit pre-freeze abandonment, and define the durable `COMPLETED` transition.
+
+2. **Make target fetch crash-safe** at hypothesis 370–380 and contract 162–166. Add an exclusive pre-fetch attempt artifact/state so a crash after the GET cannot permit another fetch.
+
+3. **Finish the machine specification** at contract 126–135 and schema 115–210. Add the missing TSV enums/types/conditional rules, binding-tie semantics, exact metric formulas, array ordering/uniqueness/bin constraints, mixture-sum validation, and mandatory failure keys.
+
+4. **Make numeric execution reproducible** at hypothesis 150–164 and contract 21–27, 136–144. Pin the mathematical runtime or use reproducible correctly-rounded functions, and certify cliff-floor stability.
+
+5. **Provide actual support for the primary prediction** at hypothesis 55–74 and 221–251. Supply either a deterministic lower bound over the frozen support or a preregistered, non-target calibration ensemble with sensitivity to factor weights and saturation. Otherwise retain it explicitly as an unsupported low-confidence conjecture.
+
+6. **Correct the selective-reporting claim** at hypothesis 442–445 and contract 156–167. Post every terminal artifact hash/status to the same externally timestamped thread or weaken “prevent” to “mitigate under honest reporting.”
+
+## Actionable coaching
+
+Model terminal outputs as a discriminated union: a compact `OUTCOME.json` with `VALID` and `PROTOCOL_INVALID` branches. The valid branch can require the complete summary; the invalid branch should require the last durable state, error code, available hashes, partial-row counts, and prediction-ledger resolution. This removes the current pressure to fabricate complete metrics after a crash.
+
+Add `TARGET_FETCH_STARTED.json` by exclusive creation before network access. Entry with this marker but no raw pulse must abandon; entry without it may perform the sole fetch.
+
+Move every cross-field rule into named validator predicates with golden positive and negative fixtures. In particular, define secondary numerator/denominator formulas and make binding either a set of all active constraints or a single enum with frozen precedence.
+
+For the primary magnitude, a calibration distribution over independently derived non-target masters would provide honest predictive justification without changing the finite target estimand. Report the fraction clearing 5%, the minimum observed margin, and sensitivity to stratum weighting.
+
+## Round 8 gate decision
+
+The adverse `NEEDS_REVISION` verdict stands. The reported 498 hypothesis lines,
+204 contract lines, 231 schema lines, contract/schema hashes, JSON validity, Draft
+2020-12 metaschema validity, and five source hashes were independently verified
+against commit `3033b15`. The v6 artifacts remain immutable. Phase 2 is closed;
+no implementation, freeze, target, profile, experiment, submission, or Kaggle
+action exists.

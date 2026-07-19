@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Theory review round 8 was charged and dispatched against committed 498-line v6, 204-line v4 contract SHA-256 1ed7ad83db5ea6a0cff25192534f162f102d3635048d97cdebb90551ee84da30, and 231-line artifact schema SHA-256 bd8ddcabef0c9b08ba6b4efeabe6cb2cf4894b16517b1b38de2585b760058a32. Sterile prompt includes only template state and six round-7 blockers. Budget 8/10; Phase 2 closed; no implementation/freeze/target/profile/experiment/Kaggle action.",
+      "evidence": "Round 8 returned NEEDS_REVISION after verifying 498/204/231 lines, contract/schema/source hashes, JSON and Draft 2020-12 validity. Binary decision, exact Fraction capacity, notation, taxonomy, and anti-stacking resolved. Remaining blockers: minimal invalid/complete terminal artifacts and ledger resolution; pre-fetch crash marker; cross-field TSV/metric rules; pinned math runtime/cliff stability; non-target support for 5%; terminal status posting or weaker selective-reporting claim. Full verdict verbatim in research-log/008-orf-theory-review.md. Budget 8/10; Phase 2 closed; no beacon/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -191,7 +191,13 @@
       "lesson": "Machine-readable protocol prose is still underdetermined unless each state transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one value.",
       "apply_when": "A Phase-2 hypothesis claims a held-out protocol is executable from a JSON contract.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 2
+      "recurrences": 3
+    },
+    {
+      "lesson": "Pinning a language/runtime version does not pin transcendental math; discontinuous floor decisions need a specific libm/container, correctly rounded functions, or a certified distance from integer boundaries.",
+      "apply_when": "A Phase-2/3 generator uses log/exp results inside floor or threshold operations and claims exact reproducibility.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
     }
   ],
   "best_state": {
@@ -240,7 +246,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "One monotone future freeze only after RIGOROUS review and committed implementation/tests/predictions; exact pre-pulse user ACK; one-file crash-terminal transitions; no Kaggle action.",
-      "status": "locked-pre-review"
+      "status": "reviewed-needs-revision-never-frozen"
     }
   },
   "gates": {
