@@ -98,6 +98,14 @@
       "status": "failed",
       "evidence": "Final round 10 returned NEEDS_REVISION after verifying 433/180/148 lines, hashes, JSON/metaschema, and absent evaluator/run dir. Core regret algebra, homogeneous proof, seed-domain assumption/conditional interval, taxonomy, anti-stacking, complete-only errors, local staged outcome/ledger recovery all accepted or improved. Remaining blockers: actual SDK cell_signature is 16 hex and core/cells.py is unhashed while contract requires 64-hex candidate ID; mixture t/count/eligibility/cycle reset undefined; external thread post lacks idempotent crash reconciliation; claimed sample fixtures were not preserved. Full verdict verbatim in research-log/008-orf-theory-review.md. Budget exhausted 10/10; no heldout/Kaggle action.",
       "parent": "T008"
+    },
+    {
+      "id": "T010",
+      "phase": "2",
+      "desc": "Write and deterministically verify a superseding ORF hypothesis specification that closes the four round-10 blockers without a new review dispatch or held-out/Kaggle action",
+      "status": "in_progress",
+      "evidence": "User direction: 'ok, then lets fix these blockers properly. Remmebr to do the right thing not the easy thing'. Scope interpretation: Phase-2 artifact revision and local deterministic/execution verification are authorized; hypothesis-review budget remains exhausted at 10/10, and no held-out target, beacon, evaluator, profile, submission, or Kaggle action is authorized.",
+      "parent": "T009"
     }
   ],
   "parked_candidates": [],
