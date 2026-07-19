@@ -1,0 +1,107 @@
+{
+  "contract_version": "orf-phase4-public-nontarget-v1",
+  "base_contract": "experiments/configs/evaluation-contract.md",
+  "claim_scope": "public deterministic non-target validation only",
+  "primary_master_preimages_ascii": [
+    "orf-public-phase4-v1|master|000",
+    "orf-public-phase4-v1|master|001",
+    "orf-public-phase4-v1|master|002"
+  ],
+  "generalization_master_preimages_ascii": [
+    "orf-public-phase4-generalization-v1|master|000",
+    "orf-public-phase4-generalization-v1|master|001",
+    "orf-public-phase4-generalization-v1|master|002"
+  ],
+  "master_derivation": "SHA256(ASCII preimage)",
+  "lengths": [1, 2, 4, 8, 16, 24, 32],
+  "primary": {
+    "profiles_per_master": 320,
+    "strata": 40,
+    "replicates_per_stratum": 8,
+    "saturation": 200000,
+    "weighting": "equal",
+    "baseline_policy": "PROBE_GLOBAL: one exhaustively selected fill length per master",
+    "core_policy": "ADAPTIVE: one exhaustively selected fill length per profile",
+    "primary_metric": "mean_adaptive_gain_percent",
+    "per_master_metric": "100*(A-G)/G",
+    "materiality_threshold_inclusive": 5.0,
+    "core_prediction": 40.0,
+    "core_prediction_confirm_interval_inclusive": [30.0, 50.0]
+  },
+  "baseline": {
+    "primary_metric": "mean_global_score_raw",
+    "predicted_value": 8500000,
+    "prediction_confirm_interval_inclusive": [7500000, 9500000],
+    "mechanical_tolerance": "Every reported G and selected length must exactly match independent recomputation from the committed per-profile seven-action table.",
+    "tuning_parity": "Exact exhaustive argmax over all seven legal global fill lengths; there is no unspent baseline hyperparameter or search budget."
+  },
+  "distinguishing_negative": {
+    "profiles_per_master": 64,
+    "master_preimage_suffix": "|homogeneous",
+    "expected_difference_raw": 0,
+    "expected_global_fill_length": 1
+  },
+  "ablations": [
+    {
+      "id": "no_cliff",
+      "change": "Replace every primary profile's event vector with e(m)=m; retain realized costs and all other mechanics."
+    },
+    {
+      "id": "no_curvature",
+      "change": "Set every realized d fraction to zero and recompute costs a+b*m; retain events and all other mechanics."
+    },
+    {
+      "id": "no_reset",
+      "change": "Set every realized a fraction to zero and recompute costs b*m+d*m^2; retain events and all other mechanics."
+    },
+    {
+      "id": "no_novelty",
+      "change": "Replace each positive singleton raw q=16e+2 with q=16e; retain probe/fill costs, events, caps, and policies."
+    },
+    {
+      "id": "unsaturated",
+      "change": "Replace H=200000 with H=1000000000000000000; retain all other primary mechanics."
+    }
+  ],
+  "generalization": {
+    "benchmark": "unsaturated balanced-cliff synthetic regime",
+    "saturation": 1000000000000000000,
+    "weights": "no-cliff profiles weight 4; cliff profiles weight 1",
+    "primary_metric": "mean_generalization_gain_percent",
+    "predicted_value": 35.0,
+    "support_threshold_inclusive": 5.0
+  },
+  "scaling_robustness": {
+    "replicates_per_stratum": [1, 4, 8],
+    "profiles_per_master": [40, 160, 320],
+    "selection": "For scale k, include replicate indices 0..k-1 in every stratum.",
+    "primary_metric": "all_scale_master_cells_clear_fraction",
+    "predicted_value": 1.0,
+    "support_rule": "All 9 master-by-scale cells have gain >=5%; report scale means and range."
+  },
+  "immutable_paths": [
+    "experiments/configs/evaluation-contract.md",
+    "experiments/configs/orf-phase4-v1.json",
+    "experiments/poc/orf_support_calibration.py",
+    "experiments/poc/orf_v7_contract_reference.py",
+    "experiments/fixtures/orf-heldout-v7-golden-fixtures.json",
+    "comp/sdk/aicomp_sdk/core/cells.py",
+    "comp/sdk/aicomp_sdk/core/predicates.py",
+    "comp/sdk/aicomp_sdk/scoring.py"
+  ],
+  "run_limits": {
+    "cpu_only": true,
+    "maximum_minutes_per_run": 5,
+    "fix_attempts_per_change": 2,
+    "network": false
+  },
+  "forbidden": [
+    "Kaggle action",
+    "beacon fetch",
+    "held-out freeze",
+    "held-out target derivation",
+    "held-out profile generation",
+    "held-out evaluation",
+    "external terminal post"
+  ]
+}

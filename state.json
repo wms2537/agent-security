@@ -122,6 +122,86 @@
       "status": "done",
       "evidence": "Independent artifact verification returned `artifact_audit=PASS profiles=40 adaptive=1470646 global=985176 regret=485470 gain=49.277489504413 global_m=16`; run.log directly reports exact homogeneous difference 0, homogeneous length 1, SDK cases 2, floor distance 9.20338e-7, runtime 0.6795s; `git diff --exit-code 9b0d94a -- <immutable paths>` exited 0 with empty output. User advance go decision: 'then go on with next phases up until phase 6 then, define a goal'.",
       "parent": "T011"
+    },
+    {
+      "id": "T013",
+      "phase": "4",
+      "desc": "Write and freeze the ORF Phase-4 public non-target experiment plan, seed sets, run sequence, baselines, ablations, generalization, scaling, and authorization boundaries",
+      "status": "done",
+      "evidence": "`comp/.venv/bin/python -m json.tool experiments/configs/orf-phase4-v1.json` parsed the frozen plan; deterministic checks find 3 primary masters, 3 generalization masters, 5 named ablations, 3 scales, and 8 immutable paths. research-log/023 specifies one sequential task per run, compute estimates, exact baseline/tuning parity, code review before core, and no held-out/Kaggle action.",
+      "parent": "T012"
+    },
+    {
+      "id": "T014",
+      "phase": "4",
+      "desc": "Preregister, implement, run, and independently verify the N=3 exact PROBE_GLOBAL baseline; save 320x7 tables and preference profile; this also completes exhaustive tuned-baseline parity",
+      "status": "open",
+      "evidence": null,
+      "parent": "T013"
+    },
+    {
+      "id": "T015",
+      "phase": "4",
+      "desc": "Implement but do not run the ORF per-profile core wrapper as a single action-scope change from the baseline",
+      "status": "open",
+      "evidence": null,
+      "parent": "T014"
+    },
+    {
+      "id": "T016",
+      "phase": "4",
+      "desc": "Sterile code-review gate on the committed baseline and unexecuted core code before any core result may be believed",
+      "status": "open",
+      "evidence": null,
+      "parent": "T015"
+    },
+    {
+      "id": "T017",
+      "phase": "4",
+      "desc": "Preregister and run the N=3 ORF core per-profile-vs-global comparison plus homogeneous distinguishing negative",
+      "status": "open",
+      "evidence": null,
+      "parent": "T016"
+    },
+    {
+      "id": "T018",
+      "phase": "4",
+      "desc": "Apply the baseline+core user checkpoint decision only if the preregistered gates pass",
+      "status": "open",
+      "evidence": null,
+      "parent": "T017"
+    },
+    {
+      "id": "T019",
+      "phase": "4",
+      "desc": "Preregister and run the N=3 one-at-a-time attribution ablation batch for cliffs, curvature, reset cost, novelty, and saturation",
+      "status": "open",
+      "evidence": null,
+      "parent": "T018"
+    },
+    {
+      "id": "T020",
+      "phase": "4",
+      "desc": "Preregister and run the N=3 unsaturated balanced-cliff public generalization benchmark required at Medium intensity",
+      "status": "open",
+      "evidence": null,
+      "parent": "T019"
+    },
+    {
+      "id": "T021",
+      "phase": "4",
+      "desc": "Preregister and run nested 40/160/320-profile robustness and scaling checks across the three primary public masters",
+      "status": "open",
+      "evidence": null,
+      "parent": "T020"
+    },
+    {
+      "id": "T022",
+      "phase": "4",
+      "desc": "Audit all Phase-4 rows, logs, provenance, commits, comparison artifacts, and close or fail the experiment-batch gate",
+      "status": "open",
+      "evidence": null,
+      "parent": "T021"
     }
   ],
   "parked_candidates": [],
