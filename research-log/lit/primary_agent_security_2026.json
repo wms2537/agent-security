@@ -1,0 +1,559 @@
+{
+  "tier": 1,
+  "search_record": [
+    {
+      "query": "site:arxiv.org OR site:openreview.net AgentDojo InjecAgent ASB Agent Security Bench AgentHarm ToolEmu tau-bench",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 4
+    },
+    {
+      "query": "site:arxiv.org indirect prompt injection tool-using LLM agents benchmark defense adaptive attack 2025 2026",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 4
+    },
+    {
+      "query": "site:arxiv.org MCP security benchmark tool poisoning cross-agent injection 2025 2026",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 4
+    },
+    {
+      "query": "site:arxiv.org multi-agent workflow security information flow prompt injection benchmark",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 4
+    },
+    {
+      "query": "AgentDojo paper OpenReview NeurIPS 2024 attack success defense utility",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "InjecAgent ACL Anthology 2024 indirect prompt injection tool-integrated agents",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "ToolEmu ICLR 2024 OpenReview identifying risks LM agents sandbox results",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "AgentPoison NeurIPS 2024 paper memory poisoning LLM agents results",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/forum \"tool description poisoning\" LLM agents isolated planning",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org \"MCP\" \"tool poisoning\" LLM agent benchmark security",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 3
+    },
+    {
+      "query": "site:arxiv.org \"cross-agent\" prompt injection multi-agent security benchmark",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 3
+    },
+    {
+      "query": "site:openreview.net agent security information flow control prompt injection AgentDojo",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 2
+    },
+    {
+      "query": "\"kga18ld70t\" ICLR 2026 b3 benchmark title",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"Securing AI Agents with Information-Flow Control\" AgentDojo results Fides table",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"Breaking and Fixing Defenses Against Control Flow Hijacking\" results ControlValve",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"Think Twice Before You Act\" Tool-Guard Table 2 AgentDojo ASB",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org \"B³\" \"Breaking Agent Backbones\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org \"Breaking Agent Backbones\" benchmark",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net \"B³ Benchmark\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:papers.neurips.cc/paper_files/paper/2024 AgentDojo \"Table 2\" utility attack success rate",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:papers.neurips.cc/paper_files/paper/2024 AgentPoison \"Table 1\" attack success rate benign performance",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:proceedings.iclr.cc/paper_files/paper/2024 ToolEmu \"Table 2\" risk rate 68.8",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/pdf?id=YeM5q99tBJ DoomArena Table attack success AgentDojo tau-bench",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/pdf/2407.12784 AgentPoison \"ASR\" \"Agent-Driver\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:proceedings.neurips.cc AgentPoison \"Table 1\" ASR",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"AgentPoison\" \"80%\" \"0.1%\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"AgentPoison\" \"Table 2\" \"benign\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/pdf?id=YeM5q99tBJ DoomArena \"ASR\" \"Table\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/forum?id=kga18ld70t \"34\" \"attack\" \"B3\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/pdf/2505.23643 Fides \"Table 2\" attack success rate utility",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 0
+    },
+    {
+      "query": "site:arxiv.org/pdf/2510.17276 ControlValve \"Table 2\" attack success rate utility",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 0
+    },
+    {
+      "query": "\"Think Twice Before You Act\" \"Tool-Guard\" PMLR",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:proceedings.mlr.press \"Tool-Guard\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 0
+    },
+    {
+      "query": "site:openreview.net/pdf \"Securing AI Agents with Information-Flow Control\" \"0\" Fides",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 0
+    },
+    {
+      "query": "site:arxiv.org/html/2510.17276 ControlValve Table attack success rate",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"Agent Security Bench (ASB)\" arXiv 84.30",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/abs \"Agent Security Bench\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/pdf?id=V4y0CpX4hK \"84.30\" \"Table\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/html \"Agent Security Bench\" \"420\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/pdf?id=kga18ld70t \"vulnerability score\" \"GPT-5\" b3",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/pdf?id=kga18ld70t \"Table 1\" \"Total\" \"vulnerability\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/html/2510.22620 \"vulnerability score\" \"Table 1\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/html/2510.22620 \"194,331\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:openreview.net/forum?id=YeM5q99tBJ DoomArena authors 2025",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org/abs DoomArena testing AI agents evolving security threats",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "\"DoomArena\" Boisvert authors",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 2
+    },
+    {
+      "query": "site:openreview.net/pdf?id=YeM5q99tBJ \"No pareto dominant\"",
+      "platform": "primary-agent-security",
+      "date": "2026-07-20",
+      "result_count": 1
+    },
+    {
+      "query": "site:arxiv.org safe agentic system design graph audit harness evolution 2026",
+      "platform": "primary-agent-security",
+      "date": "2026-07-19",
+      "result_count": 2
+    }
+  ],
+  "papers": [
+    {
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "authors": "Edoardo Debenedetti et al., 2024",
+      "venue": "NeurIPS 2024 Datasets and Benchmarks Track",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/97091a5177d8dc64b1da8bf3e1f6fb54-Abstract-Datasets_and_Benchmarks_Track.html",
+      "source_type": "peer-reviewed",
+      "core_contribution": "An extensible execution environment for evaluating prompt-injection attacks and defenses on agents that call tools over untrusted data, with security and task utility evaluated together.",
+      "methodology": "The authors instantiate 97 realistic tasks and 629 security test cases across workspace, travel, banking, and Slack-style environments, then evaluate multiple LLM agents, attacks, and defenses under benign and adversarial runs.",
+      "key_results": "For GPT-4o, the no-defense condition has 57.69% +/- 3.9 targeted attack success and 69.00% +/- 3.61 benign utility. A tool-filter defense lowers attack success to 6.84% +/- 2.0 while benign utility is 69.59% +/- 3.6; a prompt-injection detector lowers attack success to 7.95% +/- 2.1 but benign utility falls to 41.49% +/- 3.9.",
+      "key_results_location": "Tables 4-5 in the NeurIPS paper PDF; benchmark scale also in the Abstract.",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": "The environment is executable and extensible but uses constructed tasks and attack placements. Inference: these results validate comparative mechanics in the benchmark, not the prevalence of prompt injection in live deployments.",
+      "math_foundations": "Empirical attack-success and utility rates with repeated runs and reported uncertainty; separate benign utility, utility under attack, and targeted/untargeted attack success prevent a single security score from hiding functionality loss.",
+      "motivation": "Static attack strings and success-only metrics do not capture adaptive attacks, stateful tool execution, or the security-utility tradeoff of operational agents.",
+      "constraints_inferred": "Inference: a transferable evaluation should preserve the benchmark's explicit state, tool semantics, and security goals; a list of prompts alone is insufficient.",
+      "key_decisions": "The authors chose a dynamic environment rather than a fixed static suite and report both attack success and task utility.",
+      "tried_and_discarded": "Existing detector and tool-filter defenses were compared rather than assumed effective; neither simultaneously eliminated attacks and preserved utility in every setting.",
+      "load_bearing_assumptions": "Inference: evaluator correctness, faithful tool-state transitions, and representative task/attack construction are load-bearing for the reported rates.",
+      "relevance": "high",
+      "relevance_reason": "Foundational harness for reproducible security testing of tool-using agents and for detecting defense-induced utility regressions."
+    },
+    {
+      "title": "InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents",
+      "authors": "Qiusi Zhan et al., 2024",
+      "venue": "Findings of ACL 2024",
+      "url": "https://aclanthology.org/2024.findings-acl.624/",
+      "source_type": "peer-reviewed",
+      "core_contribution": "A benchmark focused on indirect prompt injection through external content processed by tool-integrated agents, covering both direct user harm and private-data exfiltration objectives.",
+      "methodology": "InjecAgent contains 1,054 test cases across 17 user tools and 62 attacker tools and evaluates 30 LLM-agent configurations, including an enhanced setting that reinforces the injected instruction.",
+      "key_results": "ReAct-prompted GPT-4 was vulnerable in 24% of evaluated cases; the paper reports that the enhanced setting further increases success. The benchmark covers 1,054 cases, 17 user tools, 62 attacker tools, and 30 agents.",
+      "key_results_location": "ACL Anthology Abstract, lines 59-62; bibliographic page identifies Findings of ACL 2024.",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": "Inference: coverage is broad across tool interfaces but still depends on templated attack intentions and benchmark-specific tool behavior; it cannot establish incident prevalence in deployed systems.",
+      "math_foundations": "Empirical vulnerability rate over a finite benchmark, stratified by attack intention, tool surface, model, and prompting configuration.",
+      "motivation": "Agents ingest email, web, and tool content that can contain instructions not authored by the user, creating a confused-instruction channel not measured by ordinary task benchmarks.",
+      "constraints_inferred": "Inference: results should be conditioned on the exact agent prompt, model, tool set, and attack variant because changing the instruction wrapper materially changes success.",
+      "key_decisions": "The authors separate user tools from attacker tools and distinguish harm from exfiltration rather than treating every injection as the same outcome.",
+      "tried_and_discarded": "The base attack was not treated as a ceiling; an enhanced instruction setting was tested and produced higher success.",
+      "load_bearing_assumptions": "Inference: success evaluators correctly identify harmful tool use and exfiltration, and the selected tool/action pairs approximate relevant real agent workflows.",
+      "relevance": "high",
+      "relevance_reason": "Provides a large, peer-reviewed IPI corpus and a clear finite-sample baseline for tool-integrated agent vulnerability."
+    },
+    {
+      "title": "Identifying the Risks of LM Agents with an LM-Emulated Sandbox",
+      "authors": "Yangjun Ruan et al., 2024",
+      "venue": "ICLR 2024",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/7274ed909a312d4d869cc328ad1c5f04-Abstract-Conference.html",
+      "source_type": "peer-reviewed",
+      "core_contribution": "ToolEmu uses an LM-emulated tool sandbox and an LM safety evaluator to scale testing for long-tail, high-stakes failures without executing actions against real services.",
+      "methodology": "The authors curate 36 high-stakes toolkits and 144 cases across nine risk types, adversarially emulate tool execution, score agent behavior with an automatic evaluator, and validate sampled failures with humans.",
+      "key_results": "The safest evaluated agent still exhibited failures in 23.9% of cases according to the evaluator. Human validation judged 68.8% of ToolEmu-identified failures to be valid real-world failures; Table 2 reports 68.8% +/- 6.7 precision for adversarial emulation and a 50.0% +/- 5.1 true-failure incidence.",
+      "key_results_location": "ICLR proceedings Abstract; Table 2 in the conference paper PDF.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The authors validate only samples, and both tool behavior and safety judgments are model-mediated. Inference: emulator or evaluator error can bias risk estimates in either direction.",
+      "math_foundations": "Risk incidence and evaluator precision estimated from finite samples with reported uncertainty; adversarial and standard emulation are compared separately.",
+      "motivation": "Implementing every external service and staging high-stakes failure cases is costly and potentially unsafe, which blocks broad pre-deployment testing.",
+      "constraints_inferred": "Inference: claims about real execution require external validation because an emulated sandbox measures a proxy estimand, not production failure frequency.",
+      "key_decisions": "The authors separate scenario generation, tool emulation, and safety evaluation, then add human validation rather than relying only on an LM judge.",
+      "tried_and_discarded": "Standard emulation was compared with adversarial emulation; adversarial emulation increased observed true-failure incidence rather than merely maximizing evaluator flags.",
+      "load_bearing_assumptions": "Inference: the emulator preserves the action-relevant semantics of tools, and the human-reviewed subset represents the full set of evaluator-flagged failures.",
+      "relevance": "high",
+      "relevance_reason": "Defines a safe harness pattern for evaluating dangerous tool behavior while quantifying the validity gap between simulated and real failures."
+    },
+    {
+      "title": "Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents",
+      "authors": "Hanrong Zhang et al., 2025",
+      "venue": "ICLR 2025",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/5750f91d8fb9d5c02bd8ad2c3b44456b-Abstract-Conference.html",
+      "source_type": "peer-reviewed",
+      "core_contribution": "A broad formalization and benchmark spanning attacks and defenses at system-prompt, user-prompt, tool-use, and memory-retrieval stages of LLM agents.",
+      "methodology": "ASB instantiates 10 scenarios, 10 agents, more than 400 tools, 27 attack/defense methods, and seven metrics; it evaluates 10 prompt-injection attacks, memory poisoning, a planning backdoor, four mixed attacks, and 11 defenses across 13 LLM backbones.",
+      "key_results": "The highest average attack success rate reported is 84.30%. The final benchmark covers 10 scenarios, 10 agents, over 400 tools, 27 attack/defense methods, seven metrics, and 13 model backbones.",
+      "key_results_location": "ICLR proceedings Abstract, lines 13-16.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "Inference: breadth comes from many synthetic scenario-method combinations, so aggregate maxima do not estimate real-world incidence and may conceal large per-scenario differences.",
+      "math_foundations": "Multi-metric empirical evaluation over a factorial design of scenarios, agents, attacks, defenses, and backbones, including an explicit security-utility balance metric.",
+      "motivation": "Earlier studies isolate one attack surface or agent stage, making defenses difficult to compare across system prompt, user input, tools, and memory.",
+      "constraints_inferred": "Inference: comparisons require the same scenario, agent, model, and evaluator; the 84.30% maximum should not be generalized outside its tested configuration.",
+      "key_decisions": "The authors evaluate mixed attacks and corresponding defenses across multiple operational stages rather than producing a prompt-injection-only leaderboard.",
+      "tried_and_discarded": "Current defenses were benchmarked and found limited overall; no single evaluated defense is presented as sufficient across all covered stages.",
+      "load_bearing_assumptions": "Inference: scenario simulators, attack labels, and the new security-utility metric faithfully represent the intended threats and benign objectives.",
+      "relevance": "high",
+      "relevance_reason": "Useful umbrella benchmark for checking whether a proposed harness covers prompts, tools, planning, memory, and utility rather than a single attack surface."
+    },
+    {
+      "title": "AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases",
+      "authors": "Zhaorun Chen et al., 2024",
+      "venue": "NeurIPS 2024",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/eb113910e9c3f6242541c1652e30dfd6-Abstract-Conference.html",
+      "source_type": "peer-reviewed",
+      "core_contribution": "A red-team study showing that poisoning persistent memory or retrieval knowledge can create trigger-dependent unsafe behavior in RAG-based agents without retraining the underlying model.",
+      "methodology": "The paper evaluates optimized retrieval triggers and poisoned demonstrations against three agent types: autonomous driving, knowledge-intensive question answering, and a healthcare EHR agent, while separately measuring attack and benign performance.",
+      "key_results": "Across the three agent types, average attack success is at least 80%, benign-performance impact is at most 1%, and the poison rate is below 0.1%.",
+      "key_results_location": "NeurIPS proceedings Abstract, lines 13-17.",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": "The threat model assumes an attacker can write to or contaminate the agent's long-term memory or retrieval store. Inference: the optimized-trigger results do not establish how often such access or trigger exposure occurs in live systems.",
+      "math_foundations": "Constrained optimization maps trigger-bearing inputs into a retrieval region associated with poisoned demonstrations; evaluation separates attack success, benign degradation, and poison fraction.",
+      "motivation": "Persistent agent memories and RAG stores are often trusted at inference time even though their contents may be supplied or modified outside model training.",
+      "constraints_inferred": "Inference: relevance depends on memory-ingestion controls, retrieval geometry, embedding/model versions, and the attacker's ability to insert records.",
+      "key_decisions": "The attack targets retrieval and persistent state rather than model weights, and the evaluation explicitly constrains benign-performance impact and poison rate.",
+      "tried_and_discarded": "The paper avoids model retraining as an attack prerequisite and compares across three materially different agent domains to test transferability.",
+      "load_bearing_assumptions": "Inference: poisoned records remain retrievable, the trigger distribution is reachable, and the memory or RAG store lacks provenance and write-time validation.",
+      "relevance": "high",
+      "relevance_reason": "Shows why an agent security harness must test persistent-state integrity and retrieval provenance, not only transient prompt injection."
+    },
+    {
+      "title": "DoomArena: A Framework for Testing AI Agents Against Evolving Security Threats",
+      "authors": "Leo Boisvert et al., 2025",
+      "venue": "COLM 2025",
+      "url": "https://arxiv.org/abs/2504.14064",
+      "source_type": "peer-reviewed",
+      "core_contribution": "A modular, configurable security-evaluation framework that decouples threat models and attacks from BrowserGym, OSWorld, and tau-bench agent environments.",
+      "methodology": "DoomArena plugs attacks and defenses into web, computer-use, and tool-calling environments, varies which component is adversarial, combines attacks, and jointly reports attack success, task success, and stealth.",
+      "key_results": "In tau-bench airline tasks, Claude-3.5-Sonnet had 2.66% attack success versus 29.3% for GPT-4o, while task success was 44.0% versus 47.3%. Under a malicious retail-catalog threat the ordering reversed: 39.1% versus 34.8% attack success. On WebArena-Reddit's 114 tasks, a combined attack reached 98.2% +/- 1.2 attack success against GPT-4o without defense.",
+      "key_results_location": "COLM paper Figures 4-5 and Table 3; framework principles also in the arXiv Abstract.",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": "The paper notes that preserving realistic threat modeling while controlling the agent environment remains open. Inference: model rankings are threat-model-specific and cannot be collapsed into a universal security ordering.",
+      "math_foundations": "Pareto analysis of attack success versus task success across threat models; repeated trials report means and standard deviations, with stealth as an additional metric.",
+      "motivation": "Agent vulnerabilities depend on whether the user, environment, tool output, or several components are malicious, yet most benchmarks fix a single threat model.",
+      "constraints_inferred": "Inference: meaningful comparison requires declaring attackable components, adversarial objectives, environment state, and defense placement before interpreting ASR.",
+      "key_decisions": "The framework makes threat components configurable, keeps attacks modular across environments, and evaluates combined attacks rather than assuming independent effects.",
+      "tried_and_discarded": "Simple guardrail-model defenses were evaluated and were less effective than defenses using stronger LLMs; no Pareto-dominant agent was found across threat models.",
+      "load_bearing_assumptions": "Inference: environment adapters preserve equivalent attack semantics and outcome evaluators measure both compromise and benign task completion consistently.",
+      "relevance": "high",
+      "relevance_reason": "Strong design reference for an executable, threat-model-explicit harness and for resisting overgeneralization from one agent or attack setting."
+    },
+    {
+      "title": "Breaking Agent Backbones: Evaluating the Security of Backbone LLMs in AI Agents",
+      "authors": "Julia Bazinska et al., 2026",
+      "venue": "ICLR 2026",
+      "url": "https://arxiv.org/abs/2510.22620",
+      "source_type": "peer-reviewed",
+      "core_contribution": "The b3 benchmark introduces threat snapshots that isolate LLM-specific vulnerability states inside agent executions, separating backbone-model risk from conventional software vulnerabilities.",
+      "methodology": "The authors collect 194,331 unique crowdsourced adversarial attempts, select 210 high-quality attacks across 10 threat snapshots and three levels, repeat each evaluated combination five times, and rank 34 popular LLMs with bootstrap confidence intervals.",
+      "key_results": "The benchmark evaluates 34 models using 210 selected attacks and five repetitions. The strongest open-weight model reported, kimi-k2-thinking, has a total vulnerability score of 0.34 and outperforms GPT-5.1 without reasoning on that metric; reasoning generally improves security, while model size alone has no meaningful effect.",
+      "key_results_location": "ICLR paper Section 4 and Section 4.2; attack corpus and model count in the arXiv Abstract.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The paper cautions that closed-weight systems include additional guardrails while open-weight models are evaluated more directly. Inference: crowdsourced attacks measure susceptibility to a selected finite attack distribution, not deployment prevalence or worst-case robustness.",
+      "math_foundations": "A total vulnerability score aggregates threat-snapshot outcomes; each setting is repeated five times and 95% bootstrap confidence intervals quantify sampling variability.",
+      "motivation": "Full agent workflows entangle model-specific failures with ordinary software risks and are expensive to model, obstructing controlled comparison of backbone LLM security.",
+      "constraints_inferred": "Inference: conclusions are conditional on the snapshot taxonomy, selected attack quality, aggregation rule, and current model/system versions.",
+      "key_decisions": "The authors model single-call threat snapshots instead of complete workflows, use human crowdsourcing for adaptive/contextual attacks, and audit ranking robustness to attack selection and aggregation.",
+      "tried_and_discarded": "Static, context-free attack datasets are rejected as insufficient for this estimand; robustness analyses show attack quality has more impact on ranking than aggregation choice.",
+      "load_bearing_assumptions": "Inference: the 10 snapshots cover the relevant LLM-specific states and the benchmark's evaluators and aggregation preserve their security meaning.",
+      "relevance": "high",
+      "relevance_reason": "Offers a controlled decomposition for separating backbone susceptibility from orchestration and environment failures in agent-security experiments."
+    },
+    {
+      "title": "Breaking and Fixing Defenses Against Control-Flow Hijacking in Multi-Agent Systems",
+      "authors": "Rishi Jha et al., 2026",
+      "venue": "ICLR 2026",
+      "url": "https://arxiv.org/abs/2510.17276",
+      "source_type": "peer-reviewed",
+      "core_contribution": "The paper identifies control-flow hijacking as an orchestration-layer failure in multi-agent systems and proposes ControlValve, which precomputes permitted agent-call graphs and edge-specific contextual rules before untrusted content is processed.",
+      "methodology": "ControlValve is integrated into a Magentic-One-style AutoGen orchestrator and evaluated on CFH-Hard (10 coding tasks and six computer-use tasks), a 21-task AgentDojo Slack adaptation, multiple attack presentations, and several baseline defenses.",
+      "key_results": "On eight coding control-flow-hijack templates, undefended attack success ranged from 83% to 100%; LlamaFirewall variants still reached as high as 100%, while ControlValve was 0% on every template. For conventional computer-use injections, the undefended system reached 69%-100% attack success depending on presentation, versus 0% for ControlValve.",
+      "key_results_location": "arXiv HTML Section 6, Tables 1-2, lines 163-189.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The authors state that LLM-generated graphs and rules may be too permissive or restrictive, and runtime overhead may be impractical. Evaluation uses one primary orchestration configuration, so transfer is argued rather than comprehensively measured.",
+      "math_foundations": "Control-flow integrity is represented as a task-specific context-free grammar over agent-call tokens plus at most three contextual rules per edge; ASR is estimated over three trials per task-template combination.",
+      "motivation": "Alignment checks see incomplete context and can be persuaded that unsafe delegation is necessary, while the orchestrator can enforce structural invariants before untrusted inputs arrive.",
+      "constraints_inferred": "Inference: the control-flow graph and transition rules must fully specify the legitimate state machine; directional principles such as least privilege do not determine an executable policy by themselves.",
+      "key_decisions": "The defense operates only at the orchestration layer, creates policy before exposure to untrusted content, and narrows runtime judgment to permitted graph edges and contextual rules.",
+      "tried_and_discarded": "Least-privilege, Azure content filtering, and broad alignment checks were evaluated and failed against at least some advanced control-flow hijacks.",
+      "load_bearing_assumptions": "Inference: planning-time inputs are trusted, the generated graph over-approximates all legitimate flows without admitting dangerous ones, and every inter-agent transition is mediated.",
+      "relevance": "high",
+      "relevance_reason": "Directly addresses orchestrated multi-agent attacks and supplies an executable reference model for stateful transition enforcement."
+    },
+    {
+      "title": "Think Twice Before You Act: Protecting LLM Agents Against Tool Description Poisoning via Isolated Planning",
+      "authors": "Shanghao Shi et al., 2026",
+      "venue": "ICML 2026",
+      "url": "https://arxiv.org/abs/2606.20922",
+      "source_type": "peer-reviewed",
+      "core_contribution": "Tool-Guard defends against cross-tool description poisoning by validating proposed calls before execution and dynamically isolating potentially influenced tools during replanning without removing them from the available tool set.",
+      "methodology": "The system partitions tools into influenced and other sets, plans separately over each description subset, validates task alignment and argument grounding, and evaluates baseline, ablation, and adaptive conditions on AgentDojo and ASB.",
+      "key_results": "On critical AgentDojo tasks with GPT-4o-mini, Tool-Guard reduces attack success from 19.59% to 3.09% while benign utility changes from 65.85% to 64.95%. The full defense reports 1.5x token overhead; in the ablation table it achieves 72.16% benign utility, 58.76% attacked utility, and 2.06% attack success.",
+      "key_results_location": "ICML paper Tables 5-6 and efficiency discussion; acceptance and contribution in the arXiv Abstract.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "Inference: the defense relies on semantic validators correctly recognizing task alignment and argument provenance, and the 1.5x token result may vary with tool-set size, trajectory length, and model pricing.",
+      "math_foundations": "At each step the tool set is partitioned into two disjoint subsets whose union is the full set; a call executes only when alignment is true and suspicion is false, yielding an explicit gated transition rule.",
+      "motivation": "Poisoned metadata can influence planning even when the poisoned tool is never called, so execution-time scanning of only the selected tool misses the cross-tool channel.",
+      "constraints_inferred": "Inference: the validators must exclude poisoned descriptions from their evidence and all calls must pass through the pre-execution gate for isolation to be meaningful.",
+      "key_decisions": "The design partitions rather than deletes tools, uses validated history and observed outputs for grounding, and replans after a failed validation.",
+      "tried_and_discarded": "Prompt-injection defenses were tested and transferred poorly; validation-only and masking ablations lost more utility than the combined isolation design.",
+      "load_bearing_assumptions": "Inference: the original user intent and validated trajectory are trustworthy, semantic checks are not jointly compromised, and no tool executes outside the gate.",
+      "relevance": "high",
+      "relevance_reason": "Provides a concrete defensive architecture for tool-metadata poisoning and makes its security-utility-cost tradeoff measurable."
+    },
+    {
+      "title": "MCPTox: A Benchmark for Tool Poisoning Attack on Real-World MCP Servers",
+      "authors": "Zhiqiang Wang et al., 2025",
+      "venue": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2508.14925",
+      "source_type": "preprint",
+      "core_contribution": "A benchmark for metadata-based tool poisoning built from real Model Context Protocol servers and authentic tool descriptions, designed to move beyond isolated demonstrations.",
+      "methodology": "MCPTox uses 45 live MCP servers and 353 authentic tools to construct 1,312 malicious test cases from three high-level templates across 10 risk categories, then evaluates 20 LLM-agent settings.",
+      "key_results": "o1-mini reaches 72.8% attack success. Across evaluated settings, the highest refusal rate is below 3% for Claude-3.7-Sonnet. The corpus comprises 45 live servers, 353 tools, 1,312 cases, 10 risk categories, and 20 agent settings.",
+      "key_results_location": "arXiv Abstract, lines 22-26.",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": "This is a preprint, and the live-server sample is a time-stamped convenience sample rather than a probability sample. Inference: the benchmark demonstrates exploitability under constructed profiles but cannot estimate ecosystem-wide prevalence.",
+      "math_foundations": "Finite-benchmark attack-success and refusal rates stratified over server/tool surfaces, risk categories, and agent settings.",
+      "motivation": "MCP tool metadata is exposed to agent planners before execution, yet prior evidence consisted mainly of isolated cases rather than a systematic multi-server benchmark.",
+      "constraints_inferred": "Inference: conclusions are conditional on the selected 45 servers, the generated case distribution, tool-schema snapshots, and the tested model versions.",
+      "key_decisions": "The authors anchor cases in authentic tool metadata from live MCP servers and separately report attack success and refusal behavior.",
+      "tried_and_discarded": "Isolated anecdotal demonstrations are treated as insufficient; the work instead constructs a standardized multi-server benchmark.",
+      "load_bearing_assumptions": "Inference: captured tool descriptions faithfully represent the live interfaces, generated cases remain semantically valid, and the evaluator correctly recognizes unauthorized operations.",
+      "relevance": "high",
+      "relevance_reason": "Adds direct MCP coverage and highlights metadata provenance, versioning, and sampling limitations that a defensible harness must record."
+    },
+    {
+      "title": "MaMa: A Game-Theoretic Approach for Designing Safe Agentic Systems",
+      "authors": "Jonathan Nöther et al., 2026",
+      "venue": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2602.04431",
+      "source_type": "preprint",
+      "core_contribution": "Formalizes automated safe multi-agent design as a Stackelberg-style game between a Meta-Agent system designer and a best-responding Meta-Adversary that compromises agents.",
+      "methodology": "The designer iteratively proposes system designs, receives feedback from LLM-based adversarial search, and optimizes against the strongest discovered compromises.",
+      "key_results": "The abstract reports consistent defense against worst-case discovered attacks while maintaining task performance comparable to task-only optimization, plus transfer to stronger adversaries, different objectives, and different LLMs.",
+      "key_results_location": "arXiv abstract, lines 22-25.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "Preprint; the security game depends on the compromise set, attack search coverage, environments, and the extent to which LLM adversarial search approximates best response.",
+      "math_foundations": "Stackelberg security games and alternating best-response-inspired black-box system-design search.",
+      "motivation": "Task-only multi-agent design can select systems that fail when one or more constituent agents are compromised.",
+      "constraints_inferred": "The design and attack spaces must be made searchable, and security is only as strong as the discovered best response.",
+      "key_decisions": "Treats the system design, not only the base model, as the optimized object and evaluates transfer beyond the training adversary.",
+      "tried_and_discarded": "Not visible from the abstract.",
+      "load_bearing_assumptions": "The Meta-Adversary exposes safety-relevant compromises and the selected payoff captures the deployed notion of safety.",
+      "relevance": "high",
+      "relevance_reason": "It crowds generic joint safety-task graph optimization. A new direction must isolate longitudinal harness drift, a different threat surface, or a stronger evaluation contract."
+    },
+    {
+      "title": "Towards Security-Auditable LLM Agents: A Unified Graph Representation",
+      "authors": "Chaofan Li et al., 2026",
+      "venue": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2605.06812",
+      "source_type": "preprint",
+      "core_contribution": "Introduces Agent-BOM, a hierarchical attributed graph linking static capabilities to dynamic semantic states for security auditing of agent executions.",
+      "methodology": "Separates models, tools, and long-term memory from goals, reasoning, and actions; adds semantic edges and security attributes; queries paths against the OWASP Agentic Top 10; and implements an OpenClaw audit plugin.",
+      "key_results": "The reported evaluation reconstructs stealthy chains involving cross-session memory poisoning, tool misuse, capability supply-chain hijacking, unexpected code execution, ecosystem hijacking, and privilege or trust abuse.",
+      "key_results_location": "arXiv abstract, lines 22-26.",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "The abstract demonstrates reconstruction on representative scenarios but does not establish detection recall, false-positive rates, prospective prevention, or cross-framework semantic equivalence.",
+      "math_foundations": "Hierarchical attributed directed graphs and path queries over static and dynamic security semantics.",
+      "motivation": "Conventional logs and SBOMs do not connect low-level events to goals, state evolution, capability bindings, and cascading risk.",
+      "constraints_inferred": "Instrumentation must recover faithful semantic state and capability edges from heterogeneous frameworks.",
+      "key_decisions": "Separates static capability inventory from runtime semantic state while joining them in queryable audit paths.",
+      "tried_and_discarded": "Static SBOMs and fragmented runtime logs are rejected as insufficient representations.",
+      "load_bearing_assumptions": "The graph construction faithfully captures the semantics needed for security adjudication.",
+      "relevance": "high",
+      "relevance_reason": "It crowds a generic audit-graph contribution but provides the representation substrate for longitudinal mutation analysis or graph-level metamorphic testing."
+    }
+  ]
+}

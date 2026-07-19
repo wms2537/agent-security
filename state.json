@@ -288,7 +288,7 @@
       "phase": "1",
       "desc": "Build a July-2026 primary-source literature map of agent harness, loop, and graph orchestration engineering and recent defensive jailbreak/agent-attack research; verify the exact identity of the user-mentioned Fable 5 term; derive candidate directions without running attacks or taking Kaggle/held-out action",
       "status": "in_progress",
-      "evidence": null,
+      "evidence": "Phase-1 checkpoint in research-log/053 and decision archaeology in research-log/054. The ledger contains 36 high-relevance primary-source entries and 67 search records across three source files; a final random sample of two papers per source was verified against primary pages. Fable 5 is Anthropic's Claude Fable 5 model, not an identified attack; the official July-2026 incident and CJS framework are separated from a lower-evidence single-author red-team white paper. The 149-page official manuscript for Towards Long-Horizon Agents was inspected and used to connect harness, loop, and graph engineering. Twenty-five sources form the core synthesis and eleven high-relevance sources are explicitly dismissed from the core. Three directions are scored; Orchestration Metamorphic Security Testing is recommended. T033 remains open pending the user's Phase-1 selection. No attack execution, attack-prompt retention, Kaggle, held-out, beacon, live, or private action occurred.",
       "parent": "T032"
     }
   ],
@@ -608,6 +608,16 @@
       "path": "Internal technical report/no submission. User advance authorization quoted: 'then go on with next phases up until phase 6 then, define a goal', followed by 'continue working'; goal expressly requests a Phase-6 paper/report under no-Kaggle/no-heldout boundaries.",
       "locked_test_exception": "NOT RUN and not represented as passed. The empirical Path-C locked-test step conflicts with the user's explicit prohibition on held-out/beacon/freeze/target/evaluation actions; this remains a headline limitation.",
       "status": "PASS for transition to a local Phase-6 internal report with the explicit locked-test exception; not a venue/submission decision"
+    },
+    "1_cycle2": {
+      "literature_search": "COMPLETE — 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
+      "citation_integrity": "COMPLETE — a final shell-randomized sample of two papers per source was checked against primary pages for title/authors and at least one load-bearing claim; verification record is in research-log/053.",
+      "fable_resolution": "COMPLETE — Fable 5 is Anthropic's Claude Fable 5 model, not a demonstrated attack name; official incident/CJS claims and the independent red-team white paper are kept in separate evidence tiers.",
+      "long_horizon_survey": "COMPLETE — the 149-page official July-2026 manuscript was inspected as the harness/loop/graph bridge; its non-peer-reviewed preprint status is explicit.",
+      "synthesis": "COMPLETE — the map distinguishes prompt, harness, loop, and graph attack surfaces and identifies orchestration as both an optimizer and an attack surface.",
+      "decision_archaeology": "COMPLETE — AHE, LoopTrap, and MaMa are reconstructed in research-log/054 at introduction, method, setup, results, and discussion decision points.",
+      "candidate_directions": "COMPLETE — A) Orchestration Metamorphic Security Testing, B) Provenance-Decoupled Progress Firewall, and C) Invariant-Preserving Harness Evolution are scored; A is recommended.",
+      "user_approval": "PENDING — Phase 1 awaits the user's selection among A/B/C before hypothesis formation; no attack execution or Kaggle/held-out action is authorized."
     }
   }
 }
