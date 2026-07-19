@@ -224,7 +224,7 @@
       "phase": "4",
       "desc": "Sterile review of the unexecuted T019 exact coefficient recovery, five one-at-a-time transforms, scorer parity, evidence tables, and bundle bindings",
       "status": "in_progress",
-      "evidence": "Target is the committed 715-line ablation runner and 150-line toy suite described in research-log/033. Reviewer must not execute primary data; T019 remains blocked until SOUND.",
+      "evidence": "Immutable review target aefbe20 contains the 715-line ablation runner and 150-line toy suite described in research-log/033. Sterile reviewer may inspect source/run toy tests only and must not execute primary data; T019 remains blocked until SOUND.",
       "parent": "T019"
     }
   ],
