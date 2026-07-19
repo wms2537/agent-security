@@ -143,8 +143,8 @@
       "id": "T015",
       "phase": "4",
       "desc": "Implement but do not run the ORF per-profile core wrapper as a single action-scope change from the baseline",
-      "status": "in_progress",
-      "evidence": "research-log/025 fixes implementation-only scope: read committed 960-row tables, recompute G, replace only with row-wise maxima A, add frozen homogeneous controls, use portable exact code and word-only metric names; primary/core execution explicitly forbidden until T016 passes.",
+      "status": "done",
+      "evidence": "Verification `compile(...)` returned `static_compile=PASS`; toy-only command returned `Ran 4 tests in 0.000s` and `OK`; `test ! -e` confirmed no run log/core summary/primary/homogeneous outputs. Code derives repo root portably, validates full table schema/sequences, binds committed table SHA 331e8b5..., computes only the global-to-per-profile action-scope replacement plus exact homogeneous controls, and emits word-only metrics. Core data remain unexecuted pending T016.",
       "parent": "T014"
     },
     {

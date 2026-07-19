@@ -61,3 +61,4 @@
 2026-07-19 | P4 | T014 orf-p4-baseline | preregistered | N=3 exact global comparator, predicted mean G=8.5m [7.5m,9.5m], m16 fraction=1, reference match=1; core aggregate forbidden; no held-out/Kaggle action
 2026-07-19 | P4 | T014 orf-p4-baseline | done_keep | exact mean G=8,602,550.6667 within prediction, masters 8,403,762/8,824,632/8,579,258 all m16, 6720/6720 scorer matches, immutable diff empty; digit-name grep defect recorded without rerun; no held-out/Kaggle action
 2026-07-19 | P4 | T015 ORF core implementation | in_progress | implementation-only dispatch will read committed baseline tables and change only global to per-profile argmax; toy tests allowed, primary/core execution forbidden before sterile review
+2026-07-19 | P4 | T015 ORF core implementation | done_unexecuted | static compile PASS, 4 toy tests OK, committed table hash bound after deterministic inspection, no run.log/core outputs and no primary aggregation; ready for sterile code review
