@@ -38,9 +38,9 @@
     {
       "id": "T002",
       "phase": "4",
-      "desc": "Tune exfil templates for gpt-oss harmony format + gemma terse format once real LB feedback is available",
+      "desc": "Read the v2 kernel-v4 run log ([attack] selected/raw-s/unit/returned per model) to learn the REAL per-model winning template, latency, and candidate count; then trim the bank to proven winners and attack latency to raise N",
       "status": "open",
-      "evidence": null,
+      "evidence": "v2 rebuild scored 69.570 (was 36.705); real per-model selection now observable in the kernel log",
       "parent": null
     },
     {
@@ -88,9 +88,9 @@
   ],
   "best_state": {
     "run_id": "v2-rebuild-single-post-verified-fill",
-    "metric_note": "Local mock scores are mechanics-only (scale with the max_candidates cap) and are NOT LB predictions. Real target: public meta band ~84-103 (LB mean of 4 cells).",
-    "real_lb": 36,
-    "real_lb_note": "v1 (ref 54799835), multi-post + dead reserves; superseded by v2.",
+    "real_lb": 69.570,
+    "real_lb_note": "v2 (kernel v4, submitted 2026-07-18 12:49) = 69.570 public, +89% over v1's 36.705. Mid-pack; top ~103.67. Confirms the 4-cause root-cause fix. Mock scores remain mechanics-only, not LB predictions.",
+    "prior_lb": 36.705,
     "commit": "pending"
   },
   "gates": {

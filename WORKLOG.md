@@ -79,10 +79,23 @@ gemma compliance, which is why the attack probes/selects online.
   benchmark uses open-weight targets because of HF's defender-asymmetry lesson; scale+persistence beats
   cleverness — mirrored by our budget-sized fill.
 
-## 7. Submission
+## 7. Submission & real leaderboard
 `submission/kaggle_notebook.ipynb` (generated from `attack.py` by `submission/build_notebook.py`).
 Pushed as private kernel `whymelabs/ai-agent-security-attack` (GPU on, internet off, competition attached).
 Flow: push → commit run (fast) → `kaggle competitions submit` → real rerun scores 4 cells over hours.
+
+**Real LB results:**
+- **v1** (multi-post-8 EXFIL + 22% CONFUSED_DEPUTY reserve + hedges): **36.705** — bottom of board.
+- **v2** (single-post EXFIL, per-model raw/s selection, verified-firing fill, void-safe 0.90):
+  **69.570** — **+89%**, mid-pack (top ≈ 103.67). See `research-log/002` (root cause) + `003` (result).
+
+Root cause of v1's low score (from gateway+scorer source, not the memo): the LB is the **mean of
+4 independently-capped cells**, so the mock's 198.6 (one fully-compliant cell) was never the score;
+**N is latency-bound** (per-cell 9000 s replay at hops=8) so multi-post is dominated by single-post;
+~28% of budget went to predicate families that fire ≈0 on the real models and are unneeded (exfil
+already reaches the private cells via the user-originated payload); and gemma needs a bare-JSON tool
+call, not gpt-oss harmony tokens. v2 fixes all four. Next (T002): read the v2 kernel log for the real
+per-model winning template + latency and push N higher.
 
 ## 8. Reproduce / continue
 ```bash

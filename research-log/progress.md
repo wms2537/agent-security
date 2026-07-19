@@ -5,3 +5,4 @@
 2026-07-18 | P4 | SUBMITTED v3 (ref 54799835) | done | real rerun queued; awaiting 4-cell leaderboard scores
 2026-07-18 | P4 | ROOTCAUSE LB=36: 4-cell mean (not 1 cell), multi-post backwards (latency-bound N), 28pct dead budget, gemma≠gpt-oss | done
 2026-07-18 | P4 | REBUILD v2: single-post exfil, per-model raw/s selection, verified fill, void-safe 0.90, gemma JSON template | done | mock selection+fill+sizing validated
+2026-07-18 | P4 | REAL LB v2 = 69.570 (was 36.705, +89%) | done | root-cause fix confirmed; mid-pack, top ~103.67; next=read v2 kernel log for real per-model selection (T002)
