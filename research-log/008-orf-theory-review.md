@@ -633,3 +633,22 @@ contract hash are verified. The v3 hypothesis and `orf-heldout-v1` contract rema
 immutable; the held-out seed was never instantiated. Phase 2 stays closed while a
 new superseding, commit-reveal design is prepared under the remaining authorized
 review budget.
+
+## Beacon-held-out round 6 dispatch
+
+The superseding entry
+`research-log/011-hypothesis-iter-4-v4-beacon-heldout.md` and machine contract
+`experiments/configs/orf-heldout-v2.json` were committed at `7bd49e5` before
+dispatch. Deterministic verification found 573 hypothesis lines, 180 contract
+lines, contract SHA-256
+`5bcdc78af0e406ddf52f6f3cc70ef2bfb497fa3d811b8b5df5f795e6019401ac`, 40
+equal-weight strata, 320 specified but uninstantiated primary profiles, 3,003
+enumerated mixture controls, a unique `m=1` homogeneous optimum at both support
+endpoints, valid JSON, and matching source hashes.
+
+The sterile theory-review prompt contains the artifact path, empirical/systems
+claim type, predictive question type, and the seven round-5 blockers in the
+template's previous-review slot. No project learnings or assurances are included.
+Dispatch consumes round 6/10. No NIST target pulse has been selected, no opening
+ledger or profile exists, and no implementation, experiment, external submission,
+or Kaggle action has occurred.

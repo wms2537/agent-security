@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 10,
-      "spent": 5
+      "spent": 6
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "Superseding ORF-B v4 and immutable machine contract are ready for review. Deterministic verification command `comp/.venv/bin/python -m json.tool experiments/configs/orf-heldout-v2.json` passed; independent formula check printed `PASS strata=40 profiles=320 mixtures=3003; negative m=1 unique at b endpoints for static and identical-probe fill`; all five source hashes matched. No beacon target, master digest, profile, implementation, or experiment was created. Budget remains 5/10 until dispatch; Phase 2 is closed and Kaggle actions are prohibited.",
+      "evidence": "Theory review round 6 was charged and dispatched against committed 573-line ORF-B v4 plus 180-line contract SHA-256 5bcdc78af0e406ddf52f6f3cc70ef2bfb497fa3d811b8b5df5f795e6019401ac. The sterile prompt contains only the theory-review template, artifact path, claim/question types, and the seven round-5 blockers. Budget is 6/10; Phase 2 remains closed. No beacon target, digest, profile, implementation, experiment, or Kaggle action exists.",
       "parent": "T008"
     }
   ],
