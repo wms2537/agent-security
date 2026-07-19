@@ -95,8 +95,8 @@
       "id": "T009",
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
-      "status": "in_progress",
-      "evidence": "Final theory review round 10 charged and dispatched against immutable commit 0cdc8bb: 433-line v8, 180-line contract SHA 2be4b2809b31b26911c8070bfd2769ef70f3a17c553c7e920da75a67b537ec09, 148-line schema SHA ac0b791f086aae0715b79c4dbfaff05ded7c35725b49d3e47e5ec7eed4e2dc3c. Sterile prompt contains only the template and three round-9 blockers. Review budget 10/10; no implementation/freeze/target/profile/Kaggle action.",
+      "status": "failed",
+      "evidence": "Final round 10 returned NEEDS_REVISION after verifying 433/180/148 lines, hashes, JSON/metaschema, and absent evaluator/run dir. Core regret algebra, homogeneous proof, seed-domain assumption/conditional interval, taxonomy, anti-stacking, complete-only errors, local staged outcome/ledger recovery all accepted or improved. Remaining blockers: actual SDK cell_signature is 16 hex and core/cells.py is unhashed while contract requires 64-hex candidate ID; mixture t/count/eligibility/cycle reset undefined; external thread post lacks idempotent crash reconciliation; claimed sample fixtures were not preserved. Full verdict verbatim in research-log/008-orf-theory-review.md. Budget exhausted 10/10; no heldout/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -191,7 +191,7 @@
       "lesson": "Machine-readable protocol prose is still underdetermined unless each state transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one value.",
       "apply_when": "A Phase-2 hypothesis claims a held-out protocol is executable from a JSON contract.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 4
+      "recurrences": 5
     },
     {
       "lesson": "Pinning a language/runtime version does not pin transcendental math; discontinuous floor decisions need a specific libm/container, correctly rounded functions, or a certified distance from integer boundaries.",
@@ -208,6 +208,18 @@
     {
       "lesson": "A deterministic calibration ensemble supports a future randomness-derived target only under an explicit seed-domain exchangeability or cryptographic pseudorandomness assumption; unpredictability alone is insufficient.",
       "apply_when": "A Phase-2 prediction uses fixed hash-derived calibration masters to support a future public-randomness master.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "A novelty-score invariant must use the actual SDK cell-signature representation and hash the file that implements it; a separately defined candidate ID cannot be substituted for a trace-derived score-cell hash.",
+      "apply_when": "A Phase-2/3 synthetic evaluator derives a score uniqueness bonus from SDK trace or cell-signature behavior.",
+      "source": "research-log/008-orf-theory-review.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "An externally posted terminal message needs a durable pre-post idempotency key plus read-before-repost and duplicate policy; local atomic files do not close a crash between external post and receipt recording.",
+      "apply_when": "A held-out custody protocol claims crash recovery across an external thread or service post.",
       "source": "research-log/008-orf-theory-review.md",
       "recurrences": 1
     }
@@ -282,7 +294,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "Only after RIGOROUS review and later implementation/tests/predictions may one future freeze begin; POSIX transaction preflight, pre-GET markers, atomic outcome/resolved-ledger sidecar, same-thread terminal hashes, and no Kaggle action are mandatory.",
-      "status": "locked-review-round-10-never-frozen"
+      "status": "reviewed-needs-revision-budget-exhausted-never-frozen"
     }
   },
   "gates": {

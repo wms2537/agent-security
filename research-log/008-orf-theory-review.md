@@ -1414,3 +1414,164 @@ and an absent held-out directory. The sterile final re-review contains only the
 three round-9 blockers in the template's previous-review slot. Dispatch consumes
 round 10/10. No held-out implementation, freeze, target, profile, evaluation,
 submission, or Kaggle action exists.
+
+## Crash-atomic conditional-regret round 10 returned verdict
+
+The reviewer returned the following report verbatim:
+
+**Status: DONE**
+
+## Blind assessment
+
+The reviewed entry has **433 lines**, matching the committed file. The two named machine artifacts have the declared 180/148 line counts and SHA-256 hashes, parse successfully, and the schema passes the Draft 2020-12 metaschema check. The evaluator and held-out run directory are absent as claimed.
+
+### Previous-review disposition
+
+1. **IMPROVED.** Local authoritative-file and ledger publication is now crash-recoverable under the stated POSIX model: staged no-replace publication prevents truncated finals; immutable `RESOLVED_RESULTS.tsv` resolves the prediction before mutable mirrors; before/after hashes make replacements idempotent; and `COMPLETED` staging is recoverable. End-to-end terminal publication is still not crash-atomic: a crash after posting the external thread message but before `TERMINAL_PUBLICATION.json` leaves no defined duplicate-safe reconciliation path (`017...md:329-339`; config lines 105-106; schema lines 138-141).
+2. **IMPROVED.** Complete-only TSV semantics resolve policy-error zero-substitution, and lines 197-206 now determine resource charging, zero-yield continuation, generation/replay/candidate stops, and immediate saturation termination. However, the schedule producing the “next scheduled `m`” is no longer single-valued: config line 55 leaves `available`, the initial values/ranges of `t` and `count_m`, and cycle reset/repetition undefined.
+3. **RESOLVED.** Lines 111-135 explicitly make the calibration-to-target bridge conditional on a random-oracle/seed-domain assumption, correctly deny that forward unpredictability is sufficient, and downgrade the 64 masters to deterministic coverage if the assumption is rejected. The Clopper-Pearson calculation is correct conditional on iid Bernoulli masters.
+
+### Justification correctness
+
+The load-bearing regret derivation is valid. Let \(m_g\) maximize \(\sum_z S_z(m)\). For every profile,
+\[
+\max_m S_z(m)\ge S_z(m_g),
+\]
+so summing yields
+\[
+A-G=\sum_z\{\max_m S_z(m)-S_z(m_g)\}\ge0.
+\]
+With \(G>0\), \((A-G)/G\ge0.05\) is exactly equivalent to \(100(A-G)\ge5G\). This is a structural identity; it supplies no lower bound on empirical magnitude. The entry states that distinction correctly.
+
+The score step is conditionally correct but its machine realization is defective. If a retained finding truly has exactly \(e\) severity-5 predicates and exactly one novelty cell not shared with another retained finding, its raw increment is \(16e+2\). But why is the SDK score-cell hash taken to equal a separately defined 64-hex candidate ID? The actual frozen SDK `cell_signature` returns the first 16 hex characters of SHA-256 (`comp/sdk/aicomp_sdk/core/cells.py:25`); a direct check produced a 16-character hash and raw score 18. Contract lines 75-80 instead require `score_cell_hash=candidate_id`, where the latter is a full 64-hex SHA-256. This can only be satisfied by injecting the candidate ID into a fabricated finding mapping, not by the claimed trace-derived SDK hash path. Moreover, `core/cells.py`, which controls novelty identity, is absent from the explicit five-file source-hash set. Thus a valid ledger cannot simultaneously obey the stated trace-derived SDK semantics and the TSV invariant.
+
+The homogeneous negative proof is sound once the scoring premise is repaired:
+
+- Probe lengths sum to \(87\), so probe generation/replay cost is \(87b\).
+- Probe raw is \(16(87)+2(7)=1406\).
+- Remaining replay in cost-\(b\) units is \(T=8100/b-87\), lying within \([588,1533]\) for \(b\in[5,12]\).
+- Candidate capacity 1993, generation, and saturation are looser than replay.
+- For \(m\ge2\),
+  \[
+  \lfloor T/m\rfloor(16m+2)\le17T<18(T-1)\le18\lfloor T\rfloor,
+  \]
+  because \(T>18\).
+- Hence \(m=1\) uniquely maximizes each profile, making adaptive and independently optimized global aggregates identical.
+
+This is an implementation invariant, not an independent test of the primary magnitude; the entry correctly says so. Many shared score, generator, or resource bugs could pass it.
+
+The conditional 64/64 interval is also correct: with all successes, the exact one-sided 95% lower bound solves \(p^{64}=0.05\), giving \(p=0.05^{1/64}=0.9542702976\ldots\). It remains conditional on iid-equivalent masters, independent calibration-label selection, and absence of undisclosed prefix/parameter search. A public deterministic label scheme cannot itself establish those selection conditions.
+
+### Mathematical depth and validity domains
+
+The important abstractions are mostly bound:
+
+- \(z\): one keyed synthetic cost/event profile.
+- \(m\): one of seven legal candidate lengths.
+- \(S_z(m)\): capped raw score after common probes and a single-length fill.
+- \(A\): 320 independent profile-wise argmax choices.
+- \(G\): one common length selected for all 320 profiles.
+- \(T,O,M\): secondary static, per-profile static-oracle, and mixture aggregates.
+- \(P/U\): probe-generation share under adaptive execution.
+
+The identities are not decorative. The principal validity domain is nevertheless extremely narrow: a deterministic synthetic table with per-profile independent resource budgets, oracle access to every action value, and no learning problem. Confirmation says nothing about population prevalence, live latency, private transfer, or deployable policy selection.
+
+The unexplained notation is concentrated in the mixture scheduler. “Available,” `t`, and `count_m` are floating symbols. An implementer cannot determine whether counts are cycle-local or cumulative, what candidates are eligible, or when the eight-slot cycle resets. This violates the stated requirement that dense notation be executable.
+
+### Logical soundness
+
+Most primary-claim steps follow. The hidden or non-executable branches are:
+
+1. **SDK hash contradiction:** `017...md:139-149, 229-231` and config lines 49-50, 75-80.
+2. **Undefined mixture schedule:** `017...md:194-209` and config line 55. Different legitimate interpretations can produce different `M`, candidate ledgers, and mixture selection.
+3. **External publication recovery gap:** there is no durable pre-post marker, external idempotency key, thread lookup rule, or duplicate policy for a crash between thread posting and local publication recording.
+4. **Unverified pre-review samples:** lines 419-421 claim root-sample validation, but no sample paths or hashes are named. I verified the metaschema, not that unpreserved sample claim.
+
+The prediction verbs stay within the project’s predictive type. The text does not claim causality, learnability, or population transfer.
+
+### Assumption completeness
+
+Load-bearing assumptions and consequences of violation are:
+
+- **Exact score construction and novelty uniqueness.** Violation invalidates \(q=16e+2\) and every score/regret.
+- **Stationary deterministic probe/fill/replay behavior.** Violation makes probe-derived continuation and replay accounting invalid.
+- **Additive, independent per-profile resources with no cache, concurrency, shared overhead, or deadline tails.** Violation destroys the finite per-profile score-table interpretation.
+- **Fully observed values for all seven actions.** Violation changes the estimand from oracle information value to a learning/estimation problem.
+- **Frozen Decimal/libmpdec/PRNG behavior and certified floors.** Violation can change costs, events, capacities, and argmaxes.
+- **Positive denominators and complete paired rows.** Violation makes ratios or comparisons undefined.
+- **Random-oracle-equivalent independent masters and independently selected calibration labels.** Violation removes the probabilistic calibration-to-target inference.
+- **Fresh, valid beacon output and honest git/thread custody.** Violation removes held-out status or reporting assurance.
+- **The stated POSIX primitives and exclusive mutation lock.** Violation removes local crash-atomic guarantees.
+- **No concealed calibration, prefix search, or scientific retry.** Violation invalidates the inferential and selective-reporting claims.
+
+The entry states most, but not the independence of calibration-label/prefix selection as explicitly as it states seed exchangeability.
+
+### Threats to validity
+
+- **Selection:** The future target is hidden, but factor ranges, cliff prevalence, threshold, and support are engineered. Deterministic calibration labels were computable in advance, so the conditional interval additionally relies on honest absence of label-prefix search.
+- **Confounding:** Pairing isolates action-scope relaxation on the finite table. The magnitude is nevertheless inseparable from engineered heterogeneity, the 80% cliff-cell composition, novelty bonus, integer floors, and saturation. These are alternative mechanisms, not population evidence.
+- **Assignment:** Both policies evaluate the same keyed profiles, so execution-order assignment is removed for this deterministic estimand. This is not randomized causal assignment and would fail under shared/live resource interference.
+- **Protocol deviation:** Pre-GET markers, hashes, no scientific retry, and local atomic recovery are strong. The undefined mixture scheduler, score/hash inconsistency, absent evaluator, and external-post recovery gap remain.
+- **Missing data:** Only complete ledgers enter valid metrics; partial runs resolve as invalid. This is sound provided invalid outcomes cannot be silently abandoned and replaced by a new hypothesis.
+- **Measurement:** Exact arithmetic is strong, but the trace/hash contract does not match the frozen SDK path and omits the direct novelty-hash implementation from explicit source hashes. This is the principal blocker.
+- **Analysis flexibility:** One primary contrast and threshold are frozen; secondary analyses do not decide the claim. Broad invalidation cannot become an informal retry without violating the protocol.
+- **Selective reporting:** Public pre-target commitment and terminal hashes make suppression detectable under honest monitoring, but do not prevent concealment. The entry accurately limits the claim; external post recovery is still underspecified.
+
+### Taxonomy verification
+
+- **Opportunity:** Evidence Gap is appropriate: the contribution estimates a missing finite-table magnitude. Resource Bottleneck is genuinely secondary.
+- **Method:** Empirical Mapping is defensible because the main contribution is the held-out magnitude map, although exhaustive Optimization/Search performs the computation.
+- **Operation:** “replace” is accurate: one split-global optimizer is replaced by profile-conditioned optimizers.
+- **Bridge × Synthesis tripwire:** Not triggered. There is no cross-domain bridge or unification claim.
+
+### Anti-stacking check
+
+The heterogeneous-positive/homogeneous-zero pair is a genuine distinguishing prediction about action-scope conditioning. A plain portfolio or component union does not imply that pair. However, the negative half is guaranteed by the deliberately homogeneous construction, so it is primarily a code invariant, not corroborating scientific evidence.
+
+### Occam’s Razor check
+
+A simpler hypothesis predicts the same result: “On an engineered heterogeneous table, 320 profile-wise maxima will materially exceed one common maximum; on a homogeneous table they will coincide.” Beacon custody, schemas, and transactions do not explain the mechanism. The entry acknowledges that they are infrastructure, which prevents scope inflation, but confirmation still would not distinguish cliffs, cost bands, saturation, integer floors, novelty, or generic action-class flexibility as the source of the 5% magnitude.
+
+### Alternative explanations
+
+A confirmed result could arise from:
+
+- generic flexibility of 320 choices versus one;
+- deliberate cliff oversampling;
+- separation of cost bands;
+- integer floor discontinuities;
+- score saturation;
+- the per-candidate novelty bonus;
+- CPython PRNG or libmpdec-specific discretization;
+- calibration-label/prefix selection;
+- a synthetic score-cell override rather than actual SDK trace identity.
+
+### Overall: NEEDS_REVISION
+
+The core finite-regret hypothesis is salvageable and its principal algebra and negative proof are correct. It does not pass because the current machine contract is not executable without interpretation and its score-cell invariant conflicts with the claimed SDK-derived measurement path.
+
+Required fixes, ordered by severity:
+
+1. **Repair score/hash semantics** at `017...md:139-149, 229-231` and config lines 49-50, 75-80. Either use the actual SDK `cell_signature` value, store candidate ID separately, assert cross-finding uniqueness, and hash `core/cells.py`; or explicitly redefine the measurement as a synthetic injected novelty key and remove claims that the hash is trace-derived SDK behavior.
+2. **Restore a complete mixture scheduler** at `017...md:194-209` and config line 55: define `t`’s origin/range, initialize counts, define eligibility, specify cycle reset/repetition, and state whether counts advance only after emitted attempts or also after precheck stops.
+3. **Define crash reconciliation for terminal thread publication** at `017...md:335-339` and schema lines 138-141, or explicitly scope the external post outside crash-atomic custody. A deterministic idempotency key plus read-before-repost rule would suffice if the thread interface supports it.
+4. **Preserve the claimed pre-review evidence** from lines 419-421 as named, hashed fixtures or remove the unverifiable sample-validation statement.
+
+## Actionable coaching
+
+- Put the entire scientific estimand in one small reference function returning the seven \(S_z(m)\) values, \(A\), \(G\), and the decision. Test every other serializer and policy implementation against it.
+- For score validation, construct one real canonical SDK trace, recompute predicates and `cell_signature`, and show the resulting finding object. A golden test should prove score 0 for no finding and \(16e+2\) for one unique retained finding without overriding the SDK hash.
+- Restore the earlier explicit eight-slot mixture definition if that remains intended: `t=0..7`, cycle-local counts initialized to zero, eligibility `count_m<h_m`, then repeat the frozen eight-action cycle.
+- State the calibration assumption as a three-part conditional: random-oracle output independence, target/calibration input distinction, and calibration-label selection independent of unreported outcomes. “Random oracle” is cleaner than calling fixed public SHA-256 a PRF.
+- Separate the two inferential layers in the final presentation: structural facts (\(\Delta\ge0\), negative equality) versus empirical magnitudes (5%, calibration frequencies). This will prevent the exact algebra from lending unjustified authority to the magnitude prediction.
+- Move most custody machinery to a protocol appendix. Keeping the scientific core adjacent—generator, score table, regret, negative proof, assumptions—would make it easier to see what is mechanism and what is infrastructure.
+
+## Round 10 gate decision and budget exhaustion
+
+The adverse `NEEDS_REVISION` verdict stands. The reported 433 hypothesis lines,
+180 contract lines, 148 schema lines, hashes, JSON/metaschema validity, and absent
+evaluator/held-out directory were verified against commit `0cdc8bb`. The final
+authorized hypothesis-review budget is exhausted at 10/10. V8 remains immutable;
+Phase 2 stays closed, and no further revision, review dispatch, implementation,
+freeze, target, profile, evaluation, submission, or Kaggle action is permitted
+without new user direction.
