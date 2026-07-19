@@ -103,8 +103,8 @@
       "id": "T010",
       "phase": "2",
       "desc": "Write and deterministically verify a superseding ORF hypothesis specification that closes the four round-10 blockers without a new review dispatch or held-out/Kaggle action",
-      "status": "in_progress",
-      "evidence": "User direction: 'ok, then lets fix these blockers properly. Remmebr to do the right thing not the easy thing'. Scope interpretation: Phase-2 artifact revision and local deterministic/execution verification are authorized; hypothesis-review budget remains exhausted at 10/10, and no held-out target, beacon, evaluator, profile, submission, or Kaggle action is authorized.",
+      "status": "done",
+      "evidence": "User direction: 'ok, then lets fix these blockers properly. Remmebr to do the right thing not the easy thing'. Commit 74d1836 adds immutable 500-line v9, 214-line v7 contract, 159-line schema, 230-line public checker, and 146-line hashed fixture. Verification command `comp/.venv/bin/python -I experiments/poc/orf_v7_contract_reference.py --contract experiments/configs/orf-heldout-v7.json --schema experiments/configs/orf-heldout-v7-artifacts.schema.json --fixtures experiments/fixtures/orf-heldout-v7-golden-fixtures.json` returned `sdk_golden_cases=2`, `mixture_compositions=3003 cycles_exact=3003`, `terminal_artifact_samples=3 schema_valid=true`, `source_hashes=6 valid=true`, `protocol_errors=24 validators=18 aligned=true`, and `heldout_run_absent=true`. Artifact hashes are bound into v9. Review budget remains 10/10, scientific gate is unreviewed/closed, and no beacon/target/evaluator/profile/Kaggle action occurred.",
       "parent": "T009"
     }
   ],
@@ -303,6 +303,25 @@
       "opened_at": null,
       "rule": "Only after RIGOROUS review and later implementation/tests/predictions may one future freeze begin; POSIX transaction preflight, pre-GET markers, atomic outcome/resolved-ledger sidecar, same-thread terminal hashes, and no Kaggle action are mandatory.",
       "status": "reviewed-needs-revision-budget-exhausted-never-frozen"
+    },
+    "orf-heldout-v7": {
+      "hypothesis": "research-log/018-hypothesis-iter-4-v9-conditional-regret.md",
+      "contract": "experiments/configs/orf-heldout-v7.json",
+      "contract_sha256": "d53b5920d178ddee622bcb53283652006a0e4089a539d9c21e424ee7b67d5235",
+      "artifact_schema": "experiments/configs/orf-heldout-v7-artifacts.schema.json",
+      "artifact_schema_sha256": "64d7ac6d775d92a6edcc22fc7925996aadd69c66c37aed339a9e45dcd4e3c321",
+      "reference_checker": "experiments/poc/orf_v7_contract_reference.py",
+      "reference_checker_sha256": "c707b5f9037420c88e737441182821940399e43c85439a986fd380f6051620ca",
+      "golden_fixtures": "experiments/fixtures/orf-heldout-v7-golden-fixtures.json",
+      "golden_fixtures_sha256": "fbc56f425786a670dee770509b3cf0380b48d292c6a1b72ebfe582725801b167",
+      "seed": null,
+      "beacon_target_unix_ms": null,
+      "beacon_revealed": false,
+      "freeze_created": false,
+      "user_acknowledged": false,
+      "opened_at": null,
+      "rule": "No freeze is permitted unless a separately authorized independent review returns RIGOROUS, a later source-hashed held-out evaluator and predictions are authorized/committed, both POSIX and authenticated idempotent-thread preflights pass, and the user explicitly authorizes the irreversible freeze chain. No Kaggle action is authorized.",
+      "status": "specification-verified-unreviewed-review-budget-exhausted-never-frozen"
     }
   },
   "gates": {
