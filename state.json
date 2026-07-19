@@ -231,8 +231,8 @@
       "id": "T026",
       "phase": "4",
       "desc": "Focused sterile review of the unexecuted T020 disjoint-label generation, balanced 4:1 weighting, reviewed evaluator replication, evidence tables, and bundle bindings",
-      "status": "in_progress",
-      "evidence": "Immutable target 4063a34 contains the committed 404-line runner and 84-line toy suite in research-log/036; fixed generalization masters must remain ungenerated and the final attempt absent until SOUND.",
+      "status": "done",
+      "evidence": "research-log/037 records focused SOUND with no findings. Reviewer confirmed predictions-before-code, exact bindings/command/attempt/transaction ordering, three disjoint SHA labels, immutable 320-profile generator, legal 64/256 cliff split, H=1e18, balanced 256+256 replication, reviewed evaluator fairness, 960-row/3-master audit evidence, exact aggregates/provenance and toy-only nature of fixture corrections. Attempt absent at closure.",
       "parent": "T020"
     }
   ],
