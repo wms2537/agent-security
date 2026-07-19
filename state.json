@@ -23,7 +23,7 @@
     },
     "paper_review_rounds": {
       "limit": 2,
-      "spent": 1
+      "spent": 2
     }
   },
   "tasks": [
@@ -272,7 +272,7 @@
       "phase": "6",
       "desc": "Write, review, and verify the source-backed Phase-6 ORF report at the evidence strength authorized by the Phase-5 decision",
       "status": "in_progress",
-      "evidence": "Committed 629-line v1 draft at 08f300f and verbatim round-1 NEEDS_REVISION verdict in research-log/047; Medium paper-review budget remains 1/2. The 12 issues are routed at branch-of-origin in paper/revision-round1-blueprint.md. Revision 2 renames the executed evidence PS-PIR and downgrades it to an established perfect-information scorer worked example; foundational literature, deterministic action/stratum/raw-OAT diagnostics, and local reproducibility records are prepared in research-log/048. Section reconstruction is in progress; no Kaggle, held-out, beacon, live, private, submission, or external-release action.",
+      "evidence": "Committed 1184-line PS-PIR revision 2 at 057f854; deterministic verification in research-log/049 reports 0/75 near-identical prose paragraphs, all ten references field-verified/cited, complete 3-master/960-profile/40-stratum/raw-OAT diagnostics, byte-identical 42-row ledger, 75-file manifest, and 18 passing scorer/transformation tests. Round-1 issues are resolved or transparently downgraded except external archival reproducibility, which is improved and disclosed incomplete. Medium paper-review round 2 is charged at sterile dispatch; budget 2/2. No Kaggle, held-out, beacon, live, private, submission, or external-release action.",
       "parent": "T030"
     },
     {
