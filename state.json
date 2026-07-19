@@ -151,8 +151,8 @@
       "id": "T016",
       "phase": "4",
       "desc": "Sterile code-review gate on the committed baseline and unexecuted core code before any core result may be believed",
-      "status": "in_progress",
-      "evidence": "Rounds 1-2 found sequential provenance and symlink-alias blockers. T023/T024 are complete; immutable repair commit 06239e3 adds lexical direct-child, lexists/lstat, O_NOFOLLOW, no-replace, and five adversarial alias/race cases atop the 24 structural failure tests. Sterile code re-review round 3 is being dispatched against 06239e3. No core run or scientific output exists.",
+      "status": "done",
+      "evidence": "Sterile round-3 verdict SOUND in research-log/030 after reviewing 2,217 code lines and 1,536 evidence lines. Static 5/5, bundle 15/15, and core toys 4/4 pass; severity findings none. Stale/partial publication and symlink/lexical identity HIGHs are RESOLVED. Leakage, partitions/seeds, exact A/G/gain/threshold/ties/homogeneous metrics, no-training separation, exhaustive baseline fairness, and full runner/helper/config/support/table/log/output bindings pass. Core attempt remained absent at closure.",
       "parent": "T015"
     },
     {
@@ -473,7 +473,8 @@
     "4": {
       "baseline": "N=3 exact PROBE_GLOBAL scores 8403762, 8824632, 8579258; exact mean 25807652/3=8602550.666666666667 within preregistered interval; all select m=16; 6720/6720 independent score recomputations match.",
       "tuned_baseline_parity": "The baseline exhaustively argmaxes all seven legal global lengths; no trainable or unsearched baseline hyperparameter exists, so this same run completes exact tuning parity.",
-      "baseline_provenance": "First log line exact; 961/22/10 artifact lines; runtime 1.491515685s; immutable diff from preregistration commit a416a72 empty. Secondary digit-name extractor defect recorded without rerun."
+      "baseline_provenance": "First log line exact; 961/22/10 artifact lines; runtime 1.491515685s; immutable diff from preregistration commit a416a72 empty. Secondary digit-name extractor defect recorded without rerun.",
+      "code_review": "Sterile round-3 SOUND verdict in research-log/030; both prior HIGHs RESOLVED, no severity findings, 15/15 transactional/adversarial bundle tests and 4/4 arithmetic toys pass, and the public non-target core remained unexecuted at gate closure."
     }
   }
 }
