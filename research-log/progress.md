@@ -13,3 +13,4 @@
 2026-07-19 | P4 | SELECT T006 adaptive multi-message amortization | in_progress | predict fixed-overhead mock selects multi, zero-overhead mock falls back; live gate requires >1.10x raw/s and >=75% messages firing
 2026-07-19 | P4 | T006 adaptive multi-message amortization | done | negative routes single; fixed-overhead routes multi and exact raw=390; full-context failure falls back with exact raw=54; M24 smoke exact raw=19300
 2026-07-19 | P4 | USER CHECKPOINT T007 real Kaggle experiment | open | submission-ready notebook; approve push+submit to measure >=106 lead / >=125 strong / 82-89 fallback / <78 failure
+2026-07-19 | P2 | T008 proprietary-moat problem reframing | done | user redirected away from copied recipes; PROBLEM.md now anchors online system identification, constrained chain-length optimization, and a distinguishing-prediction moat

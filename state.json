@@ -8,9 +8,9 @@
   "output_format": "notebook+working-note",
   "idea_dna": {
     "problem": "Maximize the MEAN of 4 independently-normalized-and-capped leaderboard cells ({gpt_oss,gemma}x{public,private}) on the Kaggle AI-Agent-Security benchmark.",
-    "assumption": "Each cell's score is ~0.09*N where N = verified-firing single-post exfil candidates; N is LATENCY-BOUND (replay is per-cell 9000s at hops=8), not the 2000 cap. Exfil fires on all 4 cells because the payload originates in the trusted user message. So: fire reliably + fast + never void; predicate diversity only dilutes N.",
-    "assumption_source": "gateway+scorer source read directly; corroborated by LB arithmetic (all-public-only would be ~46, top is ~103) and pulled public notebooks (pilkwang/yusuketogashi).",
-    "novelty_claim": "Latency-minimized, per-model raw-per-second template selection with VERIFIED-firing fill and void-safe sizing; corrects the prior build's 4 root causes (single-cell mock, multi-post, dead predicate reserves, gpt-oss-only phrasing)."
+    "assumption": "The score-optimal candidate structure is a model-specific constrained frontier over chain length, fired events, latency, reliability, the 2000-candidate cap, and the 9000s replay cap. Fixed public recipes leave this live response curve unidentified even though run(env) exposes the target model during search.",
+    "assumption_source": "SDK/gateway/scorer source plus real v1/v2 leaderboard evidence and controlled latency-profile experiments; the real gpt-oss/Gemma frontier remains unknown until measured online.",
+    "novelty_claim": "Online Replay Frontier: identify the live model's score-latency-reliability curve over message-chain length and choose the conservative budget-optimal structure, replacing fixed-M public recipes rather than copying them."
   },
   "budgets": {
     "research_iterations": {
@@ -87,8 +87,8 @@
       "id": "T008",
       "phase": "2",
       "desc": "Replace the stale public-recipe/predicate-diversity framing with the user-directed proprietary-moat problem anchor",
-      "status": "in_progress",
-      "evidence": "User direction received 2026-07-19: 'we should develop our own moat instead of relying on others ya'",
+      "status": "done",
+      "evidence": "User direction: 'we should develop our own moat instead of relying on others ya'. Verification: `rg -n 'Our moat must|Question type|Durable moat' PROBLEM.md` -> lines 17,35,46 define online system identification, predictive systems optimization, and reject repackaging public constants.",
       "parent": null
     }
   ],
@@ -131,6 +131,9 @@
     },
     "1": {
       "literature": "SDK scoring/predicates/guardrail/runner read directly; public-notebook meta analyzed (subagent); recorded in research-log/001"
+    },
+    "0.moat_amendment": {
+      "problem_md": "User explicitly redirected the project on 2026-07-19: 'we should develop our own moat instead of relying on others ya'; PROBLEM.md now anchors online system identification and constrained optimization."
     }
   }
 }
