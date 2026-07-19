@@ -1403,3 +1403,14 @@ The adverse `NEEDS_REVISION` verdict stands. The reported 468 hypothesis lines,
 hashes, and CPython/libmpdec versions were independently verified against commit
 `93c6932`. V7 remains immutable. Phase 2 is closed; no held-out implementation,
 freeze, target, profile, evaluation, submission, or Kaggle action exists.
+
+## Crash-atomic conditional-regret round 10 dispatch
+
+V8 is committed at `0cdc8bb`: 433 hypothesis lines, 180 contract lines, and 148
+artifact-schema lines. Deterministic gates passed JSON parsing, Draft 2020-12
+metaschema/root samples, one rejected malformed outcome, 16 ordered validators,
+23 matching error keys, 3,003 mixtures, five source hashes, two calibration hashes,
+and an absent held-out directory. The sterile final re-review contains only the
+three round-9 blockers in the template's previous-review slot. Dispatch consumes
+round 10/10. No held-out implementation, freeze, target, profile, evaluation,
+submission, or Kaggle action exists.

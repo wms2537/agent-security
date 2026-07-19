@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 10,
-      "spent": 9
+      "spent": 10
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "V8 is ready for final review: `wc -l` returned 433 hypothesis, 180 contract, 148 schema; Draft 2020-12 and root samples for summary, valid/invalid outcomes, workspace transaction, completed and custody failure passed, malformed invalid outcome rejected. Contract audit: V01-V16 exact, 23 identical unique error keys, 3003 mixtures, five source and two calibration hashes, heldout_dir=absent. V8 adds staged hard-link no-replace publication, authoritative RESOLVED_RESULTS sidecar/idempotent mirror, separate custody-failure branch, complete-only TSVs, exact mixture stop pseudocode, and explicit conditional seed-domain assumption/interval. Budget 9/10; no implementation/target/Kaggle action.",
+      "evidence": "Final theory review round 10 charged and dispatched against immutable commit 0cdc8bb: 433-line v8, 180-line contract SHA 2be4b2809b31b26911c8070bfd2769ef70f3a17c553c7e920da75a67b537ec09, 148-line schema SHA ac0b791f086aae0715b79c4dbfaff05ded7c35725b49d3e47e5ec7eed4e2dc3c. Sterile prompt contains only the template and three round-9 blockers. Review budget 10/10; no implementation/freeze/target/profile/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -282,7 +282,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "Only after RIGOROUS review and later implementation/tests/predictions may one future freeze begin; POSIX transaction preflight, pre-GET markers, atomic outcome/resolved-ledger sidecar, same-thread terminal hashes, and no Kaggle action are mandatory.",
-      "status": "locked-pre-final-review-never-frozen"
+      "status": "locked-review-round-10-never-frozen"
     }
   },
   "gates": {

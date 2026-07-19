@@ -45,3 +45,4 @@
 2026-07-19 | P2 | T009 calibrated conditional-regret theory review round 9 | in_progress | sterile review of committed 468-line v7 + 227-line contract + 353-line schema; budget 9/10; no freeze/target/profile/Kaggle action
 2026-07-19 | P2 | T009 calibrated conditional-regret theory review round 9 | needs_revision | fetch/numeric/calibration/selective scope resolved; atomic terminal/ledger transaction, policy-error+mixture branches, seed-domain assumption remain; budget 9/10
 2026-07-19 | P2 | T009 crash-atomic conditional-regret stress-test v8 | ready_review | 433-line hypothesis, 180-line v6 contract, 148-line schema; root/negative samples, V01-V16, 23 errors, sources/calibration, absent heldout dir PASS; no target/Kaggle action
+2026-07-19 | P2 | T009 crash-atomic conditional-regret theory review round 10 | in_progress | sterile final review of committed 433-line v8 + 180-line contract + 148-line schema; budget 10/10; no freeze/target/profile/Kaggle action
