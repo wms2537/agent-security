@@ -151,8 +151,8 @@
       "id": "T016",
       "phase": "4",
       "desc": "Sterile code-review gate on the committed baseline and unexecuted core code before any core result may be believed",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Sterile code-review dispatch target is commit 9aa3d89: baseline runner plus unexecuted core runner/toy tests. Pre-dispatch deterministic checks: `git show HEAD:experiments/orf-p4-core/run_core.py | wc -l` -> 684; no core run.log or scientific outputs exist. Reviewer is asked only for evidence-validity audit against the frozen contracts.",
       "parent": "T015"
     },
     {
