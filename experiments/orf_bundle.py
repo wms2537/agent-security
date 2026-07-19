@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import uuid
 from pathlib import Path
 from typing import Callable, Iterable, Mapping, TextIO
@@ -52,7 +53,13 @@ def file_sha256(path: Path) -> str:
 
 
 def _fsync_directory(path: Path) -> None:
-    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+    required_flags = ("O_DIRECTORY", "O_NOFOLLOW")
+    if any(not hasattr(os, name) for name in required_flags):
+        raise BundleError("directory no-follow primitives are unavailable")
+    descriptor = os.open(
+        path,
+        os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+    )
     try:
         os.fsync(descriptor)
     finally:
@@ -94,14 +101,126 @@ def rename_noreplace(source: Path, destination: Path) -> None:
         raise OSError(error_number, os.strerror(error_number), destination)
 
 
-def _resolve_under(path: Path, parent: Path, *, must_exist: bool) -> Path:
-    resolved_parent = parent.resolve(strict=True)
-    resolved = path.resolve(strict=must_exist)
-    if resolved == resolved_parent or not resolved.is_relative_to(resolved_parent):
-        raise BundleError(f"attempt must be beneath allowed parent {resolved_parent}")
-    if resolved.parent != resolved_parent:
+def _lexical_direct_child(path: Path, resolved_parent: Path) -> Path:
+    """Return an absolute normalized child path without resolving the child.
+
+    ``resolved_parent`` is trusted only after the caller resolves it independently.
+    The child is deliberately normalized with string/path operations, never
+    ``Path.resolve()``, so a symlink at the child name cannot rewrite its identity.
+    """
+
+    parent = Path(resolved_parent)
+    if not parent.is_absolute():
+        raise BundleError("allowed parent must already be resolved and absolute")
+    lexical = Path(os.path.abspath(os.path.normpath(os.fspath(path))))
+    if lexical.parent != parent:
         raise BundleError("attempt directory must be a direct child of the allowed parent")
-    return resolved
+    return lexical
+
+
+def _require_absent_child(path: Path, resolved_parent: Path) -> Path:
+    lexical = _lexical_direct_child(path, resolved_parent)
+    if os.path.lexists(lexical):
+        # lstat inspects the named child itself; it never follows a live symlink.
+        os.lstat(lexical)
+        raise FileExistsError(f"attempt directory already exists: {lexical}")
+    return lexical
+
+
+def _require_existing_directory_child(
+    path: Path, resolved_parent: Path
+) -> tuple[Path, os.stat_result]:
+    lexical = _lexical_direct_child(path, resolved_parent)
+    if not os.path.lexists(lexical):
+        raise FileNotFoundError(f"attempt directory does not exist: {lexical}")
+    metadata = os.lstat(lexical)
+    if stat.S_ISLNK(metadata.st_mode):
+        raise BundleError(f"attempt path is a symlink: {lexical}")
+    if not stat.S_ISDIR(metadata.st_mode):
+        raise BundleError(f"attempt path is not a directory: {lexical}")
+    return lexical, metadata
+
+
+def _read_attempt_files(
+    attempt: Path, initial_metadata: os.stat_result
+) -> dict[str, bytes]:
+    """Read one nonsymlink directory through a stable, no-follow descriptor."""
+
+    required_flags = ("O_DIRECTORY", "O_NOFOLLOW")
+    if any(not hasattr(os, name) for name in required_flags):
+        raise BundleError("directory no-follow primitives are unavailable")
+    flags = (
+        os.O_RDONLY
+        | os.O_DIRECTORY
+        | os.O_NOFOLLOW
+        | getattr(os, "O_CLOEXEC", 0)
+    )
+    try:
+        directory_fd = os.open(attempt, flags)
+    except OSError as exc:
+        raise BundleError("attempt directory could not be opened without following") from exc
+    try:
+        opened_metadata = os.fstat(directory_fd)
+        initial_identity = (initial_metadata.st_dev, initial_metadata.st_ino)
+        opened_identity = (opened_metadata.st_dev, opened_metadata.st_ino)
+        if initial_identity != opened_identity or not stat.S_ISDIR(opened_metadata.st_mode):
+            raise BundleError("attempt directory changed during verification")
+        names = os.listdir(directory_fd)
+        if len(names) != len(set(names)):
+            raise BundleError("attempt directory returned duplicate entries")
+        values: dict[str, bytes] = {}
+        for name in names:
+            try:
+                file_fd = os.open(
+                    name,
+                    os.O_RDONLY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0),
+                    dir_fd=directory_fd,
+                )
+            except OSError as exc:
+                raise BundleError(f"bundle entry could not be opened safely: {name}") from exc
+            try:
+                file_metadata = os.fstat(file_fd)
+                if not stat.S_ISREG(file_metadata.st_mode):
+                    raise BundleError(f"bundle contains a non-regular entry: {name}")
+                chunks: list[bytes] = []
+                while True:
+                    chunk = os.read(file_fd, 1024 * 1024)
+                    if not chunk:
+                        break
+                    chunks.append(chunk)
+                final_file_metadata = os.fstat(file_fd)
+                identity_fields = (
+                    "st_dev",
+                    "st_ino",
+                    "st_size",
+                    "st_mtime_ns",
+                    "st_ctime_ns",
+                )
+                if any(
+                    getattr(file_metadata, field) != getattr(final_file_metadata, field)
+                    for field in identity_fields
+                ):
+                    raise BundleError(f"bundle entry changed while being read: {name}")
+                named_metadata = os.stat(name, dir_fd=directory_fd, follow_symlinks=False)
+                if stat.S_ISLNK(named_metadata.st_mode) or (
+                    named_metadata.st_dev,
+                    named_metadata.st_ino,
+                ) != (file_metadata.st_dev, file_metadata.st_ino):
+                    raise BundleError(f"bundle entry was replaced while being read: {name}")
+                values[name] = b"".join(chunks)
+            finally:
+                os.close(file_fd)
+        if set(os.listdir(directory_fd)) != set(names):
+            raise BundleError("attempt contents changed during verification")
+        final_metadata = os.lstat(attempt)
+        if stat.S_ISLNK(final_metadata.st_mode) or (
+            final_metadata.st_dev,
+            final_metadata.st_ino,
+        ) != opened_identity:
+            raise BundleError("attempt path changed during verification")
+        return values
+    finally:
+        os.close(directory_fd)
 
 
 def _relative_binding_path(repo_root: Path, raw_path: Path) -> tuple[str, Path]:
@@ -191,14 +310,14 @@ def verify_complete_bundle(
     parent = Path(allowed_parent).resolve(strict=True)
     if not parent.is_relative_to(root):
         raise BundleError("allowed parent must be inside the repository root")
-    attempt = _resolve_under(Path(attempt_dir), parent, must_exist=True)
-    expected_attempt = _resolve_under(
-        Path(expected_attempt_dir), parent, must_exist=True
+    attempt, attempt_metadata = _require_existing_directory_child(
+        Path(attempt_dir), parent
+    )
+    expected_attempt, _ = _require_existing_directory_child(
+        Path(expected_attempt_dir), parent
     )
     if attempt != expected_attempt:
         raise BundleError("bundle path is not the expected final attempt identity")
-    if attempt.is_symlink() or not attempt.is_dir():
-        raise BundleError("attempt path must be a nonsymlink directory")
     artifact_names = _validate_artifact_names(expected_artifacts)
     expected_binding_map = dict(sorted(expected_bindings.items()))
     if not expected_binding_map:
@@ -210,20 +329,16 @@ def verify_complete_bundle(
         if actual_relative != relative or file_sha256(resolved) != digest:
             raise BundleError(f"binding is stale or mismatched: {relative}")
 
-    discovered: set[str] = set()
-    for entry in attempt.iterdir():
-        if entry.is_symlink() or not entry.is_file():
-            raise BundleError(f"bundle contains a non-regular entry: {entry.name}")
-        discovered.add(entry.name)
+    bundle_files = _read_attempt_files(attempt, attempt_metadata)
+    discovered = set(bundle_files)
     expected_file_set = set(artifact_names) | {COMPLETE_NAME}
     if discovered != expected_file_set:
         raise BundleError("bundle file set has missing or extra entries")
 
-    complete_path = attempt / COMPLETE_NAME
     try:
-        complete_text = complete_path.read_text(encoding="utf-8")
+        complete_text = bundle_files[COMPLETE_NAME].decode("utf-8")
         manifest = json.loads(complete_text)
-    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+    except (KeyError, UnicodeError, json.JSONDecodeError) as exc:
         raise BundleError("COMPLETE.json is unreadable or malformed") from exc
     if complete_text != canonical_json(manifest):
         raise BundleError("COMPLETE.json is not in canonical form")
@@ -256,10 +371,12 @@ def verify_complete_bundle(
     if set(manifest_artifacts) != set(artifact_names):
         raise BundleError("COMPLETE.json artifact set mismatch")
     for name, digest in manifest_artifacts.items():
-        if file_sha256(attempt / name) != digest:
+        if hashlib.sha256(bundle_files[name]).hexdigest() != digest:
             raise BundleError(f"artifact hash mismatch: {name}")
-    with (attempt / "run.log").open(encoding="utf-8") as log_handle:
-        first_line = log_handle.readline().rstrip("\n")
+    try:
+        first_line = bundle_files["run.log"].decode("utf-8").split("\n", 1)[0]
+    except UnicodeError as exc:
+        raise BundleError("run.log is not valid UTF-8") from exc
     if first_line != expected_command:
         raise BundleError("run.log first line is not the canonical command")
     return manifest
@@ -283,11 +400,9 @@ class AttemptBundle:
         self.allowed_parent = Path(allowed_parent).resolve(strict=True)
         if not self.allowed_parent.is_relative_to(self.repo_root):
             raise BundleError("allowed parent must be inside the repository root")
-        self.attempt_dir = _resolve_under(
-            Path(attempt_dir), self.allowed_parent, must_exist=False
+        self.attempt_dir = _require_absent_child(
+            Path(attempt_dir), self.allowed_parent
         )
-        if self.attempt_dir.exists():
-            raise FileExistsError(f"attempt directory already exists: {self.attempt_dir}")
         if "\n" in canonical_command or "\r" in canonical_command or not canonical_command:
             raise BundleError("canonical command must be one nonempty line")
         self.canonical_command = canonical_command
@@ -307,10 +422,7 @@ class AttemptBundle:
 
     def __enter__(self) -> AttemptBundle:
         try:
-            if self.attempt_dir.exists():
-                raise FileExistsError(
-                    f"attempt directory already exists: {self.attempt_dir}"
-                )
+            _require_absent_child(self.attempt_dir, self.allowed_parent)
             self._hook("before:staging_create")
             staging_name = f".{self.attempt_dir.name}.staging-{uuid.uuid4().hex}"
             self.staging_dir = self.attempt_dir.parent / staging_name
@@ -457,9 +569,19 @@ class AttemptBundle:
             finally:
                 self._log.close()
         source: Path | None = None
-        if self._published and self.attempt_dir.exists():
+        if self._published and os.path.lexists(self.attempt_dir):
+            published_metadata = os.lstat(self.attempt_dir)
+            if stat.S_ISLNK(published_metadata.st_mode) or not stat.S_ISDIR(
+                published_metadata.st_mode
+            ):
+                raise BundleError("published attempt identity changed during abort")
             source = self.attempt_dir
-        elif self.staging_dir is not None and self.staging_dir.exists():
+        elif self.staging_dir is not None and os.path.lexists(self.staging_dir):
+            staging_metadata = os.lstat(self.staging_dir)
+            if stat.S_ISLNK(staging_metadata.st_mode) or not stat.S_ISDIR(
+                staging_metadata.st_mode
+            ):
+                raise BundleError("staging identity changed during abort")
             source = self.staging_dir
         if source is None:
             return
@@ -468,7 +590,12 @@ class AttemptBundle:
         )
         try:
             complete = source / COMPLETE_NAME
-            if complete.exists():
+            if os.path.lexists(complete):
+                complete_metadata = os.lstat(complete)
+                if stat.S_ISLNK(complete_metadata.st_mode) or not stat.S_ISREG(
+                    complete_metadata.st_mode
+                ):
+                    raise BundleError("completion marker identity changed during abort")
                 complete.unlink()
                 _fsync_directory(source)
             rename_noreplace(source, failed)

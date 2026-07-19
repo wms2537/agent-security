@@ -215,8 +215,8 @@
       "id": "T024",
       "phase": "4",
       "desc": "Close the round-2 attempt-identity blocker by rejecting live/dangling symlink aliases before resolution and testing constructor/verifier behavior",
-      "status": "in_progress",
-      "evidence": "research-log/028 records the sterile NEEDS_REVISION report verbatim. Required scope: inspect the raw direct child with lstat/is_symlink and lexists, compare lexical canonical child identity, reject dangling/live aliases in constructor and verifier, and preserve all T023 guarantees without executing scientific code.",
+      "status": "done",
+      "evidence": "research-log/029 records lexical absolute/normpath direct-child checks without child resolution, lexists/lstat rejection of all existing creation names, exact lexical verifier identity, O_NOFOLLOW descriptor reads with inode/type/content checks, and renameat2 no-replace race closure. Static compile passed; bundle tests increased to 15/15 with five live/dangling/race adversarial tests; core toys remain 4/4. The repository core attempt and outputs remain absent.",
       "parent": "T016"
     }
   ],

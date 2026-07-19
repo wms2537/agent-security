@@ -132,6 +132,126 @@ class BundleTests(unittest.TestCase):
             COMMAND,
         )
 
+    def test_constructor_rejects_dangling_and_live_attempt_aliases(self) -> None:
+        dangling = self.runs / "constructor-dangling"
+        dangling.symlink_to("constructor-missing", target_is_directory=True)
+        with self.assertRaises(FileExistsError):
+            BUNDLE.AttemptBundle(
+                dangling,
+                repo_root=self.root,
+                allowed_parent=self.runs,
+                canonical_command=COMMAND,
+                binding_paths=self.binding_paths,
+                expected_artifacts=ARTIFACTS,
+            )
+
+        target = self.runs / "constructor-target"
+        target.mkdir()
+        live = self.runs / "constructor-live"
+        live.symlink_to(target.name, target_is_directory=True)
+        with self.assertRaises(FileExistsError):
+            BUNDLE.AttemptBundle(
+                live,
+                repo_root=self.root,
+                allowed_parent=self.runs,
+                canonical_command=COMMAND,
+                binding_paths=self.binding_paths,
+                expected_artifacts=ARTIFACTS,
+            )
+
+    def test_publish_rejects_aliases_without_touching_their_targets(self) -> None:
+        dangling_target = self.runs / "publish-missing-target"
+        dangling = self.runs / "publish-dangling"
+        dangling.symlink_to(dangling_target.name, target_is_directory=True)
+        with self.assertRaises(FileExistsError):
+            self.publish(dangling.name)
+        self.assertFalse(dangling_target.exists())
+        self.assertTrue(dangling.is_symlink())
+
+        live_target = self.runs / "publish-live-target"
+        live_target.mkdir()
+        sentinel = live_target / "sentinel.txt"
+        sentinel.write_text("untouched\n", encoding="utf-8")
+        before = hashlib.sha256(sentinel.read_bytes()).hexdigest()
+        live = self.runs / "publish-live"
+        live.symlink_to(live_target.name, target_is_directory=True)
+        with self.assertRaises(FileExistsError):
+            self.publish(live.name)
+        self.assertEqual(hashlib.sha256(sentinel.read_bytes()).hexdigest(), before)
+        self.assertEqual({path.name for path in live_target.iterdir()}, {"sentinel.txt"})
+
+    def test_verifier_rejects_live_and_dangling_raw_attempt_aliases(self) -> None:
+        attempt, _ = self.publish("verify-real")
+        live = self.runs / "verify-live-attempt"
+        live.symlink_to(attempt.name, target_is_directory=True)
+        with self.assertRaises(BUNDLE.BundleError):
+            BUNDLE.verify_complete_bundle(
+                live,
+                repo_root=self.root,
+                allowed_parent=self.runs,
+                expected_attempt_dir=attempt,
+                expected_command=COMMAND,
+                expected_bindings=self.expected_bindings(),
+                expected_artifacts=ARTIFACTS,
+            )
+
+        dangling = self.runs / "verify-dangling-attempt"
+        dangling.symlink_to("verify-missing-attempt", target_is_directory=True)
+        with self.assertRaises(BUNDLE.BundleError):
+            BUNDLE.verify_complete_bundle(
+                dangling,
+                repo_root=self.root,
+                allowed_parent=self.runs,
+                expected_attempt_dir=attempt,
+                expected_command=COMMAND,
+                expected_bindings=self.expected_bindings(),
+                expected_artifacts=ARTIFACTS,
+            )
+
+    def test_verifier_rejects_live_and_dangling_expected_aliases(self) -> None:
+        attempt, _ = self.publish("verify-expected-real")
+        live = self.runs / "verify-live-expected"
+        live.symlink_to(attempt.name, target_is_directory=True)
+        with self.assertRaises(BUNDLE.BundleError):
+            BUNDLE.verify_complete_bundle(
+                attempt,
+                repo_root=self.root,
+                allowed_parent=self.runs,
+                expected_attempt_dir=live,
+                expected_command=COMMAND,
+                expected_bindings=self.expected_bindings(),
+                expected_artifacts=ARTIFACTS,
+            )
+
+        dangling = self.runs / "verify-dangling-expected"
+        dangling.symlink_to("verify-missing-expected", target_is_directory=True)
+        with self.assertRaises(BUNDLE.BundleError):
+            BUNDLE.verify_complete_bundle(
+                attempt,
+                repo_root=self.root,
+                allowed_parent=self.runs,
+                expected_attempt_dir=dangling,
+                expected_command=COMMAND,
+                expected_bindings=self.expected_bindings(),
+                expected_artifacts=ARTIFACTS,
+            )
+
+    def test_publish_race_to_symlink_fails_closed_without_target_writes(self) -> None:
+        attempt = self.runs / "publish-race-alias"
+        target = self.runs / "publish-race-target"
+
+        def install_alias(point: str) -> None:
+            if point == "before:publish":
+                attempt.symlink_to(target.name, target_is_directory=True)
+
+        with self.assertRaises(FileExistsError):
+            self.publish(attempt.name, install_alias)
+        self.assertTrue(attempt.is_symlink())
+        self.assertFalse(target.exists())
+        failed = sorted(self.runs.glob(f".{attempt.name}.failed-*"))
+        self.assertEqual(len(failed), 1)
+        self.assertFalse((failed[0] / BUNDLE.COMPLETE_NAME).exists())
+
     def test_second_attempt_cannot_change_a_completed_bundle(self) -> None:
         attempt, _ = self.publish("immutable")
         before = {
