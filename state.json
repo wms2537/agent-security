@@ -191,8 +191,8 @@
       "id": "T021",
       "phase": "4",
       "desc": "Preregister and run nested 40/160/320-profile robustness and scaling checks across the three primary public masters",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "research-log/038 fixes scales k=[1,4,8] / N=[40,160,320], nested replicate selection 0..k-1 in each of 40 strata, same 3 primary masters/committed table/reviewed evaluator, all-nine-clear prediction 1.0 at >=5%, exact command/attempt/evidence and stop rules. Ledger row unresolved; attempt absent.",
       "parent": "T020"
     },
     {
