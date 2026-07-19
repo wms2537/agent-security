@@ -1,0 +1,11 @@
+comp/.venv/bin/python -I experiments/orf-p4-ablations/run_ablations.py --config experiments/configs/orf-phase4-v1.json --baseline-tables experiments/orf-p4-baseline/score-tables.tsv --attempt-dir experiments/runs/orf-p4-ablations-v1
+no_cliff_mean_gain_percent: 7.622073949240
+no_curvature_mean_gain_percent: 37.860007927303
+no_reset_mean_gain_percent: 18.973588191963
+no_novelty_mean_gain_percent: 40.094682770562
+unsaturated_mean_gain_percent: 44.355152104598
+reference_core_mean_gain_percent: 40.249038022308
+ablation_master_cells: 15
+ablation_profile_rows: 4800
+peak_memory_gb: 0.548843384
+runtime_seconds: 1.506462713

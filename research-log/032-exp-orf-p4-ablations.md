@@ -1,6 +1,6 @@
 # Experiment: ORF Phase-4 attribution ablations
 
-**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** preregistered, implementation not started
+**Date:** 2026-07-19 · **Phase:** 4 · **Cycle:** 1 · **Iteration:** 4 · **Status:** completed, confirmed and kept
 
 ## Context
 
@@ -71,11 +71,20 @@ Pre-implementation input hashes:
 
 ## Gate Check
 
-- T018 advanced only after the exact baseline, SOUND code review, primary core,
-  homogeneous controls, manifest, and independent audit passed.
-- All five numeric predictions, mechanisms, labels, master set, action engine,
-  command, final identity, expected evidence, and invalidity rule are fixed.
-- The final ablation attempt is absent; no ablation score has been computed.
+- T025 returned `SOUND` with no findings at any severity before execution.
+- The exact command exited 0 on its first invocation and published the exact six
+  expected files with a verified `COMPLETE` manifest and all eight bindings.
+- Independent audit checked all 4,800 ordered OAT rows, all 33,600 scores, all 15
+  master aggregates, exact fractions/action counts, and every named-only
+  transform against the 960 committed originals.
+- Actual mean gains were no-cliff 7.622073949240%, no-curvature
+  37.860007927303%, no-reset 18.973588191963%, no-novelty 40.094682770562%,
+  and unsaturated 44.355152104598%.
+- Deltas from the 40.249038022308% core were respectively -32.626964073068,
+  -2.389030095004, -21.275449830344, -0.154355251746, and +4.106114082290
+  percentage points. Every master in every condition remained above 5%.
+- The eight immutable experiment paths have an empty diff from preregistration
+  commit `e0b9520`; no retry or deviation occurred.
 
 ## Problem alignment
 
@@ -85,11 +94,29 @@ engineered cliff or scoring constant.
 
 ## Decision
 
-Implement the five exact transforms and toy tests without evaluating the three
-primary masters. Review the implementation before the one-use batch.
+**Keep.** The valid batch supports the frozen qualitative attribution pattern,
+with cliff behavior dominant, reset overhead substantial, curvature modest,
+novelty negligible, and saturation suppressing some conditional value.
 
 ## Next Steps
 
-Commit this preregistration, dispatch implementation only, freeze its source hash
-after tests/review, then execute the exact batch once. No held-out or Kaggle
+Commit the verified bundle and resolve the five ledger rows. Proceed to the
+preregistered distinct-regime T020 generalization run; no held-out or Kaggle
 action.
+
+## Prediction vs. Reality
+
+| Ablation | Predicted | Actual | Error (actual - predicted) |
+|---|---:|---:|---:|
+| `no_cliff` | 7.0% | 7.622073949240% | +0.622073949240 pp |
+| `no_curvature` | 35.0% | 37.860007927303% | +2.860007927303 pp |
+| `no_reset` | 22.0% | 18.973588191963% | -3.026411808037 pp |
+| `no_novelty` | 40.0% | 40.094682770562% | +0.094682770562 pp |
+| `unsaturated` | 44.0% | 44.355152104598% | +0.355152104598 pp |
+
+All five numeric forecasts were directionally and quantitatively close. OAT
+effects are not additive: cliff removal produced by far the largest loss;
+removing reset was next; curvature removal was modest; novelty removal barely
+changed the result; removing saturation increased it. This remains attribution
+inside a purpose-built public synthetic environment, not evidence of live
+factor prevalence.

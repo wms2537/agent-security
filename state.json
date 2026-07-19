@@ -175,8 +175,8 @@
       "id": "T019",
       "phase": "4",
       "desc": "Preregister and run the N=3 one-at-a-time attribution ablation batch for cliffs, curvature, reset cost, novelty, and saturation",
-      "status": "in_progress",
-      "evidence": "research-log/032 fixes predictions/mechanisms before implementation. research-log/033 records unexecuted runner SHA 568d285a... and tests SHA a4036d1b...; static compile and 5 toy tests pass, exact scorer/coefficient/single-change/tie/schema checks included. The 4,800-row runner remains unexecuted pending targeted sterile T025 review; final attempt absent.",
+      "status": "done",
+      "evidence": "T025 SOUND preceded the first exact invocation. COMPLETE bundle verifier and independent 4800-row/33600-score/15-cell OAT audit PASS; immutable diff from e0b9520 empty. Means: no_cliff 7.622073949240, no_curvature 37.860007927303, no_reset 18.973588191963, no_novelty 40.094682770562, unsaturated 44.355152104598%; deltas vs core -32.627/-2.389/-21.275/-0.154/+4.106 pp. All 15 cells >=5%; predictions confirmed and batch kept. Runtime 1.506462713s, memory 0.548843384GB.",
       "parent": "T018"
     },
     {
@@ -483,7 +483,8 @@
       "tuned_baseline_parity": "The baseline exhaustively argmaxes all seven legal global lengths; no trainable or unsearched baseline hyperparameter exists, so this same run completes exact tuning parity.",
       "baseline_provenance": "First log line exact; 961/22/10 artifact lines; runtime 1.491515685s; immutable diff from preregistration commit a416a72 empty. Secondary digit-name extractor defect recorded without rerun.",
       "code_review": "Sterile round-3 SOUND verdict in research-log/030; both prior HIGHs RESOLVED, no severity findings, 15/15 transactional/adversarial bundle tests and 4/4 arithmetic toys pass, and the public non-target core remained unexecuted at gate closure.",
-      "core": "Reviewed one-use public core bundle COMPLETE and independently verified: exact mean adaptive gain 40.249038022308% versus predicted 40% [30,50], all 3 masters >=5%, homogeneous zero/length-one controls 3/3, and immutable paths unchanged from preregistration commit 20b73f4."
+      "core": "Reviewed one-use public core bundle COMPLETE and independently verified: exact mean adaptive gain 40.249038022308% versus predicted 40% [30,50], all 3 masters >=5%, homogeneous zero/length-one controls 3/3, and immutable paths unchanged from preregistration commit 20b73f4.",
+      "attribution": "Sterile-reviewed one-use OAT batch independently verified across 4800 rows/33600 scores: mean gains no_cliff=7.6221, no_curvature=37.8600, no_reset=18.9736, no_novelty=40.0947, unsaturated=44.3552%; all 15 cells material and immutable paths unchanged."
     }
   }
 }
