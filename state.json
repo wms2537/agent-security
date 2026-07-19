@@ -183,8 +183,8 @@
       "id": "T020",
       "phase": "4",
       "desc": "Preregister and run the N=3 unsaturated balanced-cliff public generalization benchmark required at Medium intensity",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "research-log/035 fixes three disjoint public master preimages, immutable generator, H=1e18, no-cliff weight4/cliff weight1 balanced effective N=512, reviewed exact policies, mean prediction 35% with [30,45] confirm interval, all-clear=1, exact command/attempt/evidence and stop rules before generation. Two ledger rows unresolved; attempt absent.",
       "parent": "T019"
     },
     {
