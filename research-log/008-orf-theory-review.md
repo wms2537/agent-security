@@ -1234,3 +1234,14 @@ The adverse `NEEDS_REVISION` verdict stands. The reported 498 hypothesis lines,
 against commit `3033b15`. The v6 artifacts remain immutable. Phase 2 is closed;
 no implementation, freeze, target, profile, experiment, submission, or Kaggle
 action exists.
+
+## Calibrated conditional-regret round 9 dispatch
+
+V7 is committed at `93c6932`: 468 hypothesis lines, 227 contract lines, and 353
+artifact-schema lines. Deterministic gates passed JSON parsing, Draft 2020-12
+metaschema and representative root samples, two rejected negative samples, 24
+ordered validator identifiers, 28 complete error keys, 3,003 mixtures, five
+source hashes, two calibration hashes, and an absent held-out output directory.
+The sterile re-review contains only the six round-8 blockers in the template's
+previous-review slot. Dispatch consumes round 9/10. No held-out implementation,
+freeze, target, profile, evaluation, submission, or Kaggle action exists.

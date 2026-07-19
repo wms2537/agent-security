@@ -42,3 +42,4 @@
 2026-07-19 | P2 | T009 ORF-B non-target support calibration v2 | preregistered | exact per-parameter Decimal-to-Fraction repair only; same masters/predictions/support rule; exploratory budget 2/2 at run; not run; no beacon/Kaggle action
 2026-07-19 | P2 | T009 ORF-B non-target support calibration v2 | exploratory_support | all preregistered checks pass; equal H200k 64/64, min 34.576%, median 40.924%; floor distance 2.47e-8; exploratory budget 2/2; no beacon/Kaggle action
 2026-07-19 | P2 | T009 conditional-regret stress-test v7 | ready_review | 468-line hypothesis, 227-line v5 contract, 353-line union schema; metaschema/root samples/source/calibration hashes/V01-V24 PASS; no held-out run/target/Kaggle action
+2026-07-19 | P2 | T009 calibrated conditional-regret theory review round 9 | in_progress | sterile review of committed 468-line v7 + 227-line contract + 353-line schema; budget 9/10; no freeze/target/profile/Kaggle action

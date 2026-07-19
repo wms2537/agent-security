@@ -19,7 +19,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 10,
-      "spent": 8
+      "spent": 9
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -96,7 +96,7 @@
       "phase": "2",
       "desc": "Formalize and theory-review the Online Replay Frontier hypothesis, including its distinguishing prediction against fixed-M public recipes",
       "status": "in_progress",
-      "evidence": "V7 is ready for review: `wc -l` returned 468 hypothesis, 227 contract, 353 schema lines; Draft 2020-12 and representative invalid/valid outcome, completed, fetch-marker, and valid-summary samples passed with two negative samples rejected; 24 unique V01-V24 names; all source/calibration hashes match; heldout_run_directory=ABSENT. V7 adds minimal OUTCOME union, pre-GET markers, COMPLETED/terminal post, exact per-parameter Fraction bridge, floor certificate, and full cross-field predicates. Exploratory calibration is support only, budget 2/2; review budget 8/10 before dispatch. No target/Kaggle action.",
+      "evidence": "Theory review round 9 charged and dispatched against immutable commit 93c6932: 468-line v7, 227-line contract SHA fffd81d1b9f5b64b1a9d813e1ca0d57f0cf69708c71cc04b4889bdb340cf137c, and 353-line schema SHA 7536fda3e9d4d01ecff3e6dafd29e2c1d82874dfda457c963efaed8fe62c1f3a. Sterile prompt contains only template fields and six round-8 blockers. Review budget 9/10; exploratory budget 2/2. No implementation/freeze/target/profile/Kaggle action.",
       "parent": "T008"
     }
   ],
@@ -258,7 +258,7 @@
       "user_acknowledged": false,
       "opened_at": null,
       "rule": "Only after RIGOROUS review and later phase implementation/tests/predictions may one future freeze begin; pre-GET durable markers, minimal terminal OUTCOME, same-thread terminal hashes, and no Kaggle action are mandatory.",
-      "status": "locked-pre-review-never-frozen"
+      "status": "locked-review-round-9-never-frozen"
     }
   },
   "gates": {
