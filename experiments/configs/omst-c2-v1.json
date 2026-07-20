@@ -1,0 +1,44 @@
+{
+  "schema_version": "omst-c2-v1",
+  "status": "draft_pending_user_approval",
+  "recorded_date": "2026-07-20",
+  "active_study": "orchestration_metamorphic_security_testing",
+  "frameworks": {
+    "primary": {
+      "name": "langgraph",
+      "version": "1.2.9",
+      "git_object": "95af6a00718588e7b7ce17310e8006d267896a77",
+      "license": "MIT",
+      "validation_base_graphs": 120,
+      "locked_test_base_graphs": 120
+    },
+    "generalization": {
+      "name": "crewai",
+      "version": "1.14.7",
+      "git_commit": "21fa8e32d91f87565ffa49e124abea8304d4fb8a",
+      "license": "MIT",
+      "validation_base_graphs": 60,
+      "locked_test_base_graphs": 60
+    }
+  },
+  "rewrite_families": [
+    "alpha_rename",
+    "identity_relay",
+    "independent_gate_reorder",
+    "mapped_state_split_merge"
+  ],
+  "decision_tape_seeds": [41, 42, 43],
+  "validation_generator_seed": 4242,
+  "locked_test_generator_seed": 20260720,
+  "locked_test_generated": false,
+  "locked_test_executed": false,
+  "primary_metric": "rewrite_regression_rate_pp",
+  "primary_framework": "langgraph",
+  "primary_comparator": "identity_rewrite_regression_rate_pp",
+  "normative_materiality_threshold_pp": 10.0,
+  "identity_required_pp": 0.0,
+  "max_tuning_base_graphs": 12,
+  "network_during_runs": false,
+  "operational_attack_content": false,
+  "kaggle_actions": false
+}

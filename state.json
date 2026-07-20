@@ -1,17 +1,36 @@
 {
-  "phase": "1",
+  "phase": "0",
   "cycle": 2,
   "iteration": 5,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
-  "output_format": "notebook+working-note",
+  "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Maximize the MEAN of 4 independently-normalized-and-capped leaderboard cells ({gpt_oss,gemma}x{public,private}) on the Kaggle AI-Agent-Security benchmark.",
-    "assumption": "On a post-freeze beacon-derived equal-stratum synthetic coverage split, response-profile heterogeneity is large enough that per-profile fill selection adds at least 5% over an identical retained-probe portfolio using the hindsight best global fill; a homogeneous single-dominant block must produce exact equality.",
-    "assumption_source": "Frozen SDK/gateway/scorer mechanics plus T005/T006 controlled evidence motivate the response dimensions, but not their real prevalence. The v4 outcome source is a future NIST Randomness Beacon pulse fixed only after reviewed implementation and predictions; no claim is made about live targets, replay-risk calibration, private transfer, or Kaggle performance.",
-    "novelty_claim": "Beacon-Held-Out Online Replay Frontier (ORF-B): replace global fill-length choice with per-profile choice and isolate its synthetic information value using identical probes, an exact fixed-split estimand, a strong preregistered nonadaptive mixture, and a homogeneous negative consequence."
+    "problem": "Which independently checkable controls preserve security properties when an agent's harness, execution loop, or orchestration graph is rewritten or evolves under controlled, inert workloads?",
+    "assumption": "Declared benign task equivalence is weaker than security-trace equivalence: graph rewrites can preserve terminal task observations while changing provenance, permission, termination, or verification behavior; independently grounded controllers and fixed external acceptance gates may prevent the corresponding regressions.",
+    "assumption_source": "Inferred from the 25-paper Cycle-2 core synthesis: MASEval and FlowSteer show framework/planning sensitivity; LoopTrap shows termination poisoning and proposes independent progress verification; MaMa and AHE expose the safe-design and evolution frontier; Agent-BOM supplies graph-level audit structure. None directly tests security invariance under mechanically eligible task-equivalent graph rewrites.",
+    "novelty_claim": "A sequential three-study portfolio: formalize and empirically map task-equivalent orchestration rewrites with Orchestration Metamorphic Security Testing; then separately test replacement of worker-controlled continuation by a provenance-decoupled progress firewall and replacement of task-only harness mutation acceptance by a fixed invariant-preserving gate."
   },
+  "domain": "agent orchestration security",
+  "target_venue": "undecided",
+  "success_criteria": {
+    "omst": "At least 10 percentage points excess task-equivalent rewrite-induced security regression over an exact-zero identity control on the primary finite validation census, subject to Phase-2 theory review; mandatory second-runtime report.",
+    "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
+    "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
+  },
+  "constraints": [
+    "Only one active hypothesis; OMST first, PDPF second, IPHE third.",
+    "Local inert tools and abstract security labels only; no operational attack strings, live targets, personal data, or destructive effects.",
+    "No Kaggle action, model API, external message, framework download, confirmatory run, or locked-test generation/execution without its applicable approval gate.",
+    "Validation-only results must be labeled internal evidence if the locked test remains unauthorized."
+  ],
+  "portfolio_sequence": [
+    "Orchestration Metamorphic Security Testing",
+    "Provenance-Decoupled Progress Firewall",
+    "Invariant-Preserving Harness Evolution"
+  ],
+  "active_hypothesis": null,
   "budgets": {
     "research_iterations": {
       "limit": 5,
@@ -295,8 +314,8 @@
       "id": "T034",
       "phase": "0",
       "desc": "Repair the Cycle-2 problem anchor, idea DNA, data-governance record, and evaluation-contract boundary before any orchestration-security hypothesis is activated",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Draft constitution written in PROBLEM.md, experiments/configs/environment-orchestration-c2.md, data-governance-orchestration-c2.md, evaluation-contract-orchestration-c2.md, omst-c2-v1.json, and research-log/055. Direct official-repository checks pinned LangGraph 1.2.9 at 95af6a... and CrewAI 1.14.7 at peeled commit 21fa8e3..., both with MIT license text. Deterministic draft check is recorded at the 2026-07-20 T034 progress line. User approval of the exact metric, 10 pp threshold, runtime matrix, and test-tier boundary remains pending; no framework/download/test/action occurred.",
       "parent": "T033"
     }
   ],
@@ -641,7 +660,18 @@
       "decision_archaeology": "COMPLETE — AHE, LoopTrap, and MaMa are reconstructed in research-log/054 at introduction, method, setup, results, and discussion decision points.",
       "candidate_directions": "COMPLETE — A) Orchestration Metamorphic Security Testing, B) Provenance-Decoupled Progress Firewall, and C) Invariant-Preserving Harness Evolution are scored; A is recommended.",
       "user_approval": "APPROVED — user selected the complete sequential portfolio verbatim: `go try all please`; A proceeds first while B/C remain parked as separate iterations. This does not authorize attack execution or Kaggle/held-out action.",
-      "phase2_setup": "PENDING — Cycle 2 cannot enter hypothesis formation until T034 repairs the stale Cycle-1 PROBLEM.md anchor and presents the new evaluation contract for approval."
+      "phase2_setup": "PENDING USER APPROVAL — T034 drafted the repaired Cycle-2 anchor and exact OMST contract; Phase 2 remains blocked until the user approves or revises the metric, 10 pp materiality threshold, pinned runtimes, data tiers, and action boundary."
+    },
+    "0_cycle2": {
+      "problem_md": "DRAFT COMPLETE — PROBLEM.md has a Supersedes header, one-sentence core question, causal-within-sandbox question type, proxy caveat, explicit non-goals, six-construct table, and the user-selected A/B/C sequence.",
+      "idea_dna": "DRAFT COMPLETE — Cycle-2 problem, inferred assumption with source, and three-study novelty claim replace the stale Cycle-1 DNA in current state while history remains in git.",
+      "success_scope": "DRAFT COMPLETE — project_type empirical, Medium intensity, markdown+code output, undecided venue, explicit per-study thresholds and constraints; only OMST may activate first.",
+      "environment": "COMPLETE — direct local probes recorded CPU, RAM, GPU, Python and present/absent dependencies in experiments/configs/environment-orchestration-c2.md.",
+      "data_governance": "DRAFT COMPLETE — official pins/licenses, no PII/human subjects, synthetic contamination boundary, dual-use handling, and separate authorization requirements recorded.",
+      "evaluation_contract": "DRAFT COMPLETE — exact OMST primary comparison, eligibility relation, baselines, 120/60 Medium benchmark matrix, three decision tapes, data tiers, immutable paths, and missingness/reporting rules recorded; locked test remains absent.",
+      "direction_approval": "APPROVED — user selected all directions verbatim: `go try all please`; this approves sequential pursuit, not the unseen contract details.",
+      "contract_approval": "PENDING — user must approve or revise the exact draft before T034 can close and Phase 2 can start.",
+      "status": "PENDING — deterministic draft complete; user contract checkpoint open"
     }
   }
 }
