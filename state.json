@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. The active c2-v9 criterion is a RIGOROUS minimal factorization theorem, typed two-state record-reconstruction control, and two independent universal implications: `P_task(M,R_task_s0,R_task_s1)->C_task` and `P_full(M,R_full_s0,R_full_s1)->C_full`; P_common(M0) is false because the dependency bundle and source audit are absent.",
+    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. Round 9 accepted the c2-v9 minimal factorization theorem, exact witness, quantification, guard ordering and independent task/full antecedents, but returned NEEDS_REVISION on runtime authentication/output-origin closure. Phase 2 is not passed; P_common(M0) remains false and review budget is exhausted 20/20.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -327,8 +327,8 @@
       "id": "T035",
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
-      "status": "in_progress",
-      "evidence": "Superseding 1,018-line v9 hypothesis in research-log/088 passed deterministic checks and is immutable at 51688ed. Final sterile theory review round 9 was dispatched against the hypothesis, normative config, M0 and closed code-as-text with the four round-8 issues; committed line count 1,018. Budget charged 20/20 at dispatch. Verdict pending. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "status": "failed",
+      "evidence": "Final sterile round-9 review in research-log/090 verified reviewer/commit line counts 1,018/1,018 and returned NEEDS_REVISION. The theorem/witness, exact quantification, post-compile final-guard order and task/full separation pass. Nine protocol defects remain: manifest schema/pair pinning; hard package binding; dependency closure; output origin; launcher attestation; transient substitution; verifier dependency trust; audit-report trust; atomic pair output. Budget exhausted 20/20, so no re-dispatch or Phase-3 advance is permitted. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -369,7 +369,7 @@
       "direction": "omst-schema-closure",
       "varies": "schema-security-closure",
       "kind": "understanding",
-      "outcome": null
+      "outcome": "inconclusive"
     }
   ],
   "tried_and_failed": [
@@ -384,6 +384,12 @@
       "failure_class": "refuted-by-real-LB-and-source",
       "why": "N is latency-bound: multi-post costs ~k x replay time for < k x reliability => fewer findings AND fewer +2 cell bonuses/sec than single-post. CD/hedge/launder fire ~0 on real models and are unnecessary (exfil already fires on private cells). Harmony tokens hurt gemma. Validated 198.6 was ONE compliant-mock cell, not the 4-cell mean.",
       "log": "research-log/002-rootcause-and-rebuild.md"
+    },
+    {
+      "approach": "OMST c2-v9 common-manifest double-reauthentication correspondence closure",
+      "failure_class": "implementation_defeated",
+      "why": "The final reviewer accepted the classical theorem, exact witness, role quantification and guard order, but the closed code-as-text did not establish an externally anchored pair-pinned manifest, executable dependency closure, trusted audit/output origin, launcher attestation or immutable import bytes. Review budget exhausted 20/20 before a rigorous engineering correspondence artifact.",
+      "log": "research-log/090-omst-theory-review-round9.md"
     }
   ],
   "learnings": [
@@ -454,7 +460,7 @@
       "lesson": "Machine-readable protocol prose is still underdetermined unless each state transition has computable predecessors and every enum, sentinel, serialization, nested schema, and ledger update has one value.",
       "apply_when": "A Phase-2 hypothesis claims a held-out protocol is executable from a JSON contract.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 6
+      "recurrences": 7
     },
     {
       "lesson": "Pinning a language/runtime version does not pin transcendental math; discontinuous floor decisions need a specific libm/container, correctly rounded functions, or a certified distance from integer boundaries.",
@@ -526,6 +532,18 @@
       "lesson": "State validation must reject new unstructured learnings and failure_class values outside the allowed enum while reporting legacy violations without rewriting history.",
       "apply_when": "ORIENT or RECORD validates state.json after historical schema evolution.",
       "source": "research-log/052-retrospective.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "A self-hashed manifest proves internal consistency, not common identity or authenticity; pair protocols need an exact schema, an external trust root, and one digest pinned across every child and final envelope.",
+      "apply_when": "A Phase-2/3 multi-process protocol uses a manifest to claim all runs share one authenticated execution environment.",
+      "source": "research-log/090-omst-theory-review-round9.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "Callable-entry bytes are not authenticated output unless fixture-controlled storage emits them directly or the complete post-capture writer/result path is source-bound.",
+      "apply_when": "A Phase-2/3 framework correspondence claim observes callable input through a later framework return value.",
+      "source": "research-log/090-omst-theory-review-round9.md",
       "recurrences": 1
     }
   ],
@@ -754,8 +772,8 @@
       "deterministic_bundle_verification_v9": "PASS — `v9_bundle_static=PASS fixture_lines=456 final_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] top_framework_imports=0 M0_payload=846f502e2984ccfba22fedd7b686f8f56d38d351deb48e62dcec46f131301ec1 P_common_M0=false`; Python AST, JSON, Bash syntax, 0755 mode, manifest payload, cross-file hashes and role separation pass.",
       "hypothesis_v9": "COMPLETE BEFORE REVIEW — research-log/088 supersedes immutable v8 with the unchanged minimal theorem/witness, one common authenticated manifest, four explicit run objects, independently quantified task/full implications, exact double runtime authentication and role-specific failures.",
       "deterministic_verification_v9": "PASS — `omst_hypothesis_v9=PASS lines=1018 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 run_objects=4 role_implications=2 common_manifest=1 final_guard_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] langgraph_source_paths=8 langchain_modules=3 P_common_M0=false top_framework_imports=0 resolution_rows=4 unresolved_placeholders=0 review=pending`; reviewed predecessors unchanged.",
-      "theory_review_round9": "IN_PROGRESS — final sterile reviewer dispatched against immutable commit 51688ed, 1,018-line hypothesis, normative v9 config, exact M0 and closed fixture/launcher; budget charged 20/20.",
-      "status": "IN_PROGRESS — immutable c2-v9 hypothesis under final sterile theory review"
+      "theory_review_round9": "NEEDS_REVISION — reviewer and committed hypothesis line counts agree 1,018/1,018. The theorem/witness, role quantification, final guard ordering, task/full separation, bias surface, taxonomy, anti-stacking and narrow scope pass. Nine protocol gaps remain: exact manifest schema/pair digest pinning; hard distribution/module binding; lock/dependency-closure inventory; callable-entry-to-output authentication; launcher/run attestation; transient-substitution closure; verifier dependency trust; independently anchored source-audit evidence; atomic pair envelope. Full verbatim report: research-log/090; budget exhausted 20/20.",
+      "status": "FAILED — Phase-2 engineering correspondence gate not passed; review budget exhausted 20/20; no Phase-3 advance"
     }
   }
 }
