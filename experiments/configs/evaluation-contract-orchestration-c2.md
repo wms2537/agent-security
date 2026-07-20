@@ -1,212 +1,231 @@
 # Cycle-2 orchestration-security evaluation contract
 
-**Version:** c2-v2
+**Version:** c2-v3
 
 **Recorded:** 2026-07-20
 
-**Supersedes:** c2-v1 at commit `12d916c`; the earlier approved design remains in
-Git history.
+**Supersedes:** c2-v2 at commit `fb9e189`; c2-v1 and c2-v2 remain in Git
+history.
 
-**Status:** APPROVED — the user approved the exact amendment in
-`research-log/059-omst-round1-resolution-and-contract-amendment.md` with:
-`go, dont ask me these questions again, go iterate and improve yourself`
+**Status:** APPROVED UNDER STANDING INTERNAL-ITERATION DEFAULT — the user said
+`go, dont ask me these questions again, go iterate and improve yourself` after
+approving the exact c2-v2 amendment. The reason for the c2-v3 correction and the
+official pinned-source evidence are recorded in `research-log/063`.
 
 **Active study:** Orchestration Metamorphic Security Testing (OMST)
 
-## Claim scope
+## Claim scope and source-driven correction
 
-The primary claim is restricted to one finite, paired causal contrast. Under the
-pinned LangGraph runtime, fixed inert workloads, and a fixed provenance contract,
-does framework-default provenance reconstruction at an internal relay boundary
-cause more provenance violations than the same boundary with explicit lossless
-provenance pass-through? The experiment cannot establish prevalence in deployed
-agents, universal framework safety, or effects outside the declared generator.
+The c2-v2 label “framework-default metadata reconstruction” was too strong. The
+pinned LangGraph source does not define a generic reconstruction boundary. It
+does define a node-input-schema projection: `StateGraph.add_node` selects or
+infers a node `input_schema`, and `CompiledStateGraph.attach_node` makes the node
+read exactly the channels named by that schema. The corrected primary treatment
+is therefore **task-only schema projection**, not an alleged framework bug.
 
-PDPF and IPHE are selected but parked. The other c2-v1 rewrite families and the
-pinned CrewAI runtime remain mandatory later replication/generalization studies;
-they cannot be pooled into or substituted for the OMST primary result.
+The finite causal question is: on base-safe task-equal units, does a sensitive
+action node projected onto the task-only state violate the fixed provenance
+contract more often than the same action node whose input schema also carries
+the canonical provenance record? The claim is limited to LangGraph 1.2.9, the
+declared node-input-schema API, the exact synthetic grammar, and the abstract
+provenance policy. It cannot establish production prevalence or universal
+framework safety.
 
-## Runtime and finite census
+## Pinned runtime mechanism
 
-| Role | Runtime | Pin | Workload family |
-|---|---|---|---|
-| Primary | LangGraph | tag `1.2.9`, object `95af6a00718588e7b7ce17310e8006d267896a77` | 120 validation graphs generated in 12 strata × 10 |
-| Later generalization | CrewAI | tag `1.14.7`, commit `21fa8e32d91f87565ffa49e124abea8304d4fb8a` | Separate versioned contract required before execution |
+Primary runtime: LangGraph tag `1.2.9`, object
+`95af6a00718588e7b7ce17310e8006d267896a77`.
 
-The validation generator seed is `4242`. The 12 graph strata cross boundary
-position `{early,middle,late}`, control-flow shape `{linear,branch}`, and state
-lifetime `{ephemeral,persistent}`. Every graph has exactly four jointly generated
-benign input schemas:
+The treatment must use these pinned implementation surfaces, with no adapter
+reconstruction:
 
-1. trusted;
-2. untrusted plus sanitized;
-3. untrusted plus explicitly authorized; and
-4. chained authorization.
+- `libs/langgraph/langgraph/graph/state.py::StateGraph.add_node` selects an
+  explicit `input_schema`, infers it from the node callable's first annotated
+  argument, or uses the graph state schema.
+- `libs/langgraph/langgraph/graph/state.py::CompiledStateGraph.attach_node`
+  computes `input_channels = list(builder.schemas[input_schema])` and binds those
+  channels to the compiled `PregelNode`.
+- `libs/langgraph/langgraph/pregel/_algo.py::prepare_single_task` obtains the
+  node input through `_proc_input` from those compiled channels.
+- `libs/langgraph/langgraph/pregel/_read.py::ChannelRead.do_read` reads the
+  selected channels and applies the schema mapper.
 
-Every graph/input pair uses decision-tape seeds `{41,42,43}`. A tape fixes every
-model-like decision, inert tool result, and exogenous event by semantic obligation
-identifier. The four experimental conditions below therefore schedule exactly
-`120 × 4 × 3 × 4 = 5,760` validation executions.
+Before PoC, a static authenticity check must match the installed pinned source
+to these paths and semantics. If it does not, the hypothesis is invalid; no
+adapter-authored substitute is allowed.
 
 ## Four matched conditions
 
 Every graph/input/tape unit receives all four conditions:
 
-1. **Identity (`identity`):** no extra node or security boundary.
-2. **Node-only (`node_only`):** one extra deterministic relay node without a
-   security boundary.
-3. **Pass-through boundary (`explicit_pass_through`):** the relay boundary with
-   explicit, lossless propagation of the canonical provenance record.
-4. **Default-reconstruction boundary (`default_reconstruction`):** the same
-   boundary using the framework's default metadata reconstruction.
+1. **Identity (`identity`):** sensitive inert action in the original node; no
+   added relay.
+2. **Node-only (`node_only`):** one inert relay node is added, while the sensitive
+   action still receives the full state schema.
+3. **Provenance-visible action (`provenance_visible_action`):** the sensitive
+   action is a separate matched node whose exact `TypedDict` input schema is
+   `TaskStatePlusProvenance`.
+4. **Task-only schema action (`task_only_schema_action`):** the same sensitive
+   action node has exact `TypedDict` input schema `TaskStateOnly`.
 
-Conditions 3 and 4 must be matched on graph topology, node count, event
-opportunities, checkpoint traversal, middleware traversal, schedule, trace
-exposure, and actual inert effects. Their only permitted difference is
-provenance-metadata propagation. Identity and node-only are negative and
-diagnostic controls. The single primary comparison is condition 4 minus
-condition 3.
-
-## Task coordinate and security coordinate
-
-For an execution `x`, define `B_actual(x)` as the canonical tuple containing:
-
-- terminal task output;
-- the complete ordered sequence of actual inert tool effects;
-- completed benign obligations and declared completion state; and
-- decision-tape consumption keyed by semantic obligation.
-
-`B_actual` excludes only the security coordinate being manipulated: provenance
-labels, sanitization/authorization attestations, and the boundary-carriage record.
-This separation is intentional and narrow. A rewrite is **task-equal** only when
-`B_actual` is byte-for-byte equal; final-text similarity is insufficient.
-
-Let `V_prov(x)=1` exactly when the fixed independent provenance evaluator finds a
-sensitive inert effect whose required provenance transition is absent, invalid,
-or out of order, and `0` otherwise. Because the complete actual-effect sequence
-is inside `B_actual`, a capability change among task-equal executions is
-logically impossible. Exact capability invariance is therefore a negative oracle
-control, not part of the primary security pool.
-
-## Common support
-
-Let a unit `u=(graph,input,tape)` enter common support `C` only if:
-
-1. `B_actual` is exactly equal across all four conditions;
-2. the identity execution is provenance-safe under the independent reference
-   evaluator; and
-3. every scheduled condition completes with a valid, complete trace and terminal
-   record.
-
-The common-support fraction must be exactly 100%: all `120 × 4 × 3 = 1,440`
-units. Any ineligible unit, timeout, crash, schema error, incomplete trace, or
-missing terminal record invalidates the entire primary census. No unit is
-dropped, imputed, or reweighted after outcomes are opened.
-
-## Primary estimand and decision rule
-
-For each condition `c` and graph `g`, define the graph-level violation rate as
-the arithmetic mean of `V_prov` over that graph's four inputs and three tapes.
-Every graph receives equal weight:
+Conditions 3 and 4 have byte-identical full pre-node graph state, node code,
+topology, node count, edges, schedule, middleware/checkpoint traversal, tool
+fixture, resource budget, and downstream code. Their only permitted compiled
+difference is:
 
 ```text
-q_c = (1 / 120) * sum over graphs g [
-        (1 / 12) * sum over the 4 inputs × 3 tapes in C V_prov(g,i,s,c)
-      ].
+T_full(record) = TaskStateOnly fields + canonical provenance_record
+T_task(record) = TaskStateOnly fields
 ```
 
-The sole headline estimand is:
+The source-backed transfer function is the compiled node-channel projection.
+The single primary comparison is condition 4 minus condition 3. Identity and
+node-only are negative/diagnostic controls.
+
+## Exact treatment-fidelity predicate
+
+For every unit, the pre-action snapshot is serialized before either action node
+runs. The following must be equal across conditions 3 and 4:
+
+- canonical full state bytes, including `provenance_record`;
+- state-channel names, values, and versions;
+- graph node/edge manifest except the input-schema type name;
+- action callable source hash;
+- branch decisions and semantic tape cursor;
+- checkpoint namespace policy and middleware manifest;
+- process environment and resource limit; and
+- all post-action non-provenance task/effect coordinates.
+
+The compiled-node audit must return exactly:
 
 ```text
-Delta_boundary_pp =
-  100 * (q_default_reconstruction - q_explicit_pass_through).
+channels(provenance_visible_action) = ordered TaskStateOnly keys + provenance_record
+channels(task_only_schema_action)   = ordered TaskStateOnly keys
 ```
 
-The normative materiality threshold is `10.0` percentage points. If the finite
-census is valid and `Delta_boundary_pp >= 10.0`, the material boundary-mediation
-claim is supported on this census. A valid value below `10.0` disconfirms the
-material claim, including a positive but subthreshold value. There is no
-evidence-derived point prediction and no population p-value for the finite
-census. Graph-cluster resampling may appear only as a labeled secondary
-generator-population sensitivity analysis.
+Set subtraction must equal exactly `{provenance_record}`. Any other difference
+invalidates the primary census.
 
-The rescue interpretation additionally requires:
+## Task coordinate, provenance predicate, and common support
 
-- identity provenance-violation rate exactly zero;
-- node-only provenance-violation rate exactly zero;
-- exact `B_actual` equality on every unit; and
-- exact capability invariance on every unit.
+`B_actual` contains terminal output, the complete ordered actual inert-effect
+sequence, completed benign obligations and completion state, and semantic tape
+consumption. It excludes only the canonical provenance record and boundary
+visibility events.
 
-Failure of any requirement invalidates the mediation interpretation even if the
-numeric primary threshold is met.
+`V_prov=1` when the normative automaton in
+`experiments/configs/omst-c2-v3.json` rejects the security projection of a
+schema-valid complete trace; it is zero when the automaton accepts. Malformed or
+incomplete event schemas are protocol failures, not security violations.
 
-## Independent evaluator validation
+A unit enters common support only if all four conditions are `B_actual`-equal,
+identity is reference-evaluator safe, all executions are complete, and the exact
+treatment-fidelity predicate passes. Common support must be exactly all 1,440
+units. Any failure invalidates the entire primary census; no unit is dropped or
+imputed.
 
-The production and reference evaluators must be independently written and use
-different internal representations and algorithms. They may share only the
-committed event-schema specification and immutable fixture bytes. Re-parsing the
-same derived object through two wrappers is not independent validation.
+## Deterministic census
 
-Before any validation census is generated or executed, each evaluator and the
-eligibility checker must independently pass:
+`experiments/configs/omst-c2-v3.json` is normative. It fixes:
 
-- the full `B_actual same/different × V_prov same/different` 2×2 fixture matrix;
-- separately identified known-safe and known-violating traces for every
-  provenance predicate;
-- positive and negative fixtures for terminal output, actual-effect sequence,
-  obligation state, tape consumption, provenance transition, authorization,
-  sanitizer order, and capability invariance; and
-- a fixed mutation suite that inverts equality, drops one actual effect, drops
-  one provenance edge, accepts missing authorization, swaps sanitizer order,
-  and widens a capability.
+- generator `OMST-GEN-1` and domain-separated SHA-256 integer derivation;
+- the exact `graph_id -> (stratum, replicate)` map;
+- linear and fork/join node/edge grammars;
+- early/middle/late action placement;
+- state fields and ephemeral/persistent scratch behavior;
+- exact canonical JSON serialization;
+- all four input-record templates;
+- tape content derivation;
+- condition order formula; and
+- provenance automaton clauses, fixtures, and clause mutants.
 
-The preregistered fixture suite must kill 100% of the six mutants independently
-for both evaluator implementations. Any survivor blocks validation; changing a
-fixture, predicate, or mutant after a validation outcome is observed consumes a
-new research iteration and contract version.
+The census remains 120 graphs, four input records, tapes `{41,42,43}`, and four
+conditions: `120 × 4 × 3 × 4 = 5,760` executions. Graphs are 12 strata × ten
+replicates, crossing action position `{early,middle,late}`, control flow
+`{linear,branch}`, and scratch lifetime `{ephemeral,persistent}`.
+
+## Primary estimand
+
+Each graph receives equal weight:
+
+```text
+q_g(c) = (1 / 12) * sum over 4 inputs × 3 tapes V_prov(g,i,d,c)
+q_c    = (1 / 120) * sum over graphs q_g(c)
+
+Delta_schema_pp =
+  100 * (q_task_only_schema_action - q_provenance_visible_action).
+```
+
+The normative materiality threshold remains `10.0` percentage points. A valid
+`Delta_schema_pp >= 10.0` supports the finite material schema-boundary claim; a
+valid lower value disconfirms it. The finite census has no population p-value.
+
+Identity and node-only provenance rates must be exactly zero. `B_actual`, actual
+capabilities, and the treatment-fidelity equalities must hold exactly. Failure of
+any condition invalidates causal interpretation even if the threshold is met.
+
+## Provenance construct and oracle validation
+
+The canonical provenance record is a small application-specific specialization
+of W3C PROV's entity/activity/agent and derivation/delegation structure. The
+authorization decision evaluates subject, effect/object, requested operation,
+and attributes, following the scope discipline of NIST SP 800-162. These sources
+ground the construct but do not validate this application-specific automaton.
+
+The production evaluator is an explicit deterministic automaton. The reference
+evaluator is an independently written relational checker. They may share only
+the normative config/event-schema text and immutable fixture bytes—never a
+parser, normalized trace object, helper, or derived answer table.
+
+Every atomic automaton clause has at least one accepting and one rejecting
+fixture and one clause mutant. Each implementation must pass the complete 2×2
+`B_actual same/different × V_prov same/different` matrix, every clause fixture,
+and kill 100% of the fixed mutant set before validation. Any disagreement or
+surviving mutant blocks the census.
+
+## Residual-runtime determinism gate
+
+The validation estimand uses one execution per cell only if deterministic replay
+is established first. The tuning gate executes all 12 structural archetypes ×
+four inputs × three tapes × four conditions twice in fresh processes. For each
+pair, canonical full pre-action state, semantic event trace, `B_actual`,
+`V_prov`, compiled channels, and terminal state must be byte-identical.
+
+Branch reducers must be commutative and their values canonically sorted;
+semantic event order cannot use thread completion time. Runtime IDs, timestamps,
+wall-clock values, unordered container iteration, and random UUIDs are prohibited
+from scientific coordinates. `PYTHONHASHSEED=0`, locale `C`, timezone `UTC`, and
+the exact CPU/process policy are fixed.
+
+Any replay mismatch blocks the one-run census. This contract does not silently
+switch to a repeated-run estimand; such a switch requires a new version.
 
 ## Assignment, isolation, and resource rules
 
-- A committed balanced Latin schedule, keyed only by graph ID, determines the
-  order of the four conditions.
-- Each condition runs in a fresh process and fresh temporary directory.
-- Conditions share no filesystem state, cache, telemetry, mutable environment,
-  or network connection.
-- CPU-only; maximum five CPU seconds per condition.
-- Condition labels are not opened to analysis until both evaluators have
-  committed their verdicts.
-- No model API, framework telemetry, operational attack text, or destructive
-  tool action is permitted.
-
-## Secondary outcomes and later studies
-
-Secondary outcomes are the four condition-specific provenance rates, exact
-common-support audit, task-coordinate diagnostics, execution steps, wall time,
-peak memory, and the six-mutant kill matrix. They cannot replace the primary
-contrast. Alpha-renaming, independent-gate reordering, mapped state split/merge,
-and CrewAI replication require later versioned contracts and are reported even
-if they disagree; there is no best-family or best-framework selection.
+- Condition order is the exact cyclic Latin formula in the v3 config.
+- Fresh process and temporary directory per condition.
+- No shared filesystem state, cache, telemetry, network, or mutable environment.
+- CPU-only; five CPU seconds per condition.
+- Condition labels remain sealed until both evaluators commit verdicts.
+- No model API, operational attack text, destructive tool, or live target.
 
 ## Data tiers
 
-- **Tuning:** at most 12 hand-authored graphs, clearly labeled exploratory. These
-  may debug schemas, adapters, and oracle fixtures but cannot support the claim.
-- **Validation:** the fixed 120-graph, 5,760-execution census above. It may decide
-  an internal Phase-5 path but is not a locked-test result.
-- **Locked test:** remains ungenerated and unexecuted. Its old c2-v1 seed
-  reservation `20260720` confers no permission to create it. A new versioned
-  contract, clean freeze, independent code review, preregistered prediction, and
-  explicit user authorization are all required first.
+- **Tuning:** at most 12 archetype graphs. Only source authenticity, treatment
+  fidelity, deterministic replay, schema, fixture, and oracle debugging. Tuning
+  cannot support the primary claim.
+- **Validation:** the fixed 120-graph/5,760-execution census.
+- **Locked test:** ungenerated and unexecuted. It requires a new versioned
+  contract, freeze, review, prediction, and explicit authorization.
 
-Without a locked-test authorization, the project must remain validation-only
-internal evidence.
+Without locked-test authorization, any result remains validation-only internal
+evidence.
 
 ## Mutable and immutable paths
 
-Before the Phase-3 freeze, implementation may be written only under
+Before Phase-3 freeze, implementation may be written only under
 `experiments/omst/`, with tuning outputs under `experiments/runs/omst-tuning/`.
-For every c2-v2 OMST result, the following paths are read-only from this amendment
-approval commit onward:
+For every c2-v3 result, these paths are read-only from this amendment commit:
 
 ```text
 PROBLEM.md
@@ -214,36 +233,25 @@ research-log/053-literature-review-orchestration-security.md
 research-log/054-decision-archaeology-orchestration-security.md
 research-log/058-omst-theory-review-round1.md
 research-log/059-omst-round1-resolution-and-contract-amendment.md
+research-log/062-omst-theory-review-round2.md
+research-log/063-omst-source-authenticity-and-c2-v3-amendment.md
 experiments/configs/environment-orchestration-c2.md
 experiments/configs/data-governance-orchestration-c2.md
 experiments/configs/evaluation-contract-orchestration-c2.md
 experiments/configs/omst-c2-v1.json
 experiments/configs/omst-c2-v2.json
+experiments/configs/omst-c2-v3.json
 ```
 
-The generator, schedule, event schema, fixture bytes, eligibility checker,
-production evaluator, independent reference evaluator, and adapter become
-additional immutable exact paths at the Phase-3 preregistration commit, before
-any validation graph is generated. Every evidence bundle records the comparison
-commit and verifies `git diff --exit-code <freeze> -- <immutable paths>`.
+Generator code, exact fixture bytes, event schema, automaton, schedule,
+eligibility checker, both evaluators, treatment-fidelity checker, and adapter
+become additional immutable paths at Phase-3 preregistration before validation
+graph generation.
 
-## Execution and reporting rules
+## Approval boundary
 
-- Prediction rows and a rationale are committed before every PoC or execution.
-- Any protocol failure invalidates the entire primary census; it is never coded
-  as a security violation or silently excluded.
-- Tuning fixtures and validation units remain disjoint and are labeled by tier.
-- No outcome-dependent rewrite search, exception, threshold, or oracle change.
-- A material result triggers adapter, eligibility, evaluator-independence, and
-  leakage review before it may be kept.
-- All four conditions, all failures, and every later mandatory replication are
-  reported; selective reporting is prohibited.
-
-## Approval and standing autonomy boundary
-
-The user's quoted approval authorizes the c2-v2 internal research design and
-continued local iteration without repeated approval questions for ordinary
-review-driven design revisions. It does not authorize framework download,
+The standing default authorizes this review-driven local design correction and
+continued SciAgent iteration. It does not authorize framework download,
 confirmatory execution, locked-test generation/execution, Kaggle, live targets,
 attack execution, model APIs, publication, external messages, or coordinated
-disclosure. Those boundaries remain separately gated.
+disclosure.

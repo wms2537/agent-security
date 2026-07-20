@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "At least 10 percentage points excess task-equivalent rewrite-induced security regression over an exact-zero identity control on the primary finite validation census, subject to Phase-2 theory review; mandatory second-runtime report.",
+    "omst": "At least 10 percentage points more provenance violations for a task-only LangGraph action-node input schema than the same action with a task-plus-provenance schema on the exact common-support finite validation census; identity/node-only exact zero; later replication remains separate.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -710,7 +710,8 @@
       "justification_v2": "COMPLETE BEFORE REVIEW — one-coordinate causal chain, direct ReliabilityBench/ASSURE comparison, 15 assumptions with validity domains, all eight fixed bias items, 11 substantive rival explanations, independent representations, 2x2 fixtures, and 100% six-mutant kill gate.",
       "round1_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — seven rows in research-log/060 claim RESOLVED for estimand/weighting, B/security separation, causal common support, oracle validation, evidence/taxonomy, census specification, and assumptions/terminology.",
       "theory_review_round2": "NEEDS_REVISION — reviewer and committed line counts agree 677/677. Prior issues 1/2/5/7 RESOLVED; 3/4/6 IMPROVED. Four remaining blockers: exact V_prov automaton/event semantics with clause-level fixtures/mutants; executable treatment-fidelity predicate and pinned runtime path; byte-deterministic census grammar/fixtures/tapes/order; residual-runtime determinism gate or repeated-run estimand. Full verbatim report: research-log/062. Budget remains 13/20 after dispatch accounting.",
-      "status": "IN_PROGRESS — round-2 adverse verdict accepted; no PoC or experiment permitted; standing user default authorizes a new superseding local revision without another approval question"
+      "contract_amendment_v3": "APPLIED UNDER STANDING DEFAULT — official pinned-source inspection showed node input-schema channel projection is authentic but generic `default reconstruction` is not. c2-v3 narrows the treatment to task-only versus task-plus-provenance action schemas and fixes OMST-GEN-1, 17-clause provenance automaton, exact treatment-fidelity predicate, and duplicate replay gate. Full rationale: research-log/063; Git preserves c2-v2.",
+      "status": "IN_PROGRESS — round-2 adverse verdict accepted; c2-v3 source-authentic contract fixed; new superseding hypothesis required before re-review; no PoC or experiment permitted"
     }
   }
 }
