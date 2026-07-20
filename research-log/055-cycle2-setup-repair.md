@@ -1,7 +1,7 @@
 # Cycle-2 setup repair — orchestration security portfolio
 
 **Date:** 2026-07-20 · **Phase:** 0 · **Cycle:** 2 · **Iteration:** 5 ·
-**Status:** in progress, awaiting evaluation-contract approval
+**Status:** completed, evaluation contract approved
 
 ## Context
 
@@ -80,9 +80,11 @@ evidence.
   `experiments/configs/evaluation-contract-orchestration-c2.md`; exact config at
   `experiments/configs/omst-c2-v1.json`.
 - Deterministic validation and git evidence: pending the RECORD step.
-- User approval of the exact evaluation contract: **PENDING**. The selection
-  `go try all please` approves the directions, not unseen thresholds or data-tier
-  mechanics.
+- User approval of the exact evaluation contract: **APPROVED**. After the draft
+  was presented with its metric, 10 pp threshold, runtime matrix, data tiers, and
+  authorization boundary, the user's complete response was verbatim: `ok`.
+- Deterministic closure command returned:
+  `cycle2_setup_gate=PASS status=approved_for_phase2_hypothesis constructs=6 rewrites=4 locked_test_absent=true`.
 
 ## Problem alignment
 
@@ -92,14 +94,12 @@ security question.
 
 ## Decision
 
-Do not enter Phase 2 until the user approves or revises the exact Cycle-2
-problem/evaluation constitution. After approval, OMST becomes the sole active
-hypothesis and PDPF/IPHE remain parked.
+Enter Phase 2 with OMST as the sole active hypothesis. PDPF and IPHE remain
+parked. Contract approval does not authorize a framework download, experiment,
+locked-test action, Kaggle action, live attack, model API, or external message.
 
 ## Next Steps
 
-1. Verify the draft deterministically and commit it without claiming gate pass.
-2. Present the core comparison, thresholds, runtimes, test-tier boundary, and
-   portfolio sequence to the user.
-3. On approval, freeze the contract, activate OMST, and write its immutable
-   Phase-2 hypothesis before any review or experiment.
+1. Write the complete immutable OMST Phase-2 hypothesis.
+2. Pass deterministic hypothesis checks before spending a review round.
+3. Dispatch one sterile theory review; no experiment may begin before RIGOROUS.

@@ -1,5 +1,5 @@
 {
-  "phase": "0",
+  "phase": "2",
   "cycle": 2,
   "iteration": 5,
   "entry_mode": "idea",
@@ -30,7 +30,7 @@
     "Provenance-Decoupled Progress Firewall",
     "Invariant-Preserving Harness Evolution"
   ],
-  "active_hypothesis": null,
+  "active_hypothesis": "Orchestration Metamorphic Security Testing",
   "budgets": {
     "research_iterations": {
       "limit": 5,
@@ -314,9 +314,17 @@
       "id": "T034",
       "phase": "0",
       "desc": "Repair the Cycle-2 problem anchor, idea DNA, data-governance record, and evaluation-contract boundary before any orchestration-security hypothesis is activated",
-      "status": "in_progress",
-      "evidence": "Draft constitution written in PROBLEM.md, experiments/configs/environment-orchestration-c2.md, data-governance-orchestration-c2.md, evaluation-contract-orchestration-c2.md, omst-c2-v1.json, and research-log/055. Direct official-repository checks pinned LangGraph 1.2.9 at 95af6a... and CrewAI 1.14.7 at peeled commit 21fa8e3..., both with MIT license text. Deterministic draft check is recorded at the 2026-07-20 T034 progress line. User approval of the exact metric, 10 pp threshold, runtime matrix, and test-tier boundary remains pending; no framework/download/test/action occurred.",
+      "status": "done",
+      "evidence": "Draft constitution written in PROBLEM.md, experiments/configs/environment-orchestration-c2.md, data-governance-orchestration-c2.md, evaluation-contract-orchestration-c2.md, omst-c2-v1.json, and research-log/055. Direct official-repository checks pinned LangGraph 1.2.9 at 95af6a... and CrewAI 1.14.7 at peeled commit 21fa8e3..., both with MIT license text. User approval of the presented exact contract is verbatim: `ok`. Verification returned `cycle2_setup_gate=PASS status=approved_for_phase2_hypothesis constructs=6 rewrites=4 locked_test_absent=true`. No framework download, experiment, test, attack, Kaggle, model-API, or external-message action occurred.",
       "parent": "T033"
+    },
+    {
+      "id": "T035",
+      "phase": "2",
+      "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
+      "status": "open",
+      "evidence": null,
+      "parent": "T034"
     }
   ],
   "parked_candidates": [
@@ -660,7 +668,7 @@
       "decision_archaeology": "COMPLETE — AHE, LoopTrap, and MaMa are reconstructed in research-log/054 at introduction, method, setup, results, and discussion decision points.",
       "candidate_directions": "COMPLETE — A) Orchestration Metamorphic Security Testing, B) Provenance-Decoupled Progress Firewall, and C) Invariant-Preserving Harness Evolution are scored; A is recommended.",
       "user_approval": "APPROVED — user selected the complete sequential portfolio verbatim: `go try all please`; A proceeds first while B/C remain parked as separate iterations. This does not authorize attack execution or Kaggle/held-out action.",
-      "phase2_setup": "PENDING USER APPROVAL — T034 drafted the repaired Cycle-2 anchor and exact OMST contract; Phase 2 remains blocked until the user approves or revises the metric, 10 pp materiality threshold, pinned runtimes, data tiers, and action boundary."
+      "phase2_setup": "COMPLETE — exact Cycle-2 contract approved by the user's verbatim `ok`; OMST is the sole active Phase-2 hypothesis and B/C remain parked."
     },
     "0_cycle2": {
       "problem_md": "DRAFT COMPLETE — PROBLEM.md has a Supersedes header, one-sentence core question, causal-within-sandbox question type, proxy caveat, explicit non-goals, six-construct table, and the user-selected A/B/C sequence.",
@@ -670,8 +678,8 @@
       "data_governance": "DRAFT COMPLETE — official pins/licenses, no PII/human subjects, synthetic contamination boundary, dual-use handling, and separate authorization requirements recorded.",
       "evaluation_contract": "DRAFT COMPLETE — exact OMST primary comparison, eligibility relation, baselines, 120/60 Medium benchmark matrix, three decision tapes, data tiers, immutable paths, and missingness/reporting rules recorded; locked test remains absent.",
       "direction_approval": "APPROVED — user selected all directions verbatim: `go try all please`; this approves sequential pursuit, not the unseen contract details.",
-      "contract_approval": "PENDING — user must approve or revise the exact draft before T034 can close and Phase 2 can start.",
-      "status": "PENDING — deterministic draft complete; user contract checkpoint open"
+      "contract_approval": "APPROVED — after the exact draft was presented, the user's complete response was verbatim: `ok`.",
+      "status": "PASS — `cycle2_setup_gate=PASS status=approved_for_phase2_hypothesis constructs=6 rewrites=4 locked_test_absent=true`; proceed to Phase 2 only"
     }
   }
 }

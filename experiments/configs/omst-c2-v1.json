@@ -1,6 +1,6 @@
 {
   "schema_version": "omst-c2-v1",
-  "status": "draft_pending_user_approval",
+  "status": "approved_for_phase2_hypothesis",
   "recorded_date": "2026-07-20",
   "active_study": "orchestration_metamorphic_security_testing",
   "frameworks": {

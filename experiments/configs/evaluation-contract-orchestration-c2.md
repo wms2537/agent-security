@@ -1,8 +1,8 @@
 # Cycle-2 orchestration-security evaluation contract
 
-**Version:** c2-draft-v1
+**Version:** c2-v1
 **Recorded:** 2026-07-20
-**Status:** DRAFT — requires user approval before Phase 2 activation
+**Status:** APPROVED — user response `ok` on 2026-07-20
 **Active study:** Orchestration Metamorphic Security Testing (OMST)
 
 ## Claim scope
@@ -155,7 +155,7 @@ commit and verifies `git diff --exit-code <freeze> -- <immutable paths>`.
 
 ## Approval boundary
 
-Approval of this draft authorizes Phase-2 hypothesis formation and local static
+Approval of this contract authorizes Phase-2 hypothesis formation and local static
 or tuning-fixture work. It does **not** authorize framework download, a
 confirmatory run, locked-test generation/execution, Kaggle, live attacks, model
 APIs, publication, external messages, or coordinated disclosure. Those actions
