@@ -31,7 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/076-hypothesis-iter-5-omst-v6-quotient-control.md",
+  "active_hypothesis_artifact": "research-log/080-hypothesis-iter-5-omst-v7-conditional-correspondence.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-6 adverse verdict is preserved in research-log/078. c2-v7 in research-log/079 and experiments/configs/omst-c2-v7-conditional-correspondence.json withdraws unconditional framework correspondence, states only P->C, adds four commit-bound source lemmas, a fully bound fixture/launcher with literal hashes, actual local Python/JSON hashes and explicit framework absence, exact callback/import premises, and corrected JSON-container scope. Superseding hypothesis/review pending; budget 17/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 592-line v7 hypothesis in research-log/080 withdraws unconditional framework correspondence and proves only P->C alongside the rigorous theorem/witness. Static verification passes: Python/shell syntax, fixture/launcher/Python/JSON hashes, 1,555 exhaustive models with zero counterexamples, four bound cells, seven P premises, two conditional claims, explicit framework absence, and zero unresolved placeholders. Sterile review pending; budget 17/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -741,7 +741,9 @@
       "theory_review_round6": "NEEDS_REVISION — reviewer and committed line counts agree 675/675. The minimal theorem, empty/larger-domain cases, complete witness typing, role separation, scope, taxonomy and anti-stacking pass; four engineering blockers remain: complete loop/input/channel/task-delivery derivation, literal source/environment values plus callback/import isolation, a fully bound four-cell launcher/instrumentation subject, and corrected JSON-container wording. Full verbatim report: research-log/078; budget remains 17/20.",
       "contract_amendment_v7": "APPLIED UNDER STANDING DEFAULT — c2-v7 retains the rigorous theorem/witness but replaces the overclaimed unconditional framework proposition with P->C_task/C_full. Four commit-bound source lemmas trace compile, fresh input/channel state, task preparation and delivery; exact closed fixture/launcher and actual local hashes are recorded; framework/dependencies remain explicitly absent and P undischargeable before acquisition.",
       "round6_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — the engineering proof is closed at the conditional claim level; environment/source identity, callbacks/import isolation, and exact dependency state are antecedents in P rather than assumed conclusions; all four cells and launch commands are bound; JSON objects/arrays with primitive leaves are explicit.",
-      "status": "IN_PROGRESS — c2-v7 conditional contract complete; write and verify immutable superseding hypothesis"
+      "hypothesis_v7": "COMPLETE BEFORE REVIEW — research-log/080 supersedes immutable v6 with unconditional minimal factorization/witness claims, conditional P->C_task/C_full only, a four-lemma commit-bound source trace, exact seven-premise acquisition/isolation bundle, closed hashed fixture/launcher, literal absent-dependency state, and role-specific failures.",
+      "deterministic_verification_v7": "PASS — `omst_hypothesis_v7=PASS lines=592 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 premises=7 conditional_claims=2 framework_present=false unconditional_C=false unresolved_placeholders=0 review=pending`; v1-v6 and reviews unchanged.",
+      "status": "IN_PROGRESS — immutable c2-v7 hypothesis verified and ready for sterile theory review"
     }
   }
 }
