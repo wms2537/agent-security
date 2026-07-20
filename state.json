@@ -43,7 +43,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 17
+      "spent": 18
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Superseding 592-line v7 hypothesis in research-log/080 withdraws unconditional framework correspondence and proves only P->C alongside the rigorous theorem/witness. Static verification passes: Python/shell syntax, fixture/launcher/Python/JSON hashes, 1,555 exhaustive models with zero counterexamples, four bound cells, seven P premises, two conditional claims, explicit framework absence, and zero unresolved placeholders. Sterile review pending; budget 17/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 592-line v7 hypothesis in research-log/080 withdraws unconditional framework correspondence and proves only P->C alongside the rigorous theorem/witness; all static checks pass. Sterile round-7 review dispatched against immutable commit 80e0764 plus normative JSON and closed code-as-text; budget charged 18/20. Verdict pending. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -743,7 +743,8 @@
       "round6_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — the engineering proof is closed at the conditional claim level; environment/source identity, callbacks/import isolation, and exact dependency state are antecedents in P rather than assumed conclusions; all four cells and launch commands are bound; JSON objects/arrays with primitive leaves are explicit.",
       "hypothesis_v7": "COMPLETE BEFORE REVIEW — research-log/080 supersedes immutable v6 with unconditional minimal factorization/witness claims, conditional P->C_task/C_full only, a four-lemma commit-bound source trace, exact seven-premise acquisition/isolation bundle, closed hashed fixture/launcher, literal absent-dependency state, and role-specific failures.",
       "deterministic_verification_v7": "PASS — `omst_hypothesis_v7=PASS lines=592 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 premises=7 conditional_claims=2 framework_present=false unconditional_C=false unresolved_placeholders=0 review=pending`; v1-v6 and reviews unchanged.",
-      "status": "IN_PROGRESS — immutable c2-v7 hypothesis verified and ready for sterile theory review"
+      "theory_review_round7": "IN_PROGRESS — sterile reviewer dispatched against immutable commit 80e0764, normative v7 JSON, and closed fixture/launcher with four round-6 issues; committed hypothesis line count 592; budget charged 18/20.",
+      "status": "IN_PROGRESS — immutable c2-v7 hypothesis under sterile theory review"
     }
   }
 }
