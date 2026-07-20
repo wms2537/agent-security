@@ -709,8 +709,8 @@
       "concept_v2": "COMPLETE — OMST is defined as rewrite invariance on a B_actual fiber, with all actual task effects separated from the provenance-security coordinate and capability as an exact negative control.",
       "justification_v2": "COMPLETE BEFORE REVIEW — one-coordinate causal chain, direct ReliabilityBench/ASSURE comparison, 15 assumptions with validity domains, all eight fixed bias items, 11 substantive rival explanations, independent representations, 2x2 fixtures, and 100% six-mutant kill gate.",
       "round1_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — seven rows in research-log/060 claim RESOLVED for estimand/weighting, B/security separation, causal common support, oracle validation, evidence/taxonomy, census specification, and assumptions/terminology.",
-      "theory_review_round2": "DISPATCHED — immutable research-log/060 at commit 028c33f, 677 committed lines; sterile re-review must grade all seven prior issues and check new defects; cumulative budget charged 13/20 at dispatch.",
-      "status": "IN_PROGRESS — c2-v2 superseding hypothesis is under sterile round-2 theory review; no PoC or experiment permitted"
+      "theory_review_round2": "NEEDS_REVISION — reviewer and committed line counts agree 677/677. Prior issues 1/2/5/7 RESOLVED; 3/4/6 IMPROVED. Four remaining blockers: exact V_prov automaton/event semantics with clause-level fixtures/mutants; executable treatment-fidelity predicate and pinned runtime path; byte-deterministic census grammar/fixtures/tapes/order; residual-runtime determinism gate or repeated-run estimand. Full verbatim report: research-log/062. Budget remains 13/20 after dispatch accounting.",
+      "status": "IN_PROGRESS — round-2 adverse verdict accepted; no PoC or experiment permitted; standing user default authorizes a new superseding local revision without another approval question"
     }
   }
 }
