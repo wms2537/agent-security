@@ -31,7 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/056-hypothesis-iter-5-omst-v1.md",
+  "active_hypothesis_artifact": "research-log/060-hypothesis-iter-5-omst-v2.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Immutable-review candidate research-log/056 contains 492 lines, one primary comparison, exact finite estimand, nine assumptions with validity domains, all eight fixed bias items, eight rival explanations, thresholds, taxonomy, anti-stacking prediction, and explicit disconfirm/invalid separation. Targeted source research-log/lit/targeted_omst_metamorphic_2026.json contains three search records and two reviewed high-relevance primary entries. Deterministic check returned `omst_hypothesis_draft=PASS lines=492 bias_items=8 assumptions=9 rival_explanations=8 rewrite_families=4 targeted_papers=2 search_entries=1 theory_review=pending`. Sterile theory review round 1 is dispatched against immutable commit 09f0a80; cumulative review budget charged 12/20 at dispatch. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
+      "evidence": "Round-1 immutable v1 and its adverse review remain at research-log/056 and 058. After the user's c2-v2 amendment approval, superseding research-log/060 contains 677 lines, the single default-reconstruction-minus-pass-through comparison, exact 1,440-unit/5,760-execution equal-graph estimand, 15 assumptions with validity domains, all eight fixed bias items, 11 substantive rivals, and a seven-row issue-resolution matrix. Deterministic verification returned `omst_hypothesis_v2=PASS lines=677 bias_items=8 assumptions=15 issue_rows=7 conditions=4 executions=5760 targeted_papers=4 placeholders=0 review=pending`; cumulative review budget remains 12/20 until round-2 dispatch. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -705,7 +705,11 @@
       "problem_alignment": "COMPLETE — confirmation would show that task-preserving orchestration changes can materially alter security contracts under the Cycle-2 core question.",
       "theory_review": "ROUND 1 NEEDS_REVISION — reviewer reported and committed line count 492/492. Seven required fixes: conditional base-safe estimand/weights; B-versus-security coordinate separation; common-support mechanistic comparisons; independent per-oracle validation; ReliabilityBench/ASSURE novelty and taxonomy; complete census specification; missing assumptions/terminology. Core salvageable, not fundamentally flawed. Full verbatim report research-log/058; cumulative budget remains 12/20.",
       "contract_amendment": "APPROVED — user verbatim: `go, dont ask me these questions again, go iterate and improve yourself`. The c2-v2 contract replaces the pooled primary with a common-support provenance-boundary rescue contrast, exact 5,760-execution census, equal graph weighting, independent-oracle mutation gates, and a provenance-only primary; Git preserves c2-v1.",
-      "status": "IN_PROGRESS — round-1 adverse verdict accepted; approved c2-v2 contract now governs the superseding hypothesis"
+      "hypothesis_v2": "COMPLETE BEFORE REVIEW — research-log/060 supersedes immutable v1 with one matched default-reconstruction-minus-explicit-pass-through causal claim, exact 1,440-unit/5,760-execution census, equal graph weighting, and no unsupported point prediction.",
+      "concept_v2": "COMPLETE — OMST is defined as rewrite invariance on a B_actual fiber, with all actual task effects separated from the provenance-security coordinate and capability as an exact negative control.",
+      "justification_v2": "COMPLETE BEFORE REVIEW — one-coordinate causal chain, direct ReliabilityBench/ASSURE comparison, 15 assumptions with validity domains, all eight fixed bias items, 11 substantive rival explanations, independent representations, 2x2 fixtures, and 100% six-mutant kill gate.",
+      "round1_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — seven rows in research-log/060 claim RESOLVED for estimand/weighting, B/security separation, causal common support, oracle validation, evidence/taxonomy, census specification, and assumptions/terminology.",
+      "status": "IN_PROGRESS — c2-v2 superseding hypothesis deterministically complete; round-2 sterile review not yet dispatched"
     }
   }
 }
