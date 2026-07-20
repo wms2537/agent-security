@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "The c2-v3 empirical criterion is refuted and the c2-v4 constructed identity is superseded after adverse review. The active c2-v5 criterion is a RIGOROUS projection-fiber factorization theorem plus its two-state provenance corollary; at most one later source-to-input correspondence fixture is allowed, with no security verdict, prevalence, or census claim.",
+    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. The active c2-v6 criterion is a RIGOROUS minimal projection-fiber factorization theorem plus a fully typed two-state record-reconstruction control and an independent, source-derived LangGraph correspondence proposition; at most one later correspondence check is allowed, with no general-security verdict, prevalence, or census claim.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-5 review in research-log/074 verified immutable v5 at 628 lines and returned NEEDS_REVISION. The abstract factorization theorem and two-state universal impossibility are correct, no finite countermodel was found, and anti-stacking narrowly passes. Six repairable blockers remain: a closed executable LangGraph fixture/run-state spec, source-level determinism rather than one-replicate inference, removal/demotion of unnecessary T1/T3 assumptions, complete J/Y/projection typing, consistent proposition/control roles, and record-reconstruction/schema-sufficiency scope. Budget remains 16/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-5 adverse verdict is preserved verbatim in research-log/074. c2-v6 in research-log/075 and experiments/configs/omst-c2-v6-quotient-control.json claims all six fixes: minimal unique factorization with empty domains, fully typed two-state witness, a literal four-cell fixture, source-level fixed-run determinism obligations, load-bearing C_task separated from optional C_full, and record-reconstruction/schema-sufficiency scope. Superseding hypothesis and sterile review remain pending; budget 16/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -734,7 +734,9 @@
       "hypothesis_v5": "COMPLETE BEFORE REVIEW — research-log/072 supersedes immutable v4 with one projection-fiber factorization theorem, concrete definitions, well-typed necessity/sufficiency proofs, a minimal two-state provenance impossibility corollary, T1-T4 domains, semantic closure, exact source correspondence, anti-stacking/Occam analysis, and no action-authored verdict or census.",
       "deterministic_verification_v5": "PASS — `omst_hypothesis_v5=PASS lines=628 assumptions=4 exhaustive_models=1554 theorem_counterexamples=0 witness_states=2 targets_distinct=true security_verdict=none census_executions=0 placeholders=0 review=pending`; exhaustive finite models cover |S|=1..4, three projection labels, binary targets, and all reachable-domain actions.",
       "theory_review_round5": "NEEDS_REVISION — reviewer and committed line counts agree 628/628. The abstract theorem and two-state universal impossibility are correct with no finite countermodel; six fixes remain: make the LangGraph proposition fully executable/closed, prove determinism from fixed source/run state, remove T1 and demote reachable-image normalization from a load-bearing assumption, fully type J/Y/projections, consistently separate correspondence proposition and optional full positive control, and label the instance record-reconstruction/schema-sufficiency rather than general security failure. Full verbatim report: research-log/074; budget remains 16/20.",
-      "status": "IN_PROGRESS — round-5 adverse verdict accepted; minimize the theorem and close the source/run-state correspondence specification before any Phase-3 work"
+      "contract_amendment_v6": "APPLIED UNDER STANDING DEFAULT — research-log/075 and the c2-v6 contract remove finiteness/nonemptiness, define Q=image(pi) for canonical uniqueness, fully type J/Y/projections, split load-bearing C_task from optional C_full, declare a literal four-cell graph fixture, and require a fixed-source/run-state determinism proof before any execution. Scope is record-reconstruction/schema-sufficiency relative to tau; Git preserves c2-v5.",
+      "round5_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all six requirements are addressed in the c2-v6 model: exact schemas/graph/invocation/capture; source-derived fresh cache/checkpoint/channel/mapper/mutation controls; minimal theorem and larger-domain note; complete witness typing; independent proposition/control roles; and honest engineering-control scope.",
+      "status": "IN_PROGRESS — c2-v6 contract complete; write and deterministically verify the immutable superseding hypothesis before sterile review"
     }
   }
 }

@@ -1,0 +1,195 @@
+{
+  "schema_version": "omst-c2-v6-quotient-control",
+  "status": "phase2_theory_only",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v5-factorization",
+  "classification": "formal_derivation_plus_engineering_correspondence_control",
+  "minimal_theorem": {
+    "objects": [
+      "sets S and Y",
+      "a total function pi:S->Q where Q is defined as image(pi)",
+      "a total function tau:S->Y"
+    ],
+    "closure": "ker(pi) subseteq ker(tau), equivalently pi(s)=pi(s_prime) implies tau(s)=tau(s_prime)",
+    "statement": "there exists a unique total function g:Q->Y with tau=g composed_with pi iff ker(pi) subseteq ker(tau)",
+    "empty_domain": "allowed; if S and Q are empty, the unique empty g factors the unique empty tau",
+    "finiteness": "not assumed",
+    "reachable_image": "definition of Q used to make the factor canonical and unique, not a load-bearing existence assumption",
+    "larger_domain_extension": "if a separate nonempty action domain Q0 strictly contains image(pi), a factor on image(pi) can be extended to Q0 when Y is nonempty, but the extension is not unique off the image"
+  },
+  "typed_witness": {
+    "P": [
+      {
+        "entity_id": "entity-0",
+        "activity_id": "activity-0",
+        "agent_id": "agent-0"
+      },
+      {
+        "entity_id": "entity-0",
+        "activity_id": "activity-0",
+        "agent_id": "agent-1"
+      }
+    ],
+    "B": "set of canonical JSON byte strings",
+    "J": "total function P->B using canonicalization.canonical_json",
+    "X": [
+      {
+        "subject_id": "subject-0",
+        "task_value": "ready",
+        "effect_id": "effect-0",
+        "effect_log": [],
+        "completion": "pending"
+      }
+    ],
+    "S": "X cross P",
+    "Y": "J(P), the exact two-element subset of B",
+    "tau": "tau:X cross P->Y, tau(x,p)=J(p)",
+    "pi_task": "pi_task:X cross P->X, pi_task(x,p)=x",
+    "pi_full": "pi_full:X cross P->X cross P, pi_full(x,p)=(x,p)",
+    "g_full": "g_full:X cross P->Y, g_full(x,p)=J(p)",
+    "task_consequence": "for every total deterministic g_task:X->Y, g_task composed_with pi_task differs from tau on at least one witness state",
+    "full_consequence": "the unique g_full factors tau through pi_full"
+  },
+  "canonicalization": {
+    "canonical_json": "UTF-8 json.dumps(sort_keys=true,separators=(',',':'),ensure_ascii=true,allow_nan=false), integers/strings/booleans/null only, no trailing newline",
+    "p0_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-0\",\"entity_id\":\"entity-0\"}",
+    "p1_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-1\",\"entity_id\":\"entity-0\"}"
+  },
+  "correspondence_propositions": {
+    "C_task_load_bearing": "under the exact fixture and fixed fresh-run state, the complete action-observable inputs for s0 and s1 under TaskStateOnly are byte-identical",
+    "C_full_positive_control": "under the same fixture, TaskStatePlusProvenance inputs differ exactly at provenance_record",
+    "logical_roles": {
+      "C_task": "required to apply task-side universal impossibility",
+      "C_full": "optional positive control for deliverability and constructive sufficiency; failure does not by itself refute C_task"
+    }
+  },
+  "literal_python_fixture": {
+    "imports": [
+      "from __future__ import annotations",
+      "import json",
+      "from copy import deepcopy",
+      "from typing_extensions import NotRequired, TypedDict",
+      "from langgraph.graph import END, START, StateGraph"
+    ],
+    "declarations": [
+      "class ProvenanceRecord(TypedDict): entity_id: str; activity_id: str; agent_id: str",
+      "class TaskStateOnly(TypedDict): subject_id: str; task_value: str; effect_id: str; effect_log: list[dict[str, object]]; completion: str",
+      "class TaskStatePlusProvenance(TaskStateOnly): provenance_record: ProvenanceRecord",
+      "class GraphState(TaskStatePlusProvenance): received_input: NotRequired[str]"
+    ],
+    "capture_callable": [
+      "def capture(state: dict[str, object]) -> dict[str, str]:",
+      "    received = json.dumps(state, sort_keys=True, separators=(',', ':'), ensure_ascii=True, allow_nan=False)",
+      "    return {'received_input': received}"
+    ],
+    "builder": [
+      "def build(schema):",
+      "    builder = StateGraph(GraphState)",
+      "    builder.add_node('capture', capture, input_schema=schema, defer=False, retry_policy=None, cache_policy=None)",
+      "    builder.add_edge(START, 'capture')",
+      "    builder.add_edge('capture', END)",
+      "    return builder.compile()"
+    ],
+    "invocation": "result = build(schema).invoke(deepcopy(state), config=None); observed = result['received_input'].encode('utf-8')",
+    "cell_order": [
+      "TaskStateOnly,s0",
+      "TaskStateOnly,s1",
+      "TaskStatePlusProvenance,s0",
+      "TaskStatePlusProvenance,s1"
+    ],
+    "process_rule": "one fresh Python process, fresh graph construction, one invocation, and a fresh temporary directory for each cell; no object or input_cache reuse",
+    "network_rule": "disabled",
+    "environment": {
+      "PYTHONHASHSEED": "0",
+      "locale": "C",
+      "timezone": "UTC",
+      "python": "exact version/hash from environment manifest",
+      "stdlib_json": "exact file hash recorded"
+    }
+  },
+  "exact_graph_state": {
+    "s0": {
+      "subject_id": "subject-0",
+      "task_value": "ready",
+      "effect_id": "effect-0",
+      "effect_log": [],
+      "completion": "pending",
+      "provenance_record": {
+        "entity_id": "entity-0",
+        "activity_id": "activity-0",
+        "agent_id": "agent-0"
+      }
+    },
+    "s1": {
+      "subject_id": "subject-0",
+      "task_value": "ready",
+      "effect_id": "effect-0",
+      "effect_log": [],
+      "completion": "pending",
+      "provenance_record": {
+        "entity_id": "entity-0",
+        "activity_id": "activity-0",
+        "agent_id": "agent-1"
+      }
+    }
+  },
+  "source_level_determinism_proof_obligations": [
+    "authenticate LangGraph tag 1.2.9 object 95af6a00718588e7b7ce17310e8006d267896a77 and relevant file hashes",
+    "show literal TypedDict fields create the expected unannotated LastValue channels",
+    "show explicit input_schema controls the capture node's compiled proc.channels: exactly subject_id,task_value,effect_id,effect_log,completion in declaration order for TaskStateOnly and those five plus provenance_record for TaskStatePlusProvenance",
+    "show proc.mapper is exactly None for both literal TypedDict node schemas, or reject the fixture",
+    "show builder.compile() yields checkpointer=None, cache=None, and store=None, or reject the fixture",
+    "show each invoke begins with a fresh checkpoint/channel set and prepare_next_tasks creates a fresh empty input_cache",
+    "show all selected input channels are available before the capture PULL task",
+    "show _proc_input reads exactly available proc.channels, applies no mapper, and shallow-copies only into the task-owned input value",
+    "show prepare_single_task assigns that value to PregelExecutableTask.input and the bound callable receives it",
+    "show capture serializes its argument before returning any write and cannot mutate graph state before capture",
+    "show no checkpointer, cache, retry, callback, store, config, global mutable state, closure, environment value, or prior invocation can distinguish s0 from s1 within a schema beyond the callable argument",
+    "derive C_task and C_full from the fixed source path and exact fresh-run state; execution may only check those derived relations"
+  ],
+  "runtime_snapshot_requirements": [
+    "compiled node proc.channels and proc.mapper",
+    "compiled checkpointer/cache/store attributes",
+    "pre-PULL channel names, types, availability, canonical values, and versions",
+    "empty input_cache identity at prepare_next_tasks entry",
+    "PregelExecutableTask.input canonical bytes",
+    "capture result received_input bytes",
+    "post-run source/config/environment hashes"
+  ],
+  "pairwise_checks": {
+    "within_task": "observed(TaskStateOnly,s0)=observed(TaskStateOnly,s1)=canonical_json(shared task mapping)",
+    "within_full": "observed(TaskStatePlusProvenance,s0) and observed(TaskStatePlusProvenance,s1) differ only at provenance_record",
+    "cross_schema_diagnostic": "for each sj, task observed mapping equals full observed mapping with provenance_record removed",
+    "failure_roles": {
+      "within_task_failure": "rejects C_task and the LangGraph task-impossibility application",
+      "within_full_failure": "rejects C_full positive control only; C_task may still stand",
+      "cross_schema_failure": "rejects exact one-coordinate treatment correspondence"
+    }
+  },
+  "scope": {
+    "label": "record-reconstruction/schema-sufficiency control relative to tau",
+    "not_claimed": [
+      "general security failure",
+      "production provenance policy",
+      "framework vulnerability",
+      "empirical prevalence or effect",
+      "new mathematical theorem",
+      "top-tier standalone contribution"
+    ]
+  },
+  "phase_gates": {
+    "phase2": "requires RIGOROUS sterile theoretical review",
+    "phase3": "after review and separate acquisition authorization, source-level proof must pass before one execution per fixed cell; execution checks correspondence only",
+    "phase4": "no OMST security experiment or census",
+    "locked_test": "absent and unauthorized"
+  },
+  "authorization_boundary": [
+    "no Kaggle action",
+    "no framework download or install",
+    "no source-fixture execution before applicable gate",
+    "no live target or operational attack",
+    "no model API",
+    "no external message or publication",
+    "no locked-test generation or execution"
+  ]
+}
