@@ -31,7 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/084-hypothesis-iter-5-omst-v8-environment-conditional.md",
+  "active_hypothesis_artifact": "research-log/088-hypothesis-iter-5-omst-v9-manifest-run-pairs.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-8 adverse verdict is preserved in research-log/086. c2-v9 amendment 087 introduces one common immutable M, four R_cell objects, independent P_task/P_full, exact role launchers, pre-import full-bundle authentication and one immediate post-compile/pre-invoke full reauthentication guard. Static bundle verification passed with 456 fixture lines, zero top-level framework imports, exact guard order and P_common(M0)=false. Budget remains 19/20; superseding hypothesis not yet dispatched. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 1,018-line v9 hypothesis in research-log/088 states the unchanged rigorous factorization theorem/witness plus independent universally quantified P_task->C_task and P_full->C_full over one common M and four R_cell objects. Deterministic checks returned `omst_hypothesis_v9=PASS ... exhaustive_models=1555 theorem_counterexamples=0 ... final_guard_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] ... P_common_M0=false ... unresolved_placeholders=0 review=pending`. Budget remains 19/20; final review not yet dispatched. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -752,7 +752,9 @@
       "contract_amendment_v9": "APPLIED UNDER STANDING DEFAULT — research-log/087 defines common immutable manifest M, four explicit R_cell run objects, independent P_task/P_full implications, role-specific two-child launchers, full pre-import authentication and one immediate post-compile/pre-invoke guard that reauthenticates artifacts, interpreter, stdlib, package trees/origins/versions, lock, eleven source files, source-audit report and import context. M0 is exact and P_common(M0)=false.",
       "round8_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all four round-8 defects are structurally addressed: no free cell variable; runtime package/source/lock reauthentication; actual compile-final-guard-invoke ordering; independent task/full antecedents.",
       "deterministic_bundle_verification_v9": "PASS — `v9_bundle_static=PASS fixture_lines=456 final_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] top_framework_imports=0 M0_payload=846f502e2984ccfba22fedd7b686f8f56d38d351deb48e62dcec46f131301ec1 P_common_M0=false`; Python AST, JSON, Bash syntax, 0755 mode, manifest payload, cross-file hashes and role separation pass.",
-      "status": "IN_PROGRESS — c2-v9 bundle corrected and statically verified; superseding immutable hypothesis and final deterministic review preflight remain"
+      "hypothesis_v9": "COMPLETE BEFORE REVIEW — research-log/088 supersedes immutable v8 with the unchanged minimal theorem/witness, one common authenticated manifest, four explicit run objects, independently quantified task/full implications, exact double runtime authentication and role-specific failures.",
+      "deterministic_verification_v9": "PASS — `omst_hypothesis_v9=PASS lines=1018 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 run_objects=4 role_implications=2 common_manifest=1 final_guard_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] langgraph_source_paths=8 langchain_modules=3 P_common_M0=false top_framework_imports=0 resolution_rows=4 unresolved_placeholders=0 review=pending`; reviewed predecessors unchanged.",
+      "status": "IN_PROGRESS — immutable c2-v9 hypothesis passed deterministic preflight; final sterile theory review remains"
     }
   }
 }
