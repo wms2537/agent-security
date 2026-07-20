@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-3 review in research-log/066 verified immutable v3 at 831 lines and returned NEEDS_REVISION. Research-log/067 retires the unexecuted frequency claim as refuted. The superseding v4 hypothesis at research-log/068 has 703 committed lines and defines one necessary-and-sufficient P13/P15 schema-closure proposition, exact projection/action, total verifier, A1-A7 domains, proof directions, countermodels, source correspondence, and one future fixture. Deterministic checks passed; sterile round 4 was dispatched against immutable commit ac3845d and charged cumulative budget 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-4 review in research-log/070 verified immutable v4 at 703 lines and returned NEEDS_REVISION. All four round-3 blockers are resolved, and the intended biconditional is correct, but the E/f expression is ill-typed, A3/A4 countermodel analysis is invalid, the null boundary statement is false, framework correspondence is incomplete, and the co-designed action/oracle fails anti-stacking and Occam. The scientifically appropriate next revision is a minimal projection-fiber factorization/impossibility theorem, not another constructed action result. Budget remains 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -727,8 +727,8 @@
       "hypothesis_v4": "COMPLETE BEFORE REVIEW — research-log/068 supersedes immutable v3 with one deterministic schema-closure biconditional, exact symbols/projection/action, total R_13_15 byte predicate, A1-A7 validity domains, separate proof directions, load-bearing countermodels, pinned source correspondence, one future regression fixture, and no empirical census.",
       "round3_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — v4 retires the forced empirical claim, narrows the oracle to total P13/P15 semantics, removes the observer, removes the incomplete generator/census, and reclassifies the contribution as Scope Mismatch × Formal Derivation × formalize.",
       "deterministic_verification_v4": "PASS — `omst_hypothesis_v4=PASS lines=703 assumptions=7 event_kinds=2 proof_directions=2 countermodel_sections=5 census_executions=0 placeholders=0 review=pending`; JSON/Markdown/state agreement and predecessor immutability checks passed.",
-      "theory_review_round4": "DISPATCHED — immutable research-log/068 at commit ac3845d, 703 committed lines; sterile theoretical re-review must independently derive both implications, test totality/circularity and source correspondence, and re-grade all four round-3 blockers; cumulative budget 15/20.",
-      "status": "IN_PROGRESS — c2-v4 under sterile round-4 theory review; no Phase-3 work permitted"
+      "theory_review_round4": "NEEDS_REVISION — reviewer and committed line counts agree 703/703. All four round-3 blockers are RESOLVED or RESOLVED BY REMOVAL, and the intended biconditional is mathematically true, but v4 has an ill-typed E/f expression, redundant/incorrect assumption analysis, a false null-boundary claim, incomplete _proc_input correspondence checks, and fails anti-stacking/Occam because the co-designed action and verifier force the result. Full verbatim report: research-log/070; budget remains 15/20.",
+      "status": "IN_PROGRESS — round-4 adverse verdict accepted; replace the constructed membership identity with a minimal projection-fiber factorization/impossibility theorem before any Phase-3 work"
     }
   }
 }
