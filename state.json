@@ -35,6 +35,8 @@
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
+    ,"latest_continuation": "ok, then continue with fixing things and innovating. I dont mind you do pivots as long as we are progressing."
+    ,"latest_continuation_interpretation": "Proceed with local primary-source research, structural redesign and static code-as-text work; principled pivots are permitted. No numeric review-budget increase was specified, so hypothesis review remains exhausted 20/20 and no re-dispatch/Phase-3 advance is authorized."
   },
   "budgets": {
     "research_iterations": {
@@ -330,6 +332,14 @@
       "status": "failed",
       "evidence": "Final sterile round-9 review in research-log/090 verified reviewer/commit line counts 1,018/1,018 and returned NEEDS_REVISION. The theorem/witness, exact quantification, post-compile final-guard order and task/full separation pass. Nine protocol defects remain: manifest schema/pair pinning; hard package binding; dependency closure; output origin; launcher attestation; transient substitution; verifier dependency trust; audit-report trust; atomic pair output. Budget exhausted 20/20, so no re-dispatch or Phase-3 advance is permitted. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
+    },
+    {
+      "id": "T036",
+      "phase": "2",
+      "desc": "Investigate and select the structurally correct response to OMST round-9 trust-boundary defects: sealed capsule, honest downgrade, or portfolio pivot",
+      "status": "in_progress",
+      "evidence": "User continuation authority quoted verbatim in research-log/091. Task scope is targeted primary-source research plus candidate-critique selection; no review dispatch, framework action, or phase advance. Verification pending.",
+      "parent": "T035"
     }
   ],
   "parked_candidates": [
