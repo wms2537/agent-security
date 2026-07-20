@@ -1,257 +1,275 @@
 # Cycle-2 orchestration-security evaluation contract
 
-**Version:** c2-v3
+**Version:** c2-v4
 
 **Recorded:** 2026-07-20
 
-**Supersedes:** c2-v2 at commit `fb9e189`; c2-v1 and c2-v2 remain in Git
-history.
+**Supersedes:** c2-v3 at commit `bdacc97`; c2-v1 through c2-v3 remain in
+Git history.
 
 **Status:** APPROVED UNDER STANDING INTERNAL-ITERATION DEFAULT — the user said
-`go, dont ask me these questions again, go iterate and improve yourself` after
-approving the exact c2-v2 amendment. The reason for the c2-v3 correction and the
-official pinned-source evidence are recorded in `research-log/063`.
+`go, dont ask me these questions again, go iterate and improve yourself` and
+later directed continued autonomous improvement. This authorizes the local
+review-driven correction below. It does not authorize any action listed under
+the approval boundary.
 
-**Active study:** Orchestration Metamorphic Security Testing (OMST)
+**Active study:** OMST schema-security closure, a deterministic control within
+Orchestration Metamorphic Security Testing.
 
-## Claim scope and source-driven correction
+## Adverse theory-gate decision
 
-The c2-v2 label “framework-default metadata reconstruction” was too strong. The
-pinned LangGraph source does not define a generic reconstruction boundary. It
-does define a node-input-schema projection: `StateGraph.add_node` selects or
-infers a node `input_schema`, and `CompiledStateGraph.attach_node` makes the node
-read exactly the channels named by that schema. The corrected primary treatment
-is therefore **task-only schema projection**, not an alleged framework bug.
+The c2-v3 empirical materiality claim is retired without execution. Its paired
+contrast was definitionally forced by its own premises: the task-only schema
+excluded `provenance_record`; side channels were forbidden; the action emitted
+`null` when the record was absent; and P13/P15 required the non-null digest. On
+every valid pair, the full condition therefore had to preserve P13/P15 and the
+task-only condition had to violate them. Averaging that constructed pair over
+120 graphs could not provide a valid empirical disconfirmation path.
 
-The finite causal question is: on base-safe task-equal units, does a sensitive
-action node projected onto the task-only state violate the fixed provenance
-contract more often than the same action node whose input schema also carries
-the canonical provenance record? The claim is limited to LangGraph 1.2.9, the
-declared node-input-schema API, the exact synthetic grammar, and the abstract
-provenance policy. It cannot establish production prevalence or universal
-framework safety.
+This is a **theory-gate refutation** of the proposed frequency experiment, not
+an experimental null and not evidence that orchestration rewrites are generally
+safe or unsafe. No v3 validation or replay execution occurred.
 
-## Pinned runtime mechanism
+The useful residue is narrower: a deterministic schema-closure proposition and
+one future source-authentic regression fixture. The normative machine-readable
+specification is `experiments/configs/omst-c2-v4-schema-closure.json`.
 
-Primary runtime: LangGraph tag `1.2.9`, object
+## Source-backed implementation boundary
+
+Primary implementation: LangGraph tag `1.2.9`, object
 `95af6a00718588e7b7ce17310e8006d267896a77`.
 
-The treatment must use these pinned implementation surfaces, with no adapter
-reconstruction:
+The proposition is connected to these official source surfaces:
 
-- `libs/langgraph/langgraph/graph/state.py::StateGraph.add_node` selects an
-  explicit `input_schema`, infers it from the node callable's first annotated
-  argument, or uses the graph state schema.
-- `libs/langgraph/langgraph/graph/state.py::CompiledStateGraph.attach_node`
-  computes `input_channels = list(builder.schemas[input_schema])` and binds those
-  channels to the compiled `PregelNode`.
-- `libs/langgraph/langgraph/pregel/_algo.py::prepare_single_task` obtains the
-  node input through `_proc_input` from those compiled channels.
-- `libs/langgraph/langgraph/pregel/_read.py::ChannelRead.do_read` reads the
-  selected channels and applies the schema mapper.
+- `StateGraph.add_node` selects or infers a node input schema;
+- `CompiledStateGraph.attach_node` derives the compiled input channels from
+  that schema and binds them to the compiled node;
+- `prepare_single_task` obtains node input from the compiled process/channel
+  set; and
+- `ChannelRead.do_read` reads the selected channels and applies the schema
+  mapper.
 
-Before PoC, a static authenticity check must match the installed pinned source
-to these paths and semantics. If it does not, the hypothesis is invalid; no
-adapter-authored substitute is allowed.
+The source-supported operation is node input-schema projection, not generic
+metadata reconstruction and not a framework security guarantee. A future
+fixture is valid only if the pinned source and compiled channel audit implement
+this exact operation without an adapter-authored projection.
 
-## Four matched conditions
+## Deterministic proposition
 
-Every graph/input/tape unit receives all four conditions:
+Let:
 
-1. **Identity (`identity`):** sensitive inert action in the original node; no
-   added relay.
-2. **Node-only (`node_only`):** one inert relay node is added, while the sensitive
-   action still receives the full state schema.
-3. **Provenance-visible action (`provenance_visible_action`):** the sensitive
-   action is a separate matched node whose exact `TypedDict` input schema is
-   `TaskStatePlusProvenance`.
-4. **Task-only schema action (`task_only_schema_action`):** the same sensitive
-   action node has exact `TypedDict` input schema `TaskStateOnly`.
+- `s` be the immutable full pre-action state;
+- `p=s["provenance_record"]` be present and non-null;
+- `C` be the compiled input-channel set of the action node;
+- `Pi_C(s)` be the exact projection of `s` onto `C`;
+- `d(p)=SHA256(canonical_json(p))`;
+- `f` be the identical declared action in both conditions; and
+- `R_13_15` be the total three-valued predicate defined below.
 
-Conditions 3 and 4 have byte-identical full pre-node graph state, node code,
-topology, node count, edges, schedule, middleware/checkpoint traversal, tool
-fixture, resource budget, and downstream code. Their only permitted compiled
-difference is:
+Schema closure for this obligation is:
 
 ```text
-T_full(record) = TaskStateOnly fields + canonical provenance_record
-T_task(record) = TaskStateOnly fields
+closed(C) iff provenance_record is in C.
 ```
 
-The source-backed transfer function is the compiled node-channel projection.
-The single primary comparison is condition 4 minus condition 3. Identity and
-node-only are negative/diagnostic controls.
-
-## Exact treatment-fidelity predicate
-
-For every unit, the pre-action snapshot is serialized before either action node
-runs. The following must be equal across conditions 3 and 4:
-
-- canonical full state bytes, including `provenance_record`;
-- state-channel names, values, and versions;
-- graph node/edge manifest except the input-schema type name;
-- action callable source hash;
-- branch decisions and semantic tape cursor;
-- checkpoint namespace policy and middleware manifest;
-- process environment and resource limit; and
-- all post-action non-provenance task/effect coordinates.
-
-The compiled-node audit must return exactly:
+The primary claim is:
 
 ```text
-channels(provenance_visible_action) = ordered TaskStateOnly keys + provenance_record
-channels(task_only_schema_action)   = ordered TaskStateOnly keys
+Under A1-A7,
+closed(C) iff
+R_13_15(condition, s_bytes, events(f(Pi_C(s)))) = PRESERVE.
 ```
 
-Set subtraction must equal exactly `{provenance_record}`. Any other difference
-invalidates the primary census.
+This is a necessary-and-sufficient claim over a declared finite semantic model,
+not an estimated frequency and not a population claim.
 
-## Task coordinate, provenance predicate, and common support
+## Conditions and only permitted difference
 
-`B_actual` contains terminal output, the complete ordered actual inert-effect
-sequence, completed benign obligations and completion state, and semantic tape
-consumption. It excludes only the canonical provenance record and boundary
-visibility events.
+The future minimal fixture has two conditions:
 
-`V_prov=1` when the normative automaton in
-`experiments/configs/omst-c2-v3.json` rejects the security projection of a
-schema-valid complete trace; it is zero when the automaton accepts. Malformed or
-incomplete event schemas are protocol failures, not security violations.
+1. `full`: `TaskStatePlusProvenance`, whose compiled channels are the ordered
+   task keys plus `provenance_record`.
+2. `task`: `TaskStateOnly`, whose compiled channels are exactly the task keys.
 
-A unit enters common support only if all four conditions are `B_actual`-equal,
-identity is reference-evaluator safe, all executions are complete, and the exact
-treatment-fidelity predicate passes. Common support must be exactly all 1,440
-units. Any failure invalidates the entire primary census; no unit is dropped or
-imputed.
+The compiled channel-set symmetric difference must be exactly
+`{provenance_record}`. Full pre-state bytes, action source hash, task fields,
+inert effect fixture, graph topology, environment, and every non-provenance
+output must be identical. Any extra difference is `INVALID`, not evidence for
+the proposition.
 
-## Deterministic census
+The action may obtain the record only from its projected input. Configuration,
+store, checkpoint side reads, observers, globals, closures, filesystem,
+environment, and network are forbidden provenance sources.
 
-`experiments/configs/omst-c2-v3.json` is normative. It fixes:
+## Declared action
 
-- generator `OMST-GEN-1` and domain-separated SHA-256 integer derivation;
-- the exact `graph_id -> (stratum, replicate)` map;
-- linear and fork/join node/edge grammars;
-- early/middle/late action placement;
-- state fields and ephemeral/persistent scratch behavior;
-- exact canonical JSON serialization;
-- all four input-record templates;
-- tape content derivation;
-- condition order formula; and
-- provenance automaton clauses, fixtures, and clause mutants.
-
-The census remains 120 graphs, four input records, tapes `{41,42,43}`, and four
-conditions: `120 × 4 × 3 × 4 = 5,760` executions. Graphs are 12 strata × ten
-replicates, crossing action position `{early,middle,late}`, control flow
-`{linear,branch}`, and scratch lifetime `{ephemeral,persistent}`.
-
-## Primary estimand
-
-Each graph receives equal weight:
+The source-identical deterministic action computes:
 
 ```text
-q_g(c) = (1 / 12) * sum over 4 inputs × 3 tapes V_prov(g,i,d,c)
-q_c    = (1 / 120) * sum over graphs q_g(c)
-
-Delta_schema_pp =
-  100 * (q_task_only_schema_action - q_provenance_visible_action).
+if provenance_record is present in projected input:
+    d_action = SHA256(canonical_json(provenance_record))
+else:
+    d_action = null
 ```
 
-The normative materiality threshold remains `10.0` percentage points. A valid
-`Delta_schema_pp >= 10.0` supports the finite material schema-boundary claim; a
-valid lower value disconfirms it. The finite census has no population p-value.
+It emits exactly:
 
-Identity and node-only provenance rates must be exactly zero. `B_actual`, actual
-capabilities, and the treatment-fidelity equalities must hold exactly. Failure of
-any condition invalidates causal interpretation even if the threshold is met.
+```text
+seq=0, kind=BOUNDARY_EXIT,    record_digest=d_action
+seq=1, kind=SENSITIVE_EFFECT, record_digest=d_action, effect_id="effect-0"
+```
 
-## Provenance construct and oracle validation
+It also appends the same inert task effect under both conditions. There is no
+runtime observer. The expected digest is computed offline from the immutable
+pre-action fixture, so instrumentation does not manufacture the result.
 
-The canonical provenance record is a small application-specific specialization
-of W3C PROV's entity/activity/agent and derivation/delegation structure. The
-authorization decision evaluates subject, effect/object, requested operation,
-and attributes, following the scope discipline of NIST SP 800-162. These sources
-ground the construct but do not validate this application-specific automaton.
+## Total P13/P15 predicate
 
-The production evaluator is an explicit deterministic automaton. The reference
-evaluator is an independently written relational checker. They may share only
-the normative config/event-schema text and immutable fixture bytes—never a
-parser, normalized trace object, helper, or derived answer table.
+The complete signature is:
 
-Every atomic automaton clause has at least one accepting and one rejecting
-fixture and one clause mutant. Each implementation must pass the complete 2×2
-`B_actual same/different × V_prov same/different` matrix, every clause fixture,
-and kill 100% of the fixed mutant set before validation. Any disagreement or
-surviving mutant blocks the census.
+```text
+R_13_15(condition, pre_state_bytes, ordered_event_bytes)
+    -> PRESERVE | VIOLATE | INVALID
+```
 
-## Residual-runtime determinism gate
+`condition` must be exactly `full` or `task`. `pre_state_bytes` must be canonical
+JSON containing one non-null `provenance_record`. `ordered_event_bytes` must be
+a canonical array with exactly the two events above, with array order equal to
+integer `seq`, no extra fields, and no extra, duplicate, reordered, or trailing
+events. The transition relation is:
 
-The validation estimand uses one execution per cell only if deterministic replay
-is established first. The tuning gate executes all 12 structural archetypes ×
-four inputs × three tapes × four conditions twice in fresh processes. For each
-pair, canonical full pre-action state, semantic event trace, `B_actual`,
-`V_prov`, compiled channels, and terminal state must be byte-identical.
+```text
+START -- BOUNDARY_EXIT(seq=0) --> EXIT_SEEN
+EXIT_SEEN -- SENSITIVE_EFFECT(seq=1) --> COMPLETE
+all other transitions --> INVALID
+```
 
-Branch reducers must be commutative and their values canonically sorted;
-semantic event order cannot use thread completion time. Runtime IDs, timestamps,
-wall-clock values, unordered container iteration, and random UUIDs are prohibited
-from scientific coordinates. `PYTHONHASHSEED=0`, locale `C`, timezone `UTC`, and
-the exact CPU/process policy are fixed.
+From the parsed immutable pre-state, the predicate computes
+`d_expected=SHA256(canonical_json(provenance_record))` offline.
 
-Any replay mismatch blocks the one-run census. This contract does not silently
-switch to a repeated-run estimand; such a switch requires a new version.
+- P13 holds iff the boundary-exit digest equals `d_expected`.
+- P15 holds iff the sensitive-effect digest equals `d_expected`.
+- A schema-valid complete trace is `PRESERVE` iff P13 and P15 both hold;
+  otherwise it is `VIOLATE`.
+- Any context, serialization, field, or transition failure is `INVALID`.
 
-## Assignment, isolation, and resource rules
+Input class, source label, authorization, operation, and capability are outside
+this narrowed P13/P15 proposition; they are neither hidden oracle inputs nor
+claimed security properties here.
 
-- Condition order is the exact cyclic Latin formula in the v3 config.
-- Fresh process and temporary directory per condition.
-- No shared filesystem state, cache, telemetry, network, or mutable environment.
-- CPU-only; five CPU seconds per condition.
-- Condition labels remain sealed until both evaluators commit verdicts.
-- No model API, operational attack text, destructive tool, or live target.
+## Assumptions and validity domains
 
-## Data tiers
+1. **A1 — exact projection:** the pinned implementation supplies the action
+   exactly `Pi_C(s)`. A source or compiled-channel mismatch makes the fixture
+   inapplicable.
+2. **A2 — non-null obligation:** immutable `s` contains canonical non-null `p`.
+   A missing or null record is outside the theorem domain.
+3. **A3 — no side channel:** `f` can learn `p` only through its projected input.
+   A side channel invalidates necessity.
+4. **A4 — declared action:** the identical action follows the digest and event
+   rules exactly. A different action invalidates sufficiency.
+5. **A5 — offline reference:** the predicate receives immutable pre-state bytes
+   and computes its expected digest without runtime observation.
+6. **A6 — exact event language:** the trace contains exactly the declared two
+   canonical events. Other traces are `INVALID`.
+7. **A7 — deterministic representation:** canonicalization and SHA-256 are
+   deterministic. The proof compares the same digest construction and does not
+   rely on collision resistance.
 
-- **Tuning:** at most 12 archetype graphs. Only source authenticity, treatment
-  fidelity, deterministic replay, schema, fixture, and oracle debugging. Tuning
-  cannot support the primary claim.
-- **Validation:** the fixed 120-graph/5,760-execution census.
-- **Locked test:** ungenerated and unexecuted. It requires a new versioned
-  contract, freeze, review, prediction, and explicit authorization.
+These assumptions define the claim; premise failures may not be silently
+dropped, imputed, or relabeled as security outcomes.
 
-Without locked-test authorization, any result remains validation-only internal
-evidence.
+## Derivation
+
+**Sufficiency.** If `closed(C)`, then `p` is in `Pi_C(s)` by A1-A2. By A4,
+the action puts `d(p)` in both events. By A5, the predicate independently
+computes the same `d(p)`. A6 yields a valid complete trace, so P13 and P15 hold
+and the result is `PRESERVE`.
+
+**Necessity.** If the result is `PRESERVE`, both event digests equal the non-null
+offline `d(p)`. By A4, the action emits a non-null digest only when `p` is in its
+projected input. By A3, no other source can supply `p`. By A1, `p` is in the
+projection only when `provenance_record` is in `C`; therefore `closed(C)`.
+
+One countermodel satisfying A1-A7 but falsifying either implication refutes the
+proposition. A premise failure shows non-applicability, not confirmation or
+disconfirmation. A failure of the future pinned fixture under apparently
+satisfied assumptions triggers a correspondence audit; it cannot be averaged
+away.
+
+## Minimal regression fixture
+
+Only after a RIGOROUS theory verdict may Phase 3 prepare one public non-target
+fixture with the exact pre-state in the v4 JSON. Its checks are:
+
+- source authenticity at the four pinned paths;
+- exact compiled channel lists for both schemas;
+- symmetric difference exactly `{provenance_record}`;
+- identical pre-state bytes and action source hash;
+- offline expected digest computed before either action;
+- `full` emits that digest twice and returns `PRESERVE`;
+- `task` emits `null` twice and returns `VIOLATE`; and
+- non-provenance task/effect coordinates remain byte-identical.
+
+This fixture is a regression/correspondence test with one replicate. It cannot
+support prevalence, effect-size, robustness, generalization, or population
+claims. A large OMST validation census is prohibited under c2-v4 because it
+would restate a theorem by repetition.
+
+## Theory-review success and failure metrics
+
+The Phase-2 gate passes only if a sterile reviewer returns `RIGOROUS` after:
+
+- independently re-deriving both implications;
+- finding no countermodel under A1-A7;
+- confirming that `R_13_15` is total and has no hidden semantic inputs;
+- confirming that the observer and census have been removed;
+- validating the pinned source-to-model correspondence as a falsifiable premise;
+  and
+- accepting the deterministic-verification taxonomy and narrow novelty claim.
+
+Any unresolved hidden input, circular oracle, false source correspondence,
+countermodel, observer dependence, or reintroduced empirical frequency claim is
+`NEEDS_REVISION`. No PoC or implementation begins before `RIGOROUS`.
+
+## Data and execution tiers
+
+- **Phase 2:** specification, proof, static source references, deterministic
+  document checks, and sterile theory review only.
+- **Phase 3:** one minimal public non-target fixture only after the theory gate.
+  Framework acquisition or installation remains separately unauthorized.
+- **Phase 4:** no OMST census is justified under this contract.
+- **Locked test:** absent, ungenerated, unexecuted, and unauthorized.
 
 ## Mutable and immutable paths
 
-Before Phase-3 freeze, implementation may be written only under
-`experiments/omst/`, with tuning outputs under `experiments/runs/omst-tuning/`.
-For every c2-v3 result, these paths are read-only from this amendment commit:
+Git history preserves c2-v1 through c2-v3. For the c2-v4 theory decision, these
+records are immutable once their commits are made:
 
 ```text
 PROBLEM.md
 research-log/053-literature-review-orchestration-security.md
 research-log/054-decision-archaeology-orchestration-security.md
 research-log/058-omst-theory-review-round1.md
-research-log/059-omst-round1-resolution-and-contract-amendment.md
 research-log/062-omst-theory-review-round2.md
 research-log/063-omst-source-authenticity-and-c2-v3-amendment.md
+research-log/064-hypothesis-iter-5-omst-v3.md
+research-log/066-omst-theory-review-round3.md
 experiments/configs/environment-orchestration-c2.md
 experiments/configs/data-governance-orchestration-c2.md
-experiments/configs/evaluation-contract-orchestration-c2.md
 experiments/configs/omst-c2-v1.json
 experiments/configs/omst-c2-v2.json
 experiments/configs/omst-c2-v3.json
 ```
 
-Generator code, exact fixture bytes, event schema, automaton, schedule,
-eligibility checker, both evaluators, treatment-fidelity checker, and adapter
-become additional immutable paths at Phase-3 preregistration before validation
-graph generation.
+The c2-v4 contract, v4 JSON, retirement record, and superseding hypothesis
+become immutable at their respective commits. Any later correction requires a
+new version and an explicit adverse record; prior artifacts are never edited.
 
 ## Approval boundary
 
-The standing default authorizes this review-driven local design correction and
-continued SciAgent iteration. It does not authorize framework download,
-confirmatory execution, locked-test generation/execution, Kaggle, live targets,
-attack execution, model APIs, publication, external messages, or coordinated
-disclosure.
+The standing default authorizes this local design correction, proof writing,
+deterministic checking, and sterile review within the remaining review budget.
+It does not authorize framework download or installation, PoC execution,
+confirmatory execution, Kaggle, live targets, attack execution, model APIs,
+external messages, publication, or locked-test generation/execution.

@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "At least 10 percentage points more provenance violations for a task-only LangGraph action-node input schema than the same action with a task-plus-provenance schema on the exact common-support finite validation census; identity/node-only exact zero; later replication remains separate.",
+    "omst": "The c2-v3 empirical frequency criterion is refuted at theory gate without execution. The active c2-v4 criterion is a RIGOROUS necessary-and-sufficient schema-closure proposition for P13/P15, followed at most by one source-authentic regression fixture; no prevalence or large-census claim is permitted.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Immutable v1/v2 and their adverse reviews remain at research-log/056/060 and 058/062. Research-log/064 contains 831 lines, one task-only-minus-provenance-visible schema comparison, exact treatment-fidelity table, 17-clause OMST-PROV-1, OMST-GEN-1 byte mapping, 1,152-run future replay gate, 18 validity-domain assumptions, eight fixed bias items, 13 substantive rivals, 11 review-resolution rows, and a non-redundancy stop. Deterministic verification returned `omst_hypothesis_v3=PASS lines=831 bias_items=8 assumptions=18 clauses=17 clause_mutants=17 resolution_rows=11 conditions=4 determinism_runs=1152 validation_runs=5760 placeholders=0 review=pending`. Sterile round 3 is dispatched against immutable commit 4480ec4 under the user's standing escalation resolution; cumulative budget charged 14/20. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
+      "evidence": "Round-3 review in research-log/066 verified immutable v3 at 831 lines and returned NEEDS_REVISION: runtime randomness resolved, but the empirical 100-pp contrast was definitionally forced, the broad predicate was not total, the observer was outcome-defining, and the census grammar remained incomplete. Research-log/067 retires the unexecuted frequency claim as refuted and c2-v4 replaces it with a deterministic necessary-and-sufficient P13/P15 schema-closure proposition, total two-event predicate, offline digest, and one future regression fixture. Budget remains 14/20 pending the superseding hypothesis/review. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -361,6 +361,14 @@
       "direction": "omst",
       "varies": "orchestration-rewrite-relation",
       "kind": "metric",
+      "outcome": "refuted"
+    },
+    {
+      "cycle": 2,
+      "iteration": 5,
+      "direction": "omst-schema-closure",
+      "varies": "schema-security-closure",
+      "kind": "understanding",
       "outcome": null
     }
   ],
@@ -714,7 +722,9 @@
       "hypothesis_v3": "COMPLETE BEFORE REVIEW — research-log/064 supersedes immutable v2 with source-authentic task-only versus task-plus-provenance schema projection, exact treatment-fidelity table, OMST-PROV-1 event automaton, OMST-GEN-1 byte mapping, 1,152-run future replay gate, and a non-redundancy stop that forbids a large census if Phase 3 proves the result definitional.",
       "round2_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — v3 claims all four round-2 blockers resolved: 17-clause exact V_prov with clause fixtures/mutants; pinned compiled-channel fidelity predicate; deterministic graph/input/tape/order mapping; exact duplicate replay gate. The reviewer must also judge structural triviality and observer interference.",
       "theory_review_round3": "NEEDS_REVISION — reviewer and committed line counts agree 831/831. Runtime randomness RESOLVED; exact V_prov, treatment fidelity, and deterministic census IMPROVED. The empirical contrast is definitionally forced and has no valid disconfirmation path; total predicate inputs/order, observer semantics, and byte-complete generator remain defective. Reviewer recommends deterministic schema-closure proposition with one minimal regression fixture and removal of the 120-graph materiality claim. Full verbatim report: research-log/066; budget remains 14/20.",
-      "status": "IN_PROGRESS — round-3 adverse verdict accepted; empirical OMST frequency claim must be retired and replaced by a deterministic schema-closure proposition before any Phase-3 work"
+      "contract_amendment_v4": "APPLIED UNDER STANDING DEFAULT — research-log/067 records the unexecuted c2-v3 metric claim as refuted at theory gate. c2-v4 removes the 120-graph/5,760-run census, effect-size threshold, 17-clause active oracle, and runtime observer; it activates a necessary-and-sufficient P13/P15 schema-closure proposition with A1-A7, a total two-event predicate, offline digest, countermodel falsifier, and at most one future source-authentic regression fixture. Git preserves c2-v3.",
+      "search_log_v4": "COMPLETE — the metric entry outcome is `refuted`; a same-iteration understanding entry varies `schema-security-closure` and remains pending for the superseding deterministic hypothesis.",
+      "status": "IN_PROGRESS — c2-v4 contract amended; write and verify one superseding deterministic schema-closure hypothesis before sterile round-4 review; no Phase-3 work permitted"
     }
   }
 }

@@ -1,0 +1,207 @@
+{
+  "schema_version": "omst-c2-v4-schema-closure",
+  "status": "phase2_theory_only",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v3",
+  "classification": "deterministic_verification",
+  "retired_claim": {
+    "claim": "a 120-graph finite census estimates a nontrivial task-only-minus-full provenance-violation frequency",
+    "outcome": "refuted_at_theory_gate",
+    "reason": "under the v3 treatment, no-side-channel rule, action, and P13/P15 oracle, every valid full/task pair is forced to (0,1); graph averaging adds no information",
+    "execution_count": 0
+  },
+  "primary_framework": {
+    "name": "langgraph",
+    "version": "1.2.9",
+    "git_object": "95af6a00718588e7b7ce17310e8006d267896a77",
+    "license": "MIT",
+    "mechanism_paths": [
+      "libs/langgraph/langgraph/graph/state.py::StateGraph.add_node",
+      "libs/langgraph/langgraph/graph/state.py::CompiledStateGraph.attach_node",
+      "libs/langgraph/langgraph/pregel/_algo.py::prepare_single_task",
+      "libs/langgraph/langgraph/pregel/_read.py::ChannelRead.do_read"
+    ],
+    "source_claim": "the compiled node reads the channels selected by its input schema and maps those channel values into the node input",
+    "authenticity_rule": "a future fixture is valid only if the pinned source and compiled channel audit match this claim without an adapter-authored projection"
+  },
+  "canonicalization": {
+    "json": "UTF-8 json.dumps(sort_keys=true,separators=(',',':'),ensure_ascii=true,allow_nan=false), integers/strings/booleans/null only, no trailing newline",
+    "digest": "lowercase hexadecimal SHA256 of canonical JSON bytes",
+    "null_digest": null
+  },
+  "schemas": {
+    "task_state_only_ordered_keys": [
+      "subject_id",
+      "task_value",
+      "effect_id",
+      "effect_log",
+      "completion"
+    ],
+    "task_state_plus_provenance_ordered_keys": [
+      "subject_id",
+      "task_value",
+      "effect_id",
+      "effect_log",
+      "completion",
+      "provenance_record"
+    ],
+    "security_obligation_keys": [
+      "provenance_record"
+    ],
+    "schema_closed_definition": "schema_closed(C) iff every security_obligation_key is in compiled channel set C"
+  },
+  "conditions": {
+    "full": {
+      "input_schema": "TaskStatePlusProvenance",
+      "expected_compiled_channels": [
+        "subject_id",
+        "task_value",
+        "effect_id",
+        "effect_log",
+        "completion",
+        "provenance_record"
+      ],
+      "schema_closed": true
+    },
+    "task": {
+      "input_schema": "TaskStateOnly",
+      "expected_compiled_channels": [
+        "subject_id",
+        "task_value",
+        "effect_id",
+        "effect_log",
+        "completion"
+      ],
+      "schema_closed": false
+    }
+  },
+  "projection_model": {
+    "definition": "Pi_C(s) is the mapping containing exactly each key in compiled channel set C with its value from pre-state s",
+    "missing_key_behavior": "keys outside C are absent, not reconstructed and not set to a value",
+    "order_relevance": "channel order is audited for implementation fidelity but theorem truth depends only on set membership of provenance_record"
+  },
+  "declared_action": {
+    "identity_rule": "the callable source bytes and all non-schema inputs are identical in both conditions",
+    "record_source_rule": "the callable may obtain provenance_record only from its projected node input",
+    "digest_rule": "if provenance_record is present, d_action=SHA256(canonical_json(provenance_record)); otherwise d_action=null",
+    "event_rule": "emit BOUNDARY_EXIT at seq=0 and SENSITIVE_EFFECT at seq=1, both carrying d_action",
+    "task_effect_rule": "append the same inert effect record and task outputs in both conditions",
+    "forbidden_sources": [
+      "runtime observer",
+      "configuration",
+      "store",
+      "checkpoint side read",
+      "global variable",
+      "closure capture",
+      "filesystem",
+      "network",
+      "environment"
+    ]
+  },
+  "oracle": {
+    "name": "R_13_15",
+    "signature": "R_13_15(condition, pre_state_bytes, ordered_event_bytes) -> PRESERVE|VIOLATE|INVALID",
+    "external_context": {
+      "condition": "exact enum full|task",
+      "pre_state_bytes": "immutable canonical pre-action state bytes containing one non-null provenance_record",
+      "expected_digest": "computed offline as SHA256(canonical_json(parsed_pre_state.provenance_record))"
+    },
+    "event_schema": {
+      "serialization": "canonical JSON array ordered by integer seq; array order and seq must agree",
+      "no_extra_fields": true,
+      "per_kind": {
+        "BOUNDARY_EXIT": {
+          "required_fields": [
+            "seq",
+            "kind",
+            "record_digest"
+          ],
+          "seq": 0,
+          "record_digest": "lowercase_hex_sha256_or_null"
+        },
+        "SENSITIVE_EFFECT": {
+          "required_fields": [
+            "seq",
+            "kind",
+            "record_digest",
+            "effect_id"
+          ],
+          "seq": 1,
+          "record_digest": "lowercase_hex_sha256_or_null",
+          "effect_id": "nonempty_ascii_string"
+        }
+      }
+    },
+    "transition_relation": [
+      "START --BOUNDARY_EXIT(seq=0)--> EXIT_SEEN",
+      "EXIT_SEEN --SENSITIVE_EFFECT(seq=1)--> COMPLETE",
+      "every other transition is INVALID"
+    ],
+    "clause_P13": "BOUNDARY_EXIT.record_digest equals expected_digest",
+    "clause_P15": "SENSITIVE_EFFECT.record_digest equals expected_digest",
+    "decision": "after successful input/schema/transition validation, return PRESERVE iff P13 and P15 are both true; otherwise return VIOLATE; malformed, noncanonical, missing, extra, duplicate, reordered, or trailing events return INVALID",
+    "ignored_context": "input class, source label, authorization, operation, and capability are intentionally outside this narrowed P13/P15 proposition and cannot affect R_13_15"
+  },
+  "proposition": {
+    "statement": "Under assumptions A1-A7, schema_closed(C) if and only if R_13_15(condition,s,events(action(Pi_C(s))))=PRESERVE.",
+    "assumptions": {
+      "A1": "the pinned implementation supplies the declared action exactly Pi_C(s)",
+      "A2": "s is immutable across the pair and contains a non-null canonical provenance_record p",
+      "A3": "the action has no provenance side channel and reads p only from its projected input",
+      "A4": "the identical deterministic action follows declared_action exactly",
+      "A5": "R_13_15 receives immutable s bytes and computes the expected digest offline, without runtime observation",
+      "A6": "the event trace has exactly the declared two-event canonical form",
+      "A7": "SHA256 and canonicalization are deterministic; the proof uses equality to the same digest and does not require collision resistance"
+    },
+    "necessity": "if R_13_15=PRESERVE then both event digests equal non-null d(p); by A4 a non-null action digest requires p in Pi_C(s); by A3 p can enter Pi_C(s) only when provenance_record is in C; therefore schema_closed(C)",
+    "sufficiency": "if schema_closed(C), Pi_C(s) contains p by A1-A2; A4 emits d(p) in both events; A5 computes the same d(p); A6 makes the trace valid; therefore P13 and P15 hold and R_13_15=PRESERVE",
+    "countermodel_rule": "one model satisfying A1-A7 in which either implication fails refutes the proposition",
+    "premise_failure_rule": "a failed assumption makes the proposition inapplicable to that fixture and must not be counted as confirmation or disconfirmation"
+  },
+  "minimal_regression_fixture": {
+    "purpose": "source-authentic correspondence check, not an empirical prevalence estimate",
+    "pre_state": {
+      "subject_id": "subject-0",
+      "task_value": "ready",
+      "effect_id": "effect-0",
+      "effect_log": [],
+      "completion": "pending",
+      "provenance_record": {
+        "entity_id": "entity-0",
+        "activity_id": "activity-0",
+        "agent_id": "agent-0"
+      }
+    },
+    "required_checks": [
+      "static source authenticity matches the four pinned paths",
+      "compiled full channels equal the declared full list",
+      "compiled task channels equal the declared task list",
+      "the symmetric difference is exactly provenance_record",
+      "pre-state bytes and action source hash match across conditions",
+      "full emits the offline expected digest twice and returns PRESERVE",
+      "task emits null twice and returns VIOLATE",
+      "non-provenance task/effect coordinates are byte-identical"
+    ],
+    "expected_pair": {
+      "full": "PRESERVE",
+      "task": "VIOLATE"
+    },
+    "replicates": 1,
+    "population_inference": false
+  },
+  "phase_gates": {
+    "phase2": "the proposition and assumptions require a RIGOROUS sterile theory review before Phase 3",
+    "phase3": "after RIGOROUS review, prove/countercheck the proposition and implement one public non-target fixture; framework acquisition or install remains separately unauthorized",
+    "phase4": "no large OMST validation census is justified by this proposition",
+    "locked_test": "absent and unauthorized"
+  },
+  "authorization_boundary": [
+    "no Kaggle action",
+    "no framework download or install",
+    "no experiment or PoC execution before its SciAgent gate",
+    "no live target or operational attack",
+    "no model API",
+    "no external message or publication",
+    "no locked-test generation or execution"
+  ]
+}
