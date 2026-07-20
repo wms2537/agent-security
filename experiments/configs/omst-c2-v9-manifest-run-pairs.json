@@ -1,0 +1,180 @@
+{
+  "schema_version": "omst-c2-v9-manifest-run-pairs",
+  "status": "phase2_theory_only",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v8-environment-conditional",
+  "claim": {
+    "task": "for every common manifest M and task run objects R_task_s0,R_task_s1, P_task(M,R_task_s0,R_task_s1) implies C_task(M,R_task_s0,R_task_s1)",
+    "full": "for every common manifest M and full run objects R_full_s0,R_full_s1, P_full(M,R_full_s0,R_full_s1) implies C_full(M,R_full_s0,R_full_s1)",
+    "coupling": "neither implication has the other role's run objects or cell antecedents"
+  },
+  "unconditional_claims": {
+    "factorization": "for total pi:S->Q=image(pi), tau:S->Y, a unique g:Q->Y with tau=g composed_with pi exists iff ker(pi) subseteq ker(tau)",
+    "witness": "the exact task singleton cannot reconstruct both distinct J(P) targets",
+    "framework": "none"
+  },
+  "manifest_model": {
+    "schema_version": "omst-c2-v9-environment-manifest",
+    "identity": "manifest_payload_sha256 is SHA-256 of canonical JSON after removing only that field",
+    "common_scope": [
+      "artifact identities",
+      "interpreter and stdlib identities",
+      "dependency lock",
+      "installed distribution versions, roots, module origins and full tree hashes",
+      "eleven load-bearing source paths and hashes",
+      "source-audit report and assertion list",
+      "site/import context and non-executable pth inventory",
+      "exact empty runnable config"
+    ],
+    "M0_path": "/home/soh/agent-security/experiments/configs/omst-c2-v9-M0-unacquired.json",
+    "P_common_M0": false,
+    "reason": "M0 records absent LangGraph, LangChain-core, dependency lock and source audit"
+  },
+  "canonicalization": {
+    "algorithm": "UTF-8 json.dumps(sort_keys=true,separators=(',',':'),ensure_ascii=true,allow_nan=false), no trailing newline",
+    "domain": "JSON objects and arrays whose leaves are integers, strings, booleans, or null",
+    "p0_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-0\",\"entity_id\":\"entity-0\"}",
+    "p1_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-1\",\"entity_id\":\"entity-0\"}"
+  },
+  "closed_fixture": {
+    "module": "/home/soh/agent-security/experiments/omst_c2_v9_fixture.py",
+    "module_sha256": "e9e95741cd306d0aa11456f0977b4e129654653a24a00669fe9aa58e47e20284",
+    "launcher": "/home/soh/agent-security/experiments/run_omst_c2_v9_fixture.sh",
+    "launcher_sha256": "312e104111cd901fddffd921b378b361d72eb082a728f97b3dbe742afa3f4ffd",
+    "launcher_mode": "0755",
+    "config": "/home/soh/agent-security/experiments/configs/omst-c2-v9-manifest-run-pairs.json",
+    "outer_argv_prefix": [
+      "/usr/bin/env",
+      "-i",
+      "HOME=/nonexistent",
+      "PATH=/usr/bin:/bin",
+      "LANG=C",
+      "LC_ALL=C",
+      "TZ=UTC",
+      "/bin/bash",
+      "--noprofile",
+      "--norc",
+      "/home/soh/agent-security/experiments/run_omst_c2_v9_fixture.sh"
+    ],
+    "outer_arguments": {
+      "first": "exactly task or full",
+      "second": "absolute path of the authenticated manifest M"
+    },
+    "role_launches": {
+      "task": [
+        ["task_s0", "R_task_s0"],
+        ["task_s1", "R_task_s1"]
+      ],
+      "full": [
+        ["full_s0", "R_full_s0"],
+        ["full_s1", "R_full_s1"]
+      ]
+    },
+    "child_prefix": [
+      "/usr/bin/env",
+      "-i",
+      "HOME=/nonexistent",
+      "LANG=C",
+      "LC_ALL=C",
+      "TZ=UTC",
+      "/home/soh/agent-security/comp/.venv/bin/python",
+      "-I",
+      "-B",
+      "/home/soh/agent-security/experiments/omst_c2_v9_fixture.py"
+    ],
+    "run_config": {
+      "callbacks": [],
+      "tags": [],
+      "metadata": {},
+      "configurable": {}
+    },
+    "output": "one canonical record with cell, manifest_id, observed_hex, run_id, status; a role launch emits exactly its two child records"
+  },
+  "guard_protocol": {
+    "pre_import": "load and authenticate manifest payload, acquired status, artifacts, interpreter, stdlib, exact child environment, dependency lock, packages, all load-bearing files, source-audit report and import context before importing LangGraph",
+    "compile": "import LangGraph locally and compile exactly one graph",
+    "final_atomic_guard": "immediately after compile and before invoke, verify_all_guards reauthenticates the entire common manifest bundle and checks exact compiled channels, mapper, node policies and retained services",
+    "invoke": "exactly one graph.invoke occurs only after the final guard returns",
+    "failure": "any require failure raises OMST_RUNTIME_GUARD_FAILED before correspondence observation"
+  },
+  "source_basis_langgraph": {
+    "tag": "1.2.9",
+    "commit": "95af6a00718588e7b7ce17310e8006d267896a77",
+    "paths": [
+      "langgraph/graph/state.py",
+      "langgraph/pregel/_loop.py",
+      "langgraph/pregel/_checkpoint.py",
+      "langgraph/pregel/_io.py",
+      "langgraph/pregel/_algo.py",
+      "langgraph/pregel/_retry.py",
+      "langgraph/pregel/_read.py",
+      "langgraph/_internal/_runnable.py"
+    ]
+  },
+  "source_basis_langchain_core": {
+    "status_M0": "absent",
+    "required_paths": [
+      "langchain_core/runnables/base.py",
+      "langchain_core/runnables/config.py",
+      "langchain_core/callbacks/manager.py"
+    ],
+    "future_rule": "an acquired M binds exact version, distribution tree, origins and path hashes; its separately authenticated source audit must verify callback/config no-pre-capture-mutation behavior"
+  },
+  "source_lemmas": {
+    "L_compile": "state.py registers exact TypedDict schemas, LastValue fields, selected channels, None mapper, START PregelNode and None services",
+    "L_start": "_io.map_input writes the whole literal dict to START; the START task receives it; state.py _get_updates emits field writes and capture trigger; apply_writes makes selected LastValue fields available",
+    "L_fresh": "_loop.py substitutes _checkpoint.empty_checkpoint, whose values, versions and seen maps are empty; channels_from_checkpoint constructs fresh channels",
+    "L_prepare": "_loop.tick calls _algo.prepare_next_tasks; a fresh input_cache feeds _proc_input, which reads selected channels with no mapper into PregelExecutableTask.input",
+    "L_deliver": "_retry invokes task.proc with task.input; PregelNode.node constructs RunnableSeq(bound,writers); LangGraph RunnableSeq sends unchanged initial input to the first bound RunnableCallable; acquired LangChain-core callback/config sources satisfy P5; capture serializes before any write",
+    "trace": "literal dict -> START whole dict -> _get_updates fields plus trigger -> selected LastValue availability -> task.input -> PregelNode RunnableSeq -> bound RunnableCallable -> capture"
+  },
+  "premises": {
+    "P_common_M": [
+      "M has a valid canonical payload hash and acquired status",
+      "artifact/interpreter/stdlib/lock/package/source/audit/import/config identities authenticate exactly before import and again in the final guard",
+      "L_compile,L_start,L_fresh,L_prepare,L_deliver and P5 were independently verified by the exact authenticated source-audit report"
+    ],
+    "P_cell_M_R": [
+      "R names exactly one cell and its bound run_id under M",
+      "the role launcher creates one fresh process and temporary directory with the exact child environment",
+      "the cell compiles one graph, passes the single final post-compile guard bundle and invokes once",
+      "observed_hex derives only from capture's callable-entry mapping before any write"
+    ],
+    "P_task": "P_common(M) and P_cell(M,task_s0,R_task_s0) and P_cell(M,task_s1,R_task_s1)",
+    "P_full": "P_common(M) and P_cell(M,full_s0,R_full_s0) and P_cell(M,full_s1,R_full_s1)"
+  },
+  "conditional_consequences": {
+    "received": "received(cell,M,R_cell) is the canonical UTF-8 mapping serialized at capture callable entry in that run object",
+    "C_task": "received(task_s0,M,R_task_s0)=received(task_s1,M,R_task_s1)",
+    "C_full": "received(full_s0,M,R_full_s0) and received(full_s1,M,R_full_s1) differ exactly at provenance_record.agent_id",
+    "task_implication": "P_task(M,R_task_s0,R_task_s1) implies C_task(M,R_task_s0,R_task_s1)",
+    "full_implication": "P_full(M,R_full_s0,R_full_s1) implies C_full(M,R_full_s0,R_full_s1)"
+  },
+  "gates": {
+    "phase2": "review theorem, witness and the two universal role-specific conditional implications only; P_common(M0) is false",
+    "acquisition": "separate authorization is required to install packages and create an acquired manifest plus source-audit report",
+    "phase3_task": "a task launch is independently admissible when P_common and exactly its two P_cell antecedents hold",
+    "phase3_full": "a full launch is independently admissible when P_common and exactly its two P_cell antecedents hold",
+    "cell_failure": "any preauthentication or final-guard failure aborts before observation and leaves only that role's implication unapplied",
+    "locked_test": "absent and unauthorized"
+  },
+  "scope": {
+    "label": "record-reconstruction/schema-sufficiency control relative to tau",
+    "not_claimed": [
+      "P_common(M0) is true",
+      "unconditional LangGraph correspondence",
+      "general security failure or framework vulnerability",
+      "production provenance policy",
+      "empirical effect or prevalence",
+      "new theorem or standalone top-tier contribution"
+    ]
+  },
+  "authorization_boundary": [
+    "no framework download, installation, import or execution",
+    "no Kaggle action",
+    "no held-out or locked-test action",
+    "no live target or operational attack",
+    "no model API",
+    "no external message or publication"
+  ]
+}

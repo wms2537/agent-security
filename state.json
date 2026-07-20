@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. The active c2-v8 criterion is a RIGOROUS minimal factorization theorem, typed two-state record-reconstruction control, and the universal conditional `for every E, P(E)->C_task(E) and C_full(E)`; P(E0) is false because framework dependencies are absent.",
+    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. The active c2-v9 criterion is a RIGOROUS minimal factorization theorem, typed two-state record-reconstruction control, and two independent universal implications: `P_task(M,R_task_s0,R_task_s1)->C_task` and `P_full(M,R_full_s0,R_full_s1)->C_full`; P_common(M0) is false because the dependency bundle and source audit are absent.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-8 review in research-log/086 verified immutable v8 at 652 lines and returned NEEDS_REVISION. Mathematics/source trace/isolation/scope pass; four remaining defects are ill-scoped one-cell E/free cell variable, missing in-cell framework/source/lock reauthentication, mismatched guard ordering, and optional full-control coupling. Budget remains 19/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-8 adverse verdict is preserved in research-log/086. c2-v9 amendment 087 introduces one common immutable M, four R_cell objects, independent P_task/P_full, exact role launchers, pre-import full-bundle authentication and one immediate post-compile/pre-invoke full reauthentication guard. Static bundle verification passed with 456 fixture lines, zero top-level framework imports, exact guard order and P_common(M0)=false. Budget remains 19/20; superseding hypothesis not yet dispatched. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -749,7 +749,10 @@
       "hypothesis_v8": "COMPLETE BEFORE REVIEW — research-log/084 supersedes immutable v7 with the environment-quantified conditional, exact E0 false status, corrected five-lemma source trace through START/PregelNode/RunnableSeq/callbacks, P2a/P2b gate semantics, runtime identity guards, authoritative clean shell and full failure taxonomy.",
       "deterministic_verification_v8": "PASS — `omst_hypothesis_v8=PASS lines=652 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 premises=8 langgraph_source_paths=8 langchain_modules=3 P_E0=false unconditional_C=false resolution_rows=6 unresolved_placeholders=0 review=pending`; predecessors unchanged.",
       "theory_review_round8": "NEEDS_REVISION — reviewer and committed line counts agree 652/652. The theorem/witness, START/source delivery trace, shell isolation, E0 status, scope, taxonomy and anti-stacking pass; four defects remain: common-manifest/run-pair quantification, runtime framework/source/lock reauthentication, exact post-compile guard ordering, and task/full antecedent separation. Full verbatim report: research-log/086; budget remains 19/20.",
-      "status": "IN_PROGRESS — round-8 adverse verdict accepted; use final review only after closing manifest/run-pair and runtime-authentication defects"
+      "contract_amendment_v9": "APPLIED UNDER STANDING DEFAULT — research-log/087 defines common immutable manifest M, four explicit R_cell run objects, independent P_task/P_full implications, role-specific two-child launchers, full pre-import authentication and one immediate post-compile/pre-invoke guard that reauthenticates artifacts, interpreter, stdlib, package trees/origins/versions, lock, eleven source files, source-audit report and import context. M0 is exact and P_common(M0)=false.",
+      "round8_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all four round-8 defects are structurally addressed: no free cell variable; runtime package/source/lock reauthentication; actual compile-final-guard-invoke ordering; independent task/full antecedents.",
+      "deterministic_bundle_verification_v9": "PASS — `v9_bundle_static=PASS fixture_lines=456 final_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] top_framework_imports=0 M0_payload=846f502e2984ccfba22fedd7b686f8f56d38d351deb48e62dcec46f131301ec1 P_common_M0=false`; Python AST, JSON, Bash syntax, 0755 mode, manifest payload, cross-file hashes and role separation pass.",
+      "status": "IN_PROGRESS — c2-v9 bundle corrected and statically verified; superseding immutable hypothesis and final deterministic review preflight remain"
     }
   }
 }

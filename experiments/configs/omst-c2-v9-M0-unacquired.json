@@ -1,0 +1,105 @@
+{
+  "schema_version": "omst-c2-v9-environment-manifest",
+  "status": "unacquired",
+  "recorded_date": "2026-07-20",
+  "manifest_path": "/home/soh/agent-security/experiments/configs/omst-c2-v9-M0-unacquired.json",
+  "manifest_payload_sha256": "846f502e2984ccfba22fedd7b686f8f56d38d351deb48e62dcec46f131301ec1",
+  "artifacts": {
+    "fixture": {
+      "path": "/home/soh/agent-security/experiments/omst_c2_v9_fixture.py",
+      "sha256": "e9e95741cd306d0aa11456f0977b4e129654653a24a00669fe9aa58e47e20284"
+    },
+    "launcher": {
+      "path": "/home/soh/agent-security/experiments/run_omst_c2_v9_fixture.sh",
+      "sha256": "312e104111cd901fddffd921b378b361d72eb082a728f97b3dbe742afa3f4ffd"
+    },
+    "config": {
+      "path": "/home/soh/agent-security/experiments/configs/omst-c2-v9-manifest-run-pairs.json",
+      "sha256": "a93dcc281c995181c55e9e102030ad4da4c46a6208a10b6dd9af19478388249e"
+    }
+  },
+  "interpreter": {
+    "link_path": "/home/soh/agent-security/comp/.venv/bin/python",
+    "resolved_path": "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.3_1/bin/python3.14",
+    "version": "3.14.3 (main, Feb  3 2026, 15:32:20) [GCC 12.3.0]",
+    "sha256": "eca90b668424db6f2105504128f02cac91c2805de9a928abcc272d1444abfde0"
+  },
+  "stdlib_json": {
+    "path": "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.3_1/lib/python3.14/json/__init__.py",
+    "sha256": "95022d150a27a2bfd54ac21bfce35812c96b53c420bb7b018dcb573f13e52da0"
+  },
+  "dependency_lock": {
+    "status": "absent",
+    "path": null,
+    "sha256": null
+  },
+  "packages": {
+    "langgraph": {
+      "status": "absent",
+      "distribution": "langgraph",
+      "version": null,
+      "module": "langgraph",
+      "distribution_root": null,
+      "distribution_tree_sha256": null,
+      "module_origin": null,
+      "package_root": null
+    },
+    "langchain_core": {
+      "status": "absent",
+      "distribution": "langchain-core",
+      "version": null,
+      "module": "langchain_core",
+      "distribution_root": null,
+      "distribution_tree_sha256": null,
+      "module_origin": null,
+      "package_root": null
+    }
+  },
+  "load_bearing_files": [],
+  "source_basis": {
+    "langgraph": {
+      "tag": "1.2.9",
+      "commit": "95af6a00718588e7b7ce17310e8006d267896a77"
+    },
+    "langchain_core": {
+      "status": "absent",
+      "version": null,
+      "audit_id": null
+    }
+  },
+  "source_audit": {
+    "status": "absent",
+    "report_path": null,
+    "report_sha256": null,
+    "verified_assertions": []
+  },
+  "import_context": {
+    "sys_path": [
+      "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python314.zip",
+      "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14",
+      "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/lib-dynload",
+      "/home/soh/agent-security/comp/.venv/lib/python3.14/site-packages"
+    ],
+    "meta_path_identities": [
+      "_frozen_importlib.BuiltinImporter",
+      "_frozen_importlib.FrozenImporter",
+      "_frozen_importlib_external.PathFinder"
+    ],
+    "path_hook_identities": [
+      "zipimport.zipimporter",
+      "_frozen_importlib_external.FileFinder.path_hook.<locals>.path_hook_for_FileFinder"
+    ],
+    "site_packages": [
+      "/home/soh/agent-security/comp/.venv/lib/python3.14/site-packages"
+    ],
+    "pth_files": []
+  },
+  "run_config": {
+    "callbacks": [],
+    "tags": [],
+    "metadata": {},
+    "configurable": {}
+  },
+  "P_common_M0": false,
+  "failure_label": "manifest_status"
+}
