@@ -43,7 +43,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 14
+      "spent": 15
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-3 review in research-log/066 verified immutable v3 at 831 lines and returned NEEDS_REVISION. Research-log/067 retires the unexecuted frequency claim as refuted. The superseding v4 hypothesis at research-log/068 defines one necessary-and-sufficient P13/P15 schema-closure proposition, concrete symbols, exact projection/action, total three-valued two-event verifier, A1-A7 validity domains, separate necessity/sufficiency derivations, countermodels when assumptions are removed, pinned source correspondence, one future fixture, taxonomy, rivals, and stopping rules. Deterministic verification is pending before sterile round 4; budget remains 14/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-3 review in research-log/066 verified immutable v3 at 831 lines and returned NEEDS_REVISION. Research-log/067 retires the unexecuted frequency claim as refuted. The superseding v4 hypothesis at research-log/068 has 703 committed lines and defines one necessary-and-sufficient P13/P15 schema-closure proposition, exact projection/action, total verifier, A1-A7 domains, proof directions, countermodels, source correspondence, and one future fixture. Deterministic checks passed; sterile round 4 was dispatched against immutable commit ac3845d and charged cumulative budget 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -726,7 +726,9 @@
       "search_log_v4": "COMPLETE — the metric entry outcome is `refuted`; a same-iteration understanding entry varies `schema-security-closure` and remains pending for the superseding deterministic hypothesis.",
       "hypothesis_v4": "COMPLETE BEFORE REVIEW — research-log/068 supersedes immutable v3 with one deterministic schema-closure biconditional, exact symbols/projection/action, total R_13_15 byte predicate, A1-A7 validity domains, separate proof directions, load-bearing countermodels, pinned source correspondence, one future regression fixture, and no empirical census.",
       "round3_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — v4 retires the forced empirical claim, narrows the oracle to total P13/P15 semantics, removes the observer, removes the incomplete generator/census, and reclassifies the contribution as Scope Mismatch × Formal Derivation × formalize.",
-      "status": "IN_PROGRESS — c2-v4 hypothesis written; deterministic verification required before sterile round-4 review; no Phase-3 work permitted"
+      "deterministic_verification_v4": "PASS — `omst_hypothesis_v4=PASS lines=703 assumptions=7 event_kinds=2 proof_directions=2 countermodel_sections=5 census_executions=0 placeholders=0 review=pending`; JSON/Markdown/state agreement and predecessor immutability checks passed.",
+      "theory_review_round4": "DISPATCHED — immutable research-log/068 at commit ac3845d, 703 committed lines; sterile theoretical re-review must independently derive both implications, test totality/circularity and source correspondence, and re-grade all four round-3 blockers; cumulative budget 15/20.",
+      "status": "IN_PROGRESS — c2-v4 under sterile round-4 theory review; no Phase-3 work permitted"
     }
   }
 }
