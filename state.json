@@ -31,7 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/060-hypothesis-iter-5-omst-v2.md",
+  "active_hypothesis_artifact": "research-log/064-hypothesis-iter-5-omst-v3.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-1 immutable v1 and its adverse review remain at research-log/056 and 058. Superseding research-log/060 contains 677 lines, the single default-reconstruction-minus-pass-through comparison, exact 1,440-unit/5,760-execution equal-graph estimand, 15 assumptions with validity domains, all eight fixed bias items, 11 substantive rivals, and a seven-row issue-resolution matrix. Deterministic verification returned `omst_hypothesis_v2=PASS lines=677 bias_items=8 assumptions=15 issue_rows=7 conditions=4 executions=5760 targeted_papers=4 placeholders=0 review=pending`. Sterile round 2 is dispatched against immutable commit 028c33f; cumulative review budget charged 13/20 at dispatch. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
+      "evidence": "Immutable v1/v2 and their adverse reviews remain at research-log/056/060 and 058/062. After official pinned-source inspection and c2-v3 correction, research-log/064 contains 831 lines, one task-only-minus-provenance-visible schema comparison, exact treatment-fidelity table, 17-clause OMST-PROV-1, OMST-GEN-1 byte mapping, 1,152-run future replay gate, 18 validity-domain assumptions, eight fixed bias items, 13 substantive rivals, 11 review-resolution rows, and a non-redundancy stop. Deterministic verification returned `omst_hypothesis_v3=PASS lines=831 bias_items=8 assumptions=18 clauses=17 clause_mutants=17 resolution_rows=11 conditions=4 determinism_runs=1152 validation_runs=5760 placeholders=0 review=pending`; cumulative review budget remains 13/20 until dispatch. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -711,7 +711,9 @@
       "round1_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — seven rows in research-log/060 claim RESOLVED for estimand/weighting, B/security separation, causal common support, oracle validation, evidence/taxonomy, census specification, and assumptions/terminology.",
       "theory_review_round2": "NEEDS_REVISION — reviewer and committed line counts agree 677/677. Prior issues 1/2/5/7 RESOLVED; 3/4/6 IMPROVED. Four remaining blockers: exact V_prov automaton/event semantics with clause-level fixtures/mutants; executable treatment-fidelity predicate and pinned runtime path; byte-deterministic census grammar/fixtures/tapes/order; residual-runtime determinism gate or repeated-run estimand. Full verbatim report: research-log/062. Budget remains 13/20 after dispatch accounting.",
       "contract_amendment_v3": "APPLIED UNDER STANDING DEFAULT — official pinned-source inspection showed node input-schema channel projection is authentic but generic `default reconstruction` is not. c2-v3 narrows the treatment to task-only versus task-plus-provenance action schemas and fixes OMST-GEN-1, 17-clause provenance automaton, exact treatment-fidelity predicate, and duplicate replay gate. Full rationale: research-log/063; Git preserves c2-v2.",
-      "status": "IN_PROGRESS — round-2 adverse verdict accepted; c2-v3 source-authentic contract fixed; new superseding hypothesis required before re-review; no PoC or experiment permitted"
+      "hypothesis_v3": "COMPLETE BEFORE REVIEW — research-log/064 supersedes immutable v2 with source-authentic task-only versus task-plus-provenance schema projection, exact treatment-fidelity table, OMST-PROV-1 event automaton, OMST-GEN-1 byte mapping, 1,152-run future replay gate, and a non-redundancy stop that forbids a large census if Phase 3 proves the result definitional.",
+      "round2_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — v3 claims all four round-2 blockers resolved: 17-clause exact V_prov with clause fixtures/mutants; pinned compiled-channel fidelity predicate; deterministic graph/input/tape/order mapping; exact duplicate replay gate. The reviewer must also judge structural triviality and observer interference.",
+      "status": "IN_PROGRESS — c2-v3 superseding hypothesis deterministically specified but not yet independently reviewed; no PoC or experiment permitted"
     }
   }
 }
