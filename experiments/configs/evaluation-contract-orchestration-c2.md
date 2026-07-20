@@ -1,227 +1,228 @@
 # Cycle-2 orchestration-security evaluation contract
 
-**Version:** c2-v6
+**Version:** c2-v7
 
 **Recorded:** 2026-07-20
 
-**Supersedes:** c2-v5 at commit `3176f32`; c2-v1 through c2-v5 remain in Git
+**Supersedes:** c2-v6 at commit `0f4b93f`; c2-v1 through c2-v6 remain in Git
 history.
 
 **Status:** APPROVED UNDER STANDING INTERNAL-ITERATION DEFAULT — local formal
-correction and sterile review are authorized; the external and executable
-actions listed at the end are not.
+correction, static code checks, source research, and sterile review only.
 
 **Active study:** OMST record-reconstruction/schema-sufficiency control.
 
-## Adverse-gate decision
+## Round-6 decision
 
-Round 5 accepted the abstract factorization theorem and two-state universal
-impossibility, found no finite countermodel, and found the anti-stacking claim
-narrowly valid. It rejected v5 as a complete artifact because the LangGraph
-correspondence was not executable or deterministic from fixed source/run state,
-the theorem retained unnecessary assumptions, the witness was incompletely
-typed, the correspondence/control roles were mixed, and “security” scope was
-too broad.
+Round 6 found the minimal theorem and typed witness rigorous and found no finite
+countermodel. It rejected only the unconditional LangGraph correspondence:
+v6's decisive environment/source facts were partly stated as future
+postconditions.
 
-c2-v6 corrects those defects without execution. Its normative machine-readable
-artifact is `experiments/configs/omst-c2-v6-quotient-control.json`; rationale is
-in `research-log/075`.
-
-## Minimal abstract theorem
-
-Let `S,Y` be sets, let `pi:S->Q` be total where `Q` is defined as `image(pi)`,
-and let `tau:S->Y` be total. Define:
+c2-v7 removes that overclaim. The active claim structure is:
 
 ```text
-ker(pi) subseteq ker(tau)
-iff
-for every s,s' in S, pi(s)=pi(s') implies tau(s)=tau(s').
+UNCONDITIONAL:
+  unique factorization theorem
+  fully typed two-state universal consequence
+
+CONDITIONAL:
+  P -> C_task
+  P -> C_full
+
+NOT CLAIMED:
+  P is currently discharged
+  unconditional LangGraph correspondence
 ```
 
-Then:
+The normative artifact is
+`experiments/configs/omst-c2-v7-conditional-correspondence.json`; the amendment
+record is `research-log/079`.
+
+## Minimal theorem
+
+For sets `S,Y`, total `pi:S->Q` where `Q=image(pi)`, and total `tau:S->Y`:
 
 ```text
-there exists a unique total g:Q->Y such that tau=g composed_with pi
+exists unique g:Q->Y with tau=g composed_with pi
 iff
 ker(pi) subseteq ker(tau).
 ```
 
-### Necessity
+Necessity follows from functionality of `g`. For sufficiency, define `g(q)` as
+the common `tau` value on the nonempty fiber over `q`; kernel inclusion makes it
+well-defined, and the image domain makes it total and unique.
 
-If `tau=g composed_with pi` and `pi(s)=pi(s')`, functionality gives
-`tau(s)=g(pi(s))=g(pi(s'))=tau(s')`.
+Empty `S` is allowed and yields the unique empty factor. Finiteness is not
+assumed. For a separate strict superset of the image, an extension exists when
+an output value exists, but off-image values are generally nonunique.
 
-### Sufficiency and uniqueness
+This is classical quotient/function factorization, not a new theorem.
 
-For `q in Q=image(pi)`, define `g(q)=tau(s)` for any `s` with `pi(s)=q`.
-Fiber constancy makes the value well-defined, and the image definition makes
-`g` total. It factors `tau`. Any two factors agree at every reachable
-`q=pi(s)`, so the factor is unique.
-
-No finiteness or nonemptiness assumption is used. If `S=Q=empty`, the unique
-empty `g` factors the unique empty `tau`. `Q=image(pi)` is a domain definition
-that makes the factor canonical and unique, not an existence premise. For a
-separate larger codomain, a factor may be extended when an output value exists,
-but off-image values are not uniquely determined.
-
-The theorem is classical quotient/function-factorization structure. No new
-mathematical theorem is claimed.
-
-## Fully typed two-state control
-
-Let:
+## Typed witness
 
 ```text
-P = {p0,p1}                         exact records in the v6 JSON
-B = the set of canonical JSON byte strings
-J:P->B                              exact declared canonicalizer
-X = {x}                             exact task-tuple singleton
-S = X cross P
-Y = J(P)
+P={p0,p1}                         exact fixture records
+B                                  canonical JSON byte strings
+J:P->B                             exact canonicalizer
+X={x}                              exact task singleton
+S=X cross P
+Y=J(P)
 
-tau:X cross P->Y                    tau(x,p)=J(p)
-pi_task:X cross P->X                pi_task(x,p)=x
-pi_full:X cross P->X cross P        pi_full(x,p)=(x,p)
-g_full:X cross P->Y                 g_full(x,p)=J(p)
+tau:X cross P->Y                   tau(x,p)=J(p)
+pi_task:X cross P->X               pi_task(x,p)=x
+pi_full:X cross P->X cross P       pi_full(x,p)=(x,p)
+g_full:X cross P->Y                g_full(x,p)=J(p)
 ```
 
-The exact canonical target bytes differ only because `agent_id` differs.
-Therefore `tau` is not constant on the one `pi_task` fiber, and:
+`J(p0)!=J(p1)`. Hence every total deterministic `g_task:X->Y` fails on at
+least one witness state. The full projection has singleton fibers and the
+declared `g_full` is its unique factor.
+
+Canonicalization covers JSON objects and arrays with primitive leaves. The
+fixture uses nested objects and one empty array.
+
+## Conditional correspondence
+
+`C_task` says the exact pinned fixture supplies identical callable-entry bytes
+for `task_s0,task_s1`. It is load-bearing for any later framework application.
+
+`C_full` says `full_s0,full_s1` inputs differ only at
+`provenance_record.agent_id`. It is an optional positive control.
+
+The active source proposition is only:
 
 ```text
-for every total deterministic g_task:X->Y,
-g_task composed_with pi_task differs from tau on at least one witness state.
+P -> C_task
+P -> C_full.
 ```
 
-`tau` is constant on every singleton `pi_full` fiber, and the declared
-`g_full` is its unique factor. This is a universal logical consequence on a
-researcher-declared record-reconstruction obligation. It is not an empirical
-prediction or evidence of a general security failure.
+Neither `C_task` nor `C_full` is asserted unconditionally. If any member of `P`
+fails, the framework application remains unestablished; the theorem is
+unaffected.
 
-## Actual-input interpretation
+## Closed static fixture
 
-For an orchestration node, `pi` must include everything the action can actually
-read: delivered fields, mapper output, config, store, bound defaults, closures,
-globals, runtime history, or correlated state. If any of those differ within a
-claimed task-only pair, then the real projection is not the declared
-`pi_task`.
+The exact unexecuted subject consists of:
 
-Closure is semantic. A derived delivered coordinate could determine `tau`
-without the literal provenance key; conversely, a listed but unavailable or
-mapper-dropped key may not be delivered.
+- `experiments/omst_c2_v7_fixture.py`, SHA-256
+  `e26bca99b0aa9e614308ab0330501d03f78758181f0f4627137da40fb8305d09`;
+- `experiments/run_omst_c2_v7_fixture.sh`, SHA-256
+  `ff9be2b71a41d26cb60b59bb8670cacb8e63e89349efff921cabe52cd12df68c`.
 
-## Independent pinned correspondence propositions
+The module binds exact schemas, states, graph, node, edges, config, compiled
+assertions, capture, and all four named cells. The launcher binds four separate
+processes under `/usr/bin/env -i` and Python `-I -B`.
 
-The LangGraph claims are propositions requiring source/run-state evidence, not
-corollaries of the abstract theorem.
+The capture serializes its sole callable argument before returning its first
+write. Output is one canonical diagnostic record with no security verdict.
 
-### C_task — load-bearing
+Static Python/shell parsing does not import or run LangGraph.
 
-Under the exact fixture and fresh fixed run state, the complete input received
-at callable entry for `s0` and `s1` with `TaskStateOnly` is byte-identical.
-Failure rejects the task-side LangGraph application.
+## Commit-bound source lemmas
 
-### C_full — optional positive control
+All source paths are bound to authenticated LangGraph commit
+`95af6a00718588e7b7ce17310e8006d267896a77`.
 
-Under the same fixture, callable inputs for `s0` and `s1` with
-`TaskStatePlusProvenance` differ exactly at `provenance_record`. Failure rejects
-this deliverability/sufficiency control but does not by itself refute `C_task`.
+### L_compile
 
-The cross-schema diagnostic checks that the task mapping equals the full
-mapping with `provenance_record` removed. Its failure rejects the intended
-one-coordinate treatment correspondence.
+[`state.py`](https://github.com/langchain-ai/langgraph/blob/95af6a00718588e7b7ce17310e8006d267896a77/libs/langgraph/langgraph/graph/state.py)
+registers exact input schemas, ordinary `LastValue` channels, selected
+`PregelNode.channels`, `None` mapper for the exact mappings, and absent compiled
+services when passed `None`.
 
-## Literal future fixture
+### L_fresh
 
-The v6 JSON is normative for executable text. It fixes:
-
-- exact `TypedDict` definitions for `ProvenanceRecord`, `TaskStateOnly`,
-  `TaskStatePlusProvenance`, and enclosing `GraphState`;
-- unannotated state fields, whose expected channels must be `LastValue`;
-- a pure `capture(state)` callable that canonicalizes its argument before its
-  first write;
-- `StateGraph(GraphState)`, one node added with explicit `input_schema`, and
-  `START -> capture -> END`;
-- `builder.compile()` with no explicit checkpointer, cache, or store;
-- `invoke(deepcopy(state), config=None)` and UTF-8 capture bytes;
-- exact states `s0,s1`; and
-- four cells, each in a fresh Python process with a fresh graph and temporary
-  directory and no object or `input_cache` reuse.
-
-Network is disabled. Python, standard-library JSON, source, config, and
-environment versions/hashes are recorded. No adapter may synthesize either
-expected projection.
-
-## Source-level determinism gate
-
-Primary runtime is LangGraph tag `1.2.9`, object
-`95af6a00718588e7b7ce17310e8006d267896a77`. Before any fixture execution, a
-source audit must establish:
-
-1. authentic source objects and relevant file hashes;
-2. exact `LastValue` channel construction from all literal state fields;
-3. exact ordered `proc.channels` for each explicit node input schema;
-4. `proc.mapper is None` for both schemas, otherwise rejection;
-5. compiled checkpointer/cache/store are absent, otherwise rejection;
-6. fresh checkpoint/channel state and a fresh empty `input_cache` per invoke;
-7. availability of every selected channel before the PULL task;
-8. `_proc_input` reads exactly those channels, applies no mapper, and produces
-   the task-owned input value;
-9. `prepare_single_task` assigns that value to
-   `PregelExecutableTask.input`, which the bound callable receives;
-10. capture occurs before any write and cannot mutate its argument beforehand;
-11. no config, callback, store, global, closure, environment, history, cache,
-    retry, or reused object adds a distinguishing coordinate; and
-12. `C_task` and `C_full` follow from the fixed source path and run state.
-
-Official source locations are
-[`state.py`](https://github.com/langchain-ai/langgraph/blob/1.2.9/libs/langgraph/langgraph/graph/state.py),
-[`_read.py`](https://github.com/langchain-ai/langgraph/blob/1.2.9/libs/langgraph/langgraph/pregel/_read.py),
+[`_loop.py`](https://github.com/langchain-ai/langgraph/blob/95af6a00718588e7b7ce17310e8006d267896a77/libs/langgraph/langgraph/pregel/_loop.py),
+[`_checkpoint.py`](https://github.com/langchain-ai/langgraph/blob/95af6a00718588e7b7ce17310e8006d267896a77/libs/langgraph/langgraph/pregel/_checkpoint.py),
 and
-[`_algo.py`](https://github.com/langchain-ai/langgraph/blob/1.2.9/libs/langgraph/langgraph/pregel/_algo.py).
+[`_io.py`](https://github.com/langchain-ai/langgraph/blob/95af6a00718588e7b7ce17310e8006d267896a77/libs/langgraph/langgraph/pregel/_io.py)
+give the path from an empty checkpoint through fresh channels, graph input,
+START writes, GraphState field writes, and selected-channel availability before
+capture.
 
-Execution, if separately authorized after a rigorous theory verdict and source
-acquisition gate, may check the derived relations once per fixed cell. One
-replicate cannot prove determinism.
+### L_prepare
 
-## Theory-review gate
+[`_algo.py`](https://github.com/langchain-ai/langgraph/blob/95af6a00718588e7b7ce17310e8006d267896a77/libs/langgraph/langgraph/pregel/_algo.py)
+creates a fresh empty input cache, reads the selected available channels,
+applies no mapper, and assigns the result to
+`PregelExecutableTask.input`.
+
+### L_deliver
+
+[`_retry.py`](https://github.com/langchain-ai/langgraph/blob/95af6a00718588e7b7ce17310e8006d267896a77/libs/langgraph/langgraph/pregel/_retry.py)
+invokes `task.proc` with `task.input`; the declared capture receives and
+serializes that mapping before a write.
+
+## Premise bundle P
+
+`P` is discharged only if all hold:
+
+1. an authorized acquired environment matches LangGraph 1.2.9 at the pinned
+   commit and exact LangGraph/LangChain-core manifests and file hashes;
+2. fixture and launcher hashes match, and compiled assertions pass;
+3. the exact `env -i`, `-I -B` launcher leaves no inherited tracing,
+   `PYTHONPATH`, user site, or callback configuration;
+4. the environment has no `sitecustomize`, `usercustomize`, executable `.pth`,
+   import hook, or wrapper able to mutate input before capture;
+5. explicit `callbacks=[]`, empty tags/metadata/configurable produce no
+   mutating callback path;
+6. `L_compile`, `L_fresh`, `L_prepare`, and `L_deliver` are independently
+   verified against the acquired exact dependency bundle; and
+7. each cell is a fresh process and output comes only from callable-entry input.
+
+The current local document-check environment is literally recorded: CPython
+3.14.3 interpreter SHA-256
+`eca90b668424db6f2105504128f02cac91c2805de9a928abcc272d1444abfde0`
+and stdlib JSON SHA-256
+`95022d150a27a2bfd54ac21bfce35812c96b53c420bb7b018dcb573f13e52da0`.
+LangGraph and LangChain-core are absent. Therefore `P` is not discharged.
+
+## Review gate
 
 Phase 2 passes only if a sterile reviewer returns `RIGOROUS` after:
 
-- independently deriving both theorem directions and factor uniqueness;
-- checking empty, singleton, injective, constant, and larger-codomain cases;
-- verifying the full typing and exact two-state consequence;
-- finding no finite countermodel;
-- keeping `C_task` independent and load-bearing and `C_full` optional;
-- checking that the exact fixture and source/run-state obligations close the
-  future correspondence subject;
-- accepting the classical novelty and engineering-control boundary; and
-- confirming no empirical or general-security claim has reappeared.
+- independently deriving theorem existence and uniqueness, including empty and
+  larger-domain cases;
+- validating the complete witness typing and universal consequence;
+- confirming the four source lemmas support the conditional implication;
+- confirming no environment premise is asserted as currently true;
+- checking fixture/launcher closure statically;
+- confirming `C_task` load-bearing and `C_full` optional roles;
+- accepting the classical novelty and record-reconstruction scope; and
+- finding no hidden execution, security, causal-effect, or prevalence claim.
 
-A rigorous verdict closes Phase 2 only. It does not establish `C_task`, execute
-the fixture, or authorize Phase 3 acquisition. An adverse verdict requires a
-new immutable revision or retirement; v3-v5 cannot be resurrected.
+`RIGOROUS` establishes the theorem and validity of `P -> C`; it does not
+discharge `P`, authorize acquisition, or establish runtime correspondence.
 
-## Data and execution tiers
+## Phase and execution tiers
 
-- **Phase 2:** proof, primary-source inspection, deterministic document/syntax
-  checks, and sterile theory review only.
-- **Phase 3:** at most one source-derived two-state correspondence check, only
-  after applicable acquisition/execution authorization.
-- **Phase 4:** no OMST security experiment, census, effect size, prevalence, or
-  benchmark claim.
-- **Locked test:** absent, ungenerated, unexecuted, and unauthorized.
+- **Phase 2:** proof, source research, static syntax/document checks, and sterile
+  review only.
+- **Acquisition gate:** separate authorization before obtaining/installing
+  LangGraph or LangChain-core.
+- **Phase 3:** only after `P1-P6` pass may four one-use cells check conditional
+  correspondence.
+- **Phase 4:** no OMST security experiment, census, effect, prevalence, or
+  benchmark.
+- **Locked test:** absent and unauthorized.
 
-## Immutable history
+## Scope
 
-Git preserves c2-v1 through c2-v5, hypotheses v1-v5, and every adverse review.
-Once committed, the c2-v6 contract, JSON, amendment, and hypothesis are
-immutable; another correction requires c2-v7.
+The result is a record-reconstruction/schema-sufficiency control relative to
+`tau`: classical factorization plus a conditional framework-control protocol.
+It is not unconditional LangGraph correspondence, a general security failure,
+a framework vulnerability, production policy, empirical result, or standalone
+top-tier contribution.
 
-## Approval boundary
+## Immutable history and approval boundary
 
-The standing default authorizes this local formal correction, deterministic
-checking, and sterile theory review within the remaining budget. It does not
-authorize framework download/install/run, Kaggle, held-out or locked-test
-action, live targets, operational attacks, model APIs, external messages, or
+Git preserves c2-v1 through c2-v6, hypotheses v1-v6, and all adverse reviews.
+Once committed, c2-v7 artifacts are immutable; another correction requires
+c2-v8.
+
+The standing default authorizes this local correction, code-as-text, static
+checks, and sterile review. It does not authorize framework acquisition,
+installation, import, or execution; Kaggle; held-out or locked-test action;
+live targets; operational attacks; model APIs; external messages; or
 publication.

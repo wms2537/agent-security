@@ -1,0 +1,131 @@
+{
+  "schema_version": "omst-c2-v7-conditional-correspondence",
+  "status": "phase2_theory_only",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v6-quotient-control",
+  "classification": "rigorous_factorization_plus_conditional_engineering_correspondence",
+  "unconditional_claims": {
+    "factorization": "for sets S,Y and total pi:S->Q=image(pi), tau:S->Y, there exists a unique g:Q->Y with tau=g composed_with pi iff ker(pi) subseteq ker(tau)",
+    "two_state_witness": "with X singleton, P={p0,p1}, J:P->B and J(p0)!=J(p1), no total deterministic g_task:X->J(P) reconstructs tau(x,p)=J(p) on both states",
+    "framework_correspondence": "not established and not claimed before the acquisition/source-manifest gate"
+  },
+  "conditional_claims": {
+    "C_task_if_P": "if every premise in P is discharged for the acquired environment, callable-entry bytes for task_s0 and task_s1 are equal",
+    "C_full_if_P": "if every premise in P is discharged for the acquired environment, callable-entry mappings for full_s0 and full_s1 differ exactly at provenance_record.agent_id",
+    "role": "C_task_if_P is load-bearing for a later framework application; C_full_if_P is optional positive control",
+    "logic": "P implies C_task and C_full; neither C_task nor C_full is asserted unconditionally"
+  },
+  "canonicalization": {
+    "algorithm": "UTF-8 json.dumps(sort_keys=true,separators=(',',':'),ensure_ascii=true,allow_nan=false), no trailing newline",
+    "domain": "JSON objects and arrays whose leaves are integers, strings, booleans, or null; this fixture uses nested objects and one empty array",
+    "p0_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-0\",\"entity_id\":\"entity-0\"}",
+    "p1_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-1\",\"entity_id\":\"entity-0\"}"
+  },
+  "typed_witness": {
+    "P": "the exact p0,p1 records embedded in experiments/omst_c2_v7_fixture.py",
+    "B": "set of canonical JSON byte strings",
+    "J": "total canonicalizer P->B",
+    "X": "singleton exact task mapping embedded in the fixture",
+    "S": "X cross P",
+    "Y": "J(P)",
+    "tau": "X cross P->Y, tau(x,p)=J(p)",
+    "pi_task": "X cross P->X, pi_task(x,p)=x",
+    "pi_full": "X cross P->X cross P, pi_full(x,p)=(x,p)",
+    "g_full": "X cross P->Y, g_full(x,p)=J(p)"
+  },
+  "closed_fixture": {
+    "module": "experiments/omst_c2_v7_fixture.py",
+    "module_sha256": "e26bca99b0aa9e614308ab0330501d03f78758181f0f4627137da40fb8305d09",
+    "launcher": "experiments/run_omst_c2_v7_fixture.sh",
+    "launcher_sha256": "ff9be2b71a41d26cb60b59bb8670cacb8e63e89349efff921cabe52cd12df68c",
+    "bound_cells": [
+      "task_s0",
+      "task_s1",
+      "full_s0",
+      "full_s1"
+    ],
+    "freshness": "launcher uses four separate interpreter processes; module constructs one graph and one temporary directory per process",
+    "explicit_config": {
+      "callbacks": [],
+      "tags": [],
+      "metadata": {},
+      "configurable": {}
+    },
+    "capture": "capture canonicalizes its sole callable argument before its first and only returned write",
+    "static_assertions": [
+      "exact proc.channels",
+      "proc.mapper is None",
+      "node cache and retry policies are None",
+      "compiled checkpointer, cache, and store are None"
+    ],
+    "runtime_output": "one canonical record containing cell, observed_hex, and status; no security verdict"
+  },
+  "local_document_check_environment": {
+    "interpreter_path": "/home/soh/agent-security/comp/.venv/bin/python",
+    "interpreter_resolved_path": "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.3_1/bin/python3.14",
+    "interpreter_version": "CPython 3.14.3 (main, Feb 3 2026, 15:32:20) GCC 12.3.0",
+    "interpreter_sha256": "eca90b668424db6f2105504128f02cac91c2805de9a928abcc272d1444abfde0",
+    "stdlib_json_path": "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.3_1/lib/python3.14/json/__init__.py",
+    "stdlib_json_sha256": "95022d150a27a2bfd54ac21bfce35812c96b53c420bb7b018dcb573f13e52da0",
+    "langgraph": "absent",
+    "langchain_core": "absent",
+    "meaning": "only syntax/document checks are possible; this is not an acquired framework environment"
+  },
+  "authenticated_source_basis": {
+    "repository": "https://github.com/langchain-ai/langgraph",
+    "tag": "1.2.9",
+    "commit": "95af6a00718588e7b7ce17310e8006d267896a77",
+    "binding": "each path below is bound directly to the authenticated commit; no local source checkout is claimed",
+    "paths": [
+      "libs/langgraph/langgraph/graph/state.py",
+      "libs/langgraph/langgraph/pregel/_loop.py",
+      "libs/langgraph/langgraph/pregel/_checkpoint.py",
+      "libs/langgraph/langgraph/pregel/_io.py",
+      "libs/langgraph/langgraph/pregel/_algo.py",
+      "libs/langgraph/langgraph/pregel/_retry.py"
+    ]
+  },
+  "source_lemmas": {
+    "L_compile": "state.py registers explicit TypedDict input schemas, creates ordinary LastValue channels, binds exact proc.channels, assigns mapper None for TypedDict mappings, and compile passes explicit None for checkpointer/cache/store",
+    "L_fresh": "with no checkpointer, _loop.py substitutes empty_checkpoint; _checkpoint.py defines empty channel_values/channel_versions/versions_seen; channels_from_checkpoint constructs fresh channel instances; _loop._first maps the literal graph input, applies START writes and later GraphState field writes; all selected LastValue channels are therefore available before capture",
+    "L_prepare": "_loop.tick calls prepare_next_tasks; _algo.prepare_next_tasks creates a fresh empty input_cache; _proc_input reads every available selected proc channel, applies no mapper, and assigns the mapping to PregelExecutableTask.input",
+    "L_deliver": "_retry.run_with_retry invokes task.proc.invoke(task.input, config); the runnable calls capture with that mapping, and capture serializes it before returning any write",
+    "symbolic_trace": "literal state -> START input -> GraphState channel writes -> fresh LastValue values -> capture PULL task -> selected mapping -> PregelExecutableTask.input -> task.proc.invoke -> capture argument"
+  },
+  "P": [
+    "P1: an acquired local LangGraph environment is authenticated as 1.2.9 at commit 95af6a00718588e7b7ce17310e8006d267896a77, with exact LangGraph and LangChain-core manifests and file hashes",
+    "P2: the committed fixture and launcher hashes match this artifact and their static assertions pass",
+    "P3: the launcher runs under env -i and Python -I -B exactly as written, leaving no tracing variables, PYTHONPATH, user site, or inherited callback configuration",
+    "P4: the acquired environment audit finds no sitecustomize, usercustomize, .pth executable imports, import hooks, or wrappers that can inspect or mutate input before capture",
+    "P5: the explicit callbacks=[], tags=[], metadata={}, configurable={} configuration produces no callback handler with pre-node mutation authority",
+    "P6: L_compile, L_fresh, L_prepare, and L_deliver are independently verified against the acquired exact source/dependency bundle",
+    "P7: each cell is one fresh process and the emitted record is derived only from the callable-entry mapping"
+  ],
+  "phase_gates": {
+    "phase2": "review may establish the abstract theorem, witness, and validity of the conditional implication P->C; it cannot mark P discharged",
+    "acquisition": "separate authorization required before obtaining or installing LangGraph/LangChain-core",
+    "phase3": "only after P1-P6 pass may the four one-use cells check C_task_if_P and optional C_full_if_P",
+    "phase4": "no OMST security experiment, census, effect, prevalence, or benchmark",
+    "locked_test": "absent and unauthorized"
+  },
+  "scope": {
+    "label": "record-reconstruction/schema-sufficiency control relative to tau",
+    "novelty": "classical quotient factorization plus a conditional framework-control protocol",
+    "not_claimed": [
+      "unconditional LangGraph correspondence before P is discharged",
+      "general security failure",
+      "framework vulnerability",
+      "production provenance policy",
+      "empirical effect or prevalence",
+      "standalone top-tier contribution"
+    ]
+  },
+  "authorization_boundary": [
+    "no framework download, installation, import, or execution",
+    "no Kaggle action",
+    "no held-out or locked-test action",
+    "no live target or operational attack",
+    "no model API",
+    "no external message or publication"
+  ]
+}
