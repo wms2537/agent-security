@@ -31,6 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
+  "active_hypothesis_artifact": "research-log/056-hypothesis-iter-5-omst-v1.md",
   "budgets": {
     "research_iterations": {
       "limit": 5,
@@ -322,8 +323,8 @@
       "id": "T035",
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Immutable-review candidate research-log/056 contains 492 lines, one primary comparison, exact finite estimand, nine assumptions with validity domains, all eight fixed bias items, eight rival explanations, thresholds, taxonomy, anti-stacking prediction, and explicit disconfirm/invalid separation. Targeted source research-log/lit/targeted_omst_metamorphic_2026.json contains three search records and two reviewed high-relevance primary entries. Deterministic check returned `omst_hypothesis_draft=PASS lines=492 bias_items=8 assumptions=9 rival_explanations=8 rewrite_families=4 targeted_papers=2 search_entries=1 theory_review=pending`. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -349,6 +350,14 @@
       "varies": "candidate-structure-policy",
       "kind": "metric",
       "outcome": "improved"
+    },
+    {
+      "cycle": 2,
+      "iteration": 5,
+      "direction": "omst",
+      "varies": "orchestration-rewrite-relation",
+      "kind": "metric",
+      "outcome": null
     }
   ],
   "tried_and_failed": [
@@ -680,6 +689,18 @@
       "direction_approval": "APPROVED — user selected all directions verbatim: `go try all please`; this approves sequential pursuit, not the unseen contract details.",
       "contract_approval": "APPROVED — after the exact draft was presented, the user's complete response was verbatim: `ok`.",
       "status": "PASS — `cycle2_setup_gate=PASS status=approved_for_phase2_hypothesis constructs=6 rewrites=4 locked_test_absent=true`; proceed to Phase 2 only"
+    },
+    "2_cycle2_omst": {
+      "hypothesis": "COMPLETE — research-log/056 states a falsifiable >=10 pp LangGraph excess rewrite-regression claim, 12 pp low-confidence prediction, IV/DV, controls, and one primary comparison.",
+      "search_log": "COMPLETE — Cycle 2 iteration 5 appends varies=orchestration-rewrite-relation, kind=metric, outcome pending; no current-cycle escalation constraint exists.",
+      "concept": "COMPLETE — OMST has a plain-language statement and a finite formal definition of task equivalence, security refinement, paired regression, and Delta.",
+      "justification": "COMPLETE BEFORE REVIEW — cited mechanism/evidence chain, exact measurement design, nine assumptions with validity domains, all eight fixed bias items, and eight rival explanations are present.",
+      "failure_metrics": "COMPLETE — success, disconfirm, point-calibration, mechanism, generalization, identity, and protocol-invalid thresholds are explicit; valid subthreshold is disconfirm.",
+      "taxonomy": "COMPLETE — Evidence Gap x Empirical Mapping x formalize, with decouple secondary; not Bridge x Synthesis.",
+      "anti_stacking": "COMPLETE — residual security regression after exact task eligibility and identity control is the distinguishing prediction over graph fuzzing plus a checker.",
+      "problem_alignment": "COMPLETE — confirmation would show that task-preserving orchestration changes can materially alter security contracts under the Cycle-2 core question.",
+      "theory_review": "PENDING — no dispatch or budget charge yet; no experiment may begin.",
+      "status": "IN_PROGRESS — deterministic hypothesis checks passed; sterile independent review next"
     }
   }
 }

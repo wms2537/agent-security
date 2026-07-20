@@ -1,0 +1,66 @@
+{
+  "tier": 1,
+  "search_record": [
+    {
+      "date": "2026-07-20",
+      "query": "site:arxiv.org metamorphic testing LLM agents orchestration graph security",
+      "purpose": "Find the closest current metamorphic-testing work for LLM and agent systems."
+    },
+    {
+      "date": "2026-07-20",
+      "query": "site:dl.acm.org metamorphic testing large language models agent workflows",
+      "purpose": "Check software-testing venue neighbors and terminology."
+    },
+    {
+      "date": "2026-07-20",
+      "query": "site:arxiv.org security invariance graph rewrites agentic systems metamorphic",
+      "purpose": "Try to falsify the claimed graph-rewrite security-invariance gap."
+    }
+  ],
+  "papers": [
+    {
+      "title": "Bidirectional Empowerment of Metamorphic Testing and Large Language Models: A Systematic Survey",
+      "authors": "Zheng Zheng, Zenghui Zhou, Yinwang Xu, Daixu Ren, Tsong Yueh Chen",
+      "venue": "arXiv preprint, 2026",
+      "url": "https://arxiv.org/abs/2605.13898",
+      "source_type": "systematic survey",
+      "core_contribution": "Taxonomizes metamorphic testing for LLMs and the use of LLMs to construct metamorphic tests across 93 primary studies.",
+      "methodology": "Systematic review of 93 primary studies, divided into metamorphic testing for LLM-based systems and LLM assistance for metamorphic-test construction.",
+      "key_results": "Metamorphic testing is established for oracle-deficient LLM applications, including autonomous agents, but the abstract and taxonomy do not identify security invariance under validated orchestration-graph rewrites as an evaluated setting.",
+      "key_results_location": "arXiv abstract and taxonomy summary",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "A May-2026 arXiv survey rather than a peer-reviewed graph-security experiment; breadth does not establish that every primary study lacks an adjacent formulation.",
+      "math_foundations": "Metamorphic relations specify necessary relations among outputs of related executions when a direct test oracle is unavailable.",
+      "motivation": "LLM outputs are open-ended and probabilistic, making exact per-input oracles difficult.",
+      "constraints_inferred": "The taxonomy combines heterogeneous tasks and relation-quality standards; construct validity remains relation-specific.",
+      "key_decisions": "Separates testing LLM systems with metamorphic relations from using LLMs to discover and implement those relations.",
+      "tried_and_discarded": "Not reported in the abstract-level extraction.",
+      "load_bearing_assumptions": "The 93-study search is sufficiently broad to characterize the field and the stated taxonomy distinguishes the relevant directions.",
+      "relevance": "high",
+      "relevance_reason": "Closest 2026 synthesis for the method family; establishes crowding while leaving the proposed orchestration-security relation sharper."
+    },
+    {
+      "title": "LLMORPH: Automated Metamorphic Testing of Large Language Models",
+      "authors": "Steven Cho, Stefano Ruberto, Valerio Terragni",
+      "venue": "arXiv demonstration paper, 2026",
+      "url": "https://arxiv.org/abs/2603.23611",
+      "source_type": "tool/demonstration paper",
+      "core_contribution": "Automates input-level metamorphic testing for LLM NLP tasks using configurable transformations and output relations.",
+      "methodology": "Implements 36 metamorphic relations over four NLP tasks and evaluates GPT-4, Llama3, and Hermes 2 in 561,267 executions; manually inspects 937 violations.",
+      "key_results": "The evaluation reports an 18% average failure rate, while relation/task-specific false-positive rates in the manual sample range from 0% to 70%, demonstrating that relation validity is load-bearing.",
+      "key_results_location": "arXiv HTML lines 151-153; implementation and relation-validity discussion lines 59-64",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "Input/output NLP relations often rely on semantic thresholds or LLM-generated transformations; the paper does not manipulate orchestration graphs or measure security contracts.",
+      "math_foundations": "A relation maps a source input to follow-up inputs and specifies the output relation that should hold; a violation is a fault candidate, not automatically a true defect.",
+      "motivation": "Metamorphic relations address the missing-oracle problem without labeled ground truth.",
+      "constraints_inferred": "False positives depend strongly on relation and task, so approximate semantic equivalence cannot support a security-regression claim without independent validation.",
+      "key_decisions": "Uses relation-specific verification restrictions and reports every source/follow-up output plus relation verdict in JSON.",
+      "tried_and_discarded": "Implements 36 of a 191-relation catalog based on applicability and implementation considerations.",
+      "load_bearing_assumptions": "The chosen output comparator and any LLM-based transformation reliably instantiate the intended relation.",
+      "relevance": "high",
+      "relevance_reason": "Provides direct empirical evidence for both the power and relation-validity risk of LLM metamorphic testing; motivates OMST's exact pre-security eligibility gate."
+    }
+  ]
+}
