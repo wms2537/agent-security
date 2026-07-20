@@ -43,7 +43,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 16
+      "spent": 17
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Superseding 675-line v6 hypothesis in research-log/076 implements all six round-5 fixes. Deterministic checks pass: literal Python syntax, 1,555 exhaustive finite models including empty S with zero counterexamples, distinct exact witness bytes, two proposition roles, six resolution rows, no placeholders/census/security verdict, and immutable predecessors unchanged. Sterile review remains pending; budget 16/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 675-line v6 hypothesis in research-log/076 implements all six round-5 fixes and passed deterministic checks. Sterile round-6 review dispatched against immutable commit 35b24a1 with the normative v6 JSON and prior six issues; budget charged 17/20. Verdict pending. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -738,7 +738,8 @@
       "round5_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all six requirements are addressed in the c2-v6 model: exact schemas/graph/invocation/capture; source-derived fresh cache/checkpoint/channel/mapper/mutation controls; minimal theorem and larger-domain note; complete witness typing; independent proposition/control roles; and honest engineering-control scope.",
       "hypothesis_v6": "COMPLETE BEFORE REVIEW — research-log/076 supersedes immutable v5 with the minimal unique factorization theorem, empty/larger-domain boundaries, fully typed two-state witness, literal graph subject, source-derived D1-D7 correspondence proof, role-specific falsifiers, assumptions/rivals/bias surface, and classical engineering-control scope.",
       "deterministic_verification_v6": "PASS — `omst_hypothesis_v6=PASS lines=675 syntax=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_states=2 targets_distinct=true resolution_rows=6 propositions=2 census_executions=0 security_verdict=none placeholders=0 review=pending`; v1-v5 hypotheses and round-5 review remain unchanged.",
-      "status": "IN_PROGRESS — immutable c2-v6 hypothesis verified and ready for sterile theory review"
+      "theory_review_round6": "IN_PROGRESS — sterile reviewer dispatched against immutable commit 35b24a1 and normative v6 JSON with all six round-5 issues; committed hypothesis line count 675; cumulative budget charged 17/20.",
+      "status": "IN_PROGRESS — immutable c2-v6 hypothesis under sterile theory review"
     }
   }
 }
