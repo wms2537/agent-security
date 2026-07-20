@@ -39,7 +39,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 11
+      "spent": 12
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -324,7 +324,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Immutable-review candidate research-log/056 contains 492 lines, one primary comparison, exact finite estimand, nine assumptions with validity domains, all eight fixed bias items, eight rival explanations, thresholds, taxonomy, anti-stacking prediction, and explicit disconfirm/invalid separation. Targeted source research-log/lit/targeted_omst_metamorphic_2026.json contains three search records and two reviewed high-relevance primary entries. Deterministic check returned `omst_hypothesis_draft=PASS lines=492 bias_items=8 assumptions=9 rival_explanations=8 rewrite_families=4 targeted_papers=2 search_entries=1 theory_review=pending`. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
+      "evidence": "Immutable-review candidate research-log/056 contains 492 lines, one primary comparison, exact finite estimand, nine assumptions with validity domains, all eight fixed bias items, eight rival explanations, thresholds, taxonomy, anti-stacking prediction, and explicit disconfirm/invalid separation. Targeted source research-log/lit/targeted_omst_metamorphic_2026.json contains three search records and two reviewed high-relevance primary entries. Deterministic check returned `omst_hypothesis_draft=PASS lines=492 bias_items=8 assumptions=9 rival_explanations=8 rewrite_families=4 targeted_papers=2 search_entries=1 theory_review=pending`. Sterile theory review round 1 is dispatched against immutable commit 09f0a80; cumulative review budget charged 12/20 at dispatch. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -699,8 +699,8 @@
       "taxonomy": "COMPLETE — Evidence Gap x Empirical Mapping x formalize, with decouple secondary; not Bridge x Synthesis.",
       "anti_stacking": "COMPLETE — residual security regression after exact task eligibility and identity control is the distinguishing prediction over graph fuzzing plus a checker.",
       "problem_alignment": "COMPLETE — confirmation would show that task-preserving orchestration changes can materially alter security contracts under the Cycle-2 core question.",
-      "theory_review": "PENDING — no dispatch or budget charge yet; no experiment may begin.",
-      "status": "IN_PROGRESS — deterministic hypothesis checks passed; sterile independent review next"
+      "theory_review": "DISPATCHED — OMST round 1 against immutable 09f0a80; cumulative hypothesis-review budget charged 12/20 at dispatch; verdict pending and no experiment may begin.",
+      "status": "IN_PROGRESS — deterministic hypothesis checks passed; sterile independent review pending"
     }
   }
 }
