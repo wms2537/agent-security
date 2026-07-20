@@ -1,8 +1,8 @@
 # Hypothesis iteration 5 — Orchestration Metamorphic Security Testing v1
 
-**Date:** 2026-07-20 · **Phase:** 2 · **Cycle:** 2 · **Iteration:** 5  
-**Status:** preregistered hypothesis, unreviewed  
-**Concept:** Orchestration Metamorphic Security Testing (OMST)  
+**Date:** 2026-07-20 · **Phase:** 2 · **Cycle:** 2 · **Iteration:** 5
+**Status:** preregistered hypothesis, unreviewed
+**Concept:** Orchestration Metamorphic Security Testing (OMST)
 **Claim type:** empirical/systems · **Question type:** causal within the controlled
 finite interventions; diagnostic outside them
 
