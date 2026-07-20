@@ -1,0 +1,68 @@
+{
+  "schema_version": "omst-c2-v2",
+  "status": "approved_for_phase2_hypothesis",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v1",
+  "active_study": "orchestration_metamorphic_security_testing",
+  "primary_framework": {
+    "name": "langgraph",
+    "version": "1.2.9",
+    "git_object": "95af6a00718588e7b7ce17310e8006d267896a77",
+    "license": "MIT"
+  },
+  "validation_generator_seed": 4242,
+  "graph_census": {
+    "graphs": 120,
+    "strata": 12,
+    "graphs_per_stratum": 10,
+    "boundary_positions": ["early", "middle", "late"],
+    "control_flow_shapes": ["linear", "branch"],
+    "state_lifetimes": ["ephemeral", "persistent"]
+  },
+  "input_schemas": [
+    "trusted",
+    "untrusted_sanitized",
+    "untrusted_explicitly_authorized",
+    "chained_authorized"
+  ],
+  "decision_tape_seeds": [41, 42, 43],
+  "conditions": [
+    "identity",
+    "node_only",
+    "explicit_pass_through",
+    "default_reconstruction"
+  ],
+  "scheduled_validation_executions": 5760,
+  "required_common_support_units": 1440,
+  "common_support_fraction_required": 1.0,
+  "primary_metric": "delta_boundary_pp",
+  "primary_treatment": "default_reconstruction",
+  "primary_comparator": "explicit_pass_through",
+  "normative_materiality_threshold_pp": 10.0,
+  "identity_required_pp": 0.0,
+  "node_only_required_pp": 0.0,
+  "capability_invariance_required": true,
+  "equal_graph_weighting": true,
+  "max_tuning_graphs": 12,
+  "condition_cpu_seconds": 5,
+  "fresh_process_per_condition": true,
+  "fresh_temp_directory_per_condition": true,
+  "balanced_latin_order_key": "graph_id",
+  "independent_evaluators": 2,
+  "oracle_fixture_matrix": "b_actual_same_different_x_v_prov_same_different",
+  "oracle_mutants": [
+    "invert_equality",
+    "drop_actual_effect",
+    "drop_provenance_edge",
+    "accept_missing_authorization",
+    "swap_sanitizer_order",
+    "widen_capability"
+  ],
+  "required_mutation_kill_fraction": 1.0,
+  "invalidate_census_on_any_protocol_failure": true,
+  "locked_test_generated": false,
+  "locked_test_executed": false,
+  "network_during_runs": false,
+  "operational_attack_content": false,
+  "kaggle_actions": false
+}

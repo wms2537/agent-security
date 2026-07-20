@@ -1,9 +1,9 @@
 # OMST round-1 resolution and proposed contract amendment
 
 **Date:** 2026-07-20 · **Phase:** 2 · **Cycle:** 2 · **Iteration:** 5
-**Status:** exact amendment proposed; user approval pending
+**Status:** approved and applied as c2-v2
 
-## Why a checkpoint is required
+## Why the checkpoint was required
 
 The user approved `experiments/configs/evaluation-contract-orchestration-c2.md`
 with `ok`. That immutable contract defines a pooled four-rewrite primary
@@ -13,9 +13,9 @@ sets, and bundles several mechanisms. Fixing those defects changes the primary
 estimand and intervention. It therefore requires explicit user approval; it
 cannot be disguised as a clarification.
 
-The original contract, hypothesis v1, and adverse review remain unchanged and
-committed. No second review round is charged until a superseding hypothesis is
-written and dispatched.
+The original hypothesis v1 and adverse review remain unchanged and committed.
+Git history preserves c2-v1. The approved successor contract is c2-v2; no second
+review round is charged until a superseding hypothesis is written and dispatched.
 
 ## Review findings mapped to resolutions
 
@@ -176,9 +176,9 @@ or evaluator behavior, not provenance-boundary mediation. If explicit
 pass-through rescues the effect, the prediction cannot be reduced to “mutations
 sometimes fail.”
 
-## Contract changes requiring approval
+## Contract changes approved
 
-Approval would authorize these research-design changes only:
+The approval authorizes these research-design changes only:
 
 - pooled four-family primary → one matched boundary mediation primary;
 - all-eligible denominator → common base-safe support with equal graph weight;
@@ -188,14 +188,27 @@ Approval would authorize these research-design changes only:
 - other rewrite families/CrewAI become later mandatory replication, not primary;
 - exact 5,760-execution validation census and independent-oracle gates fixed.
 
-Approval does not authorize implementation, framework download, PoC,
-confirmatory execution, locked-test generation/execution, attacks, Kaggle, model
+It does not authorize framework download, confirmatory execution, locked-test
+generation/execution, attacks, Kaggle, model
 APIs, publication, external messages, or coordinated disclosure.
+
+## User approval and standing default
+
+The user's approval is recorded verbatim:
+
+> go, dont ask me these questions again, go iterate and improve yourself
+
+Operational interpretation: proceed autonomously with rigorous local design,
+hypothesis, review, PoC, validation, analysis, and retrospective iterations that
+remain inside already authorized research scope; do not repeatedly request
+approval for ordinary review-driven design corrections. This standing default
+does not relax SciAgent gates and does not authorize Kaggle, live targets,
+operational attacks, external messages/publication, model APIs, framework
+downloads, or locked-test generation/execution.
 
 ## Gate status and next step
 
-Round 1 remains NEEDS_REVISION and budget remains 12/20. On explicit user
-approval, write a new immutable `059`-successor-numbered hypothesis (the next
-number will be assigned at write time), update the contract/config as an approved
-versioned amendment, run deterministic checks, then dispatch sterile round 2 and
-charge 13/20. Without approval, do not alter the immutable contract.
+Round 1 remains NEEDS_REVISION and budget remains 12/20. The approved c2-v2
+contract/config are now fixed. Next: write a new immutable
+`059`-successor-numbered hypothesis, run deterministic checks, then dispatch
+sterile round 2 and charge 13/20.
