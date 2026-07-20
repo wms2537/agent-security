@@ -1,0 +1,134 @@
+{
+  "schema_version": "omst-c2-v8-environment-conditional",
+  "status": "phase2_theory_only",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v7-conditional-correspondence",
+  "claim": "for every candidate environment E, P(E) implies C_task(E) and C_full(E); P(E0) is currently false because framework dependencies are absent",
+  "unconditional_claims": {
+    "factorization": "for total pi:S->Q=image(pi), tau:S->Y, a unique g:Q->Y with tau=g composed_with pi exists iff ker(pi) subseteq ker(tau)",
+    "witness": "the exact task singleton cannot reconstruct both distinct J(P) targets",
+    "framework": "none"
+  },
+  "environment_E0": {
+    "workspace": "/home/soh/agent-security",
+    "interpreter_link": "/home/soh/agent-security/comp/.venv/bin/python",
+    "interpreter_resolved_path": "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.3_1/bin/python3.14",
+    "interpreter_version": "CPython 3.14.3 (main, Feb 3 2026, 15:32:20) GCC 12.3.0",
+    "interpreter_sha256": "eca90b668424db6f2105504128f02cac91c2805de9a928abcc272d1444abfde0",
+    "stdlib_json_path": "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.3_1/lib/python3.14/json/__init__.py",
+    "stdlib_json_sha256": "95022d150a27a2bfd54ac21bfce35812c96b53c420bb7b018dcb573f13e52da0",
+    "langgraph": "absent",
+    "langchain_core": "absent",
+    "P_E0": false
+  },
+  "canonicalization": {
+    "algorithm": "UTF-8 json.dumps(sort_keys=true,separators=(',',':'),ensure_ascii=true,allow_nan=false), no trailing newline",
+    "domain": "JSON objects and arrays whose leaves are integers, strings, booleans, or null",
+    "p0_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-0\",\"entity_id\":\"entity-0\"}",
+    "p1_bytes": "{\"activity_id\":\"activity-0\",\"agent_id\":\"agent-1\",\"entity_id\":\"entity-0\"}"
+  },
+  "closed_fixture": {
+    "module": "experiments/omst_c2_v8_fixture.py",
+    "module_sha256": "ebb7bd056db292e61c1e6de6e486bce5dfa048ef3f336fef59ff3c0512ac44f6",
+    "launcher": "experiments/run_omst_c2_v8_fixture.sh",
+    "launcher_sha256": "dfe5f8a00d23e4bb4f1c6d5d6adb8896c2255c015ed4e8fd3997afb01e4d356f",
+    "authoritative_launch_command": "/usr/bin/env -i HOME=/nonexistent PATH=/usr/bin:/bin LANG=C LC_ALL=C TZ=UTC /bin/bash --noprofile --norc /home/soh/agent-security/experiments/run_omst_c2_v8_fixture.sh",
+    "bound_cells": [
+      "task_s0",
+      "task_s1",
+      "full_s0",
+      "full_s1"
+    ],
+    "P2a_static_artifact_identity": "hash, AST, JSON, Bash syntax, executable mode, four cells, and expected literal state values match before acquisition/execution",
+    "P2b_compiled_runtime_guards": [
+      "fixture/launcher/interpreter/stdlib paths and hashes match E",
+      "exact proc.channels",
+      "proc.mapper is None",
+      "node cache and retry policies are None",
+      "compiled checkpointer, cache, and store are None"
+    ],
+    "P2b_timing": "guards run inside each cell after graph compilation but before graph.invoke; a failed guard aborts that cell without a correspondence observation",
+    "config": {
+      "callbacks": [],
+      "tags": [],
+      "metadata": {},
+      "configurable": {}
+    },
+    "output": "one canonical record with cell, observed_hex, status; launcher emits only four child records on success"
+  },
+  "source_basis_langgraph": {
+    "tag": "1.2.9",
+    "commit": "95af6a00718588e7b7ce17310e8006d267896a77",
+    "binding": "each path is bound directly to this commit",
+    "paths": [
+      "libs/langgraph/langgraph/graph/state.py",
+      "libs/langgraph/langgraph/pregel/_loop.py",
+      "libs/langgraph/langgraph/pregel/_checkpoint.py",
+      "libs/langgraph/langgraph/pregel/_io.py",
+      "libs/langgraph/langgraph/pregel/_algo.py",
+      "libs/langgraph/langgraph/pregel/_retry.py",
+      "libs/langgraph/langgraph/pregel/_read.py",
+      "libs/langgraph/langgraph/_internal/_runnable.py"
+    ]
+  },
+  "source_basis_langchain_core_at_E": {
+    "status_E0": "absent",
+    "binding_rule": "P1(E) records exact installed version, distribution hash, source origin, and hashes for every load-bearing file before execution",
+    "required_modules": [
+      "langchain_core/runnables/base.py",
+      "langchain_core/runnables/config.py",
+      "langchain_core/callbacks/manager.py"
+    ]
+  },
+  "source_lemmas": {
+    "L_compile": "state.py registers exact TypedDict schemas, LastValue fields, selected channels, None mapper, START PregelNode, and None services",
+    "L_start": "_io.map_input writes the whole literal dict to the START EphemeralValue; the START task receives it; state.py _get_updates filters GraphState field updates and the START writer adds the capture branch trigger; apply_writes makes selected LastValue fields available",
+    "L_fresh": "_loop.py with no saver substitutes _checkpoint.empty_checkpoint, whose values/versions/seen maps are empty, and channels_from_checkpoint constructs fresh channels before L_start",
+    "L_prepare": "_loop.tick calls _algo.prepare_next_tasks, which creates a fresh input_cache; _proc_input reads available selected channels with no mapper and assigns the mapping to PregelExecutableTask.input",
+    "L_deliver": "_retry.run_with_retry invokes task.proc with task.input; _read.PregelNode.node constructs RunnableSeq(bound,writers); langgraph _internal RunnableSeq passes unchanged input to its first bound RunnableCallable; acquired LangChain-core callback/config sources satisfy P5; capture serializes that mapping before any write",
+    "trace": "literal dict -> START EphemeralValue -> START task input -> _get_updates field writes plus branch trigger -> apply_writes -> selected LastValue availability -> capture task.input -> PregelNode RunnableSeq -> bound RunnableCallable -> capture mapping"
+  },
+  "P_E": [
+    "P1(E): interpreter link/target/hash, stdlib JSON path/hash, LangGraph 1.2.9 commit, exact LangGraph and LangChain-core distributions, dependency lock, source origins and load-bearing file hashes all match E's manifest",
+    "P2a(E): static fixture/launcher/config identities and syntax match the committed artifacts",
+    "P2b(E,cell): environment and compiled runtime guards pass atomically inside the cell before graph.invoke",
+    "P3(E): authoritative outer env -i absolute-Bash command and four child env -i Python -I -B commands execute exactly; shell has no BASH_ENV/ENV and launcher stdout contains only child records",
+    "P4(E): no sitecustomize, usercustomize, executable .pth, import hook or wrapper can mutate inputs/application globals before capture",
+    "P5(E): explicit empty callback config and exact LangChain-core callback/config path give no pre-capture mutation authority; passive observation is irrelevant",
+    "P6(E): L_compile, L_start, L_fresh, L_prepare and L_deliver are independently verified against E's exact source/dependency bundle",
+    "P7(E): each cell is a fresh process/temporary directory and emitted observed_hex derives only from callable-entry input"
+  ],
+  "conditional_consequences": {
+    "C_task_E": "received(task_s0,E)=received(task_s1,E)",
+    "C_full_E": "received(full_s0,E) and received(full_s1,E) differ exactly at provenance_record.agent_id",
+    "quantified_statement": "for every E, P(E) implies C_task(E) and C_full(E)",
+    "roles": "C_task is load-bearing for later framework application; C_full is optional positive control"
+  },
+  "gates": {
+    "phase2": "review theorem/witness and the universal conditional implication only; P(E0) remains false",
+    "acquisition": "separate authorization required to create a candidate E with framework packages",
+    "phase3_pre_cell": "P1,P2a,P3,P4,P5,P6 are audited before cells; P2b runs atomically inside each cell before invoke; P7 is enforced by the launcher",
+    "phase3_cell_failure": "any P2b failure aborts before observation and leaves correspondence unestablished",
+    "phase4": "no OMST security experiment, census, effect, prevalence, or benchmark",
+    "locked_test": "absent and unauthorized"
+  },
+  "scope": {
+    "label": "record-reconstruction/schema-sufficiency control relative to tau",
+    "not_claimed": [
+      "P(E0) is true",
+      "unconditional LangGraph correspondence",
+      "general security failure or framework vulnerability",
+      "production provenance policy",
+      "empirical effect or prevalence",
+      "new theorem or standalone top-tier contribution"
+    ]
+  },
+  "authorization_boundary": [
+    "no framework download, installation, import, or execution",
+    "no Kaggle action",
+    "no held-out or locked-test action",
+    "no live target or operational attack",
+    "no model API",
+    "no external message or publication"
+  ]
+}

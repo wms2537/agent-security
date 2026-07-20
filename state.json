@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. The active c2-v7 criterion is a RIGOROUS minimal projection-fiber factorization theorem plus a fully typed two-state record-reconstruction control and the conditional implication P->C_task/C_full; unconditional LangGraph correspondence is not claimed before acquisition premises P are discharged.",
+    "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. The active c2-v8 criterion is a RIGOROUS minimal factorization theorem, typed two-state record-reconstruction control, and the universal conditional `for every E, P(E)->C_task(E) and C_full(E)`; P(E0) is false because framework dependencies are absent.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-7 review in research-log/082 verified immutable v7 at 592 lines and returned NEEDS_REVISION. Mathematics and non-circular P->C logic pass; six concrete gate/source issues remain: split static identity from per-cell runtime guards, add RunnableSeq/callback source links, correct START whole-dict then _get_updates trace, parameterize by environment E, clean the outer shell and ineffective -I variables, and rename static assertions. Budget remains 18/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-7 verdict is preserved in research-log/082. c2-v8 in research-log/083 and the v8 config parameterizes every environment E, splits P2a static identity from P2b atomic per-cell guards, corrects the START whole-dict/_get_updates trace, completes PregelNode/RunnableSeq/callback source binding, adds execution-time E hashes, and fixes the outer clean-shell/-I semantics. New fixture/launcher remain code-as-text and unexecuted. Hypothesis/review pending; budget 18/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -744,7 +744,9 @@
       "hypothesis_v7": "COMPLETE BEFORE REVIEW — research-log/080 supersedes immutable v6 with unconditional minimal factorization/witness claims, conditional P->C_task/C_full only, a four-lemma commit-bound source trace, exact seven-premise acquisition/isolation bundle, closed hashed fixture/launcher, literal absent-dependency state, and role-specific failures.",
       "deterministic_verification_v7": "PASS — `omst_hypothesis_v7=PASS lines=592 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 premises=7 conditional_claims=2 framework_present=false unconditional_C=false unresolved_placeholders=0 review=pending`; v1-v6 and reviews unchanged.",
       "theory_review_round7": "NEEDS_REVISION — reviewer and committed line counts agree 592/592. The theorem/witness, conditional non-circularity, literal metadata, canonicalization, scope, taxonomy and anti-stacking pass; six gate/source precision fixes remain: P2a/P2b split, RunnableSeq/callback source chain, corrected START trace, explicit E parameterization, clean outer shell/-I wording, and runtime-guard terminology. Full verbatim report: research-log/082; budget remains 18/20.",
-      "status": "IN_PROGRESS — round-7 adverse verdict accepted; close exact gate/source-path mechanics before any Phase-3 work"
+      "contract_amendment_v8": "APPLIED UNDER STANDING DEFAULT — c2-v8 states `forall E, P(E)->C(E)`; P(E0)=false. P2a is static identity and P2b is an atomic pre-invoke cell guard; exact START and PregelNode/RunnableSeq delivery paths are bound; future LangChain-core callback files are P1/P5; authoritative outer env-i Bash launch removes ineffective Python variables.",
+      "round7_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all six issues addressed: feasible P2a/P2b ordering, complete delivery/callback path, correct START filtering locus, E-parameterized identity checks, clean-shell invocation with Python -I -B only, and compiled_runtime_guards terminology.",
+      "status": "IN_PROGRESS — c2-v8 environment-parameterized contract complete; write and verify immutable hypothesis"
     }
   }
 }
