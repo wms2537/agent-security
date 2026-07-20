@@ -43,7 +43,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 18
+      "spent": 19
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Superseding 652-line v8 hypothesis in research-log/084 states `forall E,P(E)->C(E)` with P(E0)=false and implements all six round-7 fixes. Static verification passes Python/shell syntax, all hashes, 1,555 exhaustive models with zero counterexamples, four cells, eight premises/source paths, three conditional LangChain modules, six resolution rows, no unconditional C and no unresolved placeholders. Sterile review pending; budget 18/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 652-line v8 hypothesis in research-log/084 states `forall E,P(E)->C(E)` with P(E0)=false and passes all static checks. Sterile round-8 review dispatched against immutable commit 629aef6 plus normative JSON and closed code-as-text; budget charged 19/20. Verdict pending. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -748,7 +748,8 @@
       "round7_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all six issues addressed: feasible P2a/P2b ordering, complete delivery/callback path, correct START filtering locus, E-parameterized identity checks, clean-shell invocation with Python -I -B only, and compiled_runtime_guards terminology.",
       "hypothesis_v8": "COMPLETE BEFORE REVIEW — research-log/084 supersedes immutable v7 with the environment-quantified conditional, exact E0 false status, corrected five-lemma source trace through START/PregelNode/RunnableSeq/callbacks, P2a/P2b gate semantics, runtime identity guards, authoritative clean shell and full failure taxonomy.",
       "deterministic_verification_v8": "PASS — `omst_hypothesis_v8=PASS lines=652 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 premises=8 langgraph_source_paths=8 langchain_modules=3 P_E0=false unconditional_C=false resolution_rows=6 unresolved_placeholders=0 review=pending`; predecessors unchanged.",
-      "status": "IN_PROGRESS — immutable c2-v8 hypothesis verified and ready for sterile theory review"
+      "theory_review_round8": "IN_PROGRESS — sterile reviewer dispatched against immutable commit 629aef6, normative v8 JSON, closed fixture/launcher and six prior issues; committed hypothesis line count 652; budget charged 19/20.",
+      "status": "IN_PROGRESS — immutable c2-v8 hypothesis under sterile theory review"
     }
   }
 }
