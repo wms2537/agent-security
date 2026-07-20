@@ -31,7 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/072-hypothesis-iter-5-omst-v5-factorization.md",
+  "active_hypothesis_artifact": "research-log/076-hypothesis-iter-5-omst-v6-quotient-control.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-5 adverse verdict is preserved verbatim in research-log/074. c2-v6 in research-log/075 and experiments/configs/omst-c2-v6-quotient-control.json claims all six fixes: minimal unique factorization with empty domains, fully typed two-state witness, a literal four-cell fixture, source-level fixed-run determinism obligations, load-bearing C_task separated from optional C_full, and record-reconstruction/schema-sufficiency scope. Superseding hypothesis and sterile review remain pending; budget 16/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 675-line v6 hypothesis in research-log/076 implements all six round-5 fixes. Deterministic checks pass: literal Python syntax, 1,555 exhaustive finite models including empty S with zero counterexamples, distinct exact witness bytes, two proposition roles, six resolution rows, no placeholders/census/security verdict, and immutable predecessors unchanged. Sterile review remains pending; budget 16/20. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -736,7 +736,9 @@
       "theory_review_round5": "NEEDS_REVISION — reviewer and committed line counts agree 628/628. The abstract theorem and two-state universal impossibility are correct with no finite countermodel; six fixes remain: make the LangGraph proposition fully executable/closed, prove determinism from fixed source/run state, remove T1 and demote reachable-image normalization from a load-bearing assumption, fully type J/Y/projections, consistently separate correspondence proposition and optional full positive control, and label the instance record-reconstruction/schema-sufficiency rather than general security failure. Full verbatim report: research-log/074; budget remains 16/20.",
       "contract_amendment_v6": "APPLIED UNDER STANDING DEFAULT — research-log/075 and the c2-v6 contract remove finiteness/nonemptiness, define Q=image(pi) for canonical uniqueness, fully type J/Y/projections, split load-bearing C_task from optional C_full, declare a literal four-cell graph fixture, and require a fixed-source/run-state determinism proof before any execution. Scope is record-reconstruction/schema-sufficiency relative to tau; Git preserves c2-v5.",
       "round5_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all six requirements are addressed in the c2-v6 model: exact schemas/graph/invocation/capture; source-derived fresh cache/checkpoint/channel/mapper/mutation controls; minimal theorem and larger-domain note; complete witness typing; independent proposition/control roles; and honest engineering-control scope.",
-      "status": "IN_PROGRESS — c2-v6 contract complete; write and deterministically verify the immutable superseding hypothesis before sterile review"
+      "hypothesis_v6": "COMPLETE BEFORE REVIEW — research-log/076 supersedes immutable v5 with the minimal unique factorization theorem, empty/larger-domain boundaries, fully typed two-state witness, literal graph subject, source-derived D1-D7 correspondence proof, role-specific falsifiers, assumptions/rivals/bias surface, and classical engineering-control scope.",
+      "deterministic_verification_v6": "PASS — `omst_hypothesis_v6=PASS lines=675 syntax=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_states=2 targets_distinct=true resolution_rows=6 propositions=2 census_executions=0 security_verdict=none placeholders=0 review=pending`; v1-v5 hypotheses and round-5 review remain unchanged.",
+      "status": "IN_PROGRESS — immutable c2-v6 hypothesis verified and ready for sterile theory review"
     }
   }
 }
