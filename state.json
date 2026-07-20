@@ -43,7 +43,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 19
+      "spent": 20
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Superseding 1,018-line v9 hypothesis in research-log/088 states the unchanged rigorous factorization theorem/witness plus independent universally quantified P_task->C_task and P_full->C_full over one common M and four R_cell objects. Deterministic checks returned `omst_hypothesis_v9=PASS ... exhaustive_models=1555 theorem_counterexamples=0 ... final_guard_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] ... P_common_M0=false ... unresolved_placeholders=0 review=pending`. Budget remains 19/20; final review not yet dispatched. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Superseding 1,018-line v9 hypothesis in research-log/088 passed deterministic checks and is immutable at 51688ed. Final sterile theory review round 9 was dispatched against the hypothesis, normative config, M0 and closed code-as-text with the four round-8 issues; committed line count 1,018. Budget charged 20/20 at dispatch. Verdict pending. No framework import/run/download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -754,7 +754,8 @@
       "deterministic_bundle_verification_v9": "PASS — `v9_bundle_static=PASS fixture_lines=456 final_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] top_framework_imports=0 M0_payload=846f502e2984ccfba22fedd7b686f8f56d38d351deb48e62dcec46f131301ec1 P_common_M0=false`; Python AST, JSON, Bash syntax, 0755 mode, manifest payload, cross-file hashes and role separation pass.",
       "hypothesis_v9": "COMPLETE BEFORE REVIEW — research-log/088 supersedes immutable v8 with the unchanged minimal theorem/witness, one common authenticated manifest, four explicit run objects, independently quantified task/full implications, exact double runtime authentication and role-specific failures.",
       "deterministic_verification_v9": "PASS — `omst_hypothesis_v9=PASS lines=1018 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 run_objects=4 role_implications=2 common_manifest=1 final_guard_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] langgraph_source_paths=8 langchain_modules=3 P_common_M0=false top_framework_imports=0 resolution_rows=4 unresolved_placeholders=0 review=pending`; reviewed predecessors unchanged.",
-      "status": "IN_PROGRESS — immutable c2-v9 hypothesis passed deterministic preflight; final sterile theory review remains"
+      "theory_review_round9": "IN_PROGRESS — final sterile reviewer dispatched against immutable commit 51688ed, 1,018-line hypothesis, normative v9 config, exact M0 and closed fixture/launcher; budget charged 20/20.",
+      "status": "IN_PROGRESS — immutable c2-v9 hypothesis under final sterile theory review"
     }
   }
 }
