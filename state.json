@@ -699,8 +699,8 @@
       "taxonomy": "COMPLETE — Evidence Gap x Empirical Mapping x formalize, with decouple secondary; not Bridge x Synthesis.",
       "anti_stacking": "COMPLETE — residual security regression after exact task eligibility and identity control is the distinguishing prediction over graph fuzzing plus a checker.",
       "problem_alignment": "COMPLETE — confirmation would show that task-preserving orchestration changes can materially alter security contracts under the Cycle-2 core question.",
-      "theory_review": "DISPATCHED — OMST round 1 against immutable 09f0a80; cumulative hypothesis-review budget charged 12/20 at dispatch; verdict pending and no experiment may begin.",
-      "status": "IN_PROGRESS — deterministic hypothesis checks passed; sterile independent review pending"
+      "theory_review": "ROUND 1 NEEDS_REVISION — reviewer reported and committed line count 492/492. Seven required fixes: conditional base-safe estimand/weights; B-versus-security coordinate separation; common-support mechanistic comparisons; independent per-oracle validation; ReliabilityBench/ASSURE novelty and taxonomy; complete census specification; missing assumptions/terminology. Core salvageable, not fundamentally flawed. Full verbatim report research-log/058; cumulative budget remains 12/20.",
+      "status": "IN_PROGRESS — round-1 adverse verdict accepted; superseding hypothesis required before re-review"
     }
   }
 }
