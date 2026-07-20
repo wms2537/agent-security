@@ -31,7 +31,7 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/068-hypothesis-iter-5-omst-v4-schema-closure.md",
+  "active_hypothesis_artifact": "research-log/072-hypothesis-iter-5-omst-v5-factorization.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-4 review in research-log/070 verified immutable v4 at 703 lines and returned NEEDS_REVISION. Research-log/071 concedes and supersedes the co-designed identity. c2-v5 now specifies the classical factorization criterion `exists g:Q->Y with tau=g∘pi iff tau is constant on pi fibers`, a two-state provenance corollary that rules out every deterministic task-projected action, semantic rather than literal-key closure, and a corrected LangGraph PULL correspondence path through `_proc_input`, availability, mapper and actual callable input. The superseding hypothesis remains to be written/reviewed; budget 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-4 review in research-log/070 verified immutable v4 at 703 lines and returned NEEDS_REVISION. Research-log/071 concedes and supersedes the co-designed identity. The v5 hypothesis at research-log/072 defines the classical factorization criterion `exists g:Q->Y with tau=g∘pi iff tau is constant on pi fibers`, proves both directions by existence/uniqueness on the reachable image, derives a two-state corollary ruling out every deterministic task-projected action, defines semantic closure, and separates a corrected LangGraph `_proc_input` correspondence proposition. Deterministic verification remains before sterile round 5; budget 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -731,7 +731,9 @@
       "factorization_research": "COMPLETE — research-log/071 grounds v5 in Goguen–Meseguer noninterference and Sabelfeld–Myers information-flow foundations without claiming mathematical novelty; official LangGraph 1.2.9 inspection corrects the correspondence path to attach_node -> PregelNode channels/mapper -> prepare_single_task -> _proc_input -> PregelExecutableTask.input -> callable.",
       "contract_amendment_v5": "APPLIED UNDER STANDING DEFAULT — v5 removes the co-designed action/verifier, duplicate P13/P15, E/f notation, sentinel/hash and abstract framework assumptions. It defines semantic closure as tau constant on projection fibers, proves the factorization criterion, fixes a two-state provenance corollary, and permits at most one later callable-input correspondence fixture with no security verdict or population claim. Git preserves c2-v4.",
       "round4_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all seven requirements are addressed in the c2-v5 model: A3/A4 removed from abstract theorem; v4 identity conceded; universal action-impossibility added; theorem minimized; E/f and null issues removed; _proc_input correspondence completed in specification; projection totality/reachable image formalized.",
-      "status": "IN_PROGRESS — c2-v5 contract amended; write and verify one superseding factorization hypothesis before sterile round-5 review; no Phase-3 work permitted"
+      "hypothesis_v5": "COMPLETE BEFORE REVIEW — research-log/072 supersedes immutable v4 with one projection-fiber factorization theorem, concrete definitions, well-typed necessity/sufficiency proofs, a minimal two-state provenance impossibility corollary, T1-T4 domains, semantic closure, exact source correspondence, anti-stacking/Occam analysis, and no action-authored verdict or census.",
+      "deterministic_verification_v5": "PASS — `omst_hypothesis_v5=PASS lines=628 assumptions=4 exhaustive_models=1554 theorem_counterexamples=0 witness_states=2 targets_distinct=true security_verdict=none census_executions=0 placeholders=0 review=pending`; exhaustive finite models cover |S|=1..4, three projection labels, binary targets, and all reachable-domain actions.",
+      "status": "IN_PROGRESS — c2-v5 hypothesis deterministically verified; sterile round-5 review required; no Phase-3 work permitted"
     }
   }
 }
