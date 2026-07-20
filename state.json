@@ -700,7 +700,8 @@
       "anti_stacking": "COMPLETE — residual security regression after exact task eligibility and identity control is the distinguishing prediction over graph fuzzing plus a checker.",
       "problem_alignment": "COMPLETE — confirmation would show that task-preserving orchestration changes can materially alter security contracts under the Cycle-2 core question.",
       "theory_review": "ROUND 1 NEEDS_REVISION — reviewer reported and committed line count 492/492. Seven required fixes: conditional base-safe estimand/weights; B-versus-security coordinate separation; common-support mechanistic comparisons; independent per-oracle validation; ReliabilityBench/ASSURE novelty and taxonomy; complete census specification; missing assumptions/terminology. Core salvageable, not fundamentally flawed. Full verbatim report research-log/058; cumulative budget remains 12/20.",
-      "status": "IN_PROGRESS — round-1 adverse verdict accepted; superseding hypothesis required before re-review"
+      "contract_amendment": "PENDING USER APPROVAL — research-log/059 proposes replacing the approved pooled four-family primary with a common-support provenance-boundary mediation contrast; this materially changes the immutable contract and cannot be applied silently.",
+      "status": "IN_PROGRESS — round-1 adverse verdict accepted; exact contract amendment awaits user decision before a superseding hypothesis"
     }
   }
 }

@@ -15,6 +15,11 @@
       "date": "2026-07-20",
       "query": "site:arxiv.org security invariance graph rewrites agentic systems metamorphic",
       "purpose": "Try to falsify the claimed graph-rewrite security-invariance gap."
+    },
+    {
+      "date": "2026-07-20",
+      "query": "reviewer-directed primary-source check: ReliabilityBench arXiv:2601.06112 and ASSURE arXiv:2507.05307",
+      "purpose": "Verify the two stronger nearest priors identified by independent theory review before revising novelty and taxonomy."
     }
   ],
   "papers": [
@@ -61,6 +66,50 @@
       "load_bearing_assumptions": "The chosen output comparator and any LLM-based transformation reliably instantiate the intended relation.",
       "relevance": "high",
       "relevance_reason": "Provides direct empirical evidence for both the power and relation-validity risk of LLM metamorphic testing; motivates OMST's exact pre-security eligibility gate."
+    },
+    {
+      "title": "ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions",
+      "authors": "Aayush Gupta",
+      "venue": "arXiv preprint, 2026",
+      "url": "https://arxiv.org/abs/2601.06112",
+      "source_type": "benchmark preprint",
+      "core_contribution": "Defines a reliability surface over repeated execution, semantically equivalent task perturbations, and controlled tool/API faults, including action metamorphic relations based on end-state equivalence.",
+      "methodology": "Evaluates two models and two agent architectures over four domains and 1,280 episodes with perturbation and fault-injection axes.",
+      "key_results": "The abstract reports success falling from 96.9% at zero perturbation to 88.1% at perturbation intensity 0.2, with rate limiting most damaging in ablations.",
+      "key_results_location": "arXiv abstract lines 22-25",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "Single-author January-2026 preprint; transforms tasks and faults rather than internal orchestration graphs, and reports reliability rather than a matched causal security-boundary mechanism.",
+      "math_foundations": "Reliability surface R(k, epsilon, lambda) and action metamorphic relations defined through end-state equivalence.",
+      "motivation": "Single-run task success misses production reliability under repeated execution, equivalent task perturbations, and faults.",
+      "constraints_inferred": "End-state equivalence is stronger than text similarity but does not by itself isolate internal graph-boundary metadata propagation.",
+      "key_decisions": "Uses action/end-state metamorphic relations and separate perturbation and fault intensities rather than internal runtime rewrites.",
+      "tried_and_discarded": "Not extracted from the abstract.",
+      "load_bearing_assumptions": "The production-like stress dimensions and end-state relations meaningfully represent agent reliability.",
+      "relevance": "high",
+      "relevance_reason": "Strongest nearest prior for action-level metamorphic testing; OMST must identify the missing internal graph-rewrite and security-boundary causal operation."
+    },
+    {
+      "title": "ASSURE: Metamorphic Testing for AI-powered Browser Extensions",
+      "authors": "Xuanqi Gao, Juan Zhai, Shiqing Ma, Siyi Xie, Chao Shen",
+      "venue": "arXiv preprint, 2025",
+      "url": "https://arxiv.org/abs/2507.05307",
+      "source_type": "system/framework preprint",
+      "core_contribution": "Builds modular metamorphic testing for AI browser extensions with automated execution and validation of behavioral consistency and security invariants.",
+      "methodology": "Evaluates six browser extensions with modular test generation, orchestrated web/extension/model execution, and configurable invariant validation.",
+      "key_results": "The abstract reports 531 distinct issues and 6.4x testing throughput over manual approaches, with critical security vulnerabilities detected in 12.4 minutes on average.",
+      "key_results_location": "arXiv abstract lines 22-26",
+      "extraction_confidence": "high",
+      "reviewed": "yes",
+      "limitations": "July-2025 preprint in a browser-extension setting; it combines content, extension, and model behavior and does not isolate a graph-boundary metadata-propagation treatment under common support.",
+      "math_foundations": "Metamorphic relations plus behavioral and security-invariant validators over orchestrated executions.",
+      "motivation": "LLM-powered extensions are nondeterministic and context-sensitive, so exact output or isolated LLM tests are insufficient.",
+      "constraints_inferred": "Issue counts may pool heterogeneous relation and security failures; system-level orchestration does not imply internal graph-rewrite causal identification.",
+      "key_decisions": "Uses a modular three-part testing architecture and evaluates both behavioral consistency and security invariants.",
+      "tried_and_discarded": "Not extracted from the abstract.",
+      "load_bearing_assumptions": "Generated cases and configurable validators validly capture extension behavior and security.",
+      "relevance": "high",
+      "relevance_reason": "Strongest nearest prior combining metamorphic system testing with security invariants; forces OMST to isolate an internal orchestration-boundary mechanism rather than claim generic integration novelty."
     }
   ]
 }
