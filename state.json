@@ -15,7 +15,7 @@
   "domain": "agent orchestration security",
   "target_venue": "undecided",
   "success_criteria": {
-    "omst": "The c2-v3 empirical frequency criterion is refuted at theory gate without execution. The active c2-v4 criterion is a RIGOROUS necessary-and-sufficient schema-closure proposition for P13/P15, followed at most by one source-authentic regression fixture; no prevalence or large-census claim is permitted.",
+    "omst": "The c2-v3 empirical criterion is refuted and the c2-v4 constructed identity is superseded after adverse review. The active c2-v5 criterion is a RIGOROUS projection-fiber factorization theorem plus its two-state provenance corollary; at most one later source-to-input correspondence fixture is allowed, with no security verdict, prevalence, or census claim.",
     "pdpf": "At least 50% relative reduction in abstract termination-integrity failures versus worker-only continuation, with at most 5 percentage points benign completion loss and at most 20% step overhead; threshold remains provisional until its separate Phase-2 entry.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Round-4 review in research-log/070 verified immutable v4 at 703 lines and returned NEEDS_REVISION. All four round-3 blockers are resolved, and the intended biconditional is correct, but the E/f expression is ill-typed, A3/A4 countermodel analysis is invalid, the null boundary statement is false, framework correspondence is incomplete, and the co-designed action/oracle fails anti-stacking and Occam. The scientifically appropriate next revision is a minimal projection-fiber factorization/impossibility theorem, not another constructed action result. Budget remains 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
+      "evidence": "Round-4 review in research-log/070 verified immutable v4 at 703 lines and returned NEEDS_REVISION. Research-log/071 concedes and supersedes the co-designed identity. c2-v5 now specifies the classical factorization criterion `exists g:Q->Y with tau=g∘pi iff tau is constant on pi fibers`, a two-state provenance corollary that rules out every deterministic task-projected action, semantic rather than literal-key closure, and a corrected LangGraph PULL correspondence path through `_proc_input`, availability, mapper and actual callable input. The superseding hypothesis remains to be written/reviewed; budget 15/20. No run, framework download, attack, Kaggle, model API, external message, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -728,7 +728,10 @@
       "round3_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — v4 retires the forced empirical claim, narrows the oracle to total P13/P15 semantics, removes the observer, removes the incomplete generator/census, and reclassifies the contribution as Scope Mismatch × Formal Derivation × formalize.",
       "deterministic_verification_v4": "PASS — `omst_hypothesis_v4=PASS lines=703 assumptions=7 event_kinds=2 proof_directions=2 countermodel_sections=5 census_executions=0 placeholders=0 review=pending`; JSON/Markdown/state agreement and predecessor immutability checks passed.",
       "theory_review_round4": "NEEDS_REVISION — reviewer and committed line counts agree 703/703. All four round-3 blockers are RESOLVED or RESOLVED BY REMOVAL, and the intended biconditional is mathematically true, but v4 has an ill-typed E/f expression, redundant/incorrect assumption analysis, a false null-boundary claim, incomplete _proc_input correspondence checks, and fails anti-stacking/Occam because the co-designed action and verifier force the result. Full verbatim report: research-log/070; budget remains 15/20.",
-      "status": "IN_PROGRESS — round-4 adverse verdict accepted; replace the constructed membership identity with a minimal projection-fiber factorization/impossibility theorem before any Phase-3 work"
+      "factorization_research": "COMPLETE — research-log/071 grounds v5 in Goguen–Meseguer noninterference and Sabelfeld–Myers information-flow foundations without claiming mathematical novelty; official LangGraph 1.2.9 inspection corrects the correspondence path to attach_node -> PregelNode channels/mapper -> prepare_single_task -> _proc_input -> PregelExecutableTask.input -> callable.",
+      "contract_amendment_v5": "APPLIED UNDER STANDING DEFAULT — v5 removes the co-designed action/verifier, duplicate P13/P15, E/f notation, sentinel/hash and abstract framework assumptions. It defines semantic closure as tau constant on projection fibers, proves the factorization criterion, fixes a two-state provenance corollary, and permits at most one later callable-input correspondence fixture with no security verdict or population claim. Git preserves c2-v4.",
+      "round4_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — all seven requirements are addressed in the c2-v5 model: A3/A4 removed from abstract theorem; v4 identity conceded; universal action-impossibility added; theorem minimized; E/f and null issues removed; _proc_input correspondence completed in specification; projection totality/reachable image formalized.",
+      "status": "IN_PROGRESS — c2-v5 contract amended; write and verify one superseding factorization hypothesis before sterile round-5 review; no Phase-3 work permitted"
     }
   }
 }

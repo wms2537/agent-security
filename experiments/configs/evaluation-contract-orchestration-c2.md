@@ -1,275 +1,262 @@
 # Cycle-2 orchestration-security evaluation contract
 
-**Version:** c2-v4
+**Version:** c2-v5
 
 **Recorded:** 2026-07-20
 
-**Supersedes:** c2-v3 at commit `bdacc97`; c2-v1 through c2-v3 remain in
-Git history.
+**Supersedes:** c2-v4 at commit `aaf609e`; c2-v1 through c2-v4 remain in Git
+history.
 
-**Status:** APPROVED UNDER STANDING INTERNAL-ITERATION DEFAULT — the user said
-`go, dont ask me these questions again, go iterate and improve yourself` and
-later directed continued autonomous improvement. This authorizes the local
-review-driven correction below. It does not authorize any action listed under
-the approval boundary.
+**Status:** APPROVED UNDER STANDING INTERNAL-ITERATION DEFAULT — the user
+directed autonomous iteration and improvement. This authorizes the local
+review-driven formal correction below but none of the external or executable
+actions listed at the end.
 
-**Active study:** OMST schema-security closure, a deterministic control within
-Orchestration Metamorphic Security Testing.
+**Active study:** OMST projection-fiber security closure.
 
-## Adverse theory-gate decision
+## Adverse-gate decision
 
-The c2-v3 empirical materiality claim is retired without execution. Its paired
-contrast was definitionally forced by its own premises: the task-only schema
-excluded `provenance_record`; side channels were forbidden; the action emitted
-`null` when the record was absent; and P13/P15 required the non-null digest. On
-every valid pair, the full condition therefore had to preserve P13/P15 and the
-task-only condition had to violate them. Averaging that constructed pair over
-120 graphs could not provide a valid empirical disconfirmation path.
+c2-v4 correctly retired the invalid empirical frequency claim. Its replacement
+biconditional was also mathematically true, but round-4 review showed that it
+was a constructed identity: a declared action mapped record presence to
+`digest/null`, and a declared checker mapped the same scalar to a verdict.
+The theorem added no prediction beyond direct composition and its assumption
+analysis contained a type error and an invalid countermodel.
 
-This is a **theory-gate refutation** of the proposed frequency experiment, not
-an experimental null and not evidence that orchestration rewrites are generally
-safe or unsafe. No v3 validation or replay execution occurred.
+c2-v5 supersedes that constructed result without execution. It does not restore
+an event automaton, empirical effect size, graph census, runtime observer, or
+security verdict. The normative machine-readable artifact is
+`experiments/configs/omst-c2-v5-factorization.json`; the rationale and source
+check are in `research-log/071`.
 
-The useful residue is narrower: a deterministic schema-closure proposition and
-one future source-authentic regression fixture. The normative machine-readable
-specification is `experiments/configs/omst-c2-v4-schema-closure.json`.
-
-## Source-backed implementation boundary
-
-Primary implementation: LangGraph tag `1.2.9`, object
-`95af6a00718588e7b7ce17310e8006d267896a77`.
-
-The proposition is connected to these official source surfaces:
-
-- `StateGraph.add_node` selects or infers a node input schema;
-- `CompiledStateGraph.attach_node` derives the compiled input channels from
-  that schema and binds them to the compiled node;
-- `prepare_single_task` obtains node input from the compiled process/channel
-  set; and
-- `ChannelRead.do_read` reads the selected channels and applies the schema
-  mapper.
-
-The source-supported operation is node input-schema projection, not generic
-metadata reconstruction and not a framework security guarantee. A future
-fixture is valid only if the pinned source and compiled channel audit implement
-this exact operation without an adapter-authored projection.
-
-## Deterministic proposition
+## Abstract model
 
 Let:
 
-- `s` be the immutable full pre-action state;
-- `p=s["provenance_record"]` be present and non-null;
-- `C` be the compiled input-channel set of the action node;
-- `Pi_C(s)` be the exact projection of `s` onto `C`;
-- `d(p)=SHA256(canonical_json(p))`;
-- `f` be the identical declared action in both conditions; and
-- `R_13_15` be the total three-valued predicate defined below.
+- `S` be a finite nonempty set of full states;
+- `pi:S->Q` be a total projection, where `Q=pi(S)` is its reachable image;
+- `tau:S->Y` be a total security-obligation target; and
+- `g:Q->Y` be any total deterministic action that receives only the projected
+  input.
 
-Schema closure for this obligation is:
+The projection-fiber relation is:
 
 ```text
-closed(C) iff provenance_record is in C.
+s ~_pi s' iff pi(s)=pi(s').
 ```
 
-The primary claim is:
+The projection is **security-closed for `tau`** iff:
 
 ```text
-Under A1-A7,
-closed(C) iff
-R_13_15(condition, s_bytes, events(f(Pi_C(s)))) = PRESERVE.
+for every s,s' in S,
+pi(s)=pi(s') implies tau(s)=tau(s').
 ```
 
-This is a necessary-and-sufficient claim over a declared finite semantic model,
-not an estimated frequency and not a population claim.
+Equivalently, `tau` functionally depends on `pi` and is constant on every
+projection fiber.
 
-## Conditions and only permitted difference
+## Factorization theorem
 
-The future minimal fixture has two conditions:
-
-1. `full`: `TaskStatePlusProvenance`, whose compiled channels are the ordered
-   task keys plus `provenance_record`.
-2. `task`: `TaskStateOnly`, whose compiled channels are exactly the task keys.
-
-The compiled channel-set symmetric difference must be exactly
-`{provenance_record}`. Full pre-state bytes, action source hash, task fields,
-inert effect fixture, graph topology, environment, and every non-provenance
-output must be identical. Any extra difference is `INVALID`, not evidence for
-the proposition.
-
-The action may obtain the record only from its projected input. Configuration,
-store, checkpoint side reads, observers, globals, closures, filesystem,
-environment, and network are forbidden provenance sources.
-
-## Declared action
-
-The source-identical deterministic action computes:
+The active theoretical hypothesis is:
 
 ```text
-if provenance_record is present in projected input:
-    d_action = SHA256(canonical_json(provenance_record))
-else:
-    d_action = null
+There exists a total deterministic g:Q->Y such that
+tau(s)=g(pi(s)) for every s in S
+if and only if
+pi is security-closed for tau.
 ```
 
-It emits exactly:
+### Necessity
+
+Assume `tau=g composed_with pi`. For any `s,s'` with `pi(s)=pi(s')`:
 
 ```text
-seq=0, kind=BOUNDARY_EXIT,    record_digest=d_action
-seq=1, kind=SENSITIVE_EFFECT, record_digest=d_action, effect_id="effect-0"
+tau(s)  = g(pi(s))
+        = g(pi(s'))
+        = tau(s').
 ```
 
-It also appends the same inert task effect under both conditions. There is no
-runtime observer. The expected digest is computed offline from the immutable
-pre-action fixture, so instrumentation does not manufacture the result.
+Thus `tau` is constant on each fiber.
 
-## Total P13/P15 predicate
+### Sufficiency
 
-The complete signature is:
+Assume fiber constancy. For every reachable `q in Q`, choose any state `s_q`
+with `pi(s_q)=q` and define:
 
 ```text
-R_13_15(condition, pre_state_bytes, ordered_event_bytes)
-    -> PRESERVE | VIOLATE | INVALID
+g(q)=tau(s_q).
 ```
 
-`condition` must be exactly `full` or `task`. `pre_state_bytes` must be canonical
-JSON containing one non-null `provenance_record`. `ordered_event_bytes` must be
-a canonical array with exactly the two events above, with array order equal to
-integer `seq`, no extra fields, and no extra, duplicate, reordered, or trailing
-events. The transition relation is:
+Because all representatives in the fiber have the same `tau`, `g` is
+well-defined. Because `Q` is exactly the reachable image, the definition is
+total. For every `s`, `s` and the selected representative for `pi(s)` share a
+fiber, hence `g(pi(s))=tau(s)`.
+
+The result is a standard factorization/noninterference structure. No new
+mathematical theorem is claimed.
+
+## Schema interpretation
+
+For an orchestration schema with actually delivered coordinate set `C`,
+`pi_C(s)` is the exact mapping received by the bound callable after channel
+availability and schema mapping. The schema is security-closed only if:
 
 ```text
-START -- BOUNDARY_EXIT(seq=0) --> EXIT_SEEN
-EXIT_SEEN -- SENSITIVE_EFFECT(seq=1) --> COMPLETE
-all other transitions --> INVALID
+pi_C(s)=pi_C(s') implies tau(s)=tau(s').
 ```
 
-From the parsed immutable pre-state, the predicate computes
-`d_expected=SHA256(canonical_json(provenance_record))` offline.
+This semantic definition replaces c2-v4's syntactic key-membership rule.
+Literal inclusion of `provenance_record` may be sufficient, but it is not
+generally necessary: another delivered coordinate could determine the same
+target. Conversely, listing a channel is insufficient if the channel is
+unavailable or the mapper drops/transforms it.
 
-- P13 holds iff the boundary-exit digest equals `d_expected`.
-- P15 holds iff the sensitive-effect digest equals `d_expected`.
-- A schema-valid complete trace is `PRESERVE` iff P13 and P15 both hold;
-  otherwise it is `VIOLATE`.
-- Any context, serialization, field, or transition failure is `INVALID`.
+Any global, closure, store, configuration, or runtime context that the action
+can read is part of the **actual** projection. It cannot be called an unmodeled
+side channel while preserving a task-only projection claim.
 
-Input class, source label, authorization, operation, and capability are outside
-this narrowed P13/P15 proposition; they are neither hidden oracle inputs nor
-claimed security properties here.
+## Restricted provenance corollary
 
-## Assumptions and validity domains
+The exact witness uses:
 
-1. **A1 — exact projection:** the pinned implementation supplies the action
-   exactly `Pi_C(s)`. A source or compiled-channel mismatch makes the fixture
-   inapplicable.
-2. **A2 — non-null obligation:** immutable `s` contains canonical non-null `p`.
-   A missing or null record is outside the theorem domain.
-3. **A3 — no side channel:** `f` can learn `p` only through its projected input.
-   A side channel invalidates necessity.
-4. **A4 — declared action:** the identical action follows the digest and event
-   rules exactly. A different action invalidates sufficiency.
-5. **A5 — offline reference:** the predicate receives immutable pre-state bytes
-   and computes its expected digest without runtime observation.
-6. **A6 — exact event language:** the trace contains exactly the declared two
-   canonical events. Other traces are `INVALID`.
-7. **A7 — deterministic representation:** canonicalization and SHA-256 are
-   deterministic. The proof compares the same digest construction and does not
-   rely on collision resistance.
+```text
+S = X × P
+P = {p0,p1}
+tau(x,p) = canonical_json(p)
+```
 
-These assumptions define the claim; premise failures may not be silently
-dropped, imputed, or relabeled as security outcomes.
+`X` is the singleton task tuple and `p0,p1` are the literal records in the v5
+JSON. They differ only in `agent_id`, so their canonical bytes differ.
 
-## Derivation
+The two projections are:
 
-**Sufficiency.** If `closed(C)`, then `p` is in `Pi_C(s)` by A1-A2. By A4,
-the action puts `d(p)` in both events. By A5, the predicate independently
-computes the same `d(p)`. A6 yields a valid complete trace, so P13 and P15 hold
-and the result is `PRESERVE`.
+```text
+pi_task(x,p)=x
+pi_full(x,p)=(x,p).
+```
 
-**Necessity.** If the result is `PRESERVE`, both event digests equal the non-null
-offline `d(p)`. By A4, the action emits a non-null digest only when `p` is in its
-projected input. By A3, no other source can supply `p`. By A1, `p` is in the
-projection only when `provenance_record` is in `C`; therefore `closed(C)`.
+For task projection, `(x,p0)` and `(x,p1)` occupy the same fiber but have
+different `tau`. The factorization theorem therefore implies:
 
-One countermodel satisfying A1-A7 but falsifying either implication refutes the
-proposition. A premise failure shows non-applicability, not confirmation or
-disconfirmation. A failure of the future pinned fixture under apparently
-satisfied assumptions triggers a correspondence audit; it cannot be averaged
-away.
+```text
+for every deterministic g_task:X->Y,
+g_task cannot equal tau on both witness states.
+```
 
-## Minimal regression fixture
+This is the distinguishing universal impossibility prediction. It does not
+depend on a particular missing-value branch, sentinel, digest, event trace, or
+verifier.
 
-Only after a RIGOROUS theory verdict may Phase 3 prepare one public non-target
-fixture with the exact pre-state in the v4 JSON. Its checks are:
+For full projection, every fiber fixes `p`; `tau` is constant on fibers and the
+constructive action `g_full(x,p)=canonical_json(p)` is universally correct.
 
-- source authenticity at the four pinned paths;
-- exact compiled channel lists for both schemas;
-- symmetric difference exactly `{provenance_record}`;
-- identical pre-state bytes and action source hash;
-- offline expected digest computed before either action;
-- `full` emits that digest twice and returns `PRESERVE`;
-- `task` emits `null` twice and returns `VIOLATE`; and
-- non-provenance task/effect coordinates remain byte-identical.
+## Assumptions and domains
 
-This fixture is a regression/correspondence test with one replicate. It cannot
-support prevalence, effect-size, robustness, generalization, or population
-claims. A large OMST validation census is prohibited under c2-v4 because it
-would restate a theorem by repetition.
+| ID | Abstract premise | Domain/failure consequence |
+|---|---|---|
+| T1 | `S` is finite and nonempty | Used to select a representative without additional choice machinery; the finite fixture is the only intended instance |
+| T2 | `pi` and `tau` are total on `S` | Partiality requires a different theorem with explicit error semantics |
+| T3 | `Q=pi(S)` | Ensures every `q` has a representative and constructed `g` is total on its stated domain |
+| T4 | Candidate actions are deterministic total functions `Q->Y` | Randomized, partial, stateful, or externally contextual actions require their randomness/history/context inside the actual input or a different result |
 
-## Theory-review success and failure metrics
+The abstract theorem has no LangGraph, action purity, event, hash, non-null,
+instrumentation, or source-code assumption.
+
+## Pinned framework correspondence
+
+The LangGraph application is a separate, unverified corollary. Primary runtime:
+tag `1.2.9`, object `95af6a00718588e7b7ce17310e8006d267896a77`.
+
+The future source-to-input audit must follow the normal PULL path:
+
+1. `StateGraph.add_node` input-schema selection;
+2. `CompiledStateGraph.attach_node` compiled channel and mapper binding;
+3. `PregelNode.channels` and `PregelNode.mapper`;
+4. `prepare_single_task` PULL-task construction;
+5. `_proc_input` channel-availability filtering, reads, and mapper application;
+6. `PregelExecutableTask.input`; and
+7. the exact canonical mapping received at bound-callable entry.
+
+`ChannelRead.do_read` is not used as a substitute for the normal PULL-input
+path.
+
+The audit must establish:
+
+- authenticated object/file hashes;
+- exact `proc.channels` for both schemas;
+- availability of every selected witness channel;
+- exact mapper identity and output;
+- actual received mapping, not merely a compiled list;
+- task mapping equality across `s0,s1`;
+- full mappings differing only in `provenance_record`;
+- equal callable code, defaults, closures, globals, configuration, store,
+  environment, and runtime context; and
+- capture code that records input but cannot inject state, expected output,
+  events, or a verdict.
+
+Any mismatch rejects applicability to LangGraph. No adapter may synthesize the
+expected projection.
+
+## Minimal future correspondence fixture
+
+Only after a RIGOROUS theory verdict and applicable Phase-3 acquisition gate may
+one public non-target fixture use the exact two states and two schemas in the v5
+JSON.
+
+It records only the bound callable's input mapping:
+
+```text
+received_task(s0) = received_task(s1) = shared_task
+
+received_full(s0) != received_full(s1),
+with provenance_record as the only difference.
+```
+
+There is no security verdict, event trace, digest, P13/P15 checker, effect-size
+estimate, or population inference. One replicate is a correspondence check;
+repetition cannot become empirical evidence for the theorem.
+
+## Theory-review success and failure
 
 The Phase-2 gate passes only if a sterile reviewer returns `RIGOROUS` after:
 
-- independently re-deriving both implications;
-- finding no countermodel under A1-A7;
-- confirming that `R_13_15` is total and has no hidden semantic inputs;
-- confirming that the observer and census have been removed;
-- validating the pinned source-to-model correspondence as a falsifiable premise;
-  and
-- accepting the deterministic-verification taxonomy and narrow novelty claim.
+- independently proving necessity and sufficiency;
+- checking that `g` is well-defined and total on reachable `Q`;
+- finding no finite countermodel under T1-T4;
+- validating the task/full restricted corollary;
+- confirming the universal impossibility is not predicted by one specific
+  co-designed action test;
+- accepting the semantic rather than syntactic closure definition;
+- separating abstract theorem truth from LangGraph correspondence; and
+- accepting the explicitly classical novelty boundary.
 
-Any unresolved hidden input, circular oracle, false source correspondence,
-countermodel, observer dependence, or reintroduced empirical frequency claim is
-`NEEDS_REVISION`. No PoC or implementation begins before `RIGOROUS`.
+The gate fails on a countermodel, hidden premise, partial projection/target,
+ill-typed composition, circular framework premise, overclaimed novelty, or
+reintroduced empirical interpretation.
+
+If RIGOROUS, proceed only to the separate correspondence decision when
+authorized. If adverse, OMST may be closed as a useful but elementary control
+and the portfolio may advance to PDPF; v3/v4 cannot be resurrected.
 
 ## Data and execution tiers
 
-- **Phase 2:** specification, proof, static source references, deterministic
-  document checks, and sterile theory review only.
-- **Phase 3:** one minimal public non-target fixture only after the theory gate.
-  Framework acquisition or installation remains separately unauthorized.
-- **Phase 4:** no OMST census is justified under this contract.
+- **Phase 2:** proof, primary-source inspection, deterministic document checks,
+  and sterile theory review only.
+- **Phase 3:** at most one two-state input-correspondence fixture, after all
+  applicable gates.
+- **Phase 4:** no OMST effect-size, prevalence, robustness, or validation census.
 - **Locked test:** absent, ungenerated, unexecuted, and unauthorized.
 
-## Mutable and immutable paths
+## Immutable history
 
-Git history preserves c2-v1 through c2-v3. For the c2-v4 theory decision, these
-records are immutable once their commits are made:
-
-```text
-PROBLEM.md
-research-log/053-literature-review-orchestration-security.md
-research-log/054-decision-archaeology-orchestration-security.md
-research-log/058-omst-theory-review-round1.md
-research-log/062-omst-theory-review-round2.md
-research-log/063-omst-source-authenticity-and-c2-v3-amendment.md
-research-log/064-hypothesis-iter-5-omst-v3.md
-research-log/066-omst-theory-review-round3.md
-experiments/configs/environment-orchestration-c2.md
-experiments/configs/data-governance-orchestration-c2.md
-experiments/configs/omst-c2-v1.json
-experiments/configs/omst-c2-v2.json
-experiments/configs/omst-c2-v3.json
-```
-
-The c2-v4 contract, v4 JSON, retirement record, and superseding hypothesis
-become immutable at their respective commits. Any later correction requires a
-new version and an explicit adverse record; prior artifacts are never edited.
+Git history preserves c2-v1 through c2-v4, v1 through v4 hypotheses, and all
+adverse reviews. Once committed, the c2-v5 contract, JSON, amendment record, and
+superseding hypothesis are immutable; another correction requires c2-v6.
 
 ## Approval boundary
 
-The standing default authorizes this local design correction, proof writing,
-deterministic checking, and sterile review within the remaining review budget.
-It does not authorize framework download or installation, PoC execution,
-confirmatory execution, Kaggle, live targets, attack execution, model APIs,
-external messages, publication, or locked-test generation/execution.
+The standing default authorizes this local formal correction, deterministic
+checking, and sterile theory review within the remaining budget. It does not
+authorize framework download/install, fixture or experiment execution, Kaggle,
+live targets, operational attacks, model APIs, external messages, publication,
+or locked-test generation/execution.

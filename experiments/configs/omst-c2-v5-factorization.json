@@ -1,0 +1,144 @@
+{
+  "schema_version": "omst-c2-v5-factorization",
+  "status": "phase2_theory_only",
+  "recorded_date": "2026-07-20",
+  "supersedes": "omst-c2-v4-schema-closure",
+  "classification": "formal_derivation",
+  "retired_constructed_result": {
+    "artifact": "omst-c2-v4-schema-closure",
+    "outcome": "superseded_after_adverse_review",
+    "reason": "the co-designed hash-if-present action and equality verifier reduce to one membership identity and add no prediction beyond their direct composition",
+    "execution_count": 0
+  },
+  "abstract_model": {
+    "state_space": "a finite nonempty set S",
+    "projection": "a total function pi:S->Q where Q=pi(S) is the reachable image",
+    "obligation": "a total function tau:S->Y",
+    "deterministic_action": "a total function g:Q->Y",
+    "fiber_equivalence": "s ~_pi s_prime iff pi(s)=pi(s_prime)",
+    "security_closed": "pi is closed for tau iff for all s,s_prime in S, pi(s)=pi(s_prime) implies tau(s)=tau(s_prime)",
+    "correct_action": "g is universally correct iff for all s in S, g(pi(s))=tau(s)"
+  },
+  "factorization_theorem": {
+    "statement": "there exists a universally correct deterministic g:Q->Y iff pi is security-closed for tau",
+    "necessity": "if tau=g composed_with pi and pi(s)=pi(s_prime), then tau(s)=g(pi(s))=g(pi(s_prime))=tau(s_prime)",
+    "sufficiency": "if tau is constant on every fiber, define g(q)=tau(s_q) for any representative s_q with pi(s_q)=q; q is reachable and fiber constancy makes g well-defined, so g(pi(s))=tau(s)",
+    "counterexample_rule": "one finite S, total pi and tau for which exactly one side of the biconditional holds refutes the theorem"
+  },
+  "schema_interpretation": {
+    "projection_for_key_set": "pi_C(s) is the exact mapping of available selected keys C delivered to the callable after the schema mapper",
+    "semantic_closure": "C is security-closed for tau iff pi_C is security-closed for tau",
+    "key_inclusion_note": "including provenance_record is sufficient for the restricted tau below but is not generally necessary when another delivered coordinate determines the same obligation",
+    "functional_dependency": "pi_C(s)=pi_C(s_prime) implies tau(s)=tau(s_prime)"
+  },
+  "restricted_provenance_instance": {
+    "task_domain": "a singleton X containing the literal task tuple in witness_pair.shared_task",
+    "provenance_domain": "P={p0,p1} from witness_pair with distinct canonical JSON bytes",
+    "state_space": "S=X cross P",
+    "task_projection": "pi_task(x,p)=x",
+    "full_projection": "pi_full(x,p)=(x,p)",
+    "obligation": "tau(x,p)=canonical_json(p)",
+    "task_result": "not security-closed because pi_task(x,p0)=pi_task(x,p1) while tau(x,p0)!=tau(x,p1); therefore no deterministic task-projected action can satisfy tau on both states",
+    "full_result": "security-closed; constructive g_full(x,p)=canonical_json(p) is universally correct"
+  },
+  "canonicalization": {
+    "json": "UTF-8 json.dumps(sort_keys=true,separators=(',',':'),ensure_ascii=true,allow_nan=false), integers/strings/booleans/null only, no trailing newline",
+    "digest_or_sentinel": "none; the theorem and witness compare exact canonical obligation bytes"
+  },
+  "witness_pair": {
+    "shared_task": {
+      "subject_id": "subject-0",
+      "task_value": "ready",
+      "effect_id": "effect-0",
+      "effect_log": [],
+      "completion": "pending"
+    },
+    "p0": {
+      "entity_id": "entity-0",
+      "activity_id": "activity-0",
+      "agent_id": "agent-0"
+    },
+    "p1": {
+      "entity_id": "entity-0",
+      "activity_id": "activity-0",
+      "agent_id": "agent-1"
+    },
+    "required_relations": [
+      "p0 and p1 canonical bytes differ",
+      "full states differ only at provenance_record",
+      "pi_task(s0)=pi_task(s1)",
+      "pi_full(s0)!=pi_full(s1)",
+      "tau(s0)!=tau(s1)"
+    ]
+  },
+  "abstract_assumptions": {
+    "T1": "S is finite and nonempty",
+    "T2": "pi and tau are total on S",
+    "T3": "Q is exactly the reachable image pi(S)",
+    "T4": "g ranges over deterministic total functions Q->Y"
+  },
+  "framework_correspondence": {
+    "status": "separate_unverified_corollary",
+    "framework": "langgraph",
+    "version": "1.2.9",
+    "git_object": "95af6a00718588e7b7ce17310e8006d267896a77",
+    "official_source_chain": [
+      "graph/state.py::StateGraph.add_node input-schema selection",
+      "graph/state.py::CompiledStateGraph.attach_node channel selection and mapper binding",
+      "pregel/_read.py::PregelNode.channels and PregelNode.mapper",
+      "pregel/_algo.py::prepare_single_task PULL path",
+      "pregel/_algo.py::_proc_input channel availability, read, and mapper application",
+      "PregelExecutableTask.input delivered to the bound callable"
+    ],
+    "required_correspondence_checks": [
+      "authenticated source object and file hashes",
+      "exact compiled proc.channels for task and full schemas",
+      "availability of every selected witness channel before PULL input construction",
+      "exact mapper identity and output for both TypedDict schemas",
+      "canonical actual mapping received at callable entry for s0 and s1",
+      "task receives identical mappings for s0 and s1",
+      "full receives mappings differing only in provenance_record",
+      "bound callable code, defaults, closures, globals, configuration, store, environment, and runtime context are sealed and equal",
+      "capture code records input only and cannot inject state, events, expected outputs, or verdicts"
+    ],
+    "failure_rule": "any mismatch rejects application of the theorem to the pinned framework; no adapter substitute"
+  },
+  "minimal_correspondence_fixture": {
+    "purpose": "check source-to-projection correspondence only",
+    "inputs": [
+      "witness_pair state s0",
+      "witness_pair state s1"
+    ],
+    "conditions": [
+      "TaskStateOnly",
+      "TaskStatePlusProvenance"
+    ],
+    "required_received_input_relations": {
+      "task": "received_task(s0)=received_task(s1)=shared_task",
+      "full": "received_full(s0)!=received_full(s1) and the only value difference is provenance_record"
+    },
+    "security_verdict": "none",
+    "population_inference": false,
+    "replicates": 1
+  },
+  "novelty_boundary": {
+    "theorem": "classical factorization/noninterference structure, not claimed as a new mathematical theorem",
+    "candidate_contribution": "an orchestration schema-security closure criterion and pinned framework correspondence protocol",
+    "anti_stacking_prediction": "when tau varies within a projection fiber, every deterministic projected-input-only action fails on at least one state in that fiber; a single co-designed action test does not establish this universal impossibility"
+  },
+  "phase_gates": {
+    "phase2": "requires RIGOROUS sterile theoretical review before any Phase 3 work",
+    "phase3": "at most one public non-target two-state correspondence fixture after review and separately applicable framework-acquisition authorization",
+    "phase4": "no OMST prevalence census or security-effect experiment",
+    "locked_test": "absent and unauthorized"
+  },
+  "authorization_boundary": [
+    "no Kaggle action",
+    "no framework download or install",
+    "no fixture or experiment execution before applicable gate",
+    "no live target or operational attack",
+    "no model API",
+    "no external message or publication",
+    "no locked-test generation or execution"
+  ]
+}
