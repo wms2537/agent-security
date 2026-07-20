@@ -345,8 +345,8 @@
       "id": "T037",
       "phase": "2",
       "desc": "Formulate and deterministically verify an unreviewed Progress Quotient Firewall hypothesis with independent obligation receipts and co-design falsifiers",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Selected as the only open task after commit 9a59132. Work is restricted to prior-art inspection, finite contract construction, an independent reference oracle, and static/deterministic verification. Review remains unavailable at 20/20 and no Phase-3, framework, Kaggle, model-API, attack, or locked-test action is authorized.",
       "parent": "T036"
     }
   ],
