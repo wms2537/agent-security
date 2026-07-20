@@ -43,7 +43,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 20,
-      "spent": 13
+      "spent": 14
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -328,7 +328,7 @@
       "phase": "2",
       "desc": "Write, deterministically verify, and independently theory-review the immutable OMST hypothesis before any PoC or framework-bound run",
       "status": "in_progress",
-      "evidence": "Immutable v1/v2 and their adverse reviews remain at research-log/056/060 and 058/062. After official pinned-source inspection and c2-v3 correction, research-log/064 contains 831 lines, one task-only-minus-provenance-visible schema comparison, exact treatment-fidelity table, 17-clause OMST-PROV-1, OMST-GEN-1 byte mapping, 1,152-run future replay gate, 18 validity-domain assumptions, eight fixed bias items, 13 substantive rivals, 11 review-resolution rows, and a non-redundancy stop. Deterministic verification returned `omst_hypothesis_v3=PASS lines=831 bias_items=8 assumptions=18 clauses=17 clause_mutants=17 resolution_rows=11 conditions=4 determinism_runs=1152 validation_runs=5760 placeholders=0 review=pending`; cumulative review budget remains 13/20 until dispatch. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
+      "evidence": "Immutable v1/v2 and their adverse reviews remain at research-log/056/060 and 058/062. Research-log/064 contains 831 lines, one task-only-minus-provenance-visible schema comparison, exact treatment-fidelity table, 17-clause OMST-PROV-1, OMST-GEN-1 byte mapping, 1,152-run future replay gate, 18 validity-domain assumptions, eight fixed bias items, 13 substantive rivals, 11 review-resolution rows, and a non-redundancy stop. Deterministic verification returned `omst_hypothesis_v3=PASS lines=831 bias_items=8 assumptions=18 clauses=17 clause_mutants=17 resolution_rows=11 conditions=4 determinism_runs=1152 validation_runs=5760 placeholders=0 review=pending`. Sterile round 3 is dispatched against immutable commit 4480ec4 under the user's standing escalation resolution; cumulative budget charged 14/20. No experiment, framework download, attack, Kaggle, model API, or locked-test action occurred.",
       "parent": "T034"
     }
   ],
@@ -713,7 +713,8 @@
       "contract_amendment_v3": "APPLIED UNDER STANDING DEFAULT — official pinned-source inspection showed node input-schema channel projection is authentic but generic `default reconstruction` is not. c2-v3 narrows the treatment to task-only versus task-plus-provenance action schemas and fixes OMST-GEN-1, 17-clause provenance automaton, exact treatment-fidelity predicate, and duplicate replay gate. Full rationale: research-log/063; Git preserves c2-v2.",
       "hypothesis_v3": "COMPLETE BEFORE REVIEW — research-log/064 supersedes immutable v2 with source-authentic task-only versus task-plus-provenance schema projection, exact treatment-fidelity table, OMST-PROV-1 event automaton, OMST-GEN-1 byte mapping, 1,152-run future replay gate, and a non-redundancy stop that forbids a large census if Phase 3 proves the result definitional.",
       "round2_resolution_claims": "AUTHOR-COMPLETE, REVIEW PENDING — v3 claims all four round-2 blockers resolved: 17-clause exact V_prov with clause fixtures/mutants; pinned compiled-channel fidelity predicate; deterministic graph/input/tape/order mapping; exact duplicate replay gate. The reviewer must also judge structural triviality and observer interference.",
-      "status": "IN_PROGRESS — c2-v3 superseding hypothesis deterministically specified but not yet independently reviewed; no PoC or experiment permitted"
+      "theory_review_round3": "DISPATCHED — immutable research-log/064 at commit 4480ec4, 831 committed lines; sterile review grades four round-2 blockers and checks structural triviality/observer interference; cumulative budget 14/20.",
+      "status": "IN_PROGRESS — c2-v3 hypothesis under sterile round-3 theory review; no PoC or experiment permitted"
     }
   }
 }
