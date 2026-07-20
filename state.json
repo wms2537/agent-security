@@ -1,7 +1,7 @@
 {
   "phase": "2",
   "cycle": 2,
-  "iteration": 5,
+  "iteration": 6,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
@@ -30,8 +30,8 @@
     "Provenance-Decoupled Progress Firewall",
     "Invariant-Preserving Harness Evolution"
   ],
-  "active_hypothesis": "Orchestration Metamorphic Security Testing",
-  "active_hypothesis_artifact": "research-log/088-hypothesis-iter-5-omst-v9-manifest-run-pairs.md",
+  "active_hypothesis": "Progress Quotient Firewall",
+  "active_hypothesis_artifact": null,
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -41,7 +41,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 2
+      "spent": 3
     },
     "hypothesis_review_rounds": {
       "limit": 20,
@@ -337,17 +337,25 @@
       "id": "T036",
       "phase": "2",
       "desc": "Investigate and select the structurally correct response to OMST round-9 trust-boundary defects: sealed capsule, honest downgrade, or portfolio pivot",
-      "status": "in_progress",
-      "evidence": "User continuation authority quoted verbatim in research-log/091. Task scope is targeted primary-source research plus candidate-critique selection; no review dispatch, framework action, or phase advance. Verification pending.",
+      "status": "done",
+      "evidence": "`rg -n '^## Five-source|^### [ABC] —|^[-] [*][*]Score|^[-] [*][*]Decision|^## New conceptual' research-log/092-omst-trust-boundary-research-and-pivot.md` returned one five-source section, candidates A/B/C, three scores/decisions, and the selected PQF concept. Five primary sources establish external trust-root, lock/runtime, and immutable-byte boundaries; candidate scores 0.60/5.00/10.00 select close-and-pivot. User pivot authority is quoted in 091.",
       "parent": "T035"
+    },
+    {
+      "id": "T037",
+      "phase": "2",
+      "desc": "Formulate and deterministically verify an unreviewed Progress Quotient Firewall hypothesis with independent obligation receipts and co-design falsifiers",
+      "status": "open",
+      "evidence": null,
+      "parent": "T036"
     }
   ],
   "parked_candidates": [
     {
       "name": "Provenance-Decoupled Progress Firewall",
-      "status": "selected_pending_separate_iteration",
+      "status": "active_phase2_unreviewed",
       "sequence": 2,
-      "reason": "User selected all three; this remains parked while Orchestration Metamorphic Security Testing is active because SciAgent permits only one active hypothesis.",
+      "reason": "Activated after OMST's executable bridge exhausted review budget and the user explicitly authorized principled pivots; research-log/092 selects the Progress Quotient Firewall refinement. No reviewer dispatch is available at 20/20.",
       "phase1_weighted_score": 4.35
     },
     {
@@ -783,7 +791,15 @@
       "hypothesis_v9": "COMPLETE BEFORE REVIEW — research-log/088 supersedes immutable v8 with the unchanged minimal theorem/witness, one common authenticated manifest, four explicit run objects, independently quantified task/full implications, exact double runtime authentication and role-specific failures.",
       "deterministic_verification_v9": "PASS — `omst_hypothesis_v9=PASS lines=1018 python_syntax=PASS shell_syntax=PASS hashes=PASS exhaustive_models=1555 theorem_counterexamples=0 includes_empty=true witness_targets_distinct=true cells=4 run_objects=4 role_implications=2 common_manifest=1 final_guard_order=['verify_common_manifest','build_graph','verify_all_guards','invoke'] langgraph_source_paths=8 langchain_modules=3 P_common_M0=false top_framework_imports=0 resolution_rows=4 unresolved_placeholders=0 review=pending`; reviewed predecessors unchanged.",
       "theory_review_round9": "NEEDS_REVISION — reviewer and committed hypothesis line counts agree 1,018/1,018. The theorem/witness, role quantification, final guard ordering, task/full separation, bias surface, taxonomy, anti-stacking and narrow scope pass. Nine protocol gaps remain: exact manifest schema/pair digest pinning; hard distribution/module binding; lock/dependency-closure inventory; callable-entry-to-output authentication; launcher/run attestation; transient-substitution closure; verifier dependency trust; independently anchored source-audit evidence; atomic pair envelope. Full verbatim report: research-log/090; budget exhausted 20/20.",
-      "status": "FAILED — Phase-2 engineering correspondence gate not passed; review budget exhausted 20/20; no Phase-3 advance"
+      "targeted_trust_research": "COMPLETE — five primary sources (SLSA provenance/verification, in-toto v1.2, PEP 751, fs-verity and memfd sealing) show that a correct capsule needs an external root, signed subject binding, complete executable closure, immutable loaded bytes and atomic broker receipt; more self-relative hashes cannot close v9.",
+      "pivot_decision": "SELECTED — candidate scores: attested-pair repair 0.60, theorem-only downgrade 5.00, close-OMST-and-PQF-pivot 10.00. OMST theorem/witness retained; empirical claim theory-refuted; executable bridge implementation-defeated; no Phase-3 advance.",
+      "status": "CONCLUDED PARTIAL — rigorous classical theorem/witness retained; executable framework correspondence failed Phase 2; portfolio pivoted to PDPF/PQF"
+    },
+    "2_cycle2_pdpf": {
+      "direction_selection": "APPROVED — user verbatim in research-log/091 permits principled pivots; research-log/092 applies the candidate-critique rubric and selects PQF 10.00 over OMST capsule repair 0.60 and theorem-only downgrade 5.00.",
+      "concept_seed": "Progress Quotient Firewall exposes only verifier-owned obligation/effect/budget state to continuation and erases worker text, raw payloads and worker-authored progress.",
+      "review_budget": "EXHAUSTED 20/20 — local hypothesis drafting/static verification only; no theory-review dispatch or Phase-3 advance.",
+      "status": "IN_PROGRESS — T037 open for an unreviewed Phase-2 hypothesis"
     }
   }
 }
