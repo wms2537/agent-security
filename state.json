@@ -1,7 +1,7 @@
 {
   "phase": "2",
   "cycle": 2,
-  "iteration": 7,
+  "iteration": 8,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
@@ -17,7 +17,7 @@
   "success_criteria": {
     "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. Round 9 accepted the c2-v9 minimal factorization theorem, exact witness, quantification, guard ordering and independent task/full antecedents, but returned NEEDS_REVISION on runtime authentication/output-origin closure. Phase 2 is not passed; P_common(M0) remains false and review budget is exhausted 20/20.",
     "pdpf": "CONCLUDED NEGATIVE. PQF v2 was design-defeated because its floor/guardrails were fixed by authored schedules and anti-stacking failed. The label-blind TBEA pilot then achieved perfect primary coder agreement but only AppWorld met the four-of-six recoverability threshold: AppWorld 5, AG2 2, MetaGPT 0; AppWorld supplied 5/7=71.4%, above the 60% cap. The authorized MAST artifact cannot support the planned cross-system termination-authority association without role-title inference or treating missing telemetry as evidence.",
-    "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
+    "iphe": "CONCLUDED NO-GO AT PHASE 2. External/immutable release gates, anytime-valid commit tests, auditable certificates, hard constraints plus soft utility, and security-specific immutable invariants are directly occupied by recent primary work. No audited public artifact exposes the complete accepted-and-rejected candidate lineage needed to identify longitudinal security debt. The provisional 50%/90%/zero-drift thresholds were retired before hypothesis freeze."
   },
   "constraints": [
     "Only one active hypothesis; OMST first, PDPF second, IPHE third.",
@@ -30,8 +30,8 @@
     "Provenance-Decoupled Progress Firewall",
     "Invariant-Preserving Harness Evolution"
   ],
-  "active_hypothesis": "None — PDPF/TBEA closed at Phase-2 measurement gate",
-  "active_hypothesis_artifact": "research-log/111-tbea-schema-pilot-result.md",
+  "active_hypothesis": "None — Cycle-2 portfolio concluded at Phase-2 evidence gates",
+  "active_hypothesis_artifact": "research-log/112-iphe-primary-audit-and-portfolio-closure.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -41,7 +41,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 4
+      "spent": 5
     },
     "hypothesis_review_rounds": {
       "limit": 30,
@@ -388,6 +388,14 @@
       "status": "done",
       "evidence": "Frozen agreement gate FAIL in note 111 despite perfect primary agreement: terminal=1.0, authority=1.0, visibility raw/alpha=1.0, relation raw/alpha=1.0. Jointly recoverable counts AppWorld=5, AG2=2, MetaGPT=0; qualifying systems=1<2 and max share=5/7=0.714>0.60. Coder hashes c1bc7c.../18c249...; no labels unblinded. PDPF/TBEA branch closed without hypothesis/review/Phase3.",
       "parent": "T041"
+    },
+    {
+      "id": "T043",
+      "phase": "2",
+      "desc": "Audit current IPHE method novelty and public candidate-lineage availability before freezing any hypothesis or entering Phase 3",
+      "status": "done",
+      "evidence": "Primary-source and public-artifact audit 112 returns novelty NO-GO and data NO-GO. AgentDevel/PACE/SEA/GSME/HASE/SEVerA and the self-evolving-safety literature occupy the gate, immutable-evaluator, constraint-plus-utility and audit concepts. AHE/Rethinking/Meta-Harness/A-Evolve/MaMa artifacts expose code, endpoints or aggregates but not the complete candidate diff x decision x security x rejected-candidate lineage. No hypothesis/review/Phase3 action; research 5/5, review 23/30.",
+      "parent": "T042"
     }
   ],
   "parked_candidates": [
@@ -400,9 +408,9 @@
     },
     {
       "name": "Invariant-Preserving Harness Evolution",
-      "status": "selected_pending_separate_iteration",
+      "status": "concluded_no_go_phase2",
       "sequence": 3,
-      "reason": "User selected all three; this remains parked until the first two directions complete their own decision points.",
+      "reason": "The broad gate method is occupied by current primary work, and no audited public artifact contains the accepted-and-rejected candidate-level security/utility lineage needed for a non-constructed longitudinal test. The residual opportunity is a future corpus/protocol contribution. Full audit: research-log/112.",
       "phase1_weighted_score": 3.95
     }
   ],
@@ -444,6 +452,14 @@
       "varies": "evidence-authority-routing-observability",
       "kind": "understanding",
       "outcome": "refuted"
+    },
+    {
+      "cycle": 2,
+      "iteration": 8,
+      "direction": "invariant-preserving-harness-evolution",
+      "varies": "novelty-and-public-lineage-availability",
+      "kind": "understanding",
+      "outcome": "refuted"
     }
   ],
   "tried_and_failed": [
@@ -476,6 +492,12 @@
       "failure_class": "measurement_unidentifiable",
       "why": "Two label-blind coders agreed perfectly on primary fields, but jointly recoverable authority counts were AppWorld 5, AG2 2, MetaGPT 0. Only one system met coverage and AppWorld concentration was 71.4% above the frozen 60% cap.",
       "log": "research-log/111-tbea-schema-pilot-result.md"
+    },
+    {
+      "approach": "IPHE longitudinal security-debt study from currently published harness-evolution artifacts",
+      "failure_class": "measurement_unidentifiable",
+      "why": "The gate method is already occupied, while public artifacts expose code, final harnesses or aggregate tables rather than every accepted/rejected candidate joined to its diff, decision, security/utility outcomes and immutable verifier identity.",
+      "log": "research-log/112-iphe-primary-audit-and-portfolio-closure.md"
     }
   ],
   "learnings": [
@@ -630,6 +652,12 @@
       "lesson": "Callable-entry bytes are not authenticated output unless fixture-controlled storage emits them directly or the complete post-capture writer/result path is source-bound.",
       "apply_when": "A Phase-2/3 framework correspondence claim observes callable input through a later framework return value.",
       "source": "research-log/090-omst-theory-review-round9.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "When a gate concept is already occupied, endpoint artifacts and aggregate regression tables cannot support a novel longitudinal safety claim; identifiability requires every accepted and rejected candidate joined to its diff, security and utility measurements, decision, and immutable verifier identity.",
+      "apply_when": "A Phase-1/2 self-evolution study proposes to measure security debt or the effect of candidate acceptance using published harness artifacts.",
+      "source": "research-log/112-iphe-primary-audit-and-portfolio-closure.md",
       "recurrences": 1
     }
   ],
@@ -882,6 +910,14 @@
       "theory_review_round2": "NEEDS_REVISION — six prior issues resolved, three improved, anti-stacking unchanged. Reviewer derived forced F_on >= 3/25 and exact-zero clean guardrails from the authored schedules, plus a non-total decision-9 contract and underspecified oracle fixtures. Full report: research-log/105.",
       "structural_pivot": "FAILED CLEANLY — label-blind TBEA primary agreement was perfect, but jointly recoverable counts AppWorld=5, AG2=2, MetaGPT=0 fail the two-system gate and AppWorld share 5/7 fails the 0.60 concentration cap. Secondary evidence-event/verification disagreements add caution. Full result: research-log/111.",
       "status": "CONCLUDED NEGATIVE AT PHASE 2 — neither synthetic PQF nor natural-trace TBEA passed a distinguishing, identifiable gate; no Phase-3 or label-association action"
+    },
+    "2_cycle2_iphe": {
+      "primary_audit": "COMPLETE — research-log/112 compares 15 current primary sources and independently verifies direct overlap plus public candidate-lineage availability as of 2026-07-22.",
+      "novelty": "NO-GO — AgentDevel, PACE, SEA, GSME, HASE, SEVerA and the self-evolving-safety literature already occupy external/immutable gates, commit-time testing, certificates, hard-invariant-plus-utility optimization and longitudinal audit principles.",
+      "availability": "NO-GO — audited AHE, Rethinking, Meta-Harness, A-Evolve and MaMa artifacts expose code, final endpoints or aggregate results, not every accepted/rejected candidate joined to exact diff, decision, security and utility outcomes, and immutable verifier identity.",
+      "residual_gap": "A future Evidence Gap x Empirical Mapping corpus/protocol study could be novel if it publishes a complete real candidate lineage, externally anchored invariant suite, candidate-level security/utility for accepts and rejects, negative obligations, matched task-only/sampling controls and an immutable ledger.",
+      "review_budget": "UNCHANGED — 23/30. No hypothesis was frozen or dispatched because novelty and data entry gates failed.",
+      "status": "CONCLUDED NO-GO AT PHASE 2 — provisional thresholds retired; no Phase-3/framework/model/attack/held-out/Kaggle action; Cycle-2 portfolio closed"
     }
   }
 }
