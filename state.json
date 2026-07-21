@@ -369,9 +369,17 @@
       "id": "T040",
       "phase": "2",
       "desc": "Freeze PQF v2 and obtain a fresh context-complete sterile theory re-review against all ten round-1 defects before any Phase-3 action",
-      "status": "in_progress",
-      "evidence": "Fresh sterile re-review dispatched from immutable commit 734b445 with the 611-line v2 hypothesis, normative config, both canonical SciAgent references, and the exact ten prior issues. Dispatch record 104; budget charged 23/30 before review.",
+      "status": "done",
+      "evidence": "Fresh context-complete report 105 returned NEEDS_REVISION after matching 611/611 lines. Prior issues 1/3/6/7/9/10 RESOLVED, 2/4/5 IMPROVED, 8 UNCHANGED. Reviewer analytically proved at least 3/25=0.12 authority-on failures from early-stop substitutions and exact-zero clean guardrails by construction; also found index-9 schedule non-totality, unspecified secondary/oracle traces, and anti-stacking failure. Budget 23/30; Phase 3 closed.",
       "parent": "T039"
+    },
+    {
+      "id": "T041",
+      "phase": "2",
+      "desc": "Select and implement a non-predetermined PQF v3 scientific claim: independently grounded empirical advisory process or a narrower formal interface-invariant result",
+      "status": "open",
+      "evidence": "Round-2 report 105 forbids another prose patch. v3 must first compare the honest empirical and formal paths, solve anti-stacking, and close total contract/oracle semantics before another review dispatch.",
+      "parent": "T040"
     }
   ],
   "parked_candidates": [
