@@ -1,0 +1,161 @@
+{
+  "contract_version": "TBEA-PILOT-1",
+  "phase": 2,
+  "cycle": 2,
+  "iteration": 7,
+  "purpose": "Label-blind development pilot for termination-boundary evidence-authority measurement recoverability; not an association, prevalence, causal, or defense evaluation.",
+  "source": {
+    "name": "MAST-Data",
+    "revision": "5a82e32347f70a701a3c68637de12f8a0be3de3c",
+    "filename": "MAD_full_dataset.json",
+    "url": "https://huggingface.co/datasets/mcemri/MAST-Data/resolve/5a82e32347f70a701a3c68637de12f8a0be3de3c/MAD_full_dataset.json",
+    "sha256": "a182daadb8ded015efc889db8bde29e5e4dd478e0dcc5516f6727a1bbc43eaec",
+    "bytes": 63463757,
+    "rows": 1242,
+    "license_as_stated_by_dataset_card": "CC-BY-4.0"
+  },
+  "blinding": {
+    "forbidden_output_key": "mast_annotation",
+    "allowed_source_record_keys": [
+      "mas_name",
+      "llm_name",
+      "benchmark_name",
+      "trace_id",
+      "trace"
+    ],
+    "allowed_trace_keys": [
+      "index",
+      "key",
+      "trajectory"
+    ],
+    "annotators_may_access": [
+      "bundle.json",
+      "trajectory text files",
+      "frozen codebook",
+      "frozen parser output after its separate freeze"
+    ],
+    "annotators_may_not_access": [
+      "source JSON",
+      "mast_annotation",
+      "MAST label counts by sampled row",
+      "another annotator's record",
+      "association results"
+    ]
+  },
+  "sample": {
+    "status": "development_only_excluded_from_later_confirmation",
+    "systems": [
+      "AG2",
+      "AppWorld",
+      "MetaGPT"
+    ],
+    "rationale": "Equal-size sample from three materially different native formats: role dialogue, supervisor/service workflow, and structured FROM/TO/ACTION messages. Systems were selected without sampled MAST labels.",
+    "per_system": 6,
+    "total": 18,
+    "seed": "TBEA-PILOT-1|2026-07-22|label-blind",
+    "cluster_fields": [
+      "mas_name",
+      "llm_name",
+      "benchmark_name",
+      "trace_id",
+      "trace.index"
+    ],
+    "cluster_id_rule": "sha256(canonical JSON array of cluster fields)",
+    "representative_rule": "Within a repeated composite-identity cluster, use the row with lexicographically smallest trajectory_sha256; ties use source ordinal.",
+    "ranking_rule": "Within each MAS, rank representatives by sha256(seed + NUL + cluster_id), then cluster_id; take the first six.",
+    "future_identity_rule": "A later primary analysis, if authorized by a passed gate and rigorous review, uses one deterministic representative per composite-identity cluster; all-row cluster-robust analysis may only be secondary.",
+    "forbidden_selection_inputs": [
+      "mast_annotation",
+      "trajectory semantics",
+      "apparent outcome",
+      "trace length",
+      "terminal keywords"
+    ]
+  },
+  "pilot_fields": {
+    "terminal_transition": "Exact parser event and source span that observably changes the run from active to terminal.",
+    "effective_authority": "Explicit actor or component whose transition makes termination effective; a completion utterance alone is not authority.",
+    "candidate_evidence": "Exact earlier source event that explicitly bears on the declared terminal predicate.",
+    "evidence_origin": [
+      "environment",
+      "tool",
+      "verifier",
+      "worker",
+      "supervisor",
+      "other_explicit",
+      "indeterminate"
+    ],
+    "visibility_to_authority": [
+      "visible",
+      "not_visible",
+      "indeterminate",
+      "no_candidate_evidence"
+    ],
+    "authority_evidence_relation": [
+      "supports_stop",
+      "conflicts_visible",
+      "conflicts_stranded",
+      "no_decisive_evidence",
+      "indeterminate",
+      "no_observable_deliberate_terminal_transition"
+    ],
+    "derived_state": {
+      "aligned": [
+        "supports_stop"
+      ],
+      "misaligned": [
+        "conflicts_visible",
+        "conflicts_stranded"
+      ],
+      "indeterminate": [
+        "no_decisive_evidence",
+        "indeterminate"
+      ],
+      "no_observable_deliberate_terminal_transition": [
+        "no_observable_deliberate_terminal_transition"
+      ]
+    },
+    "separate_noncollapsed_fields": [
+      "temporal_order",
+      "target_binding",
+      "verification_relation",
+      "dependency_coverage"
+    ]
+  },
+  "gate": {
+    "source_identity_exact": true,
+    "bundle_has_forbidden_output_key": false,
+    "sample_count_exact": 18,
+    "systems_count_exact": 3,
+    "source_span_sha_match_rate": 1.0,
+    "minimum_systems_with_four_jointly_recoverable_of_six": 2,
+    "maximum_single_system_share_of_jointly_recoverable": 0.6,
+    "minimum_terminal_event_exact_agreement": 0.8,
+    "minimum_effective_authority_exact_agreement": 0.8,
+    "minimum_visibility_raw_agreement": 0.75,
+    "minimum_relation_raw_agreement": 0.75,
+    "minimum_nominal_krippendorff_alpha": 0.67,
+    "minimum_observed_categories_for_alpha": 2,
+    "indeterminate_is_not_misaligned": true,
+    "association_or_target_label_read_before_gate": false,
+    "phase3_authorized": false
+  },
+  "stop_rules": [
+    "Fewer than two systems have at least four of six traces with jointly recoverable terminal transition and effective authority.",
+    "Visibility or evidence relation is inferred from role names/framework reputation rather than an exact source path.",
+    "Misaligned cannot be distinguished from indeterminate at the frozen agreement gates.",
+    "Any sampled-row MAST label is exposed before the recoverability verdict is frozen.",
+    "One system supplies more than 60 percent of jointly recoverable traces.",
+    "Any recovered event lacks an exact source span and matching source-text digest.",
+    "A later label-only feasibility count cannot support the frozen matched-analysis minimum without changing selection or definitions."
+  ],
+  "authorization": {
+    "kaggle": false,
+    "framework_acquisition_import_execution": false,
+    "model_api": false,
+    "operational_attack_reproduction": false,
+    "gated_data": false,
+    "heldout_or_locked_test": false,
+    "external_message_or_publication": false
+  }
+}
