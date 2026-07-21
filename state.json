@@ -386,7 +386,7 @@
       "phase": "2",
       "desc": "Freeze and run a label-blind multi-system TBEA schema pilot; proceed to a hypothesis only if authority, evidence visibility, provenance, agreement, coverage, identity, and sample-size gates pass",
       "status": "in_progress",
-      "evidence": "Protocol 108, normative tbea-c2-pilot-v1 config and the label-blind preparer are frozen before real sample construction. Synthetic gate: `tbea_pilot self_test=PASS synthetic_records=13 clusters=12 selected=6 labels_exposed=false`; JSON, AST/bytecode and diff checks pass. Real pilot remains unrun at this commit; review 23/30 and Phase 3 closed.",
+      "evidence": "Protocol 108 was frozen before sample construction. The pinned public artifact then produced `bundle=PASS rows=18 systems=3 per_system=6 labels_exposed=false`, source SHA a182daad..., bundle SHA be498bfa..., config SHA c0600cc.... Note 109 freezes lossless AG2/AppWorld/MetaGPT parsers and the categorical annotation schema before independent coding; parser self-test PASS systems=3 events=9. Coding/agreement remains pending; review 23/30 and Phase 3 closed.",
       "parent": "T041"
     }
   ],

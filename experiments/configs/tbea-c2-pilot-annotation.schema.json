@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/tbea-c2-pilot-annotation.schema.json",
+  "title": "TBEA-PILOT-1 independent coder record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "coder_id",
+    "parsed_manifest_sha256",
+    "records"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "TBEA-PILOT-1"
+    },
+    "coder_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parsed_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
+  },
+  "$defs": {
+    "nullableEvent": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^e[0-9]{4}$"
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trace_alias",
+        "terminal_status",
+        "terminal_event_id",
+        "effective_authority_status",
+        "effective_authority",
+        "authority_evidence_event_id",
+        "candidate_evidence_event_id",
+        "evidence_origin",
+        "visibility_to_authority",
+        "temporal_order",
+        "target_binding",
+        "verification_relation",
+        "dependency_coverage",
+        "authority_evidence_relation",
+        "reason_codes"
+      ],
+      "properties": {
+        "trace_alias": {
+          "type": "string",
+          "pattern": "^T[0-9a-f]{12}$"
+        },
+        "terminal_status": {
+          "enum": [
+            "observed_deliberate",
+            "no_observable_deliberate",
+            "indeterminate"
+          ]
+        },
+        "terminal_event_id": {
+          "$ref": "#/$defs/nullableEvent"
+        },
+        "effective_authority_status": {
+          "enum": [
+            "observed",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "effective_authority": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authority_evidence_event_id": {
+          "$ref": "#/$defs/nullableEvent"
+        },
+        "candidate_evidence_event_id": {
+          "$ref": "#/$defs/nullableEvent"
+        },
+        "evidence_origin": {
+          "enum": [
+            "environment",
+            "tool",
+            "verifier",
+            "worker",
+            "supervisor",
+            "other_explicit",
+            "indeterminate"
+          ]
+        },
+        "visibility_to_authority": {
+          "enum": [
+            "visible",
+            "not_visible",
+            "indeterminate",
+            "no_candidate_evidence"
+          ]
+        },
+        "temporal_order": {
+          "enum": [
+            "evidence_before_terminal",
+            "not_established",
+            "not_applicable"
+          ]
+        },
+        "target_binding": {
+          "enum": [
+            "same_terminal_predicate",
+            "different_or_unclear_target",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "verification_relation": {
+          "enum": [
+            "independently_checked",
+            "self_asserted",
+            "not_checked",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "dependency_coverage": {
+          "enum": [
+            "explicit_complete",
+            "explicit_incomplete",
+            "indeterminate",
+            "not_applicable"
+          ]
+        },
+        "authority_evidence_relation": {
+          "enum": [
+            "supports_stop",
+            "conflicts_visible",
+            "conflicts_stranded",
+            "no_decisive_evidence",
+            "indeterminate",
+            "no_observable_deliberate_terminal_transition"
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "explicit_terminal_api",
+              "explicit_terminal_token",
+              "terminal_claim_only",
+              "implicit_log_end",
+              "runtime_exception_or_truncation",
+              "explicit_delivery",
+              "same_actor_observation",
+              "explicit_path_separation",
+              "blocking_evidence",
+              "completion_evidence",
+              "no_eligible_evidence",
+              "telemetry_insufficient"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
