@@ -1,7 +1,7 @@
 {
   "phase": "2",
   "cycle": 2,
-  "iteration": 6,
+  "iteration": 7,
   "entry_mode": "idea",
   "project_type": "empirical",
   "intensity": "medium",
@@ -16,7 +16,7 @@
   "target_venue": "undecided",
   "success_criteria": {
     "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. Round 9 accepted the c2-v9 minimal factorization theorem, exact witness, quantification, guard ordering and independent task/full antecedents, but returned NEEDS_REVISION on runtime authentication/output-origin closure. Phase 2 is not passed; P_common(M0) remains false and review budget is exhausted 20/20.",
-    "pdpf": "PQF v2 preregisters one isolated advisory-authority contrast on a fixed 16-master by 25-schedule domain: authoritative-advice risk at least 0.10, at least 50% relative termination-integrity-failure reduction after authority removal, at most 5 percentage points clean completion loss, at most 20% clean step overhead, and every validity gate. Static author verification passes; context-complete independent re-review is pending at budget 22/30.",
+    "pdpf": "PQF v2 is retired after independent review proved its primary floor and clean guardrails were fixed by the authored schedule and its anti-stacking prediction was not distinguishing. Iteration 7 conditionally selects a label-blind termination-boundary evidence-authority measurement pilot on the pinned 1,242-row MAST artifact. A confirmatory association hypothesis is forbidden unless at least two materially different systems pass explicit authority/visibility recoverability, source-span, agreement, coverage, repeated-identity, and sample-size gates.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
   "constraints": [
@@ -30,8 +30,8 @@
     "Provenance-Decoupled Progress Firewall",
     "Invariant-Preserving Harness Evolution"
   ],
-  "active_hypothesis": "Progress Quotient Firewall",
-  "active_hypothesis_artifact": "research-log/102-hypothesis-iter-6-pqf-v2-authority-isolation.md",
+  "active_hypothesis": "Termination-Boundary Evidence-Authority Alignment candidate",
+  "active_hypothesis_artifact": "research-log/107-pqf-round2-structural-pivot.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -41,7 +41,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 3
+      "spent": 4
     },
     "hypothesis_review_rounds": {
       "limit": 30,
@@ -377,17 +377,25 @@
       "id": "T041",
       "phase": "2",
       "desc": "Select and implement a non-predetermined PQF v3 scientific claim: independently grounded empirical advisory process or a narrower formal interface-invariant result",
-      "status": "open",
-      "evidence": "Round-2 report 105 forbids another prose patch. v3 must first compare the honest empirical and formal paths, solve anti-stacking, and close total contract/oracle semantics before another review dispatch.",
+      "status": "done",
+      "evidence": "Primary-source/data audit 106 and pivot decision 107 reject a patched synthetic census, broad authority theory, MAST relabeling, and an easy classical graph-cut theorem. Iteration 7 conditionally selects only a label-blind termination-boundary measurement pilot. MAST revision 5a82e3 has 1,242 not 1,642 rows, 19 not 21 human rows, heterogeneous raw strings and 90 ambiguous repeated composite identities. Research budget 4/5; review remains 23/30.",
       "parent": "T040"
+    },
+    {
+      "id": "T042",
+      "phase": "2",
+      "desc": "Freeze and run a label-blind multi-system TBEA schema pilot; proceed to a hypothesis only if authority, evidence visibility, provenance, agreement, coverage, identity, and sample-size gates pass",
+      "status": "open",
+      "evidence": "Required by decision 107 before any PQF v3/TBEA hypothesis or review dispatch. Pilot may use only the pinned public MAST artifact without mast_annotation, framework/model execution, Kaggle, attacks, gated data, or held-out tests.",
+      "parent": "T041"
     }
   ],
   "parked_candidates": [
     {
       "name": "Provenance-Decoupled Progress Firewall",
-      "status": "active_phase2_review_pending",
+      "status": "active_phase2_measurement_gate",
       "sequence": 2,
-      "reason": "Activated after OMST's executable bridge failed; PQF v2 now isolates advisory authority and passes its deterministic author gate. A fresh context-complete theory review is pending under the user-extended 30-round limit.",
+      "reason": "PQF v2 was design-defeated at review. Primary-source audit 106 permits only a narrow termination-boundary observability/alignment pilot before a new hypothesis; broad theory and defense novelty are rejected.",
       "phase1_weighted_score": 4.35
     },
     {
@@ -427,6 +435,14 @@
       "direction": "pqf",
       "varies": "termination-observation-boundary",
       "kind": "metric",
+      "outcome": "inconclusive"
+    },
+    {
+      "cycle": 2,
+      "iteration": 7,
+      "direction": "termination-boundary-evidence-authority-alignment",
+      "varies": "evidence-authority-routing-observability",
+      "kind": "understanding",
       "outcome": "pending"
     }
   ],
@@ -837,11 +853,11 @@
     },
     "2_cycle2_pdpf": {
       "direction_selection": "APPROVED — user verbatim in research-log/091 permits principled pivots; research-log/092 applies the candidate-critique rubric and selects PQF 10.00 over OMST capsule repair 0.60 and theorem-only downgrade 5.00.",
-      "primary_hypothesis": "AUTHOR-COMPLETE, UNREVIEWED — on a fixed 72-master/1,440-condition inert domain, PQF must reduce independently scored termination-integrity failure by at least 50% versus worker self-judgment while losing at most 5 percentage points benign completion and adding at most 20% mean steps; baseline risk floor 0.10 and all validity gates are joint requirements.",
-      "search_log": "COMPLETE — iteration 6 varies `termination-observation-boundary`, kind `metric`, outcome pending; the two prior metric entries varied different dimensions, so no escalation constraint is active.",
+      "primary_hypothesis": "RETIRED — the v1/v2 synthetic defense claim did not pass theory review. Round 2 proved the primary risk floor and clean guardrails were fixed by the author-chosen schedule, and the shared gate stack defeated anti-stacking. No census or Phase-3 experiment was run.",
+      "search_log": "ITERATION 6 INCONCLUSIVE; ITERATION 7 OPEN — the constructed metric claim was design-defeated before experiment. The new understanding iteration varies evidence-authority-routing observability and cannot become confirmatory until the label-blind schema gate passes.",
       "concept": "COMPLETE — Progress Quotient Firewall factors continuation through exactly seven verifier-owned plan/obligation/effect/fault/stall/budget fields and excludes raw task/observation/tool bytes, summaries, confidence, embeddings and hashes derived from untrusted content.",
       "formal_boundary": "COMPLETE — classical factorization iff quotient-fiber constancy proposition is separated from the systems claim; a false-accept receipt makes PQF stop early while the independently represented world oracle reports failure, proving correctness is not definitional.",
-      "latest_primary_research": "COMPLETE — research-log/093 compares LoopTrap, IAL-Scan, SafeAgent, Agent-C, C-Trace and PCN-Rec. It narrows novelty to identifier-only termination-state minimization plus oracle-first evaluation, not monitors, provenance, bounds or proof-carrying interaction in general.",
+      "latest_primary_research": "COMPLETE — research-log/106 audits MAST, LoopTrap, IAL-Scan, AHE, PCAS/FORGE, Fides, AgentRx, Temporary Authority, NeuroTaint and Who&When. It rules out broad authority/provenance/defense novelty and conditionally permits only termination-boundary observability/alignment measurement on a pinned public artifact.",
       "measurement_design": "COMPLETE BEFORE REVIEW — exact advisory alphabet/tapes, four controller priorities, six graphs, four world schedules, three sound receipt profiles, B_cap/B_max budgets, step order, independent oracle, equal weighting, mandatory reports and no locked tier are bound in experiments/configs/pqf-c2-v1.json.",
       "failure_metrics": "COMPLETE — baseline floor 0.10; relative reduction 0.50; completion loss 0.05; overhead 0.20; exact 0 decision leaks; 4/4 quotient and 5/5 oracle mutants; false-receipt/co-design counterexample; exactly 1,440 rows. Valid misses disconfirm and low baseline risk is inconclusive/non-supportive.",
       "taxonomy": "COMPLETE — Failure/Risk Gap × Extrapolation/Robustification with replace/decouple; Bridge×Synthesis tripwire false.",
@@ -849,9 +865,11 @@
       "bias_and_rivals": "COMPLETE BEFORE REVIEW — all eight fixed bias categories, seven domain-bounded assumptions, nine rivals and invalid/support/disconfirm/inconclusive outcomes are explicit.",
       "problem_alignment": "COMPLETE — confirmation would answer whether content-blind, independently verified loop state preserves termination integrity under controlled inert workloads without claiming framework/model/production safety.",
       "deterministic_verification": "PASS AUTHOR CHECK — `pqf_hypothesis_v1=PASS lines=545 json=PASS ast=PASS finite_factor_models=16 theorem_counterexamples=0 advisory_invariance_comparisons=64 quotient_mutants_killed=4/4 oracle_mutants_killed=5/5 receipt_soundness_counterexample=PASS co_design_mutant_masked_counterexample=true masters=72 planned_executions=1440 review=unavailable_20_of_20 phase3=not_authorized`; research-log/095 records hashes, corrections and limitations.",
-      "review_budget": "EXTENDED BY USER — limit 30, spent 22 after the same reviewer's context-completion dispatch; authority in 096, dispatch records 097/099.",
+      "review_budget": "EXTENDED BY USER — limit 30, spent 23 after v2 round-2 dispatch; no new review is charged for the primary audit, pivot, or schema pilot.",
       "theory_review_round1": "NEEDS_REVISION — reviewer/committed line counts 545/545. Canonical taxonomy is Failure/Risk Gap × Robustification, dominant replace, secondary decouple/Artifact-System. Ten structural issues: bundled causal treatment; guaranteed-failure baseline; post-treatment advisory; undefined terminal transitions; 6-clause/5-mutant mismatch; inconsistent decision rule; unjustified minimality; nondistinguishing anti-stacking prediction; undefined full-state input/pair coverage; unsupported receipt-stress ordering. Full final report: research-log/100; context pre-report: 098.",
-      "status": "NEEDS_REVISION — T039 structural v2 redesign in progress; no Phase-3 advance"
+      "theory_review_round2": "NEEDS_REVISION — six prior issues resolved, three improved, anti-stacking unchanged. Reviewer derived forced F_on >= 3/25 and exact-zero clean guardrails from the authored schedules, plus a non-total decision-9 contract and underspecified oracle fixtures. Full report: research-log/105.",
+      "structural_pivot": "SELECTED CONDITIONALLY — research-log/107 rejects another synthetic patch and a broad EAG theory. T042 must show label-blind, source-grounded terminal authority and evidence visibility recoverability across at least two materially different MAST formats before a hypothesis is written.",
+      "status": "MEASUREMENT GATE OPEN — TBEA is a candidate construct, not a confirmed hypothesis; Phase 3 and another theory-review dispatch remain closed"
     }
   }
 }
