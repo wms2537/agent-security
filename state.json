@@ -45,7 +45,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 30,
-      "spent": 22
+      "spent": 23
     },
     "paper_review_rounds": {
       "limit": 4,
@@ -369,8 +369,8 @@
       "id": "T040",
       "phase": "2",
       "desc": "Freeze PQF v2 and obtain a fresh context-complete sterile theory re-review against all ten round-1 defects before any Phase-3 action",
-      "status": "open",
-      "evidence": "T039 author gate passed. Re-review must receive immutable v2, its normative config, canonical SciAgent math/taxonomy references, and the exact ten prior issues. Budget remains 22/30 until dispatch.",
+      "status": "in_progress",
+      "evidence": "Fresh sterile re-review dispatched from immutable commit 734b445 with the 611-line v2 hypothesis, normative config, both canonical SciAgent references, and the exact ten prior issues. Dispatch record 104; budget charged 23/30 before review.",
       "parent": "T039"
     }
   ],
