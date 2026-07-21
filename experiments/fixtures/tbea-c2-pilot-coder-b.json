@@ -1,0 +1,367 @@
+{
+  "contract_version": "TBEA-PILOT-1",
+  "coder_id": "coder-b",
+  "parsed_manifest_sha256": "8379b954769189443faf2ce7c73a6fab993553c009aab46d06dd518c580e2c4c",
+  "records": [
+    {
+      "trace_alias": "T112eb270330e",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T1ee0b93ecee3",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T214606408c99",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T2f68549c163b",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T35db7d4be169",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "terminal_claim_only",
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T4f489744969d",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T58025cd5f11c",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0030",
+      "effective_authority_status": "observed",
+      "effective_authority": "Supervisor",
+      "authority_evidence_event_id": "e0030",
+      "candidate_evidence_event_id": "e0026",
+      "evidence_origin": "worker",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "self_asserted",
+      "dependency_coverage": "explicit_incomplete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_api",
+        "explicit_delivery",
+        "blocking_evidence"
+      ]
+    },
+    {
+      "trace_alias": "T656e35094454",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "terminal_claim_only",
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T6bede0f0699a",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "terminal_claim_only",
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T76f70bdb7430",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0106",
+      "effective_authority_status": "observed",
+      "effective_authority": "Supervisor",
+      "authority_evidence_event_id": "e0106",
+      "candidate_evidence_event_id": "e0102",
+      "evidence_origin": "worker",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "self_asserted",
+      "dependency_coverage": "explicit_incomplete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_api",
+        "explicit_delivery",
+        "blocking_evidence"
+      ]
+    },
+    {
+      "trace_alias": "T770b9ac1df11",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0088",
+      "effective_authority_status": "observed",
+      "effective_authority": "Supervisor",
+      "authority_evidence_event_id": "e0088",
+      "candidate_evidence_event_id": "e0084",
+      "evidence_origin": "worker",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "self_asserted",
+      "dependency_coverage": "explicit_complete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_api",
+        "explicit_delivery",
+        "completion_evidence"
+      ]
+    },
+    {
+      "trace_alias": "T86ab8304ed63",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "T97f2ea6b8c7b",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "terminal_claim_only",
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "Ta1701540c78a",
+      "terminal_status": "no_observable_deliberate",
+      "terminal_event_id": null,
+      "effective_authority_status": "not_applicable",
+      "effective_authority": null,
+      "authority_evidence_event_id": null,
+      "candidate_evidence_event_id": null,
+      "evidence_origin": "indeterminate",
+      "visibility_to_authority": "no_candidate_evidence",
+      "temporal_order": "not_applicable",
+      "target_binding": "not_applicable",
+      "verification_relation": "not_applicable",
+      "dependency_coverage": "not_applicable",
+      "authority_evidence_relation": "no_observable_deliberate_terminal_transition",
+      "reason_codes": [
+        "implicit_log_end"
+      ]
+    },
+    {
+      "trace_alias": "Ta4697ad75f6e",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0012",
+      "effective_authority_status": "observed",
+      "effective_authority": "Agent_Verifier",
+      "authority_evidence_event_id": "e0012",
+      "candidate_evidence_event_id": "e0010",
+      "evidence_origin": "tool",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "independently_checked",
+      "dependency_coverage": "explicit_complete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_token",
+        "same_actor_observation",
+        "completion_evidence"
+      ]
+    },
+    {
+      "trace_alias": "Tbc5acb6b2a95",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0012",
+      "effective_authority_status": "observed",
+      "effective_authority": "Agent_Verifier",
+      "authority_evidence_event_id": "e0012",
+      "candidate_evidence_event_id": "e0010",
+      "evidence_origin": "tool",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "independently_checked",
+      "dependency_coverage": "explicit_complete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_token",
+        "same_actor_observation",
+        "completion_evidence"
+      ]
+    },
+    {
+      "trace_alias": "Tf3a002262657",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0050",
+      "effective_authority_status": "observed",
+      "effective_authority": "Supervisor",
+      "authority_evidence_event_id": "e0050",
+      "candidate_evidence_event_id": "e0040",
+      "evidence_origin": "worker",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "self_asserted",
+      "dependency_coverage": "explicit_incomplete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_api",
+        "explicit_delivery",
+        "blocking_evidence"
+      ]
+    },
+    {
+      "trace_alias": "Tff225c9e4617",
+      "terminal_status": "observed_deliberate",
+      "terminal_event_id": "e0048",
+      "effective_authority_status": "observed",
+      "effective_authority": "Supervisor",
+      "authority_evidence_event_id": "e0048",
+      "candidate_evidence_event_id": "e0044",
+      "evidence_origin": "worker",
+      "visibility_to_authority": "visible",
+      "temporal_order": "evidence_before_terminal",
+      "target_binding": "same_terminal_predicate",
+      "verification_relation": "self_asserted",
+      "dependency_coverage": "explicit_complete",
+      "authority_evidence_relation": "supports_stop",
+      "reason_codes": [
+        "explicit_terminal_api",
+        "explicit_delivery",
+        "completion_evidence"
+      ]
+    }
+  ]
+}

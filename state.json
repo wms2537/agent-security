@@ -16,7 +16,7 @@
   "target_venue": "undecided",
   "success_criteria": {
     "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. Round 9 accepted the c2-v9 minimal factorization theorem, exact witness, quantification, guard ordering and independent task/full antecedents, but returned NEEDS_REVISION on runtime authentication/output-origin closure. Phase 2 is not passed; P_common(M0) remains false and review budget is exhausted 20/20.",
-    "pdpf": "PQF v2 is retired after independent review proved its primary floor and clean guardrails were fixed by the authored schedule and its anti-stacking prediction was not distinguishing. Iteration 7 conditionally selects a label-blind termination-boundary evidence-authority measurement pilot on the pinned 1,242-row MAST artifact. A confirmatory association hypothesis is forbidden unless at least two materially different systems pass explicit authority/visibility recoverability, source-span, agreement, coverage, repeated-identity, and sample-size gates.",
+    "pdpf": "CONCLUDED NEGATIVE. PQF v2 was design-defeated because its floor/guardrails were fixed by authored schedules and anti-stacking failed. The label-blind TBEA pilot then achieved perfect primary coder agreement but only AppWorld met the four-of-six recoverability threshold: AppWorld 5, AG2 2, MetaGPT 0; AppWorld supplied 5/7=71.4%, above the 60% cap. The authorized MAST artifact cannot support the planned cross-system termination-authority association without role-title inference or treating missing telemetry as evidence.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
   "constraints": [
@@ -30,8 +30,8 @@
     "Provenance-Decoupled Progress Firewall",
     "Invariant-Preserving Harness Evolution"
   ],
-  "active_hypothesis": "Termination-Boundary Evidence-Authority Alignment candidate",
-  "active_hypothesis_artifact": "research-log/107-pqf-round2-structural-pivot.md",
+  "active_hypothesis": "None — PDPF/TBEA closed at Phase-2 measurement gate",
+  "active_hypothesis_artifact": "research-log/111-tbea-schema-pilot-result.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -385,17 +385,17 @@
       "id": "T042",
       "phase": "2",
       "desc": "Freeze and run a label-blind multi-system TBEA schema pilot; proceed to a hypothesis only if authority, evidence visibility, provenance, agreement, coverage, identity, and sample-size gates pass",
-      "status": "in_progress",
-      "evidence": "Protocol 108 was frozen before sample construction. The pinned public artifact then produced `bundle=PASS rows=18 systems=3 per_system=6 labels_exposed=false`, source SHA a182daad..., bundle SHA be498bfa..., config SHA c0600cc.... Note 109 freezes lossless AG2/AppWorld/MetaGPT parsers and the categorical annotation schema before independent coding; parser self-test PASS systems=3 events=9. Coding/agreement remains pending; review 23/30 and Phase 3 closed.",
+      "status": "done",
+      "evidence": "Frozen agreement gate FAIL in note 111 despite perfect primary agreement: terminal=1.0, authority=1.0, visibility raw/alpha=1.0, relation raw/alpha=1.0. Jointly recoverable counts AppWorld=5, AG2=2, MetaGPT=0; qualifying systems=1<2 and max share=5/7=0.714>0.60. Coder hashes c1bc7c.../18c249...; no labels unblinded. PDPF/TBEA branch closed without hypothesis/review/Phase3.",
       "parent": "T041"
     }
   ],
   "parked_candidates": [
     {
       "name": "Provenance-Decoupled Progress Firewall",
-      "status": "active_phase2_measurement_gate",
+      "status": "concluded_negative_phase2",
       "sequence": 2,
-      "reason": "PQF v2 was design-defeated at review. Primary-source audit 106 permits only a narrow termination-boundary observability/alignment pilot before a new hypothesis; broad theory and defense novelty are rejected.",
+      "reason": "PQF v2 was design-defeated, and the label-blind natural-trace fallback failed its frozen multi-system measurement gate with only one qualifying system despite perfect primary coder agreement. Full result: research-log/111.",
       "phase1_weighted_score": 4.35
     },
     {
@@ -443,7 +443,7 @@
       "direction": "termination-boundary-evidence-authority-alignment",
       "varies": "evidence-authority-routing-observability",
       "kind": "understanding",
-      "outcome": "pending"
+      "outcome": "refuted"
     }
   ],
   "tried_and_failed": [
@@ -464,6 +464,18 @@
       "failure_class": "implementation_defeated",
       "why": "The final reviewer accepted the classical theorem, exact witness, role quantification and guard order, but the closed code-as-text did not establish an externally anchored pair-pinned manifest, executable dependency closure, trusted audit/output origin, launcher attestation or immutable import bytes. Review budget exhausted 20/20 before a rigorous engineering correspondence artifact.",
       "log": "research-log/090-omst-theory-review-round9.md"
+    },
+    {
+      "approach": "PQF v2 author-controlled advisory-authority census",
+      "failure_class": "design_defeated",
+      "why": "Independent review analytically derived the primary floor and clean guardrails from the authored schedule and found the anti-stacking prediction shared by the comparator stack; more synthetic rows cannot make the result non-predetermined.",
+      "log": "research-log/105-pqf-theory-review-round2.md"
+    },
+    {
+      "approach": "Cross-system TBEA reconstruction from MAST whole-trace strings",
+      "failure_class": "measurement_unidentifiable",
+      "why": "Two label-blind coders agreed perfectly on primary fields, but jointly recoverable authority counts were AppWorld 5, AG2 2, MetaGPT 0. Only one system met coverage and AppWorld concentration was 71.4% above the frozen 60% cap.",
+      "log": "research-log/111-tbea-schema-pilot-result.md"
     }
   ],
   "learnings": [
@@ -868,8 +880,8 @@
       "review_budget": "EXTENDED BY USER — limit 30, spent 23 after v2 round-2 dispatch; no new review is charged for the primary audit, pivot, or schema pilot.",
       "theory_review_round1": "NEEDS_REVISION — reviewer/committed line counts 545/545. Canonical taxonomy is Failure/Risk Gap × Robustification, dominant replace, secondary decouple/Artifact-System. Ten structural issues: bundled causal treatment; guaranteed-failure baseline; post-treatment advisory; undefined terminal transitions; 6-clause/5-mutant mismatch; inconsistent decision rule; unjustified minimality; nondistinguishing anti-stacking prediction; undefined full-state input/pair coverage; unsupported receipt-stress ordering. Full final report: research-log/100; context pre-report: 098.",
       "theory_review_round2": "NEEDS_REVISION — six prior issues resolved, three improved, anti-stacking unchanged. Reviewer derived forced F_on >= 3/25 and exact-zero clean guardrails from the authored schedules, plus a non-total decision-9 contract and underspecified oracle fixtures. Full report: research-log/105.",
-      "structural_pivot": "SELECTED CONDITIONALLY — research-log/107 rejects another synthetic patch and a broad EAG theory. T042 must show label-blind, source-grounded terminal authority and evidence visibility recoverability across at least two materially different MAST formats before a hypothesis is written.",
-      "status": "MEASUREMENT GATE OPEN — TBEA is a candidate construct, not a confirmed hypothesis; Phase 3 and another theory-review dispatch remain closed"
+      "structural_pivot": "FAILED CLEANLY — label-blind TBEA primary agreement was perfect, but jointly recoverable counts AppWorld=5, AG2=2, MetaGPT=0 fail the two-system gate and AppWorld share 5/7 fails the 0.60 concentration cap. Secondary evidence-event/verification disagreements add caution. Full result: research-log/111.",
+      "status": "CONCLUDED NEGATIVE AT PHASE 2 — neither synthetic PQF nor natural-trace TBEA passed a distinguishing, identifiable gate; no Phase-3 or label-association action"
     }
   }
 }
