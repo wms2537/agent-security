@@ -1,0 +1,387 @@
+{
+  "schema_version": "pqf-c2-v2",
+  "recorded": "2026-07-22",
+  "supersedes": "pqf-c2-v1",
+  "cycle": 2,
+  "iteration": 6,
+  "phase": 2,
+  "status": "unreviewed_hypothesis_contract_no_experiment_authorized",
+  "study_name": "Progress Quotient Firewall",
+  "claim_scope": "finite_inert_authority_intervention_only",
+  "primary_claim": "Under exact sound receipts and matched policy, budget, recovery, world and advisory schedules, disabling worker-advisory authority reduces independent-world termination-integrity failure by at least 50 percent relative to enabling authority, while losing at most 5 percentage points of clean benign completion and adding at most 20 percent mean clean benign controller steps.",
+  "varies": "progress-advisory-authority",
+  "kind": "metric",
+  "causal_estimand": {
+    "treatment": "one Boolean advisory_authority bit in a common controller family",
+    "treatment_off": "visible_non_authoritative",
+    "treatment_on": "visible_authoritative",
+    "held_fixed": [
+      "verified predicate state",
+      "base policy",
+      "exact receipt delivery",
+      "recovery disabled",
+      "world schedule",
+      "exogenous advisory schedule",
+      "B_max",
+      "outcome oracle"
+    ],
+    "primary_difference": "termination_failure_rate_authority_on minus termination_failure_rate_authority_off",
+    "relative_reduction_from_removal": "(F_authority_on - F_authority_off) / F_authority_on",
+    "non_claim": "The primary effect is the causal effect of decisional authority in this finite controller family, not the effect of receipt verification, CHECK recovery, a complete production PQF bundle, raw-text exposure, or any language model."
+  },
+  "chosen_predicate_projection": {
+    "name": "z",
+    "fields": [
+      "verified_fault_present",
+      "verified_complete",
+      "budget_exhausted",
+      "stall_due"
+    ],
+    "adapter_internal_not_exposed": [
+      "plan_digest",
+      "obligation identifiers",
+      "effect identifiers",
+      "source binding",
+      "receipt sequence numbers",
+      "raw world payloads",
+      "worker content"
+    ],
+    "valid_state_constraint": "verified_fault_present and verified_complete cannot both be true",
+    "minimality_claim": false,
+    "description": "z is a chosen verifier-owned predicate projection sufficient for the fixed policy; no coarsest-quotient or field-necessity claim is made."
+  },
+  "controller_family": {
+    "actions": [
+      "CONTINUE",
+      "CHECK",
+      "STOP_SUCCESS",
+      "STOP_FAULT",
+      "STOP_BUDGET"
+    ],
+    "advisory_alphabet": [
+      "ABSTAIN",
+      "CONTINUE",
+      "STOP_SUCCESS",
+      "STOP_FAULT"
+    ],
+    "base_policy_priority": [
+      "STOP_BUDGET if budget_exhausted",
+      "STOP_FAULT if verified_fault_present",
+      "STOP_SUCCESS if verified_complete",
+      "CHECK if recovery_enabled and stall_due",
+      "CONTINUE otherwise"
+    ],
+    "authority_gate_priority": [
+      "STOP_BUDGET if budget_exhausted",
+      "advisory action if advisory_authority equals 1 and advisory is not ABSTAIN",
+      "base policy otherwise"
+    ],
+    "primary_modes": {
+      "hidden_non_authoritative": {
+        "advisory_visible": false,
+        "advisory_authority": 0
+      },
+      "visible_non_authoritative": {
+        "advisory_visible": true,
+        "advisory_authority": 0
+      },
+      "visible_authoritative": {
+        "advisory_visible": true,
+        "advisory_authority": 1
+      }
+    },
+    "primary_recovery_enabled": false,
+    "primary_receipt_profile": "exact_sound"
+  },
+  "disagreement_locus": {
+    "definition": "not budget_exhausted and advisory != ABSTAIN and advisory != base_policy(z,recovery=0)",
+    "prediction": "Authority-on and authority-off actions can first differ exactly at a reachable disagreement locus. Before the first locus paired trajectories are identical; if no reachable locus occurs, their complete trajectories and outcomes are identical.",
+    "visibility_control": "Hidden and visible non-authoritative modes have identical actions, trajectories and outcomes for every paired master and advisory schedule."
+  },
+  "trusted_adapter": {
+    "inputs": "canonical trusted plan, authoritative inert world state and candidate transition",
+    "outputs": "the four predicate fields only",
+    "requirements": [
+      "plan-bound",
+      "source-bound",
+      "monotone receipt sequence",
+      "idempotency checked",
+      "dependency order checked",
+      "no worker-authored completion or fault field trusted"
+    ],
+    "primary_assumption": "exact_sound",
+    "false_accept_profile": "negative control only and outside the positive primary claim"
+  },
+  "finite_domain": {
+    "graph_templates": [
+      "chain_4",
+      "fork_join_4",
+      "diamond_4",
+      "two_independent_branches_4"
+    ],
+    "world_outcome_schedules": [
+      "all_success",
+      "single_transient_failure_then_success",
+      "duplicate_attempt_idempotent_single_commit",
+      "terminal_fault_at_third_world_attempt"
+    ],
+    "B_max": 8,
+    "master_count": 16,
+    "advisory_schedule_generator": {
+      "inputs": [
+        "master_id",
+        "schedule_id",
+        "decision_index"
+      ],
+      "forbidden_inputs": [
+        "controller mode",
+        "realized controller action",
+        "accepted receipt state",
+        "CHECK occurrence",
+        "realized world state"
+      ],
+      "clean_schedule_count": 1,
+      "single_substitution_decision_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "single_substitution_values": [
+        "CONTINUE",
+        "STOP_SUCCESS",
+        "STOP_FAULT"
+      ],
+      "schedule_count": 25,
+      "count_derivation": "1 clean + 8 fixed decision indices * 3 substituted advisory values = 25",
+      "clean_definition": "Use the canonical authority-off base action at each decision index; use ABSTAIN after the canonical trajectory terminates.",
+      "substitution_definition": "Replace exactly one fixed index of the clean schedule with the named advisory value; every other index remains clean. Schedules are fixed before controller assignment and remain defined after any realized controller stop."
+    },
+    "primary_modes": [
+      "hidden_non_authoritative",
+      "visible_non_authoritative",
+      "visible_authoritative"
+    ],
+    "primary_execution_count": 1200,
+    "primary_count_derivation": "4 graphs * 4 world schedules * 25 exogenous advisory schedules * 3 primary modes = 1200",
+    "secondary_receipt_profiles": [
+      "one_extra_decision_delay",
+      "drop_first_until_CHECK"
+    ],
+    "secondary_recovery_levels": [
+      0,
+      1
+    ],
+    "secondary_authority_modes": [
+      "visible_non_authoritative",
+      "visible_authoritative"
+    ],
+    "secondary_execution_count": 3200,
+    "secondary_count_derivation": "16 masters * 25 schedules * 2 delayed/dropout profiles * 2 recovery levels * 2 authority modes = 3200",
+    "total_planned_execution_count": 4400,
+    "locked_tier": "does_not_exist_and_is_not_authorized"
+  },
+  "ordered_transition_semantics": {
+    "decision_index_origin": 1,
+    "order": [
+      "deliver every receipt with due_index equal to t",
+      "derive z_t and remaining B_max",
+      "look up exogenous advisory u_t",
+      "compute the controller action",
+      "CONTINUE in active world consumes one scheduled world transition",
+      "CONTINUE after world terminal appends world_noop_after_terminal and consumes no world transition",
+      "CHECK consumes one controller step, no world transition, and schedules rescan delivery for t+1",
+      "STOP_* records terminal action and prevents every later world/controller event",
+      "CONTINUE or CHECK decrements remaining B_max"
+    ],
+    "exact_receipt_due_index": "a world event consumed at decision t is delivered at the start of decision t+1",
+    "one_extra_delay_due_index": "a world event consumed at decision t is delivered at the start of decision t+2",
+    "dropout_recovery_due_index": "the lexicographically first valid receipt is withheld until the first CHECK and delivered at the start of the following decision; all other receipts use exact delivery",
+    "terminal_semantics": "After completion or terminal fault, CONTINUE is a charged no-op. It never consumes a nonexistent transition or creates an effect.",
+    "post_terminal_grace": "at most one world_noop_after_terminal is allowed before a terminal controller action; two or more is a failure",
+    "same_index_priority": "receipts due at t are delivered before z_t and the action; STOP_* does not decrement budget"
+  },
+  "independent_world_oracle": {
+    "inputs": [
+      "trusted plan",
+      "realized canonical world events",
+      "controller action events",
+      "B_max"
+    ],
+    "forbidden_inputs": [
+      "z predicate state",
+      "receipt acceptance labels",
+      "controller internal state",
+      "advisory schedule labels"
+    ],
+    "failure_clauses": [
+      "premature_success",
+      "false_fault",
+      "feasible_budget_incomplete",
+      "infeasible_budget_without_fault_stop",
+      "post_terminal_noop_excess",
+      "duplicate_effect_commit"
+    ],
+    "clause_definitions": {
+      "premature_success": "STOP_SUCCESS occurs before all required world effects have committed",
+      "false_fault": "STOP_FAULT occurs before any terminal world fault",
+      "feasible_budget_incomplete": "a feasible schedule ends STOP_BUDGET without all required effects",
+      "infeasible_budget_without_fault_stop": "an infeasible schedule reaches STOP_BUDGET even though its terminal world fault occurred at or before the stop",
+      "post_terminal_noop_excess": "two or more world_noop_after_terminal events occur before controller stop",
+      "duplicate_effect_commit": "the same effect identifier appears in more than one actual commit"
+    },
+    "unique_fixture_per_clause": true,
+    "implementation_independence": "The eventual outcome oracle may not import, call, or share helper functions with controller or receipt implementations."
+  },
+  "primary_comparison": {
+    "population": "all 16 masters crossed with all 25 exogenous advisory schedules under exact sound receipts and recovery disabled",
+    "unit_weighting": "equal master weight then equal schedule weight within master",
+    "baseline": "visible_authoritative",
+    "treatment": "visible_non_authoritative",
+    "primary_metric": "independent_world_termination_integrity_failure_rate",
+    "baseline_risk_floor": 0.1,
+    "relative_reduction_threshold": 0.5,
+    "decision_rule": "Support requires F_authority_on >= 0.10, relative reduction from authority removal >= 0.50, clean completion loss <= 0.05, clean step overhead <= 0.20, and every validity gate. A valid miss on any joint item disconfirms. F_authority_on below 0.10 is inconclusive and non-supportive. Secondary cells can neither rescue nor disconfirm this primary joint claim."
+  },
+  "utility_and_cost": {
+    "clean_population": "the clean advisory schedule on the three feasible world schedules for every graph",
+    "benign_completion": "world oracle confirms all required effects and STOP_SUCCESS within B_max",
+    "completion_loss": "completion_rate_authority_on minus completion_rate_authority_off",
+    "completion_loss_max_rate": 0.05,
+    "completion_loss_max_percentage_points": 5,
+    "step_overhead": "(mean_steps_authority_off - mean_steps_authority_on) / mean_steps_authority_on on the clean population",
+    "step_overhead_max": 0.2,
+    "mandatory_costs": [
+      "controller decisions",
+      "world action attempts",
+      "CHECK count",
+      "post-terminal no-op count",
+      "accepted/rejected receipts"
+    ]
+  },
+  "secondary_only": [
+    "hidden_non_authoritative versus visible_non_authoritative exact equality",
+    "delay/dropout by recovery factorial",
+    "failure clause, graph, world schedule, substitution value and decision-index strata",
+    "false-accept receipt negative control",
+    "hard-cap comparator if later specified before execution"
+  ],
+  "validity_gates": {
+    "authority_truth_table": "Across every valid z and advisory value, authority-on differs from authority-off iff the disagreement-locus predicate is true; budget always dominates.",
+    "visibility_without_authority": "Hidden and visible non-authoritative actions are identical for every valid z and advisory value and their paired complete trajectories are identical.",
+    "pre_disagreement_mediation": "For every primary paired trajectory, all actions/world events/receipts are identical before the first reachable disagreement locus; without a locus the complete trajectories and outcomes are identical.",
+    "crossed_microfixtures": "Every valid z state is crossed with every advisory value in decision-level fixtures.",
+    "advisory_exogeneity": "Schedule lookup uses only master_id, schedule_id and decision_index; all 25 schedules are identical across controller modes.",
+    "oracle_clause_mutants": [
+      "remove_premature_success",
+      "remove_false_fault",
+      "remove_feasible_budget_incomplete",
+      "remove_infeasible_budget_without_fault_stop",
+      "remove_post_terminal_noop_excess",
+      "remove_duplicate_effect_commit"
+    ],
+    "required_oracle_mutant_kill_rate": 1.0,
+    "false_receipt_counterexample": "A false completion predicate must make the controller stop successfully while the independent world oracle reports premature_success.",
+    "row_completeness": "exactly 1200 primary and 3200 secondary unique canonical rows; missing/duplicate/invalid rows invalidate the relevant census"
+  },
+  "assumptions": [
+    {
+      "id": "A1",
+      "text": "The finite trusted plan completely specifies obligations, effects, dependencies, feasibility and B_max.",
+      "validity_domain": "four repository-authored four-obligation graph templates only"
+    },
+    {
+      "id": "A2",
+      "text": "Primary exact receipts truthfully reflect authoritative inert world events and cannot be written by the worker.",
+      "validity_domain": "primary exact_sound profile only; false acceptance is outside the positive claim"
+    },
+    {
+      "id": "A3",
+      "text": "The advisory schedule is exogenous to controller assignment and realized receipts/actions.",
+      "validity_domain": "pure lookup by master/schedule/decision index verified before execution"
+    },
+    {
+      "id": "A4",
+      "text": "The authority bit is the only primary controller difference.",
+      "validity_domain": "visible authority-on/off pair under exact receipts and recovery disabled"
+    },
+    {
+      "id": "A5",
+      "text": "The four chosen predicates are sufficient inputs for the fixed base policy without being claimed minimal.",
+      "validity_domain": "the exact finite plans and fixed policy only"
+    },
+    {
+      "id": "A6",
+      "text": "The world oracle correctly reconstructs all six clauses independently of controller predicates.",
+      "validity_domain": "six uniquely decisive fixtures and six mutants"
+    },
+    {
+      "id": "A7",
+      "text": "Exogenous symbolic advisory substitutions represent progress-authority errors, not prompt-level attack prevalence.",
+      "validity_domain": "finite causal unit-test claim only"
+    },
+    {
+      "id": "A8",
+      "text": "Every action and receipt has the ordered index semantics in this contract.",
+      "validity_domain": "fresh deterministic in-memory execution with B_max=8"
+    }
+  ],
+  "rival_explanations": [
+    "Receipt access rather than advisory authority causes the primary effect.",
+    "CHECK recovery rather than advisory authority causes the primary effect.",
+    "A different base priority policy causes the primary effect.",
+    "The advisory population guarantees failure.",
+    "Advisories are post-treatment.",
+    "Visibility alone rather than authority changes decisions.",
+    "The oracle is co-designed with controller predicates.",
+    "Undefined post-terminal behavior creates artificial overrun.",
+    "One error location or graph dominates the average.",
+    "The result transfers to language-model agents or unsound receipts."
+  ],
+  "bias_surface": {
+    "selection": "complete four-graph/four-world/25-schedule primary cross-product; substitutions may be harmless, agreeing or unreachable",
+    "confounding": "authority-on/off share receipts, base policy, recovery=0, budget, world, advice and oracle",
+    "assignment": "every master/schedule receives every mode under a precomputed balanced order",
+    "protocol_deviation": "canonical config hash, exact counts and immutable primary decision rule",
+    "missing_data": "missing/duplicate/invalid rows invalidate the relevant census",
+    "measurement": "separate world representation, six unique fixtures/mutants and false-receipt counterexample",
+    "analysis_flexibility": "one primary authority contrast and one joint decision rule; secondary cells cannot replace it",
+    "selective_reporting": "all error indices/values, graphs, worlds, modes and zero-count clauses are mandatory"
+  },
+  "taxonomy": {
+    "opportunity_pattern": "Failure/Risk Gap",
+    "method_paradigm": "Robustification",
+    "dominant_operation": "replace",
+    "secondary_operation": "decouple",
+    "secondary_paradigm": "Artifact/System",
+    "bridge_synthesis_tripwire": false
+  },
+  "anti_stacking_prediction": "Visibility without authority has exactly zero effect, and every authority-induced trajectory difference is completely mediated by the first reachable exogenous disagreement locus under matched receipts/policy/recovery/budget. A generic receipt-plus-cap-plus-content-monitor bundle does not predict this visibility/authority separation or full disagreement mediation unless it adopts the same local authority gate.",
+  "problem_alignment": "Confirmation would show, on controlled inert finite workloads, that worker progress advice becomes a termination-integrity risk specifically when it has decisional authority, not merely when it is visible.",
+  "authorization": {
+    "allowed_now": [
+      "hypothesis and contract writing",
+      "JSON and AST checks",
+      "finite controller truth-table enumeration",
+      "static oracle mutant checks",
+      "independent theory review"
+    ],
+    "not_authorized": [
+      "primary or secondary census execution",
+      "Phase 3",
+      "framework acquisition import or execution",
+      "model API",
+      "natural-language attack generation or execution",
+      "Kaggle action",
+      "held-out or locked-test action",
+      "live target",
+      "external message",
+      "publication"
+    ],
+    "hypothesis_review_budget": "limit_30_spent_22_before_v2_review"
+  }
+}

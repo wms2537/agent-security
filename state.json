@@ -16,7 +16,7 @@
   "target_venue": "undecided",
   "success_criteria": {
     "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. Round 9 accepted the c2-v9 minimal factorization theorem, exact witness, quantification, guard ordering and independent task/full antecedents, but returned NEEDS_REVISION on runtime authentication/output-origin closure. Phase 2 is not passed; P_common(M0) remains false and review budget is exhausted 20/20.",
-    "pdpf": "PQF v1 preregisters a joint author-side criterion on the fixed 72-master domain: worker baseline risk at least 0.10, at least 50% relative termination-integrity-failure reduction, at most 5 percentage points benign completion loss, at most 20% mean step overhead, and every validity gate. The criterion remains unreviewed because the hypothesis-review budget is exhausted 20/20.",
+    "pdpf": "PQF v2 preregisters one isolated advisory-authority contrast on a fixed 16-master by 25-schedule domain: authoritative-advice risk at least 0.10, at least 50% relative termination-integrity-failure reduction after authority removal, at most 5 percentage points clean completion loss, at most 20% clean step overhead, and every validity gate. Static author verification passes; context-complete independent re-review is pending at budget 22/30.",
     "iphe": "At least 50% relative reduction in accepted security-regressing mutations versus task-only selection, retaining at least 90% of comparator benign utility gain and exactly zero verifier drift; threshold remains provisional until its separate Phase-2 entry."
   },
   "constraints": [
@@ -31,12 +31,12 @@
     "Invariant-Preserving Harness Evolution"
   ],
   "active_hypothesis": "Progress Quotient Firewall",
-  "active_hypothesis_artifact": "research-log/094-hypothesis-iter-6-pqf-v1.md",
+  "active_hypothesis_artifact": "research-log/102-hypothesis-iter-6-pqf-v2-authority-isolation.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
-    ,"latest_continuation": "ok, then continue with fixing things and innovating. I dont mind you do pivots as long as we are progressing."
-    ,"latest_continuation_interpretation": "Proceed with local primary-source research, structural redesign and static code-as-text work; principled pivots are permitted. No numeric review-budget increase was specified, so hypothesis review remains exhausted 20/20 and no re-dispatch/Phase-3 advance is authorized."
+    ,"latest_continuation": "then continue, approve another 10 review budget"
+    ,"latest_continuation_interpretation": "Proceed autonomously with local SciAgent hypothesis repair and review. Hypothesis-review limit is 30, with dispatches charged individually. This does not authorize Kaggle, framework acquisition/import/execution, model APIs, operational attacks, held-out/locked tests, external messages or publication."
   },
   "budgets": {
     "research_iterations": {
@@ -361,17 +361,25 @@
       "id": "T039",
       "phase": "2",
       "desc": "Redesign PQF v2 around an isolated factorial causal estimand, exogenous advisory-error regimes, complete transition/oracle semantics, and a genuinely distinguishing local claim",
-      "status": "in_progress",
-      "evidence": "Selected as the sole open task after final NEEDS_REVISION report 100. Structural response: isolate advisory authority as one policy bit under matched verifier state/recovery/budget; make advisory schedules exogenous; replace guaranteed-error tapes with rate/location regimes; fully define terminal no-op and receipt timing; require six unique oracle mutants; withdraw minimality; replace the anti-stacking prediction with visibility-versus-authority and step-local disagreement mediation. No experiment is authorized or run.",
+      "status": "done",
+      "evidence": "Artifacts 101-103 and pqf-c2-v2 isolate one advisory-authority bit under matched verifier state/recovery/budget/world/schedule/oracle, define total terminal/receipt semantics, use six unique oracle fixtures/mutants, withdraw minimality, and preregister one joint rule. Exact author gate: `pqf_hypothesis_v2=PASS lines=611 json=PASS ast=PASS finite_factor_models=16 theorem_counterexamples=0 authority_truth_rows=48 disagreement_rows=12 visibility_differences=0 advisory_schedules=25 exogeneity_comparisons=300 oracle_mutants_killed=6/6 unique_oracle_fixtures=6/6 false_receipt_counterexample=PASS primary_executions=1200 secondary_executions=3200 review=pending phase3=not_authorized`. No census or external action occurred.",
       "parent": "T038"
+    },
+    {
+      "id": "T040",
+      "phase": "2",
+      "desc": "Freeze PQF v2 and obtain a fresh context-complete sterile theory re-review against all ten round-1 defects before any Phase-3 action",
+      "status": "open",
+      "evidence": "T039 author gate passed. Re-review must receive immutable v2, its normative config, canonical SciAgent math/taxonomy references, and the exact ten prior issues. Budget remains 22/30 until dispatch.",
+      "parent": "T039"
     }
   ],
   "parked_candidates": [
     {
       "name": "Provenance-Decoupled Progress Firewall",
-      "status": "active_phase2_unreviewed",
+      "status": "active_phase2_review_pending",
       "sequence": 2,
-      "reason": "Activated after OMST's executable bridge exhausted review budget and the user explicitly authorized principled pivots; research-log/092 selects the Progress Quotient Firewall refinement. No reviewer dispatch is available at 20/20.",
+      "reason": "Activated after OMST's executable bridge failed; PQF v2 now isolates advisory authority and passes its deterministic author gate. A fresh context-complete theory review is pending under the user-extended 30-round limit.",
       "phase1_weighted_score": 4.35
     },
     {
