@@ -354,7 +354,7 @@
       "phase": "2",
       "desc": "Dispatch a sterile independent PQF theory review only after an explicit hypothesis-review budget extension, then record and act on the verdict",
       "status": "in_progress",
-      "evidence": "User verbatim in research-log/096 raised the limit 20→30. Sterile PQF round-1 review dispatched from research-log/097 against immutable hypothesis/config commit 229519e; committed hypothesis line count 545; cumulative budget charged 21/30. Verdict pending.",
+      "evidence": "Round-1 reviewer report is preserved verbatim in research-log/098. Line count PASS 545/545. Status NEEDS_CONTEXT because canonical SciAgent taxonomy/mathematical reference paths were not available from the repository-relative template; provisional blind verdict NEEDS_REVISION with ten severity-ordered issues. Context-completion dispatch is required before revision; budget remains 21/30 until that dispatch.",
       "parent": "T037"
     }
   ],
@@ -826,8 +826,8 @@
       "problem_alignment": "COMPLETE — confirmation would answer whether content-blind, independently verified loop state preserves termination integrity under controlled inert workloads without claiming framework/model/production safety.",
       "deterministic_verification": "PASS AUTHOR CHECK — `pqf_hypothesis_v1=PASS lines=545 json=PASS ast=PASS finite_factor_models=16 theorem_counterexamples=0 advisory_invariance_comparisons=64 quotient_mutants_killed=4/4 oracle_mutants_killed=5/5 receipt_soundness_counterexample=PASS co_design_mutant_masked_counterexample=true masters=72 planned_executions=1440 review=unavailable_20_of_20 phase3=not_authorized`; research-log/095 records hashes, corrections and limitations.",
       "review_budget": "EXTENDED BY USER — limit 30, spent 21 at PQF round-1 dispatch; verbatim authority in research-log/096 and dispatch record in 097.",
-      "theory_review_round1": "DISPATCHED — sterile round-1 review of immutable 545-line research-log/094 at commit 229519e; verdict pending.",
-      "status": "INDEPENDENT REVIEW IN PROGRESS — T038 dispatched; no Phase-3 advance before a scrutinized RIGOROUS verdict"
+      "theory_review_round1": "NEEDS_CONTEXT / PROVISIONAL NEEDS_REVISION — reviewer/committed line counts 545/545. Missing canonical SciAgent reference paths prevent final taxonomy adjudication. Ten substantive issues remain regardless: bundled causal treatment; forced-failure baseline; post-treatment advisory; undefined terminal transitions; 6-clause/5-mutant mismatch; inconsistent decision rule; unjustified minimality; nondistinguishing anti-stacking prediction; undefined full-state input/pair coverage; unsupported receipt-stress ordering. Full verbatim report: research-log/098.",
+      "status": "INDEPENDENT REVIEW CONTEXT COMPLETION REQUIRED — provisional adverse findings stand; no Phase-3 advance"
     }
   }
 }
