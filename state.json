@@ -361,8 +361,8 @@
       "id": "T039",
       "phase": "2",
       "desc": "Redesign PQF v2 around an isolated factorial causal estimand, exogenous advisory-error regimes, complete transition/oracle semantics, and a genuinely distinguishing local claim",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Selected as the sole open task after final NEEDS_REVISION report 100. Structural response: isolate advisory authority as one policy bit under matched verifier state/recovery/budget; make advisory schedules exogenous; replace guaranteed-error tapes with rate/location regimes; fully define terminal no-op and receipt timing; require six unique oracle mutants; withdraw minimality; replace the anti-stacking prediction with visibility-versus-authority and step-local disagreement mediation. No experiment is authorized or run.",
       "parent": "T038"
     }
   ],
@@ -835,7 +835,7 @@
       "deterministic_verification": "PASS AUTHOR CHECK — `pqf_hypothesis_v1=PASS lines=545 json=PASS ast=PASS finite_factor_models=16 theorem_counterexamples=0 advisory_invariance_comparisons=64 quotient_mutants_killed=4/4 oracle_mutants_killed=5/5 receipt_soundness_counterexample=PASS co_design_mutant_masked_counterexample=true masters=72 planned_executions=1440 review=unavailable_20_of_20 phase3=not_authorized`; research-log/095 records hashes, corrections and limitations.",
       "review_budget": "EXTENDED BY USER — limit 30, spent 22 after the same reviewer's context-completion dispatch; authority in 096, dispatch records 097/099.",
       "theory_review_round1": "NEEDS_REVISION — reviewer/committed line counts 545/545. Canonical taxonomy is Failure/Risk Gap × Robustification, dominant replace, secondary decouple/Artifact-System. Ten structural issues: bundled causal treatment; guaranteed-failure baseline; post-treatment advisory; undefined terminal transitions; 6-clause/5-mutant mismatch; inconsistent decision rule; unjustified minimality; nondistinguishing anti-stacking prediction; undefined full-state input/pair coverage; unsupported receipt-stress ordering. Full final report: research-log/100; context pre-report: 098.",
-      "status": "NEEDS_REVISION — T039 open for structural v2 redesign; no Phase-3 advance"
+      "status": "NEEDS_REVISION — T039 structural v2 redesign in progress; no Phase-3 advance"
     }
   }
 }
