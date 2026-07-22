@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 3
+      "spent": 4
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V4 research-log/130, config and author checker are frozen together before review. Verification command `comp/.venv/bin/python -I experiments/poc/mpc24_phase2_reference.py --config experiments/configs/mpc24-c3-v1.json` returned `mpc24_phase2_author_check=PASS`, 6 source/5 evidence bindings, 3 attribution/3 plug-in/9 state-machine/1 adverse Occam fixtures, 3 profiles/9 cells and point-estimate-not-bound semantics. Review budget remains 3/12 before dispatch; no Phase-3, attack or Kaggle mutation.",
+      "evidence": "V4 research-log/130 at immutable commit 21c3352 has 745 lines/SHA ac159271... and passed the author checker with 6 source/5 evidence bindings, 3 attribution/3 plug-in/9 state-machine/1 adverse Occam fixtures and point-estimate-not-bound semantics. Sterile theory review round 4 is dispatched in research-log/132 and charged 4/12. No Phase-3, attack or Kaggle mutation.",
       "parent": "T046"
     }
   ],
