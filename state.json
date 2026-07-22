@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V4 review integrity PASS at 745/745 lines and SHA ac159271..., but sterile round 4 returned NEEDS_REVISION. The measured replay/generation ratio exceeds 1.10 in 84/90 arm-8/24 pairs (range 1.0726-3.9801), while the reported 1.507 ratio uses oracle actual replay cost rather than the proposed proxy. The initial-state rule and pre-attempt admission are not total/online, per-component ablations and complete measurement provenance are absent, and >69.570 lacks an evidential bridge. Verbatim report research-log/133; budget 4/12. No Phase-3, attack or Kaggle mutation.",
+      "evidence": "V4 review integrity PASS at 745/745 lines/SHA ac159271... but round 4 NEEDS_REVISION. Verbatim report research-log/133. Replay calibration protocol research-log/134 freezes a structural gamma*c_m+kappa*c_1 proxy, calibration reps 0-2, heldout reps 3-4, complete reconstructed provenance and three blank exploratory prediction rows before one read-only audit. Budget 4/12; no Phase-3, attack or Kaggle mutation.",
       "parent": "T046"
     }
   ],
