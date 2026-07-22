@@ -543,8 +543,8 @@
       "id": "T061",
       "phase": "3",
       "desc": "Obtain a fresh sterile code/spec review of the committed AHCMS-24 Phase-3 runner and tests against immutable v5 and report 181, including source timer landmarks, full eligible-prefix replay support, longest-fitting ledger semantics, state-one true-no-fit transition, independent reload, durable per-unit staging, exact eleven-metric logging, one-use publication, and canonical-attempt absence before admitting scientific execution",
-      "status": "open",
-      "evidence": "T060 implementation record 182 and its synthetic/adversarial checks pass, but no independent committed-code verdict exists yet. The canonical command, scientific attempt, result interpretation, attack mutation, Kaggle run, and submission remain unopened pending a fresh `SOUND` verdict.",
+      "status": "in_progress",
+      "evidence": "Pre-review verification on immutable commit `d71040facee87ea0cd8e588f16eede8fad81944a`: `t061_deterministic_pre_review=PASS head=d71040facee87ea0cd8e588f16eede8fad81944a fixed_bindings=117 timer_asts=2 policies=4 tests=23 canonical_attempt_absent=true`; the full suite returned `Ran 23 tests in 24.794s` and `OK`. Runner/test/design/hypothesis line counts are 1703/716/232/654 with exact SHAs bfeaed3b.../9e29043b.../29737040.../1877c502.... A fresh sterile review is dispatched to write report 183; no scientific or Kaggle action is admitted before an independently verified `SOUND` verdict.",
       "parent": "T060"
     }
   ],
