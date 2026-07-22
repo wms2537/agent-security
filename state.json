@@ -535,9 +535,17 @@
       "id": "T060",
       "phase": "3",
       "desc": "Preregister the AHCMS-24 Phase-3 PoC prediction and transferability argument, then implement the one-use nine-unit matched-trace runner and adversarial tests at the exact reviewed timer/scorer endpoints without executing the canonical scientific attempt before code/spec review",
-      "status": "in_progress",
-      "evidence": "Pre-implementation gate: `sha256sum` bound v5 config `1d0e1128...`, hypothesis `1877c502...`, checker `b33c612c...`, timer audit `30448454...`, historical runner `7b030c67...`, and attack `8ab8d052...`; absence checks returned `ahcms24_t060_predispatch_preconditions=PASS`. Report 181 freezes eleven prediction rows, operational q-independence, complete artifact/reload contract, transfer limits, and the exact scientific command before code exists. Scientific attempt remains 0/3 and absent.",
+      "status": "done",
+      "evidence": "Reports 181-182 freeze the prediction before implementation and record `ahcms24_phase3_implementation_check=PASS ledger_metrics=11 fixed_bindings=117 policies=4 generation_arms=432 canonical_attempt_absent=true publication_order=PASS method_blind_capture=PASS results_immutable=PASS attack_immutable=PASS`. Runner SHA is `bfeaed3b...` (1703 lines), tests SHA is `9e29043b...` (716 lines), static compile passed, and 23 pure/adversarial tests passed in 28.771s. Two substantive corrections added full eligible-prefix/longest-fitting semantics plus exact metrics, then durable per-unit staged rows with failure retention and post-reload retirement. Scientific debug remains 0/3; results/attack are unchanged; canonical attempt and fresh result remain absent.",
       "parent": "T059"
+    },
+    {
+      "id": "T061",
+      "phase": "3",
+      "desc": "Obtain a fresh sterile code/spec review of the committed AHCMS-24 Phase-3 runner and tests against immutable v5 and report 181, including source timer landmarks, full eligible-prefix replay support, longest-fitting ledger semantics, state-one true-no-fit transition, independent reload, durable per-unit staging, exact eleven-metric logging, one-use publication, and canonical-attempt absence before admitting scientific execution",
+      "status": "open",
+      "evidence": "T060 implementation record 182 and its synthetic/adversarial checks pass, but no independent committed-code verdict exists yet. The canonical command, scientific attempt, result interpretation, attack mutation, Kaggle run, and submission remain unopened pending a fresh `SOUND` verdict.",
+      "parent": "T060"
     }
   ],
   "parked_candidates": [
