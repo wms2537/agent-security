@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 7
+      "spent": 8
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -463,8 +463,8 @@
       "id": "T051",
       "phase": "2",
       "desc": "Obtain one fresh sterile theory review of the frozen PRAC-24 predictive hypothesis and its marginal complete-trace calibration lemma before any Phase-3 implementation",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Dispatch preflight on immutable commit cdbff3f returned `review_preflight=PASS`, `hypothesis_lines=527`, SHA-256 2a19b753..., and author checker `prac24_phase2_author_check_v1=PASS`; Cycle-3 hypothesis-review round 8 charged at dispatch, 8/12. Reviewer verdict pending; no Phase3, attack or Kaggle action.",
       "parent": "T050"
     }
   ],
