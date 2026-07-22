@@ -1,5 +1,5 @@
 {
-  "phase": "3",
+  "phase": "2",
   "cycle": 3,
   "iteration": 2,
   "entry_mode": "inspiration",
@@ -447,9 +447,17 @@
       "id": "T049",
       "phase": "3",
       "desc": "Implement, code-review, execute once, and independently audit the reviewed HCMS-24 public non-target proof of concept",
-      "status": "in_progress",
-      "evidence": "Phase 3 implementation remains unexecuted. Two-axis code review 152 finds no hard standards violation and core timing/kernel/replay/Williams/safety/count logic aligned, but returns NEEDS_REVISION on three HIGH audit blockers (runtime dependency binding, retained nested/scorer evidence, exception evidence) and one MEDIUM transaction/schema blocker. Canonical attempt absent; no attack/Kaggle action.",
+      "status": "failed",
+      "evidence": "Attempt 1/3 exited 0 and sealed 11 hash-consistent artifacts, but offline reconstruction returned `OFFLINE_RECONSTRUCTION_PASS invalid 1.3918315252074027 187 189`: raw ratio cleared 1.10, HCMS aggregate replay overages were 0 and scalar overages 19, while two HCMS candidates missed calibrated coverage, four primary cells exceeded generation time, and safety validity failed. Manifest validator returned `MANIFEST_VALIDATOR_PASS 11 invalid`; full prospective result and exact failure identities are in research-log/161. Joint HCMS-24 claim refuted; no Kaggle action.",
       "parent": "T048"
+    },
+    {
+      "id": "T050",
+      "phase": "2",
+      "desc": "Diagnose the prospective HCMS-24 resource-risk failures against recent primary literature and freeze one superseding one-sided admission hypothesis before any rerun or Kaggle mutation",
+      "status": "open",
+      "evidence": null,
+      "parent": "T049"
     }
   ],
   "parked_candidates": [
@@ -537,7 +545,7 @@
       "direction": "monotone-prefix-controller-24",
       "varies": "monotone-24-to-8-prefix-control",
       "kind": "metric",
-      "outcome": "pending"
+      "outcome": "refuted"
     }
   ],
   "tried_and_failed": [
@@ -576,6 +584,12 @@
       "failure_class": "measurement_unidentifiable",
       "why": "The gate method is already occupied, while public artifacts expose code, final harnesses or aggregate tables rather than every accepted/rejected candidate joined to its diff, decision, security/utility outcomes and immutable verifier identity.",
       "log": "research-log/112-iphe-primary-audit-and-portfolio-closure.md"
+    },
+    {
+      "approach": "HCMS-24 with deterministic calibrated point replay charge and fixed 0.1-second path-start reserve",
+      "failure_class": "refuted",
+      "why": "The correctly running prospective PoC preserved a 1.3918x diagnostic raw ratio but missed two of 189 HCMS per-candidate replay-coverage obligations and admitted four primary construction/reset paths past the two-second generation boundary; sealed status was invalid.",
+      "log": "research-log/161-poc-hcms24-result.md"
     }
   ],
   "learnings": [
@@ -598,7 +612,7 @@
       "lesson": "Replay-deadline safety requires a calibrated tail/dependence model and an explicit void-risk target; observed maxima or an arbitrary margin are not coverage guarantees.",
       "apply_when": "A Phase-2 or Phase-4 design sizes a returned candidate set against the 9000-second replay deadline.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 4
+      "recurrences": 5
     },
     {
       "lesson": "A sufficient-condition decomposition must use independently specified loss bounds; defining the loss from the predicted outcome can reduce the antecedent to the conclusion.",

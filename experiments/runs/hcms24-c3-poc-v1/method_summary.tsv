@@ -1,0 +1,5 @@
+schema_version	method	repetitions	candidate_count	raw	generation_elapsed_s	actual_replay_total_s	replay_coverage_numerator	replay_coverage_denominator	actual_replay_overage_cells	invalid_cells
+hcms24-method-summary-v1	hcms_calibrated	36	189	39258.0	69.90327459317632	41.395269890432246	187	189	0	3
+hcms24-method-summary-v1	fixed8_calibrated	36	223	28206.0	70.44360669178423	37.69243016256951	223	223	0	3
+hcms24-method-summary-v1	fixed24_no_salvage_calibrated	36	60	23160.0	69.0625322656706	22.328633108292706	60	60	0	0
+hcms24-method-summary-v1	hcms_scalar	36	290	67412.0	69.41309083881788	72.78286902117543	1	290	19	0

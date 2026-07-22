@@ -1,0 +1,35 @@
+{
+  "attribution": [
+    {
+      "id": "one_per_index",
+      "pass": true
+    },
+    {
+      "id": "aggregate_false_positive",
+      "pass": true
+    },
+    {
+      "id": "wrong_host_rejected",
+      "pass": true
+    }
+  ],
+  "attribution_passed": 3,
+  "attribution_total": 3,
+  "deadline": [
+    {
+      "id": "time_zero_admitted",
+      "pass": true
+    },
+    {
+      "id": "mid_path_abort",
+      "pass": true
+    },
+    {
+      "id": "longest_completed_prefix",
+      "pass": true
+    }
+  ],
+  "deadline_passed": 3,
+  "deadline_total": 3,
+  "schema_version": "hcms24-fixtures-v1"
+}

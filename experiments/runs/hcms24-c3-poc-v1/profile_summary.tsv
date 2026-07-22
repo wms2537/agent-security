@@ -1,0 +1,13 @@
+schema_version	profile	method	repetitions	candidate_count	raw	generation_elapsed_s	actual_replay_total_s	replay_coverage_numerator	replay_coverage_denominator	actual_replay_overage_cells	invalid_cells
+hcms24-profile-summary-v1	immediate_context_cliff_new	hcms_calibrated	12	117	14538.0	23.39161367889028	16.0658237679163	115	117	0	2
+hcms24-profile-summary-v1	immediate_context_cliff_new	fixed8_calibrated	12	115	14614.0	23.388134026899934	15.939180811983533	115	115	0	0
+hcms24-profile-summary-v1	immediate_context_cliff_new	fixed24_no_salvage_calibrated	12	0	0.0	23.03949449607171	0.0	0	0	0	0
+hcms24-profile-summary-v1	immediate_context_cliff_new	hcms_scalar	12	156	19944.0	23.17548983404413	22.998836621409282	0	156	1	0
+hcms24-profile-summary-v1	reset_dominant_new	hcms_calibrated	12	36	13896.0	23.324803526280448	8.817526194499806	36	36	0	1
+hcms24-profile-summary-v1	reset_dominant_new	fixed8_calibrated	12	48	6128.0	23.573070366983302	7.831325000966899	48	48	0	1
+hcms24-profile-summary-v1	reset_dominant_new	fixed24_no_salvage_calibrated	12	36	13896.0	23.043105997727253	8.989615081227385	36	36	0	0
+hcms24-profile-summary-v1	reset_dominant_new	hcms_scalar	12	86	32460.0	23.262852848973125	26.1798927730415	0	86	12	0
+hcms24-profile-summary-v1	steady_linear_new	hcms_calibrated	12	36	10824.0	23.186857388005592	16.51191992801614	36	36	0	0
+hcms24-profile-summary-v1	steady_linear_new	fixed8_calibrated	12	60	7464.0	23.48240229790099	13.921924349619076	60	60	0	2
+hcms24-profile-summary-v1	steady_linear_new	fixed24_no_salvage_calibrated	12	24	9264.0	22.979931771871634	13.339018027065322	24	24	0	0
+hcms24-profile-summary-v1	steady_linear_new	hcms_scalar	12	48	15008.0	22.974748155800626	23.604139626724645	1	48	6	0

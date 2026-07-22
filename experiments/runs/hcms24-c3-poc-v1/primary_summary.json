@@ -1,0 +1,95 @@
+{
+  "best_simple_aggregate_raw": 28206.0,
+  "claim_scope": "fresh_controlled_phase3_only",
+  "fixed24_no_salvage_aggregate_raw": 23160.0,
+  "fixed8_aggregate_raw": 28206.0,
+  "fixtures": {
+    "attribution": [
+      {
+        "id": "one_per_index",
+        "pass": true
+      },
+      {
+        "id": "aggregate_false_positive",
+        "pass": true
+      },
+      {
+        "id": "wrong_host_rejected",
+        "pass": true
+      }
+    ],
+    "attribution_passed": 3,
+    "attribution_total": 3,
+    "deadline": [
+      {
+        "id": "time_zero_admitted",
+        "pass": true
+      },
+      {
+        "id": "mid_path_abort",
+        "pass": true
+      },
+      {
+        "id": "longest_completed_prefix",
+        "pass": true
+      }
+    ],
+    "deadline_passed": 3,
+    "deadline_total": 3,
+    "schema_version": "hcms24-fixtures-v1"
+  },
+  "hcms_actual_replay_overage_cells": 0,
+  "hcms_aggregate_raw": 39258.0,
+  "hcms_replay_coverage": 0.9894179894179894,
+  "hcms_replay_coverage_denominator": 189,
+  "hcms_replay_coverage_numerator": 187,
+  "hcms_to_best_simple_ratio": 1.3918315252074027,
+  "invalidity_counts": {
+    "calibrated_replay_coverage_miss_count": 2,
+    "calibrated_replay_overage_count": 0,
+    "duplicate_identity_count": 0,
+    "exception_count": 0,
+    "fixture_failure_count": 0,
+    "generation_overage_count": 4,
+    "incomplete_method_cell_count": 0,
+    "invalid_attribution_count": 0,
+    "malformed_artifact_count": 0,
+    "policy_symmetry_failure_count": 0,
+    "position_balance_failure_count": 0,
+    "predecessor_balance_failure_count": 0,
+    "safety_contamination_count": 0,
+    "safety_failure_count": 1,
+    "score_identity_failure_count": 0,
+    "timeout_count": 0
+  },
+  "joint_conditions": {
+    "hcms_coverage": false,
+    "hcms_overage": true,
+    "primary_complete": true,
+    "ratio": true,
+    "safety": false,
+    "scalar_overage": true,
+    "validity": false
+  },
+  "malformed_artifacts": [],
+  "official_score_claim": "withheld_until_separate_target_confidence_bridge",
+  "peak_memory_gb": 0.14068603515625,
+  "policy_non_ledger_runtime_equal": true,
+  "primary_repetitions_expected": 144,
+  "primary_repetitions_observed": 144,
+  "runtime_s": 466.8292158539407,
+  "safety_excluded_from_primary": true,
+  "scalar_actual_replay_overage_cells": 19,
+  "schema_version": "hcms24-primary-summary-v1",
+  "status": "invalid",
+  "williams": {
+    "blocks": 9,
+    "position_checks_passed": 144,
+    "position_checks_total": 144,
+    "position_pass": true,
+    "predecessor_checks_passed": 108,
+    "predecessor_checks_total": 108,
+    "predecessor_pass": true,
+    "schema_version": "hcms24-observed-williams-v1"
+  }
+}
