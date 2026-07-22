@@ -49,7 +49,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 2,
-      "spent": 1
+      "spent": 2
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -996,7 +996,8 @@
       "new_mechanism": "REPLAY-CONSTRUCTION SCOPE MISMATCH — attack generation times reset+interact on a reused environment, while trusted replay constructs+resets+interacts per candidate. Paired controlled measurements expose a replay-only fixed term that long candidates amortize, but context cliffs require an exact finite frontier. This is mock mechanics evidence, not target prevalence.",
       "hypothesis_v2": "FROZEN UNREVIEWED — research-log/121 defines Replay-Construction Multiplicity Frontier, one >=73.050 valid-score prediction, exact M={1,4,8} split selector, joint total-raw objective, one stopping rule, target-linked ledger, frozen profiles/ablations/bias/assumptions and ten round-1 dispositions.",
       "anti_stacking_v2": "AUTHOR COMPLETE — one component only; measured candidate-boundary replay-construction bottleneck (paired ratios 3.0701--3.6204 plus 24/24/24 vs context 8/8/8); fixed-1/4/8 and rate baselines; end-to-end official constrained result. Silent/cap/banking/template/predicate additions prohibited.",
-      "status": "V2 FROZEN UNREVIEWED — final review round remains unspent; no RCMF implementation, Kaggle push, commit run or submission occurred"
+      "theory_review_round2": "DISPATCH ACCOUNTED — immutable commit dc65853 contains 681-line research-log/121 with SHA-256 194e37bb...; fresh sterile reviewer receives the seven ordered round-1 defects plus three explicit subordinate defects for RESOLVED/IMPROVED/UNCHANGED/WORSE disposition. Budget 2/2.",
+      "status": "V2 FINAL REVIEW DISPATCHED — review budget exhausted at 2/2; no RCMF implementation, Kaggle push, commit run or submission occurred"
     }
   }
 }
