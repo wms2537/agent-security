@@ -535,8 +535,8 @@
       "id": "T060",
       "phase": "3",
       "desc": "Preregister the AHCMS-24 Phase-3 PoC prediction and transferability argument, then implement the one-use nine-unit matched-trace runner and adversarial tests at the exact reviewed timer/scorer endpoints without executing the canonical scientific attempt before code/spec review",
-      "status": "open",
-      "evidence": "Opened after verified RIGOROUS round-12 verdict in report 180. Phase 3 must preserve immutable v5, expand q-independent operationally in implementation docs, write predictions before any scientific run, keep the canonical attempt absent during implementation, and bind every reviewed timer/sensitivity/zero-branch invariant.",
+      "status": "in_progress",
+      "evidence": "Pre-implementation gate: `sha256sum` bound v5 config `1d0e1128...`, hypothesis `1877c502...`, checker `b33c612c...`, timer audit `30448454...`, historical runner `7b030c67...`, and attack `8ab8d052...`; absence checks returned `ahcms24_t060_predispatch_preconditions=PASS`. Report 181 freezes eleven prediction rows, operational q-independence, complete artifact/reload contract, transfer limits, and the exact scientific command before code exists. Scientific attempt remains 0/3 and absent.",
       "parent": "T059"
     }
   ],
