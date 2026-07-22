@@ -448,7 +448,7 @@
       "phase": "3",
       "desc": "Implement, code-review, execute once, and independently audit the reviewed HCMS-24 public non-target proof of concept",
       "status": "in_progress",
-      "evidence": "Phase 3 opened only after scrutinized RIGOROUS report 149. Runner and attempt directory are absent; implementation must preserve the reviewed shared kernel, timer/replay conventions, safety exclusion, runtime policy diff and per-cell reporting before one exact run.",
+      "evidence": "Phase 3 opened only after scrutinized RIGOROUS report 149. PoC design 150 freezes the 144-repetition minimal probe, five prediction rows, confirm/reject/invalid bands, transferability limit and implementation-before-run sterile code review. Runner and attempt remain absent; no attack/Kaggle action.",
       "parent": "T048"
     }
   ],
