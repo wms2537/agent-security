@@ -503,8 +503,8 @@
       "id": "T056",
       "phase": "2",
       "desc": "Write and author-verify AHCMS-24 v4 aligning simple controls to the efficiency/work endpoint with an exact Pareto rule, defining per-unit generation-work and aggregate-replay overage formulas and boundaries, and totalizing every zero-denominator case",
-      "status": "open",
-      "evidence": "Opened from the three required fixes in sterile theory-review report 173; no v4 authoring or Phase-3 work was performed during T055.",
+      "status": "in_progress",
+      "evidence": "`git status --porcelain`, `git symbolic-ref -q --short HEAD`, and state task/budget checks -> `t056_orient=PASS branch=master worktree=clean sole_open=T056 phase=2 research=4/5 review=10/12`. Selected as the sole task for this SciAgent working turn; no Phase-3 or Kaggle action is admitted.",
       "parent": "T055"
     }
   ],
