@@ -41,6 +41,8 @@
     ,"latest_continuation_interpretation": "Proceed autonomously with local SciAgent hypothesis repair and review. Hypothesis-review limit is 30, with dispatches charged individually. This does not authorize Kaggle, framework acquisition/import/execution, model APIs, operational attacks, held-out/locked tests, external messages or publication."
     ,"cycle3_authorization": "now i authosired all kaggle actions, go and play around with it. but with one consideration, only submit when you are confident on the solution. we should ibnovate , be creative, do the research properly, think properly using the sciagent skill"
     ,"cycle3_authorization_interpretation": "All Kaggle reads and mutations are authorized. Pushes and commit runs may be used as measurements; actual competition submission occurs only after a committed evidence-based confidence gate passes. Proceed autonomously with rigorous creative iteration."
+    ,"cycle3_review_extension": "authorise 10 review rounds, but please make sure you are doing things beneficial to the competiton. SOmetimes try tp think out of the box"
+    ,"cycle3_review_extension_interpretation": "Add ten Cycle-3 hypothesis-review rounds: limit 2 -> 12, spent remains 2. Use deterministic/source checks before reviews; extrapolate ideas; retain only components with a measured bottleneck, explicit role/interface, removal ablation and end-to-end value. This does not relax the Phase-2 gate or submission-confidence gate."
   },
   "budgets": {
     "research_iterations": {
@@ -48,7 +50,7 @@
       "spent": 1
     },
     "hypothesis_review_rounds": {
-      "limit": 2,
+      "limit": 12,
       "spent": 2
     },
     "paper_review_rounds": {
@@ -1004,7 +1006,8 @@
       "anti_stacking_v2": "REVIEWER PASS WITH NARROW SCOPE — one measured controlled-SDK bottleneck, FIXED-1 removal plus fixed-arm/rate controls, and an end-to-end claimed outcome satisfy the formal one-component engineering test. This does not repair event attribution or target transfer.",
       "theory_review_round2": "NEEDS_REVISION — reviewer and committed line counts agree 681/681 and SHA-256 194e37bb.... Prior issues 3/4/6/8/10 RESOLVED, 1/2/5/7 IMPROVED, and 9 UNCHANGED in substance. Load-bearing defects: `min(e,m)` confuses aggregate events with per-message coverage; the 5%/73.050 derivation compares non-equivalent end-to-end policies and assumes unmeasured row share/private transfer; remote replay tails and exact Phase-3 costs remain open; taxonomy operation should be replace. Full verbatim report: research-log/122. Budget 2/2 exhausted.",
       "round2_blockers": "PHASE-2 OWNER — a superseding v3 must use per-message/URL attribution plus [4,0,0,0]->0.25 fixture; compare complete P_RCMF against complete P_BASE charging probes/validation/discards/fallback/fill; obtain telemetry, reserve overhead or narrow replay-risk claims; freeze all Phase-3 numbers/G recomputation; charge search cost against fixed arms; narrow causal language and relabel operation replace.",
-      "status": "V2 NEEDS_REVISION / BUDGET EXHAUSTED — Phase 2 remains open because no RIGOROUS verdict exists. No RCMF implementation, Kaggle push, commit run or submission is permitted until the user authorizes another hypothesis-review round or explicitly relaxes the SciAgent gate."
+      "review_budget_extension": "USER AUTHORIZED +10 — verbatim in research-log/123. Cycle-3 hypothesis-review limit 2 -> 12, spent remains 2. User also requires competition benefit, extrapolation and explicit per-component roles/ablations.",
+      "status": "V2 NEEDS_REVISION / REPAIR AUTHORIZED — Phase 2 remains open because no RIGOROUS verdict exists. Up to ten additional review dispatches are available, but v3 first requires deterministic source-grounded extrapolation and author checks. No RCMF implementation, Kaggle push, commit run or submission is yet permitted."
     }
   }
 }
