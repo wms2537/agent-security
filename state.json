@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 9
+      "spent": 10
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -495,8 +495,8 @@
       "id": "T055",
       "phase": "2",
       "desc": "Obtain a fresh sterile round-10 re-review of immutable AHCMS-24 v3 with explicit disposition of all four round-9 issues before any Phase-3 implementation",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Dispatch preflight: `comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v3.py --config experiments/configs/ahcms24-c3-v3.json --hypothesis research-log/171-hypothesis-iter-8-ahcms24-v3.md` -> `ahcms24_phase2_author_check_v3=PASS`; immutable hypothesis has 632 lines and SHA256 dbd091908bea27630d57843b3887b656f70a1d080acc5f44a772e2570096db40; Phase-3 runner/attempt absent and attack unchanged. Fresh sterile round-10 re-review dispatched; budget charged 10/12 before dispatch.",
       "parent": "T054"
     }
   ],
