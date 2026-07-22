@@ -463,9 +463,17 @@
       "id": "T051",
       "phase": "2",
       "desc": "Obtain one fresh sterile theory review of the frozen PRAC-24 predictive hypothesis and its marginal complete-trace calibration lemma before any Phase-3 implementation",
-      "status": "in_progress",
-      "evidence": "Dispatch preflight on immutable commit cdbff3f returned `review_preflight=PASS`, `hypothesis_lines=527`, SHA-256 2a19b753..., and author checker `prac24_phase2_author_check_v1=PASS`; Cycle-3 hypothesis-review round 8 charged at dispatch, 8/12. Reviewer verdict pending; no Phase3, attack or Kaggle action.",
+      "status": "failed",
+      "evidence": "Main-agent verification returned `review_integrity=PASS`, `reviewed_lines=527`, `reported_lines=527`, SHA-256 2a19b753..., `verdict=NEEDS_REVISION`, `required_fixes=3`. Verbatim report 166 accepts the conditional algebra but rejects calibration/evaluation predecessor-process exchangeability, the compound inherited HCMS component contract, and aggregate-ratio substitution for direct candidate-boundary measurement. Review 8/12; Phase 2 remains closed and no Phase3, attack or Kaggle action occurred.",
       "parent": "T050"
+    },
+    {
+      "id": "T052",
+      "phase": "2",
+      "desc": "Write and author-verify a superseding PRAC-24 hypothesis that repairs calibration/evaluation process exchangeability and makes inherited HCMS mechanism evidence and removals direct and unambiguous",
+      "status": "open",
+      "evidence": null,
+      "parent": "T051"
     }
   ],
   "parked_candidates": [
@@ -628,7 +636,7 @@
       "lesson": "Replay-deadline safety requires a calibrated tail/dependence model and an explicit void-risk target; observed maxima or an arbitrary margin are not coverage guarantees.",
       "apply_when": "A Phase-2 or Phase-4 design sizes a returned candidate set against the 9000-second replay deadline.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 5
+      "recurrences": 6
     },
     {
       "lesson": "A sufficient-condition decomposition must use independently specified loss bounds; defining the loss from the predicted outcome can reduce the antecedent to the conclusion.",
@@ -790,6 +798,12 @@
       "lesson": "Resource uncertainty must be calibrated at the controller's actual decision endpoint: dependent candidate rows can be mapped to one complete-cell cumulative-prefix score, while timeout and censoring stay as infinity and evaluation support cannot exceed calibration support.",
       "apply_when": "A sequential controller admits an endogenous prefix against an aggregate replay or generation deadline.",
       "source": "research-log/163-rahcms-diagnosis-and-candidate-selection.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "An end-to-end gain does not measure a named component bottleneck: engineering evidence must directly profile the mechanism quantity and pair it with one clean removal, or treat the mechanism as inherited rather than claimed.",
+      "apply_when": "A Phase-2 engineering hypothesis assigns contribution credit to a compound policy component using an aggregate score ratio.",
+      "source": "research-log/166-prac24-theory-review-round-8.md",
       "recurrences": 1
     }
   ],
