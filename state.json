@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "PORF will produce a valid Kaggle public score >=95.000 by selecting exact progressive message multiplicity over a replay-safe single-post floor",
-  "active_hypothesis_artifact": "research-log/116-hypothesis-iter-1-porf.md",
+  "active_hypothesis": "NPG-8 will produce one accepted, non-void, non-timeout official public score strictly greater than the exact 69.570 incumbent by selecting candidate boundary density from message-indexed nested-prefix evidence under a complete cost and count gate",
+  "active_hypothesis_artifact": "research-log/125-hypothesis-iter-3-npg8.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -422,9 +422,9 @@
     {
       "id": "T046",
       "phase": "2",
-      "desc": "Freeze and independently theory-review the Cycle-3 PORF predictive engineering hypothesis before implementation or Kaggle mutation",
+      "desc": "Freeze and independently theory-review the Cycle-3 NPG-8 predictive engineering hypothesis before implementation or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V2 research-log/121 supersedes rejected v1 after exact baseline linkage and a retained disconfirming 360-row profile. Round-2 integrity check `git show dc65853:research-log/121-hypothesis-iter-2-rcmf.md | wc -l` returned 681, matching the reviewer. Verdict NEEDS_REVISION: aggregate `min(e,m)` is not message-indexed coverage; the >=73.050 chain compares a post-search arm with the full historical baseline and relies on unmeasured row-share/private-transfer assumptions; replay tails and the Phase-3 comparator remain incomplete. Full report research-log/122; review budget exhausted 2/2. No RCMF implementation, Kaggle push, commit run or submission.",
+      "evidence": "V3 research-log/125 structurally replaces RCMF with one Nested Prefix Gate-8 component plus inherited correctness controls. Config npg8-c3-v1 and the deterministic author checker source-bind five official SDK/scorer files and exact base attack bytes; verify message-indexed attribution including concentrated [4,0,0,0]->0.25, 1,680 boundary-algebra cases, complete policy-start comparator fixtures, count dominance and three exact Phase-3 profiles. Author check PASS with NPG/fixed-8 aggregate 1.131023918935, minimum oracle ratio 1.0 and minimum screen saving 0.384615384615. Hypothesis SHA-256 0346d0c.../674 lines; static note 126. Theory review pending; no NPG implementation, Kaggle push, commit run or submission.",
       "parent": "T045"
     }
   ],
@@ -496,6 +496,14 @@
       "iteration": 1,
       "direction": "progressive-online-replay-frontier",
       "varies": "candidate-message-multiplicity-and-cost-aware-online-allocation",
+      "kind": "metric",
+      "outcome": "inconclusive"
+    },
+    {
+      "cycle": 3,
+      "iteration": 1,
+      "direction": "nested-prefix-gate-8",
+      "varies": "candidate-boundary-density-via-nested-prefix-gating",
       "kind": "metric",
       "outcome": "pending"
     }
@@ -1010,7 +1018,10 @@
       "extrapolation_slate": "COMPLETE — research-log/124 derives the exact boundary-density exchange condition h>a/8 from 16-per-event versus 2-per-finding novelty, verifies sequential prefixes and per-candidate construction in source, and compares NPG-8, fixed Pack-8, max Pack-32 and a precommitted mixture under the candidate rubric.",
       "selected_v3_direction": "NESTED PREFIX GATE-8 — replace independent {1,4,8} screens with one indexed eight-message path that measures cumulative prefixes, then activate only from a complete policy-value comparison. Fixed Pack-8 is the strongest Occam comparator and wins if adaptivity cannot repay all search cost.",
       "component_roles_v3": "One added component: indexed nested-prefix measurement plus end-to-end gate. First-fill fallback and replay ledger are correctness controls; template selection is inherited/common. Each has an explicit interface, evidence source and removal/diagnostic ablation in research-log/124.",
-      "status": "V3 DIRECTION SELECTED / UNFROZEN — Phase 2 remains open. NPG-8 requires a complete immutable specification, deterministic author checker and fresh theory review before implementation or Kaggle mutation."
+      "hypothesis_v3": "FROZEN UNREVIEWED — research-log/125 predicts one accepted, valid official score strictly greater than 69.570, defines exact message-indexed attribution, nested {1,4,8} screen/validation paths, a complete policy-start comparator, returned-probe accounting, count dominance, permanent first-fill fallback, fixed bias surface and Puzzle/Contradiction x Optimization/Search x replace taxonomy.",
+      "author_verification_v3": "PASS — research-log/126 binds 674-line hypothesis SHA 0346d0c..., config SHA b76af59..., checker SHA 28503c2...; source_bindings=5, boundary_algebra_cases=1680, attribution_fixtures=3, policy_value_fixtures=2, Phase-3 profiles=3, NPG/fixed8=1.131023918935, minimum oracle ratio=1.0, minimum screen saving=0.384615384615. No implementation or Kaggle mutation.",
+      "search_log_v3": "APPENDED — prior PORF entry closed inconclusive after structural replacement; NPG-8 varies candidate-boundary-density-via-nested-prefix-gating with metric outcome pending.",
+      "status": "V3 FROZEN UNREVIEWED — deterministic rung passed. Fresh sterile theory review is the only next action; Phase 3 and Kaggle mutation remain closed until RIGOROUS."
     }
   }
 }
