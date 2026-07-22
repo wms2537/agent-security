@@ -8,9 +8,9 @@
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "The source-authentic 24-versus-8 winner split reflects a candidate-boundary/context tradeoff that one exact nested sentinel can identify directionally, while verifying every future path and permitting only 24-to-8-to-1 transitions limits continuation failures.",
-    "assumption_source": "SDK scorer/gateway source, authenticated 69.570 incumbent, and the bound 360-row controlled profile artifact audited in research-log/129; sentinel-to-official-replay transfer remains explicitly unmeasured.",
-    "novelty_claim": "Competition-method claim only: Monotone Prefix Controller-24 replaces fixed multiplicity with one plug-in sentinel and a total verified 24-to-8-to-1 state machine at the only measured heterogeneous boundary. No academic novelty claim is made."
+    "assumption": "The source-authentic 24-versus-8 split reflects a boundary/context tradeoff that one exact nested sentinel can identify in controlled regimes, while a calibrated boundary-aware replay proxy and observable 24-to-8-to-1 transitions can preserve feasibility and salvage shorter prefixes.",
+    "assumption_source": "SDK source plus the 360-row profile artifact and preregistered calibration audit: scalar 1.10 misses 84/90 retained 8/24 pairs, while r_proxy=1.25*c_m+6.25*c_1 covers 54/54 heldout pairs and yields proxy-valued MPC/fixed8 ratio 1.443. Official transfer is withheld.",
+    "novelty_claim": "Competition-method claim only: Calibrated MPC-24 replaces fixed-8 with one observable, boundary-aware sentinel controller and total verified 24-to-8-to-1 state machine. V5 claims controlled Phase-3 value only; no official-score or academic novelty claim is made."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "MPC-24 will produce one accepted, non-void, non-timeout official public score strictly greater than 69.570 by using one target-visible 24-message sentinel and a monotone verified 24-to-8-to-1 prefix fallback",
-  "active_hypothesis_artifact": "research-log/130-hypothesis-iter-4-mpc24.md",
+  "active_hypothesis": "On the first frozen controlled Phase-3 run, Calibrated MPC-24 will cover every actual replay cost, never lose to fixed8 in any of 12 cells, exceed fixed8 by at least 10% in aggregate, and show at least 10% fallback value in all delayed-context cells with zero invalidity or budget overage",
+  "active_hypothesis_artifact": "research-log/136-hypothesis-iter-5-mpc24-calibrated.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V4 round 4 NEEDS_REVISION is preserved verbatim in research-log/133. The preregistered read-only replay audit then confirmed 54/54 heldout envelope coverage, 9/9 MPC>=fixed8 cells and proxy-valued aggregate ratio 1.443010752688 using `r_proxy=1.25*c_m+6.25*c_1`; it binds freeze/output commits and 9 generating dependencies. Result research-log/135 is exploratory with no official inference. Budget 4/12; v5 not yet frozen; no Phase-3, attack or Kaggle mutation.",
+      "evidence": "V5 research-log/136 plus config/checker freeze a controlled claim using `r_proxy=1.25*c_m+6.25*c_1`, an implementation-total only24 rule, observable per-interaction deadline, complete freeze/output provenance, 11 state fixtures, 4 new profiles/3 new masters and 5 component ablations. Author command returned `mpc24_phase2_author_check_v2=PASS`, 54/54 heldout envelope, proxy ratio 1.443, and official score claim withheld. Review budget 4/12 before dispatch; no Phase-3, attack or Kaggle mutation.",
       "parent": "T046"
     }
   ],
