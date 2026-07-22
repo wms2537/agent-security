@@ -8,9 +8,9 @@
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "The source-authentic 24-versus-8 split reflects a resource bottleneck that one exact nested sentinel can exploit in controlled regimes, while a first-message-correlated replay surrogate can preserve feasibility; MPC is worthwhile only if it beats fixed8, fixed24 and a static 3:1 mixture under counterbalanced timing.",
-    "assumption_source": "SDK source plus the 360-row profile artifact and preregistered calibration audit: scalar 1.10 misses 84/90 retained 8/24 pairs, while r_proxy=1.25*c_m+6.25*c_1 covers 54/54 heldout pairs and yields proxy-valued MPC/fixed8 ratio 1.443. Official transfer is withheld.",
-    "novelty_claim": "Competition-method claim under repair: MPC-24 replaces fixed density with a sentinel selector plus measured replay surrogate. Round 6 accepted the clock, taxonomy, surrogate interpretation and enumerated comparators but rejected v6 on comparator asymmetry, delayed-fixture contamination, non-end-to-end replay ablation, unsupported 5% margin and incomplete carryover balance."
+    "assumption": "A simple ceiling-24 policy with longest eligible-prefix salvage and permanent downgrade captures the useful 24/8 heterogeneity without MPC selection, while a first-message-correlated replay surrogate preserves feasibility better than scalar 1.10 accounting.",
+    "assumption_source": "The frozen symmetry audit of the disclosed failed 360-row artifact found fixed24-ceiling equals MPC in state 9/9 and raw 17446/17446, no-salvage raw 10036, fixed8 raw 12090, calibrated overage 0/9 and scalar-controller actual replay overage 7/9. This is exploratory independent-arm evidence only; official transfer is withheld.",
+    "novelty_claim": "Competition-method claim to be frozen: HCMS-24 replaces selector complexity with one high ceiling, shared longest-prefix salvage and permanent downgrade, plus calibrated replay accounting. Each component has a measured adverse removal; Phase 3 must test both end to end under a shared kernel."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -28,12 +28,12 @@
     "Local mock and public-leaderboard results are tuning evidence, not guarantees of private/final transfer."
   ],
   "portfolio_sequence": [
-    "Monotone Prefix Controller-24",
+    "High-Ceiling Monotone Salvage-24",
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "V6 is rejected. A superseding MPC-24 hypothesis must use one shared policy interface for symmetric comparators, isolate delayed fallback as safety-only, execute scalar replay removal end to end, select the best antecedent static sequence, balance first-order carryover, and make only an evidence-supported quantitative prediction.",
-  "active_hypothesis_artifact": "research-log/140-hypothesis-iter-6-mpc24-counterbalanced.md",
+  "active_hypothesis": "HCMS-24 will use a shared ceiling/salvage kernel to outperform fixed8 and no-salvage controls while calibrated replay accounting prevents the end-to-end replay overages produced by scalar 1.10; exact fresh-batch thresholds remain to be frozen.",
+  "active_hypothesis_artifact": "pending HCMS-24 Phase-2 specification",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -431,9 +431,17 @@
       "id": "T047",
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
-      "status": "in_progress",
-      "evidence": "V6 research-log/140 at immutable commit c0bee04 has 540 lines/SHA 11d184b... and passes the v3 author checker. Sterile round-6 review in research-log/143 returned NEEDS_REVISION after rerunning the artifacts: clock/taxonomy/surrogate interpretation/enumerated fixed comparators resolved, but comparator semantics are asymmetric, delayed safety contaminates efficacy, scalar replay is not removed end to end, the 1.05 margin lacks a bridge, cyclic schedules do not balance predecessor carryover, and validity/post-hoc disclosures remain incomplete. Budget 6/12; no Phase3/attack/Kaggle mutation.",
+      "status": "failed",
+      "evidence": "V6 review report 143 returned NEEDS_REVISION. Frozen adverse audit 144/145 then made controls symmetric and searched 106 primitive static schedules: fixed24 ceiling and MPC matched first state 9/9 and aggregate raw 17446 exactly, so selector incremental gain was 0.0 and the preregistered rule retired MPC. No-salvage raw was 10036, fixed8 12090, calibrated overage 0/9 and scalar overage 7/9. No Phase3/attack/Kaggle mutation.",
       "parent": "T046"
+    },
+    {
+      "id": "T048",
+      "phase": "2",
+      "desc": "Freeze and independently theory-review the simpler HCMS-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
+      "status": "in_progress",
+      "evidence": "Direction selected by frozen audit 145: keep high ceiling plus monotone salvage and calibrated replay accounting; retire the zero-value MPC selector. Shared-kernel specification and fresh predictive thresholds are not yet frozen. Research 3/5, review 6/12.",
+      "parent": "T047"
     }
   ],
   "parked_candidates": [
