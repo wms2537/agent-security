@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "0a",
   "cycle": 3,
   "iteration": 3,
   "entry_mode": "inspiration",
@@ -559,9 +559,17 @@
       "id": "T063",
       "phase": "2",
       "desc": "Audit the exact committed evidence and complete-policy mechanics for the remaining Cycle-3 portfolio: Replay-safe core-first single-post floor versus Silent unique-domain wording as a raced arm and the current 69.570 incumbent; select at most one structurally distinct, competition-beneficial hypothesis without implementation, theory-review dispatch, Kaggle push or submission",
+      "status": "done",
+      "evidence": "Report 187 records `t063_portfolio_audit=PASS live_rank=554 live_score=69.570 leader=110.235 floor_control=retained_not_active silent_arm=rejected_no_attributable_profile active_hypothesis=none phase=0a next_task=T064 results_immutable=true attack_immutable=true kaggle_mutation=false submission=false`. Fresh read-only Kaggle evidence binds leaderboard SHA 92ab14d..., current public notebook SHAs 65dfc0f.../630d890.../b606a45..., and exact author-score associations. The current Tetsutani source is uniform rather than core-first; the silent source has no attributable timing/firing output, wraps after 676 domains, and lacks replay accounting. Neither has a winning ceiling or passes the active-hypothesis evidence gate. No search entry, experiment, review dispatch, code change, push, commit run or submission occurred.",
+      "parent": "T062"
+    },
+    {
+      "id": "T064",
+      "phase": "0a",
+      "desc": "Run the second and final Cycle-3 ideation round over fresh, source-compatible competition dimensions with a plausible ceiling above 110.235; exclude renamed template-search/replay-margin variants and all refuted or implementation-defeated approaches, then select at most one direction without implementation, theory-review dispatch, Kaggle mutation or submission",
       "status": "open",
       "evidence": null,
-      "parent": "T062"
+      "parent": "T063"
     }
   ],
   "parked_candidates": [
@@ -578,6 +586,20 @@
       "sequence": 3,
       "reason": "The broad gate method is occupied by current primary work, and no audited public artifact contains the accepted-and-rejected candidate-level security/utility lineage needed for a non-constructed longitudinal test. The residual opportunity is a future corpus/protocol contribution. Full audit: research-log/112.",
       "phase1_weighted_score": 3.95
+    },
+    {
+      "name": "Replay-safe core-first single-post floor",
+      "status": "retained_control_not_active",
+      "sequence": 4,
+      "reason": "Report 187 finds exact incumbent and controlled 39-to-47 evidence for a high-80s direct-cost single-post control, but the current public source is uniform rather than core-first, supplies no replay-tail probability, and remains at least 24.5 percent below the current leader even under optimistic author-score attribution.",
+      "phase1_weighted_score": 7.5
+    },
+    {
+      "name": "Silent unique-domain wording as a raced arm",
+      "status": "rejected_pre_hypothesis_evidence_gap",
+      "sequence": 5,
+      "reason": "Fresh report-187 source audit finds no attributable timing, firing, token or ablation output; the public notebook wraps domains after 676, accepts any predicate and has no returned-set replay ledger. Its author's 85.710 best score is not attributable to the notebook and remains below the leader.",
+      "phase1_weighted_score": 6.0
     }
   ],
   "search_log": [
@@ -1226,6 +1248,14 @@
       "classification": "IMPLEMENTATION_DEFEATED, NOT REFUTED — report 186 preserves the reviewed scientific hypothesis as untested and fills the Cycle-3 iteration-3 search outcome inconclusive.",
       "user_go": "NOT REQUESTED — there is no admissible PoC result to present for a proceed decision.",
       "status": "CLOSED / LOOP TO PHASE 2 — AHCMS v1 is ineligible for execution or Kaggle use; T063 opens the remaining portfolio audit without spending a new research iteration or theory review."
+    },
+    "2_cycle3_remaining_portfolio": {
+      "live_state": "PASS — read-only 2026-07-23 snapshot: Whyme Labs rank 554/2238 at 69.570, leader 110.235, archive SHA 92ab14d8880f292b55ad4cb6c438605ebe5a2aaf1089751d580f495476dbb18c.",
+      "floor_audit": "NO-GO ACTIVE / RETAIN CONTROL — exact 69.570 scored family plus controlled 39-to-47 evidence support a high-80s control, but current public source is uniform rather than core-first, notebook-score attribution is absent, and 0.99 is not a replay-tail certificate.",
+      "silent_audit": "NO-GO — current notebook SHA b606a451... has no timing/firing/token evidence, wraps domains after 676, accepts any predicate, lacks a replay ledger, and cannot be linked to the author's 85.710 score.",
+      "anti_stacking": "PASS BY REJECTION — floor plus silent race is not selected because prior PORF review and fresh evidence show missing per-component bottleneck profiles.",
+      "winning_ceiling": "FAIL — optimistic strongest floor association 88.515 still requires 24.5382 percent uplift to the 110.235 leader; silent author association requires 28.6140 percent.",
+      "status": "NO ACTIVE HYPOTHESIS — report 187 selects neither candidate, preserves the floor as a control, and enters Cycle-3 ideation round 2/2 at Phase 0a with T064."
     }
   }
 }
