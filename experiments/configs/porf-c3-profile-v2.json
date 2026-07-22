@@ -1,0 +1,91 @@
+{
+  "schema_version": "porf-c3-profile-v2",
+  "arms": [1, 4, 8, 24],
+  "replicates_per_arm_phase": 5,
+  "masters": [41, 42, 43],
+  "min_fire_fraction": 0.75,
+  "generation_budget_s": 4.0,
+  "replay_budget_s": 4.0,
+  "candidate_cap": 2000,
+  "max_tool_hops": 8,
+  "profiles": [
+    {
+      "id": "per_turn_linear",
+      "agent": "compliant",
+      "latency_s": 0.01,
+      "expected_selected": 1
+    },
+    {
+      "id": "reset_heavy",
+      "agent": "amortizing",
+      "fixed_latency_s": 0.05,
+      "per_action_latency_s": 0.0005,
+      "expected_selected": 24
+    },
+    {
+      "id": "context_cliff",
+      "agent": "context_limited",
+      "max_user_messages": 8,
+      "latency_s": 0.001,
+      "expected_rejected": 24
+    }
+  ],
+  "deterministic_profiles": [
+    {
+      "id": "time_bound_linear",
+      "generation_budget": 120.0,
+      "replay_budget": 120.0,
+      "candidate_cap": 2000,
+      "raw": {"1": 18, "4": 66, "8": 130, "24": 386},
+      "generation_cost": {"1": 1.0, "4": 4.0, "8": 8.0, "24": 24.0},
+      "replay_cost": {"1": 1.0, "4": 4.0, "8": 8.0, "24": 24.0},
+      "admissible": {"1": true, "4": true, "8": true, "24": true},
+      "expected_selected": 1
+    },
+    {
+      "id": "reset_heavy",
+      "generation_budget": 120.0,
+      "replay_budget": 120.0,
+      "candidate_cap": 2000,
+      "raw": {"1": 18, "4": 66, "8": 130, "24": 386},
+      "generation_cost": {"1": 6.0, "4": 9.0, "8": 13.0, "24": 29.0},
+      "replay_cost": {"1": 6.0, "4": 9.0, "8": 13.0, "24": 29.0},
+      "admissible": {"1": true, "4": true, "8": true, "24": true},
+      "expected_selected": 24
+    },
+    {
+      "id": "interior_cliff",
+      "generation_budget": 120.0,
+      "replay_budget": 120.0,
+      "candidate_cap": 2000,
+      "raw": {"1": 18, "4": 66, "8": 130, "24": 130},
+      "generation_cost": {"1": 6.0, "4": 9.0, "8": 13.0, "24": 29.0},
+      "replay_cost": {"1": 6.0, "4": 9.0, "8": 13.0, "24": 29.0},
+      "admissible": {"1": true, "4": true, "8": true, "24": false},
+      "expected_selected": 8
+    },
+    {
+      "id": "candidate_cap_binding",
+      "generation_budget": 100000.0,
+      "replay_budget": 100000.0,
+      "candidate_cap": 3,
+      "raw": {"1": 18, "4": 66, "8": 130, "24": 386},
+      "generation_cost": {"1": 1.0, "4": 4.0, "8": 8.0, "24": 24.0},
+      "replay_cost": {"1": 1.0, "4": 4.0, "8": 8.0, "24": 24.0},
+      "admissible": {"1": true, "4": true, "8": true, "24": true},
+      "expected_selected": 24
+    },
+    {
+      "id": "rate_vs_joint_cap_counterexample",
+      "generation_budget": 20.0,
+      "replay_budget": 20.0,
+      "candidate_cap": 5,
+      "raw": {"1": 18, "4": 66, "8": 130, "24": 386},
+      "generation_cost": {"1": 0.5, "4": 1.0, "8": 2.1, "24": 20.0},
+      "replay_cost": {"1": 0.5, "4": 1.0, "8": 2.1, "24": 20.0},
+      "admissible": {"1": true, "4": true, "8": true, "24": true},
+      "expected_rate_selected": 4,
+      "expected_selected": 8
+    }
+  ]
+}

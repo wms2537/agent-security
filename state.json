@@ -985,7 +985,8 @@
       "theory_review": "ROUND 1 NEEDS_REVISION — reviewer and committed line counts agree 514/514. Taxonomy ACCEPTABLE and fixed bias surface PASS, but justification, mathematical validity, logic, assumptions and Occam all need revision; anti-stacking FAIL. Full verbatim report: research-log/117. Budget 1/2.",
       "round1_disposition": "ACCEPTED AND EVIDENCE-AUDITED — note 118 links the exact conservative commit 8c44eb4 kernel at 12:47 UTC to the 12:49 submission scoring 69.570, but an unchanged T006 rerun fails its negative control (observed multi/single 1.1256 > 1.10). Withdraw T006 ratios as stable bottleneck evidence; build a deterministic joint-cap profile before v2; isolate one selector and freeze equal-arm controls.",
       "profile_recovery": "REQUIRED BEFORE V2 — exact T006 code SHA identities pass, but `comp/.venv/bin/python experiments/multi_message_eval.py` exits 1 because the per-turn negative selects multi_message. New exploratory profile must separate virtual-cost allocator correctness from real-SDK mechanics, hold template selection fixed, use equal replication and record every run.",
-      "status": "NEEDS REVISION — v1 is not implementable and the old engineering profile is unstable; final review round remains unspent; no source mutation, Kaggle push, commit run or submission"
+      "profile_recovery_protocol": "FROZEN UNRUN — note 119, config porf-c3-profile-v2 and runner porf_c3_profile_v2 fix five deterministic joint-cap profiles plus 3 SDK profiles x 3 masters x 4 arms x 5 paired generation/replay replicates; fixed plain template; primary requires 5/5 and 9/9 decisions. Prediction rows appended before execution.",
+      "status": "NEEDS REVISION — profile recovery is frozen but unrun; v1 remains non-implementable, final review round remains unspent, and no Kaggle push/commit run/submission occurred"
     }
   }
 }
