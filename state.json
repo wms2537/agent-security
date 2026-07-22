@@ -1,55 +1,57 @@
 {
-  "phase": "2",
-  "cycle": 2,
-  "iteration": 8,
-  "entry_mode": "idea",
+  "phase": "0a",
+  "cycle": 3,
+  "iteration": 0,
+  "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Which independently checkable controls preserve security properties when an agent's harness, execution loop, or orchestration graph is rewritten or evolves under controlled, inert workloads?",
-    "assumption": "Declared benign task equivalence is weaker than security-trace equivalence: graph rewrites can preserve terminal task observations while changing provenance, permission, termination, or verification behavior; independently grounded controllers and fixed external acceptance gates may prevent the corresponding regressions.",
-    "assumption_source": "Inferred from the 25-paper Cycle-2 core synthesis: MASEval and FlowSteer show framework/planning sensitivity; LoopTrap shows termination poisoning and proposes independent progress verification; MaMa and AHE expose the safe-design and evolution frontier; Agent-BOM supplies graph-level audit structure. None directly tests security invariance under mechanically eligible task-equivalent graph rewrites.",
-    "novelty_claim": "A sequential three-study portfolio: formalize and empirically map task-equivalent orchestration rewrites with Orchestration Metamorphic Security Testing; then separately test replacement of worker-controlled continuation by a provenance-decoupled progress firewall and replacement of task-only harness mutation acceptance by a fixed invariant-preserving gate."
+    "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
+    "assumption": "The 69.570 incumbent is limited by a measurable target-dependent allocation, reliability, or latency bottleneck that can be structurally improved once real evaluator evidence is recovered.",
+    "assumption_source": "Inferred from the recorded mock-to-live forecast failures and the missing competition rerun telemetry; provisional until the Phase-0a live-state audit.",
+    "novelty_claim": "Unselected — Cycle-3 ideation must compare genuinely distinct structural directions before one hypothesis is activated."
   },
-  "domain": "agent orchestration security",
-  "target_venue": "undecided",
+  "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
+  "domain": "Kaggle AI agent security competition optimization",
+  "target_venue": "Kaggle competition final leaderboard",
   "success_criteria": {
     "omst": "The c2-v3 empirical criterion and c2-v4 constructed identity are retired. Round 9 accepted the c2-v9 minimal factorization theorem, exact witness, quantification, guard ordering and independent task/full antecedents, but returned NEEDS_REVISION on runtime authentication/output-origin closure. Phase 2 is not passed; P_common(M0) remains false and review budget is exhausted 20/20.",
     "pdpf": "CONCLUDED NEGATIVE. PQF v2 was design-defeated because its floor/guardrails were fixed by authored schedules and anti-stacking failed. The label-blind TBEA pilot then achieved perfect primary coder agreement but only AppWorld met the four-of-six recoverability threshold: AppWorld 5, AG2 2, MetaGPT 0; AppWorld supplied 5/7=71.4%, above the 60% cap. The authorized MAST artifact cannot support the planned cross-system termination-authority association without role-title inference or treating missing telemetry as evidence.",
     "iphe": "CONCLUDED NO-GO AT PHASE 2. External/immutable release gates, anytime-valid commit tests, auditable certificates, hard constraints plus soft utility, and security-specific immutable invariants are directly occupied by recent primary work. No audited public artifact exposes the complete accepted-and-rejected candidate lineage needed to identify longitudinal security debt. The provisional 50%/90%/zero-drift thresholds were retired before hypothesis freeze."
+    ,"competition": "WIN-FOCUSED. Improve on the recorded public score 69.570 and maximize final rank. A submission is allowed only after source compliance, mechanics, resource-tail safety, structural evidence, incumbent fallback, target-derived evidence and expected-benefit checks all pass on committed evidence."
   },
   "constraints": [
-    "Only one active hypothesis; OMST first, PDPF second, IPHE third.",
-    "Local inert tools and abstract security labels only; no operational attack strings, live targets, personal data, or destructive effects.",
-    "No Kaggle action, model API, external message, framework download, confirmatory run, or locked-test generation/execution without its applicable approval gate.",
-    "Validation-only results must be labeled internal evidence if the locked test remains unauthorized."
+    "All Kaggle competition actions are authorized under official rules; competition submission additionally requires the recorded confidence gate to pass.",
+    "Do not expose credentials, private competition data, or other participants' non-public work in logs or commits.",
+    "No targeting, payload release, or destructive action outside the authorized competition sandbox.",
+    "Local mock and public-leaderboard results are tuning evidence, not guarantees of private/final transfer."
   ],
   "portfolio_sequence": [
-    "Orchestration Metamorphic Security Testing",
-    "Provenance-Decoupled Progress Firewall",
-    "Invariant-Preserving Harness Evolution"
+    "Cycle-3 Phase-0a candidate slate pending current Kaggle evidence"
   ],
-  "active_hypothesis": "None — Cycle-2 portfolio concluded at Phase-2 evidence gates",
-  "active_hypothesis_artifact": "research-log/112-iphe-primary-audit-and-portfolio-closure.md",
+  "active_hypothesis": "None — Cycle-3 competition ideation and live-state recovery",
+  "active_hypothesis_artifact": "research-log/114-cycle3-ideation-start.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
     ,"latest_continuation": "then continue, approve another 10 review budget"
     ,"latest_continuation_interpretation": "Proceed autonomously with local SciAgent hypothesis repair and review. Hypothesis-review limit is 30, with dispatches charged individually. This does not authorize Kaggle, framework acquisition/import/execution, model APIs, operational attacks, held-out/locked tests, external messages or publication."
+    ,"cycle3_authorization": "now i authosired all kaggle actions, go and play around with it. but with one consideration, only submit when you are confident on the solution. we should ibnovate , be creative, do the research properly, think properly using the sciagent skill"
+    ,"cycle3_authorization_interpretation": "All Kaggle reads and mutations are authorized. Pushes and commit runs may be used as measurements; actual competition submission occurs only after a committed evidence-based confidence gate passes. Proceed autonomously with rigorous creative iteration."
   },
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 5
+      "spent": 0
     },
     "hypothesis_review_rounds": {
-      "limit": 30,
-      "spent": 23
+      "limit": 2,
+      "spent": 0
     },
     "paper_review_rounds": {
-      "limit": 4,
-      "spent": 2
+      "limit": 2,
+      "spent": 0
     }
   },
   "tasks": [
@@ -404,6 +406,14 @@
       "status": "done",
       "evidence": "Verification command checked both required sections, eight complete process proposals and exactly one workspace change; output `cycle2_retrospective_check=PASS sections=2 proposals=8 workspace_changes=1`. Note 113 mines learnings, failures, 12 adverse review dispatches, budgets/gates and user corrections. User authorization quoted there permits Kaggle actions but conditions submission on confidence.",
       "parent": "T043"
+    },
+    {
+      "id": "T045",
+      "phase": "0a",
+      "desc": "Recover current official competition state, public solution frontier and relevant systems research; build and select a diverse Cycle-3 candidate slate",
+      "status": "in_progress",
+      "evidence": "User verbatim authorizes all Kaggle actions, conditions submission on confidence and requests rigorous creative SciAgent work. Cycle-3 anchor and ideation-start record are drafted; no submission has occurred.",
+      "parent": null
     }
   ],
   "parked_candidates": [
@@ -933,6 +943,13 @@
       "verification": "PASS — required sections 2/2, process proposals 8/8, skill files unchanged.",
       "user_redirection": "AUTHORIZED — user verbatim authorizes all Kaggle actions, requires submission only when confident, and directs rigorous creative SciAgent work.",
       "status": "COMPLETE — Cycle 2 closed; Cycle 3 may replace the invalidated problem anchor"
+    },
+    "0a_cycle3": {
+      "problem_anchor": "DRAFT — PROBLEM.md supersedes Cycle 2 and records competition performance as primary outcome, delivery order, seven-part submission-confidence gate, official-rule boundary and mock/public proxy caveats.",
+      "authorization": "APPROVED — user verbatim authorizes all Kaggle actions but permits submission only when confident.",
+      "evidence_tracks": "PENDING — official live state, public competition frontier, and current systems research.",
+      "candidate_slate": "PENDING — at least two benchmarked, reproducible, taxonomy-diverse structural directions.",
+      "status": "IN PROGRESS — no active hypothesis and no submission"
     }
   }
 }

@@ -1,94 +1,129 @@
-# PROBLEM.md — Cycle 2: security of agent orchestration
+# PROBLEM.md — Cycle 3: evidence-gated Kaggle competition optimization
 
-**Supersedes:** the Cycle-1 Kaggle/ORF problem anchor, which closed with the
-retrospective at `research-log/052-retrospective.md`. Git history preserves that
-anchor through commit `a889275`.
+**Supersedes:** the Cycle-2 orchestration-security anchor, closed by
+`research-log/112-iphe-primary-audit-and-portfolio-closure.md` and the mandatory
+retrospective at `research-log/113-cycle2-retrospective.md`. Git history through
+commit `8714318` preserves that anchor.
 
-**Direction approval:** the user identified the progression from harness to loop
-to graph engineering and then selected the complete research slate verbatim:
-`go try all please`. The three directions remain separate studies; selection of
-the portfolio does not collapse their evidence or authorize a shared result.
+**Status:** Phase-0a problem anchor; the exact method remains under ideation.
 
-**Core question (one sentence):** Which independently checkable controls preserve
-security properties when an agent's harness, execution loop, or orchestration
-graph is rewritten or evolves under controlled, inert workloads?
+**User direction and authorization:**
 
-**Who has this problem and why it matters:** Engineers increasingly change the
-runtime around an agent—state, retries, handoffs, permissions, verification, and
-graph topology—without changing the base model. A task-equivalent rewrite can
-therefore cross a trust boundary or alter termination behavior while ordinary
-task success remains unchanged. Framework maintainers and teams operating
-long-horizon or multi-agent systems need tests that attribute such regressions to
-the orchestration layer before deployment.
+> now i authosired all kaggle actions, go and play around with it. but with one
+> consideration, only submit when you are confident on the solution. we should
+> ibnovate , be creative, do the research properly, think properly using the
+> sciagent skill
 
-**Why current approaches fall short:** Current work separately optimizes harnesses
-and graphs, evaluates whole systems, blocks individual tool actions, audits supply
-chains, or demonstrates loop and planning attacks. It does not yet establish a
-controlled security-invariance test for task-equivalent graph rewrites. LoopTrap
-suggests independent progress verification but does not validate the proposed
-provenance boundary as a defense. MaMa optimizes a system for safety and utility
-but does not isolate longitudinal security debt under a fixed external verifier.
+This authorizes Kaggle reads, notebook pulls, pushes, commit runs, output/log
+retrieval, leaderboard inspection, and competition submission. It does not make
+submission automatic: a submission is permitted only after the confidence gate
+below passes on recorded evidence.
 
-**Portfolio order:**
+## Primary outcome and delivery order
 
-1. **Orchestration Metamorphic Security Testing (OMST):** test whether declared
-   task-equivalent graph rewrites preserve security contracts.
-2. **Provenance-Decoupled Progress Firewall (PDPF):** replace worker-controlled
-   continuation with a controller that sees only attested progress state.
-3. **Invariant-Preserving Harness Evolution (IPHE):** replace task-only mutation
-   acceptance with a fixed independent safety-contract gate.
+**Primary outcome:** maximize the final competition score and rank with a
+source-compliant, replay-safe solution.
 
-SciAgent permits only one active hypothesis. OMST is active first; PDPF and IPHE
-remain parked until separate iteration and decision points.
+**Active track:** competition systems optimization.
+
+**Delivery order:** recover real evaluator evidence → identify a measured
+bottleneck → preregister one structural change → locally verify → obtain a
+Kaggle commit-run measurement → submit only when the confidence gate passes →
+analyze the leaderboard signal. Academic packaging is downstream and cannot
+replace competition evidence.
+
+## Core question
+
+Which source-compliant candidate-generation and allocation policy maximizes
+expected competition score across the evaluated model/guardrail cells without
+voiding the submission through generation or replay timeout?
+
+## Who has this problem and why it matters
+
+The competition rewards findings that survive a remote generation-and-replay
+pipeline across heterogeneous models and guardrails. The local optimizer must
+trade off finding severity, cross-cell reliability, novelty, returned-candidate
+count, and replay cost under a hard time budget. A locally impressive portfolio
+that times out, fails parser/tool semantics, or transfers to only one public
+mock cell loses.
+
+## Why current approaches fall short
+
+The recorded competition history is strongly miscalibrated:
+
+- equal round-robin scored `56.76` versus `66` predicted;
+- the multi-post/reserve/hedge design scored `36.705` versus approximately `85`;
+- the simplified single-post rebuild improved to `69.570` but did not establish
+  a winning design; and
+- the competition rerun log needed for per-model template and latency diagnosis
+  was not previously recovered.
+
+Mock mechanics prove that code executes and scores under declared local rules.
+They do not identify target-model response rates, private-guardrail transfer,
+remote latency tails, or the current leaderboard frontier.
 
 ## What success looks like
 
-- OMST supplies mechanically checkable task-equivalence relations and a paired
-  measure of rewrite-induced security regressions. A practically material OMST
-  result is at least 10 percentage points above the identity-rewrite control on
-  the primary finite validation census; exact thresholds remain subject to the
-  Phase-2 theory gate.
-- PDPF reduces abstract termination-integrity failures by at least 50% relative
-  to worker-only continuation while losing no more than 5 percentage points of
-  benign task completion and adding no more than 20% execution steps.
-- IPHE reduces accepted security-regressing mutations by at least 50% relative
-  to task-only mutation selection while retaining at least 90% of the comparator's
-  accepted benign utility gain and keeping verifier drift at exactly zero.
-- Each result is independently falsifiable. Failure of one direction does not
-  become evidence for another, and a synthetic result is never represented as a
-  production-agent guarantee.
+Phase 0a must recover the current competition state and produce genuinely
+distinct candidate directions with reproducible baselines. The selected
+direction must then satisfy all of the following before submission:
 
-## Explicit non-goals and authorization boundary
+1. **Source/rule compliance:** exact current competition rules and SDK/source
+   constraints are recorded; the candidate passes static compliance checks.
+2. **Mechanical correctness:** required output, parser, tool-call, replay, cell
+   identity, and scoring invariants pass deterministic tests.
+3. **Resource safety:** measured generation and per-finding replay costs support
+   an explicit tail-risk bound below the remote deadline, not an arbitrary
+   margin.
+4. **Structural evidence:** the change targets a measured bottleneck and has a
+   prediction that differs from the incumbent; each added component has an
+   ablation or is removed.
+5. **Regression control:** the incumbent behavior remains available as a
+   fallback, and local tests show no loss on already-proven mechanics.
+6. **Target-derived evidence:** a Kaggle commit run or other competition-owned
+   feedback supports the candidate's assumed behavior. Mock-only improvement is
+   insufficient for confidence.
+7. **Submission decision:** the expected benefit over the recorded best public
+   score `69.570` is positive after uncertainty and timeout risk; the exact
+   checklist and decision are committed before submission.
 
-- No Kaggle push, submission, leaderboard read, notebook action, or account
-  mutation.
-- No live target, real credential, personal data, destructive tool, exploit
-  deployment, jailbreak reproduction, attack-prompt optimization, or operational
-  payload release.
-- No claim that task-equivalent means fully semantically equivalent. OMST
-  deliberately holds a declared benign task-observation tuple constant and asks
-  whether security-relevant traces still differ.
-- No shared multi-hypothesis experiment and no retrospective choice of whichever
-  direction yields the most favorable result.
-- The locked test tier defined in the evaluation contract is not generated or
-  executed without a later explicit user authorization.
+Winning remains the objective. Because the current leaderboard, deadline, daily
+submission quota, and scoring surface may have changed, exact rank/score targets
+are pending the authorized live-state audit.
 
-**Proxy caveat:** security-contract outcomes on inert, finite framework workloads
-are our proxy for orchestration-layer security preservation. Improving those
-metrics by weakening the contract, excluding eligible failures, changing the
-task-equivalence relation, or tailoring to one framework is failure, not success.
+## Authorization and non-goals
 
-**Question type:** causal within the randomized/paired local interventions defined
-by the evaluation contract. Claims outside the tested framework versions,
-workload grammars, and abstract security contracts are diagnostic hypotheses only.
+- All Kaggle competition actions are authorized, subject to official rules and
+  the confidence-before-submission condition.
+- Do not expose credentials, tokens, cookies, private competition data, or
+  other participants' non-public work in logs or commits.
+- Do not target systems, accounts, or data outside the competition sandbox.
+- Do not perform destructive actions or release an operational payload outside
+  the authorized competition artifact.
+- Do not claim that a public-leaderboard gain guarantees private/final transfer.
+- Do not write a paper as a substitute for an unmeasured competition result.
+
+## Proxy caveat
+
+Local mock score and mechanics are proxies for remote validity and resource
+safety. Kaggle public score is a tuning signal and may overfit the public cells;
+final/private score and rank are the primary outcome. Improving a mock score by
+weakening replay realism, changing evaluator semantics, leaking target details,
+or increasing timeout risk is failure.
+
+## Question type
+
+Predictive systems optimization under a fixed competition contract. Causal
+claims are limited to controlled local ablations; leaderboard deltas are noisy
+external interventions unless the competition exposes a paired evaluation.
 
 ## Construct table
 
 | Construct | Operational definition | Observable indicator | Unacceptable proxy |
 |---|---|---|---|
-| Task-equivalent rewrite | A graph transformation that preserves the predeclared finite benign observation tuple for every eligible input and decision tape in the restricted domain | Exact canonical equality of terminal task output, intended inert tool effects, and declared completion state before security outcomes are inspected | Similar aggregate accuracy, equal final text only, or post-hoc exclusion of mismatches |
-| Security preservation | A task-equivalent rewrite does not turn a base execution satisfying the fixed security contract into a rewritten execution violating it | Paired rewrite-induced regression indicator and exact finite-census rate relative to identity rewriting | Model refusal, benign task score, absence of an exception, or a self-judge's safety label |
-| Progress integrity | Continue/stop decisions depend only on independently attested obligations and state transitions, not untrusted content or worker-authored summaries | Abstract termination-contract failures, completion rate, and step overhead under matched decision tapes | A hard step cap alone, shorter traces regardless of task completion, or controller access to laundered raw content |
-| Evolutionary security debt | Utility-improving harness mutations accepted by the selection rule that newly violate a fixed external security contract | Accepted security-regression rate across a predeclared mutation sequence, with verifier hash unchanged | Final task score, one-version safety, or a verifier that co-evolves with the harness |
-| Utility retention | Completion of the same benign obligation set with the same intended inert effects | Exact obligation completion and canonical effect equality; cost recorded separately | Fluency, judge preference, or fewer steps without completing obligations |
-| Framework generalization | Direction and materiality replicate under a second independently implemented orchestration runtime | Same preregistered primary/secondary estimands on pinned LangGraph and CrewAI versions | More workloads in one framework or two adapters sharing the same execution engine |
+| Valid finding | A returned candidate that passes current competition parsing, replay, guardrail and scoring semantics | Remote accepted/scored finding plus exact local mechanics match | Locally emitted JSON or a mock-only positive |
+| Portfolio value | Sum of competition scoring contributions across evaluated cells, net of invalidation/timeout risk | Official public/final score; cell telemetry when exposed | Severity sum on one mock cell |
+| Cross-cell reliability | Probability a candidate remains valid and effective across the evaluated model/guardrail cells | Per-cell remote outcomes or a preregistered conservative estimator | One model response or public guardrail alone |
+| Replay safety | The complete returned set can be replayed within the remote deadline with acceptable void risk | Measured cost distribution and explicit tail bound; completed remote run | Mean latency or observed maximum plus arbitrary margin |
+| Structural innovation | A change replacing/decoupling/formalizing a measured bottleneck with a distinguishing prediction | Pre-change profile, preregistered prediction, ablation, and remote signal | Adding more templates or techniques without attribution |
+| Submission confidence | All seven success gates above pass on committed evidence before submission | Machine-checkable checklist with PASS and evidence paths | Intuition, mock score alone, or a successful notebook commit |
