@@ -1,5 +1,5 @@
 {
-  "phase": "3",
+  "phase": "2",
   "cycle": 3,
   "iteration": 3,
   "entry_mode": "inspiration",
@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "On nine fresh q-independent complete controlled traces, AHCMS will improve aggregate raw per projected captured generation-path elapsed by at least 1.10x versus retry HCMS, retain at least 99.5% of positive retry raw, still pass 1.10x after floor-discounting half of all retry-only tail elapsed while keeping all retry raw, remain overage-free, and beat both specified feasible simple controls without raw/elapsed Pareto domination; all zero-raw branches and exact historical timer boundaries are deterministic.",
-  "active_hypothesis_artifact": "research-log/178-hypothesis-iter-8-ahcms24-v5.md",
+  "active_hypothesis": null,
+  "active_hypothesis_artifact": null,
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -551,9 +551,17 @@
       "id": "T062",
       "phase": "3",
       "desc": "At the exhausted 2/2 implementation-correction gate, either obtain explicit authority for two additional correction attempts and then repair all four T061 findings as one unexecuted source-bound change, or retire the implementation as implementation_defeated and pivot",
-      "status": "in_progress",
-      "evidence": "The correction extension was not supplied on the first continuation after reports 183-184. Non-mutating design work froze report 185: actual process/interpreter authentication, the historical pre-reset point-clock boundary, a lifetime descriptor-owned canonical attempt, permanent 27-file per-unit capture journals plus progress, exact production ordering and ten adversarial test classes. Local mechanisms were bound by SHA and the canonical attempt remained absent. Deterministic verification is recorded as `ahcms24_repair_design_check=PASS findings_mapped=4 architectures_compared=3 journal_files=27 adversarial_test_classes=10 process_binding=exact descriptor_identity=stable correction_limit=2/2 scientific_debug=0/3 canonical_attempt_absent=true`. No implementation file changed and explicit authority to raise 2 -> 4 remains required.",
+      "status": "done",
+      "evidence": "Report 186 records `ahcms24_t062_retirement_check=PASS correction_limit=2/2 implementation=retired_implementation_defeated scientific_result=absent search_outcome=inconclusive phase=2 next_task=T063 canonical_attempt_absent=true results_immutable=true attack_immutable=true`. No scientific AHCMS result exists: the canonical attempt remains absent and scientific debug is 0/3. The defective v1 evidence implementation is retired without deleting its Git history; the reviewed hypothesis is preserved as scientifically untested rather than refuted. Research remains 4/5, theory review remains 12/12, and no attack or Kaggle action occurred.",
       "parent": "T061"
+    },
+    {
+      "id": "T063",
+      "phase": "2",
+      "desc": "Audit the exact committed evidence and complete-policy mechanics for the remaining Cycle-3 portfolio: Replay-safe core-first single-post floor versus Silent unique-domain wording as a raced arm and the current 69.570 incumbent; select at most one structurally distinct, competition-beneficial hypothesis without implementation, theory-review dispatch, Kaggle push or submission",
+      "status": "open",
+      "evidence": null,
+      "parent": "T062"
     }
   ],
   "parked_candidates": [
@@ -649,7 +657,7 @@
       "direction": "prefix-risk-absorbing-controller-24",
       "varies": "complete-cell-resource-risk-admission-and-absorbing-stop",
       "kind": "metric",
-      "outcome": "pending"
+      "outcome": "inconclusive"
     }
   ],
   "tried_and_failed": [
@@ -694,6 +702,12 @@
       "failure_class": "refuted",
       "why": "The correctly running prospective PoC preserved a 1.3918x diagnostic raw ratio but missed two of 189 HCMS per-candidate replay-coverage obligations and admitted four primary construction/reset paths past the two-second generation boundary; sealed status was invalid.",
       "log": "research-log/161-poc-hcms24-result.md"
+    },
+    {
+      "approach": "AHCMS-24 Phase-3 v1 evidence implementation",
+      "failure_class": "implementation_defeated",
+      "why": "Two allowed implementation corrections were exhausted before sterile review reproduced four pre-execution evidence defects: a source-wrong point-clock boundary, self-reported process invocation, premature staging retirement, and no stable canonical-attempt inode ownership. The canonical scientific attempt was never created, so this defeats the implementation rather than refuting the AHCMS hypothesis.",
+      "log": "research-log/186-ahcms24-implementation-retirement-and-pivot.md"
     }
   ],
   "learnings": [
@@ -1203,7 +1217,15 @@
       "bias_scope": "PASS — all eight bias classes are operationally handled; fixed nine-unit controlled scope explicitly excludes CPU savings, population, hard-deadline, target-model and Kaggle inference.",
       "problem_alignment": "PASS — confirming the local event-aligned stop would establish a source-compatible controlled allocation improvement while preserving the separate target-derived and submission-confidence gates required by PROBLEM.md.",
       "theory_review": "PASS — report 180: `review_integrity=PASS reviewed_lines=654 sha256=1877c502... prior_issue_dispositions=2 resolved=2 verdict=RIGOROUS scrutiny=algebra,bound_checks,raw_rescore,bias_surface,strongest_objection`; review budget exhausted 12/12.",
-      "status": "PASS FOR PHASE 3 ONLY — the narrow hypothesis is rigorous; no Phase-3 result, attack mutation, target bridge, Kaggle commit-run benefit or submission confidence is implied."
+      "status": "HYPOTHESIS PRESERVED, IMPLEMENTATION RETIRED — the narrow hypothesis passed theory review but obtained no scientific result; report 186 retires Phase-3 v1 as implementation_defeated and returns to Phase 2."
+    },
+    "3_cycle3_ahcms24": {
+      "poc_support": "ABSENT — the canonical attempt was never created and scientific debug remains 0/3; no fresh AHCMS metric exists.",
+      "code_review": "FAILED — report 183 returned NEEDS_REVISION with three HIGH and one MEDIUM pre-execution evidence defect; report 184 independently reproduced all four.",
+      "fix_budget": "EXHAUSTED — T060 consumed the fixed 2/2 implementation corrections. Report 185 froze a viable repair design but no explicit extension was supplied, so no third correction was attempted.",
+      "classification": "IMPLEMENTATION_DEFEATED, NOT REFUTED — report 186 preserves the reviewed scientific hypothesis as untested and fills the Cycle-3 iteration-3 search outcome inconclusive.",
+      "user_go": "NOT REQUESTED — there is no admissible PoC result to present for a proceed decision.",
+      "status": "CLOSED / LOOP TO PHASE 2 — AHCMS v1 is ineligible for execution or Kaggle use; T063 opens the remaining portfolio audit without spending a new research iteration or theory review."
     }
   }
 }
