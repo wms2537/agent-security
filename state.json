@@ -7,10 +7,10 @@
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "A uniform random role split of q-independent matched potential traces can calibrate cumulative-prefix replay and atomic generation risk without method-predecessor confounding; an absorbing no-fit transition and return-ready gate can then preserve useful HCMS policy value without the prior resource invalidities.",
-    "assumption_source": "The sealed invalid HCMS attempt had candidate coverage 187/189 but aggregate HCMS replay overage 0/36; 420 post-no-fit paths consumed 59.767 seconds for three candidates and 44/84 zero-interaction paths exceeded 0.1 seconds. Round-8 review accepted the rank algebra but rejected live calibration/evaluation process exchangeability and HCMS component attribution, motivating a role-blind matched-trace design and demotion of HCMS to inherited policy.",
-    "novelty_claim": "PRAC-24 v2 replaces point admission with an all-policy complete-trace prefix-risk score over a uniformly role-split matched corpus, retry-after-no-fit with an absorbing state, and a fixed reserve with a return-ready atomic gate. Only these three measured mechanisms receive component credit; HCMS is inherited and target/official claims remain withheld."
+    "problem": "Can one absorbing no-fit transition remove the measured low-yield HCMS retry tail while preserving raw and eliminating controlled resource overages on fresh q-independent complete traces?",
+    "assumption": "Matched complete potential traces make otherwise identical absorb-versus-retry HCMS projections attributable without method-predecessor confounding; the measured post-no-fit tail is sufficiently inefficient that removing it improves aggregate raw per generation-work second while retaining nearly all retry raw.",
+    "assumption_source": "The sealed invalid-but-complete earlier run directly reconstructs 415 primary post-no-fit paths consuming 59.181928537553 seconds for 54 raw and 146 HCMS paths consuming 18.366501234705 seconds for 18 raw. This is retrospective bottleneck evidence only; confirmation requires the frozen nine-unit fresh trace experiment.",
+    "novelty_claim": "AHCMS-24 v3 makes one contribution claim only: replace retry-after-first-replay-no-fit in inherited HCMS with an absorbing transition. Replay envelopes and atomic gates receive no contribution credit; target-model, leaderboard, population and hard-deadline claims remain withheld."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "On one uniformly role-split matched-trace attempt, PRAC-24 HCMS will achieve at least 1.10 times the stronger simple PRAC policy with zero projected PRAC resource overages, feasible q ceilings, and all three new components passing unique clean-removal predicates.",
-  "active_hypothesis_artifact": "research-log/167-hypothesis-iter-8-prac24-v2.md",
+  "active_hypothesis": "On nine fresh, q-independent complete controlled potential traces, replacing HCMS retry-after-first-replay-no-fit with an absorbing transition will improve aggregate raw per generation-work second by at least 1.10x relative to retry HCMS while retaining at least 99.5% of retry raw and producing zero controlled resource-overage cells; round 10 requires endpoint-aligned simple controls and total resource/denominator definitions before this claim is reviewable.",
+  "active_hypothesis_artifact": "research-log/171-hypothesis-iter-8-ahcms24-v3.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -495,9 +495,17 @@
       "id": "T055",
       "phase": "2",
       "desc": "Obtain a fresh sterile round-10 re-review of immutable AHCMS-24 v3 with explicit disposition of all four round-9 issues before any Phase-3 implementation",
-      "status": "in_progress",
-      "evidence": "Dispatch preflight: `comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v3.py --config experiments/configs/ahcms24-c3-v3.json --hypothesis research-log/171-hypothesis-iter-8-ahcms24-v3.md` -> `ahcms24_phase2_author_check_v3=PASS`; immutable hypothesis has 632 lines and SHA256 dbd091908bea27630d57843b3887b656f70a1d080acc5f44a772e2570096db40; Phase-3 runner/attempt absent and attack unchanged. Fresh sterile round-10 re-review dispatched; budget charged 10/12 before dispatch.",
+      "status": "failed",
+      "evidence": "Main-agent verification: `comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v3.py --config experiments/configs/ahcms24-c3-v3.json --hypothesis research-log/171-hypothesis-iter-8-ahcms24-v3.md` -> `ahcms24_phase2_author_check_v3=PASS`; immutable hypothesis -> `reviewed_lines=632`, SHA256 dbd091908bea27630d57843b3887b656f70a1d080acc5f44a772e2570096db40; report parser -> `reported_line_count=632`, `prior_issue_dispositions=4` (all RESOLVED), `required_fixes=3`, verdict `NEEDS_REVISION`. Report 173 rejects the raw-only simple comparator, undefined generation/replay overage accounting, and missing zero-denominator rules. Review 10/12; Phase 2 remains closed; Phase-3 artifacts absent and attack unchanged at SHA256 8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d.",
       "parent": "T054"
+    },
+    {
+      "id": "T056",
+      "phase": "2",
+      "desc": "Write and author-verify AHCMS-24 v4 aligning simple controls to the efficiency/work endpoint with an exact Pareto rule, defining per-unit generation-work and aggregate-replay overage formulas and boundaries, and totalizing every zero-denominator case",
+      "status": "open",
+      "evidence": "Opened from the three required fixes in sterile theory-review report 173; no v4 authoring or Phase-3 work was performed during T055.",
+      "parent": "T055"
     }
   ],
   "parked_candidates": [
