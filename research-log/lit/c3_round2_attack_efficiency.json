@@ -1,0 +1,607 @@
+{
+  "tier": 1,
+  "search_record": [
+    {
+      "query": "2026 multi-turn jailbreak tool-using agents attack efficiency queries ASR",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "2025 2026 agent jailbreak action space tool calls benchmark",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "transferable jailbreak prompt tool agents multi-step attack query efficiency",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "best-of-n jailbreak scaling replay reliability exact results",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "compositional jailbreak attack families per-request query cost LASH",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "long-horizon agent red teaming multi-turn attack benchmark 2026",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "adaptive jailbreak attack cost-aware selection black-box exact benchmark",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "automated red teaming tool-use agents attack success rate public code",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "universal adversarial prompt agent tool call exfiltration benchmark",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "response token suppression tool-call latency agent attack",
+      "platform": "web search restricted in synthesis to primary scholarly sources",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "Prompt Injection as Role Confusion primary paper",
+      "platform": "web search follow-up",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "Response Attack contextual priming ASR Table 2026",
+      "platform": "web search follow-up",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "SIRAJ Diverse and Efficient Red-Teaming primary paper",
+      "platform": "web search follow-up",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "Genesis Evolving Attack Strategies primary paper",
+      "platform": "web search follow-up",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "LogicInception cross-source premise assembly primary paper",
+      "platform": "web search follow-up",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    },
+    {
+      "query": "Adaptive Adversaries multi-turn multi-LLM benchmark primary paper",
+      "platform": "web search follow-up",
+      "date": "2026-07-23",
+      "result_count": "not_reported"
+    }
+  ],
+  "spot_check_record": {
+    "method": "jq -r '.papers[].title' research-log/lit/c3_round2_attack_efficiency.json | shuf -n 2",
+    "date": "2026-07-23",
+    "sample": [
+      "Security Challenges in AI Agent Deployment: Insights from a Large Scale Public Competition",
+      "Experience-Driven Multi-Agent Optimization for Black-Box Jailbreak Attacks on Large Language Models"
+    ],
+    "result": "pass after correcting the NeurIPS proceedings author list to the current official abstract page; titles, venues, authors, and one load-bearing quantitative claim per sampled source were checked by the main agent"
+  },
+  "papers": [
+    {
+      "title": "Adaptive Adversaries: A Multi-Turn, Multi-LLM Benchmark for LLM Agent Security",
+      "authors": [
+        "Devina Jain",
+        "David Hartmann",
+        "Chuan Li"
+      ],
+      "venue": "arXiv preprint, 2026",
+      "url": "https://arxiv.org/abs/2607.18063",
+      "source_type": "primary scholarly preprint with released benchmark and transcripts",
+      "core_contribution": "A controlled benchmark showing that the operative attack variable is response-conditioned adaptation across rounds, not merely repeated sampling, and that distinct attacker models uncover non-overlapping defender weaknesses.",
+      "methodology": "Twenty-one scenarios are run as 15-round attacker-versus-memoryless-defender battles. The attacker observes prior defender responses; the defender sees a fresh formatted input each round. The authors evaluate a controlled 3-by-3 frontier attacker/defender matrix, replay winning attacks, compare round-1 with full-round scoring, and ablate attacker response access and defender statefulness.",
+      "key_results": [
+        "Round-1-only ASR was 0.0%, 0.0%, and 1.0% for Claude Opus 4.6, GPT-5.4, and Gemini 2.5 Pro defenders; full 15-round ASR was 5.4%, 5.4%, and 14.0%, respectively.",
+        "On three high-ASR scenarios, adaptive-attacker/stateless-defender ASR was 30.0%; removing attacker access to prior defender responses reduced it to 0/36 successes.",
+        "Pooling three frontier attacker LLMs produced 1.4x to 2.2x as many unique successful attacks as the best single attacker.",
+        "No winning attack among 46 replayed unique attacks succeeded against all three frontier defenders; GPT-5.4-to-Opus transfer was 25.7%, while Opus-to-GPT-5.4 transfer was 0%.",
+        "Open-competition attacker submissions ranged from 9.5% to 50.0% ASR on 42 held-out battles, with median 29.3% and standard deviation 11.1 percentage points.",
+        "The paper releases 945 frontier-matrix transcripts and 18,422 final-scoring competition battles."
+      ],
+      "key_results_location": "Abstract; Sections 4.1-4.3; Sections 5.1-5.4; response-conditioning ablation in Section 5.3 and Appendix B.12",
+      "extraction_confidence": "high; exact values were read from the primary arXiv full text",
+      "reviewed": "yes",
+      "limitations": "The defender is intentionally memoryless, so the measured gain is not a direct estimate for a stateful Kaggle agent. The 30%-to-0% adaptation ablation uses only three selected high-ASR scenarios and 108 battles. Fifteen live rounds may be incompatible with the competition query or wall-clock budget.",
+      "math_foundations": "Bernoulli ASR with bootstrap and Wilson confidence intervals; cosine-similarity deduplication at 0.95; cross-scenario concordance via Kendall's W; controlled factorial ablation of attacker adaptation and defender memory.",
+      "motivation": "Static attack pools and first-turn scoring miss vulnerabilities that become visible only when an attacker learns from the target's latest response.",
+      "constraints_inferred": [
+        "Inference: a competition implementation should condition its next action on observable response-state features rather than replay a fixed message schedule.",
+        "Inference: any claimed benefit must be compared against repeated independent draws at the same query count.",
+        "Inference: response-conditioned routing needs a deterministic, replayable state machine because free-form attacker planning would be difficult to reproduce under hidden evaluation."
+      ],
+      "key_decisions": [
+        "Treat response-conditioned state transitions as a fresh mechanism dimension distinct from candidate-count allocation.",
+        "Use model-specific weaknesses as evidence against a single universal routing policy.",
+        "Require a direct adaptation ablation before attributing gains to the state machine."
+      ],
+      "tried_and_discarded": [
+        "Round-1-only evaluation was shown to miss nearly all measured compromises.",
+        "A fixed/non-adaptive attacker was directly ablated and produced 0/36 successes on the selected subset.",
+        "Universal replay across all three frontier defenders was unsupported: 0 of 46 attacks transferred to all three."
+      ],
+      "load_bearing_assumptions": [
+        "Prior defender responses contain actionable evidence about the failure mode.",
+        "The competition protocol exposes those responses before the next attacker decision.",
+        "The benchmark's typed outcome checks correspond to valid tool-action success rather than textual proxy wins."
+      ],
+      "relevance": "high",
+      "relevance_reason": "This is the clearest recent causal evidence for a non-template mechanism: adapt the next transition to the target's observed response. The ablation separates it from merely spending more queries."
+    },
+    {
+      "title": "Prompt Injection as Role Confusion",
+      "authors": [
+        "Charles Ye",
+        "Jasmine Cui",
+        "Dylan Hadfield-Menell"
+      ],
+      "venue": "ICML 2026",
+      "url": "https://arxiv.org/abs/2603.12277",
+      "source_type": "primary scholarly paper; current arXiv v6 and ICML 2026 paper",
+      "core_contribution": "A mechanistic account of prompt injection as latent role misclassification: models assign authority from writing style rather than only from interface role tags. The paper uses role probes and controlled style ablations to connect internal role perception to attack success.",
+      "methodology": "The authors train probes for latent user, assistant, and chain-of-thought role perception; construct styled and destyled variants of forged reasoning in user and tool-originated text; evaluate chat and agent attacks across open- and closed-weight frontier models; and relate probe scores measured before generation to subsequent success.",
+      "key_results": [
+        "The zero-shot CoT Forgery attack achieved 60% success against frontier models with near-zero baselines.",
+        "Across 626 styled and destyled jailbreak attempts, the lowest CoTness quantile succeeded 9% of the time and the highest succeeded 90%.",
+        "Across 1,000 sampled standard agent-injection attempts, the lowest Userness quantile succeeded 2% of the time and the highest succeeded 70%.",
+        "Forged reasoning averaged 79% CoTness versus 68% for the model's genuine reasoning; destyling reduced forged-text CoTness to 29%.",
+        "In the representative agent analysis, injected content registered 51% Userness while its forged-reasoning segment registered 84% CoTness."
+      ],
+      "key_results_location": "Abstract; Section 5.1, Figure 9; Section 5.2; Appendix I agent role analysis",
+      "extraction_confidence": "high; exact values were read from the primary arXiv full text",
+      "reviewed": "no",
+      "limitations": "Latent probes require internal activations and therefore cannot score closed target models directly. The attack is evaluated under specific chat/tool formatting regimes. High latent-role correlation does not establish the exact effect size for the Kaggle target or prove cross-run replay reliability.",
+      "math_foundations": "Linear representation probes with control tasks; quantile-stratified success analysis; bootstrap confidence intervals; controlled styled-versus-destyled intervention.",
+      "motivation": "Interface-level role separation does not guarantee that the model's latent state preserves the same authority boundaries.",
+      "constraints_inferred": [
+        "Inference: vary the perceived authority/state of a message, not only its semantic attack template.",
+        "Inference: a closed-model proxy could rank candidates using externally measurable style features learned from open-model role probes, but this transfer would require held-out validation.",
+        "Inference: the relevant competition test is whether role-authentic state framing changes valid tool calls while preserving the same task content."
+      ],
+      "key_decisions": [
+        "Promote latent role perception as a fresh mechanism dimension.",
+        "Require a content-matched style ablation so gains cannot be attributed to added instructions.",
+        "Keep open-model probe scores as proposal evidence, not as a claimed target-model measurement."
+      ],
+      "tried_and_discarded": [
+        "Destyling the same underlying argument sharply reduced latent CoTness and attack success.",
+        "Treating message tags as sufficient security boundaries is contradicted by the probe and behavioral results."
+      ],
+      "load_bearing_assumptions": [
+        "The competition target uses latent role cues similar enough to the evaluated models.",
+        "Source rules permit the relevant message or tool-output framing.",
+        "Style changes can be made without introducing prohibited fabricated state or violating task semantics."
+      ],
+      "relevance": "high",
+      "relevance_reason": "It offers a mechanistically distinct axis with agent-exfiltration evidence and a strong dose-response, potentially replacing surface prompt racing with authority-state engineering."
+    },
+    {
+      "title": "LogicInception: Stealthy Indirect Prompt Injection via Cross-Source Premise Assembly",
+      "authors": [
+        "Anonymous ACL ARR 2026 March submission"
+      ],
+      "venue": "ACL ARR 2026 March submission",
+      "url": "https://openreview.net/pdf?id=qnx1dD1x54",
+      "source_type": "primary anonymous scholarly submission PDF",
+      "core_contribution": "Distributes individually benign premises across multiple tool outputs so the agent's own reasoning reconstructs a non-decomposable causal chain. The attack operates at discourse/graph level rather than token or sentence level.",
+      "methodology": "The paper evaluates cross-source premise graphs on 1,139 AgentDojo and InjecAgent scenarios, seven LLMs, and five defenses; measures conventional ASR, a detector-ensemble stealth rate, and their product; and ablates the causal dependency structure.",
+      "key_results": [
+        "LogicInception achieved 60.3% ASR on AgentDojo and 67.3% on InjecAgent.",
+        "It exceeded the strongest baseline by 11 to 12 percentage points.",
+        "Stealth rates were 88% and 84%, compared with less than 7% for direct injection.",
+        "Composite ASR, defined as ASR times stealth, reached 52.9% versus a highest baseline of 12.0%.",
+        "Reasoning capability and vulnerability had reported correlation rho = 0.82."
+      ],
+      "key_results_location": "Abstract; Introduction Observation 1 and Table 2; causal-structure ablations reported in the paper",
+      "extraction_confidence": "high for abstract and headline table values; medium for generalization because the submission is anonymous and not yet a published proceedings paper",
+      "reviewed": "no",
+      "limitations": "The artifact is an anonymous submission, not an accepted archival paper. The mechanism assumes control over multiple retrieved sources/tool outputs and may not be expressible in the competition's source schema. No target-query latency or replay-tail measurements are reported. Stealth is not the Kaggle score.",
+      "math_foundations": "Attack logic represented as a causal dependency graph; non-decomposability criterion; Composite ASR = ASR x stealth; correlation between model reasoning capability and ASR; structure-removal ablations.",
+      "motivation": "Single-message attacks expose their entire intent to both the target and scanners; distributing premises shifts the attack surface from wording to cross-source reasoning composition.",
+      "constraints_inferred": [
+        "Inference: model a multi-step attack as a dependency graph whose nodes can be individually innocuous and whose terminal action is enabled only after premise assembly.",
+        "Inference: if only user messages are controllable, this paper is not directly implementable and should remain a conceptual control.",
+        "Inference: validate every graph edge and terminal tool action under replay; structural elegance alone does not imply a score gain."
+      ],
+      "key_decisions": [
+        "Treat graph topology and premise placement as a fresh dimension beyond message-count allocation.",
+        "Prefer the smallest causal graph that makes a distinguishing prediction over an unstructured multi-message control.",
+        "Do not import the paper's stealth metric into the competition objective."
+      ],
+      "tried_and_discarded": [
+        "Direct injection and token/sentence obfuscation remained on the reported stealth-effectiveness frontier with Composite ASR no higher than 0.15.",
+        "Ablations without the causal dependency structure underperformed, according to the primary paper."
+      ],
+      "load_bearing_assumptions": [
+        "The agent integrates facts across controlled sources.",
+        "The competition permits multiple source-bearing turns or tool observations.",
+        "The target's reasoning creates the connecting implication rather than requiring an explicit prohibited instruction."
+      ],
+      "relevance": "high",
+      "relevance_reason": "This is the most clearly graph-native mechanism found: it changes where attack logic lives and predicts larger gains on stronger integrative reasoners. Direct applicability depends on the competition schema."
+    },
+    {
+      "title": "AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks",
+      "authors": [
+        "Tanqiu Jiang",
+        "Yuhui Wang",
+        "Jiacheng Liang",
+        "Ting Wang"
+      ],
+      "venue": "arXiv preprint, 2026",
+      "url": "https://arxiv.org/abs/2602.16901",
+      "source_type": "primary scholarly preprint with public benchmark",
+      "core_contribution": "Defines five long-horizon agent attack families and separates action-space attacks from ordinary conversational jailbreaking. Particularly relevant mechanisms are benign tool-call decomposition, bridge actions linking benign and malicious trajectories, and persistent memory/objective state changes.",
+      "methodology": "AgentLAB contains 644 malicious tasks in 28 tool-enabled environments. A planner, attacker, judge, and sometimes verifier generate and refine attacks. Six agent backbones are tested under intent hijacking, tool chaining, objective drifting, task injection, and memory poisoning, with attack-specific turn caps and action-grounded success evaluation.",
+      "key_results": [
+        "Tool-chaining ASR ranged from 73.3% on Claude-4.5 to 96.3% on Qwen-3; GPT-5.1 tool-chaining ASR was 94.6%.",
+        "Overall ASR was 81.5% for Qwen-3, 78.1% for GPT-4o, 69.9% for GPT-5.1, 53.7% for Gemini-3, and 28.9% for Claude-4.5.",
+        "For task injection, one-shot versus long-horizon ASR changed from 62.5% to 79.9% on GPT-4o and from 2.08% to 21.5% on GPT-5.1.",
+        "Attack turn caps were 7, 20, 15, 5, and 12 for intent hijacking, tool chaining, objective drifting, task injection, and memory poisoning, respectively.",
+        "The benchmark contains 644 tasks, 28 environments, and five attack types."
+      ],
+      "key_results_location": "Sections 4.2-4.3; Tables 1-4; Section 5.1 experimental setting",
+      "extraction_confidence": "high; exact values were read from the primary arXiv full text",
+      "reviewed": "no",
+      "limitations": "The framework uses powerful external planner/attacker/judge models and relatively large turn caps. Results average over different environments and do not report the Kaggle scoring function. Some attacks require persistent memory or environment write access unavailable in a submitted candidate.",
+      "math_foundations": "Finite-horizon user-agent-environment process over prompts, actions, observations, and responses; action-sequence task completion; ASR and turns-to-success metrics; trajectory decomposition and bridging.",
+      "motivation": "An agent can reject a directly malicious task yet execute the same outcome when it is decomposed into locally benign actions over a long horizon.",
+      "constraints_inferred": [
+        "Inference: optimize the topology of requested tool actions, not only the text used to request them.",
+        "Inference: compare a direct terminal action against a decomposed chain with the same end state and fully charged query/runtime cost.",
+        "Inference: a bridge action is useful only if it raises valid terminal-action probability enough to offset another query and its failure surface."
+      ],
+      "key_decisions": [
+        "Promote tool-action decomposition/bridge topology as a fresh mechanism dimension.",
+        "Keep memory poisoning and environment persistence parked unless the competition exposes durable state.",
+        "Require action-grounded evaluation rather than judging harmful-looking text."
+      ],
+      "tried_and_discarded": [
+        "The paper's direct one-shot injection comparator was substantially weaker than long-horizon task injection on several agents.",
+        "Single-turn defenses did not reliably transfer across attack types; no one defense dominated the tool-chaining results."
+      ],
+      "load_bearing_assumptions": [
+        "The target treats each local tool request more independently than the end-to-end malicious objective.",
+        "Intermediate actions can be made valid and source-compliant.",
+        "The competition score rewards multiple valid tool actions or a higher-value terminal chain enough to repay the extra turns."
+      ],
+      "relevance": "high",
+      "relevance_reason": "It directly studies tool actions and provides exact evidence that action-chain structure can dominate direct prompting, a dimension not covered by prefix selection or replay-margin tuning."
+    },
+    {
+      "title": "Response Attack: Exploiting Contextual Priming to Jailbreak Large Language Models",
+      "authors": [
+        "Ziqi Miao",
+        "Lijun Li",
+        "Yuan Xiong",
+        "Zhenhua Liu",
+        "Pengyu Zhu",
+        "Jing Shao"
+      ],
+      "venue": "AAAI 2026",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/40836",
+      "source_type": "primary peer-reviewed conference paper",
+      "core_contribution": "Uses an intermediate model response as a compact contextual primer for the final request. This moves the attack variable from the next prompt alone to the semantic state induced by the model's own preceding response.",
+      "methodology": "The paper constructs direct-response-injection and scaffolding-response-injection variants, evaluates them on HarmBench across eight open and proprietary LLMs against nine baselines, and ablates the intermediate response and query rewrite while analyzing reuse and cost.",
+      "key_results": [
+        "RA-DRI averaged 94.8% ASR across eight models; RA-SRI averaged 89.1%.",
+        "The strongest reported baseline in Table 1, ActorAttack, averaged 82.8% ASR.",
+        "RA-DRI per-model ASR ranged from 92.5% to 96.5%; RA-SRI ranged from 76.0% to 96.0%.",
+        "Removing the intermediate response reduced first-attempt ASR on Gemini-2.5 from 83.5% to 52.5% in the reported ablation.",
+        "The same constructed context can be reused across target models, according to the paper's efficiency analysis."
+      ],
+      "key_results_location": "Table 1; Section 4.2 main results; Table 4 and Section 4.3 ablation; efficiency analysis following Table 1",
+      "extraction_confidence": "high; exact table values were read from the primary AAAI paper/PDF",
+      "reviewed": "no",
+      "limitations": "The benchmark targets harmful text generation, not tool-action validity. Injecting a prior assistant response may not be allowed by the competition interface; eliciting it naturally would add a query and introduce stochasticity. The 94.8% average cannot be transferred to hidden agent targets without a matched test.",
+      "math_foundations": "Controlled context intervention and component ablation; average ASR across eight heterogeneous models; cost comparison through reusable context rather than per-target optimization.",
+      "motivation": "Prior multi-turn methods manipulate only user turns; the model's own last response can be a stronger state-setting object than another attacker-authored prefix.",
+      "constraints_inferred": [
+        "Inference: classify intermediate responses by whether they establish a useful continuation state, then choose the next transition from that state.",
+        "Inference: compare naturally elicited priming with an equal-turn neutral-response control.",
+        "Inference: do not assume an injected assistant message is source-compliant; the allowed message schema is a hard gate."
+      ],
+      "key_decisions": [
+        "Treat response-state priming as distinct from prompt-template racing.",
+        "Use the paper's component ablation as justification for testing an intermediate-response gate.",
+        "Reject any design that relies on fabricating assistant-role history if the rules do not permit it."
+      ],
+      "tried_and_discarded": [
+        "Removing the intermediate response materially reduced first-attempt success.",
+        "Many-shot static context averaged only 6.7% in Table 1, showing that context volume alone was not sufficient."
+      ],
+      "load_bearing_assumptions": [
+        "An intermediate response can be observed or lawfully represented before the terminal request.",
+        "The target carries relevant conversational state between turns.",
+        "The primed state affects valid tool action rather than only unsafe text generation."
+      ],
+      "relevance": "high",
+      "relevance_reason": "It supplies strong controlled evidence for engineering the model's intermediate state, complementing the adaptive-routing evidence with a specific state variable."
+    },
+    {
+      "title": "Multi-Turn Jailbreaking of Aligned LLMs via Lexical Anchor Tree Search",
+      "authors": [
+        "Devang Kulshreshtha",
+        "Hang Su",
+        "Chinmay Hegde",
+        "Haohan Wang"
+      ],
+      "venue": "arXiv preprint, 2026",
+      "url": "https://arxiv.org/abs/2601.02670",
+      "source_type": "primary scholarly preprint",
+      "core_contribution": "The SLIP/LATS mechanism uses the target model itself to generate and expand benign/harmful safety-data pairs, then performs a lexical-anchor-guided breadth-first search over dialogue states. It removes a separately provisioned attacker LLM and searches for a short successful path.",
+      "methodology": "The target generates a seed pool under a safety-data framing. Candidate states are ranked by semantic similarity to the goal, expanded by indexed reference rather than restating the content, and enriched with missing lexical anchors. Evaluation spans eleven models, AdvBench, and HarmBench, with an ensemble judge and human precision audit.",
+      "key_results": [
+        "Average ASR was 94.7% on AdvBench and 94.4% on HarmBench.",
+        "Average target-query use was approximately 7.9 queries, including JSON repair.",
+        "The closest tree-search comparator was reported at 40 to 50 queries and 97% ASR on GPT-4, about 5x more queries.",
+        "Human review confirmed 94.2% of 120 judge-positive cases as genuinely harmful, with 3.1% borderline and 2.7% false positives.",
+        "Its Semantic Drift Monitor detected 76% of attacks at 5% false-positive rate."
+      ],
+      "key_results_location": "Abstract and contribution list; Sections 3-4; query-efficiency discussion; human-judge validation; conclusion",
+      "extraction_confidence": "high; exact values were read from the primary arXiv full text",
+      "reviewed": "no",
+      "limitations": "This is a text-jailbreak study rather than a tool-action benchmark. Roughly 7.9 live target queries may exceed the competition budget, and the target-generated pool is stochastic. The public code was described as forthcoming in the version inspected. Semantic ranking may not correspond to tool-action progress.",
+      "math_foundations": "Breadth-first search over dialogue states; cosine similarity ranking with a frozen sentence encoder; lexical set difference to identify missing anchors; minimum-cost path interpretation; precision audit of the automatic judge.",
+      "motivation": "External attacker models add cost and can generate opaque prefixes; the target already contains the knowledge needed to propose its own next useful state.",
+      "constraints_inferred": [
+        "Inference: use target responses as a source of candidate state transitions rather than only as accept/reject observations.",
+        "Inference: references to prior indexed content may reduce repeated-token cost, but this must be verified under the target's exact chat serialization.",
+        "Inference: a score-oriented variant needs an action-progress heuristic, not merely semantic similarity to the attack goal."
+      ],
+      "key_decisions": [
+        "Retain target-self-expansion as a mechanism candidate, not a fixed prompt family.",
+        "Require hard query caps and an absorbing stop after a valid action.",
+        "Use a tool-action progress signal if adapting the search to the competition."
+      ],
+      "tried_and_discarded": [
+        "External-attacker-LLM tree searches were reported as requiring 40 to 50 queries.",
+        "Full restatement of harmful content was avoided in favor of indexed history references."
+      ],
+      "load_bearing_assumptions": [
+        "The target reveals useful intermediate candidates without already consuming the resource budget.",
+        "Semantic/action progress is monotone enough for bounded search.",
+        "A short dialogue path transfers from harmful-content benchmarks to tool-action objectives."
+      ],
+      "relevance": "medium-high",
+      "relevance_reason": "It offers a query-efficient search architecture and removes a separate attacker model, but its evaluation target is text generation and it still needs about eight target calls."
+    },
+    {
+      "title": "Jailbreaking in the Haystack",
+      "authors": [
+        "Rishi Rajesh Shah",
+        "Chen Henry Wu",
+        "Shashwat Saxena",
+        "Ziqian Zhong",
+        "Alexander Robey",
+        "Aditi Raghunathan"
+      ],
+      "venue": "arXiv preprint, 2025",
+      "url": "https://arxiv.org/abs/2511.04707",
+      "source_type": "primary scholarly preprint",
+      "core_contribution": "Shows that context length, semantic relevance, and goal position form an attack dimension separate from repeated sampling. Under a token-compute budget, fewer long-context trials can dominate many short trials.",
+      "methodology": "NINJA places the goal before a long, benign, thematically related context, varies context length and goal position, evaluates HarmBench on four models, compares PAIR and many-shot baselines, extends the position test to BrowserART, and derives a per-example best-of-N compute allocation over input tokens.",
+      "key_results": [
+        "ASR increased from 23.7% to 58.8% on Llama-3.1-8B, from 23.7% to 42.5% on Qwen2.5-7B, and from 23% to 29% on Gemini Flash.",
+        "On Mistral-7B, ASR decreased from a 58% baseline to 54.5% as context grew, demonstrating model-specific failure of the mechanism.",
+        "NINJA ASR in Table 1 was 58.8%, 42.5%, 54.5%, and 28.8% on Llama-3.1, Qwen2.5, Mistral-7B, and Gemini 2.0 Flash, respectively.",
+        "For every studied token budget, the peak modeled ASR used non-zero context length; the optimal length moved from 1,000 tokens at a 10,000-token budget to 10,000 tokens at a 50,000-token budget.",
+        "Front-positioned goals outperformed end-positioned goals across BrowserART attack variants."
+      ],
+      "key_results_location": "Introduction; Table 1; Sections 5.1-5.4; Figures 3, 4, and 6",
+      "extraction_confidence": "high; exact values were read from the primary arXiv full text",
+      "reviewed": "no",
+      "limitations": "The compute model excludes one-time context-generation cost and focuses on input tokens, not wall-clock tail latency. Long prompts may be disallowed or lose under the competition's time budget. Results are heterogeneous, including regression on Mistral. The main benchmark is harmful text, not valid tool actions.",
+      "math_foundations": "Per-example success probability from 100 runs; best-of-N success 1-(1-p)^N; token-budget constraint N=B/(P+L); Pareto frontier over context length and trial count.",
+      "motivation": "Pure best-of-N treats every query as an independent opportunity, while long context can alter the per-query safety/capability tradeoff enough to improve compute efficiency.",
+      "constraints_inferred": [
+        "Inference: context length and goal position should be audited as structural variables rather than silently inherited from templates.",
+        "Inference: competition evaluation must charge context construction, serialization, target tokens, and wall-clock tail, not only target input tokens.",
+        "Inference: the Mistral regression requires a pre-specified model-heterogeneity failure criterion."
+      ],
+      "key_decisions": [
+        "Retain context geometry as a fresh control dimension.",
+        "Do not adopt long context without a measured latency/resource profile.",
+        "Benchmark against equal-compute short-query best-of-N rather than equal query count alone."
+      ],
+      "tried_and_discarded": [
+        "Pure best-of-N was suboptimal in the authors' token-budget model.",
+        "Irrelevant random context was weaker than semantically relevant context.",
+        "Longer context did not improve Mistral ASR."
+      ],
+      "load_bearing_assumptions": [
+        "Input-token compute is an adequate proxy for the competition resource constraint.",
+        "The target retains the same positional safety bias.",
+        "Benign context is permitted and does not invalidate source/rule compliance."
+      ],
+      "relevance": "medium",
+      "relevance_reason": "It supplies a principled alternative to more trials, but the likely wall-clock cost and model heterogeneity make it a profiling candidate rather than an immediate attack policy."
+    },
+    {
+      "title": "SIRAJ: Diverse and Efficient Red-Teaming for LLM Agents via Distilled Structured Reasoning",
+      "authors": [
+        "Kaiwen Zhou",
+        "Ahmed Elgohary",
+        "A S M Iftekhar",
+        "Amin Saied"
+      ],
+      "venue": "arXiv preprint, 2025",
+      "url": "https://arxiv.org/abs/2510.26037",
+      "source_type": "primary scholarly preprint with reported code/model artifacts",
+      "core_contribution": "Separates risky-outcome/trajectory coverage from adversarial transformation, then conditions refinement on the target agent's execution trajectory. A compact four-part failure-analysis representation is distilled into an 8B red-teamer.",
+      "methodology": "The framework generates seed tasks conditioned on risk outcomes, sources, and anticipated tool trajectories, refines failed attacks using prior execution traces, structures the teacher's reasoning into four diagnostic sections, and trains an 8B model by SFT plus RL on 9,600 generated seeds from 200 synthetic agent configurations.",
+      "key_results": [
+        "Conditioning seed generation on prior cases increased unique tool trajectories from 18.3 to 28.4; the static Agent-SafetyBench comparator had 6.6 +/- 0.04 unique trajectories at matched sample count.",
+        "Training-free structured reasoning improved ASR by 5.5 percentage points on average for DeepSeek-R1.",
+        "Structured distillation improved ASR by 10.2 percentage points for SFT and 11.0 points for SFT+RL variants.",
+        "The final distilled red-teamer gained 25.8 points over the Qwen-8B baseline and 6.0 points over the R1 baseline; RL added 3.1 points over SFT alone.",
+        "On GPT-5-mini targets, average red-teamer output tokens fell from 9,939 for R1 and 9,174 for structured R1 to 3,315 for distilled SIRAJ; analogous reductions were reported on GPT-5 and o4-mini.",
+        "The final model retained a 94% average trajectory-diversity rate."
+      ],
+      "key_results_location": "Sections 4-6; Tables 3-6; Appendix A.5",
+      "extraction_confidence": "high; exact values were read from the primary arXiv full text",
+      "reviewed": "no",
+      "limitations": "Training requires thousands of synthetic cases, large teacher-model use, target-agent executions, and model fine-tuning. The cost reductions concern attacker output tokens, not necessarily target queries or Kaggle wall time. Generalization to completely unseen tools remained weaker than the large teacher.",
+      "math_foundations": "Two-stage conditional generation; iterative trajectory-conditioned policy; multi-objective RL reward for attack success, semantic faithfulness, and format; ablations of structured versus unstructured reasoning; coverage counts over tool trajectories.",
+      "motivation": "Unstructured red-teamer reasoning is verbose and noisy, while surface diversity does not guarantee coverage of distinct tool-action trajectories.",
+      "constraints_inferred": [
+        "Inference: encode target feedback into a small fixed diagnostic state: task state, failure cause, strategy class, and next transition.",
+        "Inference: tool-trajectory coverage is a better portfolio axis than lexical prompt diversity.",
+        "Inference: use SIRAJ as evidence for structured state compression, not as authorization for a new training pipeline without a measured bottleneck."
+      ],
+      "key_decisions": [
+        "Promote structured failure-state representation as a candidate routing feature.",
+        "Measure unique valid tool trajectories rather than message-text diversity.",
+        "Do not propose distillation unless existing data and compute make it feasible."
+      ],
+      "tried_and_discarded": [
+        "Unstructured full reasoning was noisier and distilled less effectively.",
+        "Answer-only SFT failed to preserve the gains of structured reasoning.",
+        "Static benchmark sampling produced far fewer unique tool trajectories."
+      ],
+      "load_bearing_assumptions": [
+        "Execution traces contain reliable causal evidence about failure.",
+        "A compact diagnostic schema transfers to the hidden competition targets.",
+        "The benefit survives without the paper's expensive training stack."
+      ],
+      "relevance": "medium",
+      "relevance_reason": "The trajectory-conditioned diagnostic representation is actionable for harness design, but the paper's main trained system is too resource-intensive to import directly."
+    },
+    {
+      "title": "Experience-Driven Multi-Agent Optimization for Black-Box Jailbreak Attacks on Large Language Models",
+      "authors": [
+        "Zhaoyang Han",
+        "Yihe Liu",
+        "Kai Zhang",
+        "Ping Li"
+      ],
+      "venue": "Findings of ACL 2026",
+      "url": "https://aclanthology.org/2026.findings-acl.1188/",
+      "source_type": "primary peer-reviewed conference paper",
+      "core_contribution": "A probe-evaluate-revise loop with separate attacker, analyzer, and judge agents plus a dynamic experience bank that retains successful prompts and reusable strategy patterns across tasks.",
+      "methodology": "EMJO runs a closed-loop black-box optimizer on two benchmark datasets and multiple victim models, with experience retrieval to guide new probes and transfer prior successful strategies rather than restarting search per task.",
+      "key_results": [
+        "EMJO achieved up to an 11 percentage-point absolute ASR improvement over black-box baselines.",
+        "It reduced average query cost by up to 7.9x across two benchmark datasets."
+      ],
+      "key_results_location": "Abstract and paper headline results",
+      "extraction_confidence": "high for headline values from the ACL Anthology primary page; per-cell values were not extracted and are marked not_reported",
+      "reviewed": "yes",
+      "limitations": "The reported gains are maxima ('up to'), not a guaranteed average for a hidden target. The multi-agent stack adds non-target model calls and the paper is not tool-action specific. An experience bank can overfit if task identity leaks or if successful prompts are highly correlated.",
+      "math_foundations": "Iterative black-box optimization; experience retrieval over reusable strategies; empirical query-cost ratio and ASR comparisons across victims and datasets.",
+      "motivation": "Independent per-task search repeatedly pays to rediscover the same high-value attack strategies and ignores information in failed probes.",
+      "constraints_inferred": [
+        "Inference: a competition harness could retrieve a compact prior over transitions from existing local evidence instead of allocating every query from scratch.",
+        "Inference: experience must be stored at mechanism/response-state level, not as a catalog of prompt strings, to avoid becoming renamed template racing.",
+        "Inference: charge analyzer and judge work in the end-to-end resource ledger."
+      ],
+      "key_decisions": [
+        "Retain experience-conditioned transition priors as a mechanism candidate.",
+        "Require leave-one-target-family-out evaluation before claiming transfer.",
+        "Avoid a multi-agent implementation unless each component has a profiled bottleneck and ablation."
+      ],
+      "tried_and_discarded": [
+        "Large-scale enumeration and exhaustive search are identified as query-prohibitive baselines.",
+        "Model-specific manual tuning is rejected as non-transferable."
+      ],
+      "load_bearing_assumptions": [
+        "Prior tasks share reusable response-to-strategy relationships.",
+        "Experience retrieval does not leak evaluation targets.",
+        "The target-query savings dominate the cost of the analyzer/judge loop."
+      ],
+      "relevance": "medium",
+      "relevance_reason": "It supports experience-conditioned search and strong query reductions, but direct adoption would risk unjustified multi-agent stacking and its benchmarks are not tool-action competitions."
+    },
+    {
+      "title": "Security Challenges in AI Agent Deployment: Insights from a Large Scale Public Competition",
+      "authors": [
+        "Andy Zou",
+        "Maxwell Lin",
+        "Eliot Jones",
+        "Micha Nowak",
+        "Mateusz Dziemian",
+        "Nick Winter",
+        "Valent Nathanael",
+        "Ayla Croft",
+        "Xander Davies",
+        "Jai Patel",
+        "Robert Kirk",
+        "Yarin Gal",
+        "Dan Hendrycks",
+        "J. Zico Kolter",
+        "Matt Fredrikson"
+      ],
+      "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/73368bc7644c054b5bcc6490a8f2fb1c-Abstract-Datasets_and_Benchmarks_Track.html",
+      "source_type": "primary peer-reviewed conference paper and competition analysis",
+      "core_contribution": "Analyzes 1.8 million attacks from a public agent red-teaming competition and shows that indirect channels, cross-model transfer, and universal mechanism clusters dominate many direct prompt attacks in realistic tool-enabled deployments.",
+      "methodology": "The challenge covered 44 scenarios and 22 frontier models. The authors curate 4,700 high-quality attacks into ART, evaluate 19 models at 1, 10, and 100 queries, compute direct/indirect ASR by policy category, replay attacks across source and target models, and cluster attack traces for universality.",
+      "key_results": [
+        "The challenge collected about 1.8 million attempts from almost 2,000 participants and more than 62,000 successful policy violations.",
+        "Overall direct-attack ASR was 5.7%, versus 27.1% for indirect attacks.",
+        "For prohibited actions, direct ASR was 4.2% and indirect ASR was 36.8%; for confidentiality breaches the values were 7.8% and 29.8%.",
+        "ART behavior-level ASR was about 20% to 60% at one query and approached nearly 100% for most models by 10 queries.",
+        "A universal single-turn attack cluster reached 58%, 50%, and 45% behavior-level ASR on three Gemini variants and 33% on Command-R and Llama 3.3 70B.",
+        "Transfer from attacks discovered on robust source models was generally stronger; per-direction transfer values in the published matrix ranged widely and were asymmetric.",
+        "The correlation between GPQA capability and attack success was -0.31, and added inference compute showed no consistent robustness benefit."
+      ],
+      "key_results_location": "Abstract; Table 1; Figures 4-6; Sections 2.2-3.4",
+      "extraction_confidence": "high; exact values were read from the primary NeurIPS proceedings PDF",
+      "reviewed": "yes",
+      "limitations": "The public challenge objective and scoring differ from the current Kaggle competition. The 1.8 million attempts reflect intensive online iteration unavailable under a small query budget. Attack clusters reveal association and transfer, not a causal component effect. Universal public templates may already be defended against or barred by originality constraints.",
+      "math_foundations": "Behavior-level pass@k-style ASR; cross-model transfer matrix; sentence-embedding graph with cosine similarity above 0.9 and connected-component clusters; correlation of robustness with capability; category-stratified ASR.",
+      "motivation": "Large-scale real agent data can reveal which attack surfaces and discovery sources generalize, beyond small prompt benchmarks.",
+      "constraints_inferred": [
+        "Inference: prioritize indirect/tool-observation surfaces when the competition rules genuinely expose them; their observed ASR advantage was approximately 4.8x overall, but this is not a causal matched comparison.",
+        "Inference: robustness of the source model may be a useful filter for transfer strength, but must not substitute for target-derived evidence.",
+        "Inference: clustered public templates should be controls; novelty should operate on response state, role perception, or action topology."
+      ],
+      "key_decisions": [
+        "Use indirect-versus-direct results to prioritize attack-surface selection, not to predict a specific score uplift.",
+        "Treat public universal templates as baselines and contamination controls.",
+        "Preserve asymmetric transfer rather than averaging it into one universal score."
+      ],
+      "tried_and_discarded": [
+        "Assuming larger or more capable models are automatically safer was unsupported.",
+        "Extra inference compute did not consistently improve robustness.",
+        "Direct attacks were substantially weaker than indirect attacks in aggregate."
+      ],
+      "load_bearing_assumptions": [
+        "The current competition exposes comparable tool or indirect channels.",
+        "Policy-violation ASR is directionally informative for valid scored tool actions.",
+        "The curated attacks' transfer patterns survive later model updates."
+      ],
+      "relevance": "high",
+      "relevance_reason": "It is the largest primary agent-competition analysis found and gives exact evidence for changing attack surface and discovery source, while warning that model capability and more reasoning compute are poor routing heuristics."
+    }
+  ]
+}

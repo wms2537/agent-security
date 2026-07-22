@@ -1,16 +1,16 @@
 {
-  "phase": "0a",
+  "phase": "0",
   "cycle": 3,
-  "iteration": 3,
+  "iteration": 4,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Can one absorbing no-fit transition remove the measured low-yield HCMS retry tail while preserving raw and eliminating controlled resource overages on fresh q-independent complete traces?",
-    "assumption": "Matched complete potential traces make otherwise identical absorb-versus-retry HCMS projections attributable without method-predecessor confounding; the measured post-no-fit tail is sufficiently inefficient that removing it improves aggregate raw per generation-work second while retaining nearly all retry raw.",
-    "assumption_source": "The sealed invalid-but-complete earlier run directly reconstructs 415 primary post-no-fit paths consuming 59.181928537553 seconds for 54 raw and 146 HCMS paths consuming 18.366501234705 seconds for 18 raw. This is retrospective bottleneck evidence only; confirmation requires the frozen nine-unit fresh trace experiment.",
-    "novelty_claim": "AHCMS-24 v3 makes one contribution claim only: replace retry-after-first-replay-no-fit in inherited HCMS with an absorbing transition. Replay envelopes and atomic gates receive no contribution credit; target-model, leaderboard, population and hard-deadline claims remain withheld."
+    "problem": "Can one exact successful EXFIL action establish conversation-resident invariant semantics so that later user turns transmit only new destination operands, preserving at least 0.95 exact-chain coverage while increasing raw per replay second enough to support a complete policy above 110.235?",
+    "assumption": "After one exact successful action, retained assistant and tool history carries enough high-authority action state for a short destination operand to reproduce the same tool, payload and stop semantics more efficiently than full instruction retransmission.",
+    "assumption_source": "Exact SDK inspection proves within-candidate RuntimeHistory retention across all evaluated adapters and reset only between candidates; six fresh public-notebook audits find full repetition, one-message repetition or disabled multi-message branches rather than operand-only continuation. Recent response-conditioned attack studies support state as a mechanism variable, but the required competition effect and exact coverage remain unmeasured.",
+    "novelty_claim": "SCOC-32 makes one contribution claim only: replace per-turn invariant semantic retransmission with one exact successful anchor plus destination-only operands. Template selection, profiling, replay accounting, fallback and any source-compatible control reconstruction receive no contribution credit."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -30,10 +30,11 @@
   "portfolio_sequence": [
     "Prefix-Risk Absorbing Controller 24",
     "Replay-safe core-first single-post floor",
-    "Silent unique-domain wording as a raced arm"
+    "Silent unique-domain wording as a raced arm",
+    "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": null,
-  "active_hypothesis_artifact": null,
+  "active_hypothesis": "scoc32",
+  "active_hypothesis_artifact": "research-log/188-cycle3-round2-success-conditioned-operand-chain-selection.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -47,7 +48,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 4
+      "spent": 5
     },
     "hypothesis_review_rounds": {
       "limit": 12,
@@ -567,9 +568,17 @@
       "id": "T064",
       "phase": "0a",
       "desc": "Run the second and final Cycle-3 ideation round over fresh, source-compatible competition dimensions with a plausible ceiling above 110.235; exclude renamed template-search/replay-margin variants and all refuted or implementation-defeated approaches, then select at most one direction without implementation, theory-review dispatch, Kaggle mutation or submission",
+      "status": "done",
+      "evidence": "Report 188 records `t064_cycle3_round2_ideation=PASS candidates=3 selected=scoc32 selected_status=provisional_phase0 leader=110.235 incumbent=69.570 public_association=89.455 research_budget=5/5 review_budget=12/12 implementation=false kaggle_mutation=false submission=false results_immutable=true attack_immutable=true next_task=T065`. Three distinct opportunity patterns were compared after exact SDK, fresh public-artifact and current primary-literature sweeps. SCOC-32 alone advances provisionally; its 1.25x target reaches 111.81875 only from an honestly bound 89-class control and reaches only 86.9625 from the 69.570 incumbent, so Phase 0 must bind a source-compatible control above 88.188 or require the complete policy to clear 1.5846x. Citation databases have SHAs 589394d.../71d6fe4.../a9e0031...; no implementation, review dispatch, Kaggle mutation, commit run or submission occurred.",
+      "parent": "T063"
+    },
+    {
+      "id": "T065",
+      "phase": "0",
+      "desc": "Formalize the SCOC-32 Phase-0 problem and complete-policy bridge: reconstruct an honestly source-compatible 89-class control without score attribution, specify fixed-message component-separating comparisons and exact >=110.235 ceiling/retirement rules, and define target-derived generation/replay-tail evidence before any implementation, theory review, Kaggle mutation or submission",
       "status": "open",
       "evidence": null,
-      "parent": "T063"
+      "parent": "T064"
     }
   ],
   "parked_candidates": [
@@ -600,6 +609,20 @@
       "sequence": 5,
       "reason": "Fresh report-187 source audit finds no attributable timing, firing, token or ablation output; the public notebook wraps domains after 676, accepts any predicate and has no returned-set replay ledger. Its author's 85.710 best score is not attributable to the notebook and remains below the leader.",
       "phase1_weighted_score": 6.0
+    },
+    {
+      "name": "Self-Demonstrated Trace Compilation",
+      "status": "rejected_pre_hypothesis_mechanism_stacking",
+      "sequence": 6,
+      "reason": "Report 188 rejects a target-trace compiler because SCOC-32 can test the necessary self-success-state prediction without adding compilation, selection and a new role-serialization transfer problem.",
+      "phase1_weighted_score": 3.0
+    },
+    {
+      "name": "Retroactive Intent-Closure Stacking",
+      "status": "rejected_pre_hypothesis_value_dominated",
+      "sequence": 7,
+      "reason": "Report 188 rejects the mixed email/final-EXFIL direction analytically: CONFUSED_DEPUTY contributes 4 raw versus 16 for EXFIL, with no evidence that email tool actions are more than four times faster at equal reliability.",
+      "phase1_weighted_score": 2.5
     }
   ],
   "search_log": [
@@ -680,6 +703,14 @@
       "varies": "complete-cell-resource-risk-admission-and-absorbing-stop",
       "kind": "metric",
       "outcome": "inconclusive"
+    },
+    {
+      "cycle": 3,
+      "iteration": 4,
+      "direction": "success-conditioned-operand-chains-32",
+      "varies": "conversation-resident-invariant-factorization-and-self-success-continuation",
+      "kind": "understanding",
+      "outcome": "selected_pre_hypothesis"
     }
   ],
   "tried_and_failed": [
@@ -1256,6 +1287,16 @@
       "anti_stacking": "PASS BY REJECTION — floor plus silent race is not selected because prior PORF review and fresh evidence show missing per-component bottleneck profiles.",
       "winning_ceiling": "FAIL — optimistic strongest floor association 88.515 still requires 24.5382 percent uplift to the 110.235 leader; silent author association requires 28.6140 percent.",
       "status": "NO ACTIVE HYPOTHESIS — report 187 selects neither candidate, preserves the floor as a control, and enters Cycle-3 ideation round 2/2 at Phase 0a with T064."
+    },
+    "0a_cycle3_round2": {
+      "topic_landscape": "PASS — report 188 maps stateful multi-turn attacks, role and authority state, action topology, prompt and context efficiency, and cross-guardrail robustness against exact competition mechanics.",
+      "citation_spot_check": "PASS — the randomly selected NeurIPS competition and ACL EMJO entries were checked against official proceedings; one preliminary author-list mismatch was corrected before both entries were marked reviewed.",
+      "sota_and_baselines": "PASS — live SOTA is 110.235 with hidden method; strongest audited public team association is 89.455 without notebook-version attribution; exact project artifact-score baseline is 69.570.",
+      "candidate_slate": "PASS — SCOC-32, SDTC and RICS span Resource Bottleneck, Explanation Gap and Puzzle/Contradiction; all required candidate fields and distinguishing predictions are present, and no Bridge x Synthesis candidate is used.",
+      "selection": "PROVISIONAL — standing autonomous-selection authority selects SCOC-32 for Phase 0 only. It is not a frozen hypothesis, validated result, leaderboard forecast or submission authorization.",
+      "winning_bridge": "OPEN HARD GATE — 1.25x gives 111.81875 only from a source-compatible control above 88.188 and gives 86.9625 from the exact 69.570 incumbent. Phase 0 must bind that control honestly or require a complete-policy gain of at least 1.5846x; otherwise retire before implementation.",
+      "budgets": "research 5/5; hypothesis review 12/12; paper review 0/2.",
+      "status": "PASS TO PHASE 0 — T064 complete and T065 open; no implementation, theory-review dispatch, Kaggle mutation, commit run or submission"
     }
   }
 }

@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "created_at": "2026-07-23T02:10:00+08:00",
+    "task": "T064",
+    "scope": "Read-only live Kaggle frontier and public-source audit for Cycle-3 round-2 ideation",
+    "competition": "ai-agent-security-multi-step-tool-attacks",
+    "kaggle_mutation": false,
+    "submission": false,
+    "reviewed_by_main_agent": true
+  },
+  "leaderboard": {
+    "downloaded_at": "2026-07-23T02:00:00+08:00",
+    "archive_sha256": "029881d91940652b11e82ec8df0cb3cb3a11e553c79603b71fb7e4971d5081aa",
+    "csv_sha256": "9e3cbed901bef79a96618c6814f7e6ce9e37cc665bc303eeacb353def00e42e0",
+    "leader_rank": 1,
+    "leader_score": 110.235,
+    "leader_username": "outliar",
+    "public_method_disclosed": false,
+    "whyme_score": 69.57,
+    "note": "Leaderboard rows are exact team outcomes. A public notebook and its author's best team score are only an association unless the scored submission version is independently linked."
+  },
+  "searches": [
+    {
+      "query": "multi message",
+      "platform": "Kaggle kernels list",
+      "date": "2026-07-23",
+      "result_count_reviewed": 50
+    },
+    {
+      "query": "multi turn",
+      "platform": "Kaggle kernels list",
+      "date": "2026-07-23",
+      "result_count_reviewed": 50
+    },
+    {
+      "query": "repeat; chain",
+      "platform": "Kaggle kernels list",
+      "date": "2026-07-23",
+      "result_count_reviewed": 100
+    }
+  ],
+  "artifacts": [
+    {
+      "ref": "canqiang/aiagsec-ea-b-0721",
+      "title": "AIAgSec Ea B 0721",
+      "last_run_time": "2026-07-21T06:31:44.707000",
+      "notebook_sha256": "6a6ad5bcbb3a959ef7dac04aed7e26d180fb71a50849bfb585185d686429f33d",
+      "leaderboard_association": {"rank": 49, "score": 89.455, "submissions": 79},
+      "reviewed": "yes",
+      "mechanism": "Live validated single-post fill, latency-based model routing, public Harmony control-token framing for the slow GPT-OSS row, replay-safe sizing, and an optional single-message multi-post plan. The pulled configuration leaves slow_multipost_n=1.",
+      "representation_finding": "No stateful multi-message operand or macro chain is present; the active path returns one full attack message per candidate.",
+      "limitations": "The team score is not proven to come from this exact public notebook hash."
+    },
+    {
+      "ref": "qyq1693/ai-agent-security-dense-v9",
+      "title": "ai-agent-security-dense-v9",
+      "last_run_time": "2026-07-15T03:00:39.630000",
+      "notebook_sha256": "f2d1e8e4da2e4f05b29d49f38f9e328282f713a02e9be3476621f860a0dd51e6",
+      "leaderboard_association": {"rank": 419, "score": 82.62, "submissions": 64},
+      "reviewed": "yes",
+      "mechanism": "Exposes single, one-message multihop, repeated full-message multimsg, and hybrid structures plus a public live portfolio. The pulled configuration uses the single mode and disables its multi-turn portfolio.",
+      "representation_finding": "Its multimsg builder repeats SINGLE_TEMPLATE with full action and payload semantics on every turn; it does not factor invariant semantics into the retained conversation.",
+      "limitations": "The score is an author-team association, and inactive configuration branches are proposals rather than scored evidence."
+    },
+    {
+      "ref": "arizalfirdaus123/multi-turn-exfiltration-with-adaptive-burst",
+      "title": "Multi-Turn Exfiltration with Adaptive Burst",
+      "last_run_time": "2026-07-02T09:14:05.297000",
+      "notebook_sha256": "3bb3c9d5f4bc5e556572fed350a90ed03d22500ffabe29205fb753eebcb6cd85",
+      "leaderboard_association": {"rank": 725, "score": 59.42, "submissions": 86},
+      "reviewed": "yes",
+      "mechanism": "Probes one-message burst prompts that ask the model to repeat http.post over tool hops, then falls back to single posts.",
+      "representation_finding": "The repetition instruction is contained in one full initial message; it does not test later compressed user operands in a retained multi-message conversation.",
+      "limitations": "The pulled artifact is older and the team score is not exact-version attributable."
+    },
+    {
+      "ref": "uradkr/ai-security-urad-code",
+      "title": "AI Security URAD Code",
+      "last_run_time": "2026-06-26T04:32:04.527000",
+      "notebook_sha256": "2b2045f1922c8bcd2482b03f8c03a5df9fd437591ccab44f65d6637d573a63bc",
+      "leaderboard_association": {"rank": 253, "score": 85.77, "submissions": 141},
+      "reviewed": "yes",
+      "mechanism": "Static immediate emission of 400 full single-post messages with unique domains and no generation-time interaction.",
+      "representation_finding": "Provides a reproducible static floor but no multi-message state reuse.",
+      "limitations": "Artifact timestamp predates the team's latest submission, and the score is not exact-version attributable."
+    },
+    {
+      "ref": "kaiwalyaatulraut/ai-agent-security-competition-solution",
+      "title": "AI Agent Security Competition Solution",
+      "last_run_time": "2026-07-22T17:22:39.723000",
+      "notebook_sha256": "d5b8af93a68b0c1d99a43d877a302b665284afcf88e822ac243d90812a0760dd",
+      "leaderboard_association": {"rank": 278, "score": 85.455, "submissions": 26},
+      "reviewed": "yes",
+      "mechanism": "Forked live validated single-post fill with public response-prefill framing and replay-safe sizing.",
+      "representation_finding": "The active candidate remains a one-message full instruction; no stateful macro chain is implemented.",
+      "limitations": "The public notebook ran after the leaderboard row's last submission, so its source cannot be attributed to the 85.455 outcome."
+    },
+    {
+      "ref": "ducnamphan/jed-v12-0-uta-amplifier",
+      "title": "JED v12.0 UTA Amplifier",
+      "last_run_time": "2026-07-08T15:50:54.507000",
+      "notebook_sha256": "1172f3d3ded3ed6ee99f1a47f6f2fcd1f90fb5b673d70e61c5477bbc737ffb1b",
+      "leaderboard_association": {"rank": 1422, "score": 20.25, "submissions": 23},
+      "reviewed": "yes",
+      "mechanism": "Uses untrusted-source setup and generic follow-ups plus static single exfil and destructive-write candidates.",
+      "representation_finding": "Contains indirect follow-up language but not an exact repeated EXFIL macro with destination-only operands, and it has no competitive score evidence.",
+      "limitations": "Low author-team score and mixed mechanisms make it a negative control, not a strong baseline."
+    }
+  ],
+  "landscape_conclusion": {
+    "public_frontier": "The strongest source-visible families remain single-post validated fill plus model-specific response-prefill tricks. Public multi-message examples repeat full action semantics, put repetition inside one message, or disable the multi-message branch.",
+    "unoccupied_dimension": "No audited artifact factors the invariant tool, payload, and stop semantics into one retained conversation-resident macro and sends only destination operands on later turns.",
+    "novelty_caveat": "This is a public-artifact gap, not proof that private competitors or prior scholarship lack the idea.",
+    "selection_bar": "A stateful representation must preserve exact per-turn EXFIL coverage and beat the strongest full-repeat chain by at least 25% raw score per replay second before it can plausibly bridge 89.455 to the 110.235 leader."
+  }
+}
