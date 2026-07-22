@@ -1,0 +1,571 @@
+{
+  "tier": 1,
+  "search_record": [
+    {
+      "query": "adaptive black-box red teaming best-of-N candidate selection LLM 2025 2026 arXiv",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "budgeted jailbreak search query allocation transfer across models paper",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "multi-model adversarial prompt transfer robust candidate portfolio LLM paper",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "adaptive attack evaluation indirect prompt injection defenses agent",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "bandit allocation black-box safety evaluation language models paper",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "diversity reliability tradeoff red teaming prompt portfolio",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "test-time scaling adversarial search LLM guardrails",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "cross-model transferability agent security attacks benchmark",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "Best-of-N Jailbreaking paper Hughes exact results",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "Tree of Attacks with Pruning jailbreak exact queries results",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "RainbowPlus evolutionary quality-diversity search exact results code",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "AgentDojo prompt injection benchmark 97 tasks 629",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "HarmBench standardized evaluation red teaming exact 33 models",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "The Attacker Moves Second LLM jailbreak defenses arXiv",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "AutoDojo adaptive attacks exact results ASR",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "AdaBoN adaptive Best-of-N exact results",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "Guiding not Forcing jailbreak transferability exact results",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "HarmBench conference venue 2024 official proceedings",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "Security Challenges in AI Agent Deployment large scale public competition transferability",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    },
+    {
+      "query": "LASH Adaptive Semantic Hybridization black-box jailbreaking candidate portfolio",
+      "platform": "web search",
+      "date": "2026-07-22",
+      "result_count": "not_reported_by_platform"
+    }
+  ],
+  "papers": [
+    {
+      "title": "AdaBoN: Adaptive Best-of-N Alignment",
+      "authors": [
+        "Vinod Raman",
+        "Hilal Asi",
+        "Satyen Kale"
+      ],
+      "venue": "arXiv preprint 2505.12050; submitted to ICLR 2026",
+      "url": "https://arxiv.org/abs/2505.12050",
+      "source_type": "preprint",
+      "core_contribution": "A two-stage, prompt-adaptive Best-of-N policy that first estimates each prompt's reward distribution with a small exploration budget and then greedily allocates the remaining samples by estimated marginal value.",
+      "methodology": "Evaluates adaptive versus uniform inference allocation on AlpacaEval, HH-RLHF, and PKU-SafeRLHF using 12 language-model/reward-model pairs and 50 sampled prompt batches; introduces Batch Win Rate and Expected Survival Time.",
+      "key_results": "Across 12 LM/RM pairs and 50 prompt batches, adaptive allocation outperforms equal allocation at the same budget and remains competitive with uniform allocation given 20% more budget; some batch win rates reach 70%.",
+      "key_results_location": "arXiv abstract; ICLR 2026 manuscript, Introduction contributions (items 3-4)",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "This is alignment-time reward maximization, not adversarial search against a security target.",
+        "Results depend on learned reward models and batch-level prompt distributions; they do not establish live-target transfer or replay-deadline guarantees."
+      ],
+      "math_foundations": "Order statistics for Best-of-N, empirical reward-distribution estimation, marginal value of an additional sample, and greedy resource allocation under a fixed total budget.",
+      "motivation": "Uniform Best-of-N wastes compute on prompts that are already easy or whose reward tails offer little marginal gain.",
+      "constraints_inferred": [
+        "Inference: use a small mandatory exploration floor per model/guardrail cell before reallocating budget.",
+        "Inference: scores must be comparable and stable enough within a cell for estimated marginal gains to be meaningful."
+      ],
+      "key_decisions": [
+        "Separate exploration from exploitation.",
+        "Allocate by expected marginal portfolio value, not by equal counts or incumbent maximum alone."
+      ],
+      "tried_and_discarded": "Uniform per-prompt allocation is retained as the principal baseline and is empirically dominated at the same budget.",
+      "load_bearing_assumptions": [
+        "Per-prompt reward distributions are sufficiently smooth and stationary over the allocation window.",
+        "Applying the same policy to heterogeneous live security cells is an unvalidated analogy; constructed profiles cannot confirm target response heterogeneity."
+      ],
+      "relevance": "medium",
+      "relevance_reason": "The closest direct source for adaptive fixed-budget Best-of-N allocation, but its objective and feedback model are not security attacks."
+    },
+    {
+      "title": "Best-of-N Jailbreaking",
+      "authors": [
+        "John Hughes",
+        "Sara Price",
+        "Aengus Lynch",
+        "Rylan Schaeffer",
+        "Fazl Barez",
+        "Sanmi Koyejo",
+        "Henry Sleight",
+        "Erik Jones",
+        "Ethan Perez",
+        "Mrinank Sharma"
+      ],
+      "venue": "NeurIPS 2025",
+      "url": "https://papers.neurips.cc/paper_files/paper/2025/hash/69f3eb242c7c9df9ea2f2b66ea8b3c0f-Abstract-Conference.html",
+      "source_type": "conference_paper",
+      "core_contribution": "Shows that repeated black-box sampling of innocuous input variations yields predictable scaling in attack success and composes effectively with other black-box attacks.",
+      "methodology": "Samples randomized text, vision, and audio augmentations until a grader identifies a successful response or a maximum N is reached; studies scaling, forecasting, reliability, cross-model difficulty correlations, and attack composition.",
+      "key_results": "At N=10,000, text ASR is 89% on GPT-4o and 78% on Claude 3.5 Sonnet. At N=100, GPT-4o reaches 50% ASR for a reported $9. Successful variants replay unreliably at temperature 1: mean harmful-response rates are 30% text, 25% vision, and 15% audio. Small-N power-law fits forecast final ASR with mean absolute errors of 4.4, 6.3, and 2.5 percentage points for text, vision, and audio respectively.",
+      "key_results_location": "paper Sections 3.1, 4.2, and 5.4; arXiv HTML lines 57-60, 100, and 144",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Large N can be expensive and attack success is highly model-, request-, and modality-dependent.",
+        "A single discovered success is often not replay reliable.",
+        "The fitted power law is empirical and sometimes underpredicts high final ASR."
+      ],
+      "math_foundations": "Best-of-N order statistics; empirical scaling law -log(ASR)=a*N^(-b); bootstrap trajectories; rank correlation of per-request difficulty across models.",
+      "motivation": "Model stochasticity and sensitivity to benign-looking transformations create an exploitable tail that grows with sampling effort.",
+      "constraints_inferred": [
+        "Inference: candidate selection must score both first-hit success and repeated-trial reliability.",
+        "Inference: budget allocation should use per-cell empirical curves, because the N required varies substantially across safeguards."
+      ],
+      "key_decisions": [
+        "Maintain multiple independent variants instead of one observed winner.",
+        "Reserve repeated evaluations for reliability estimation and compose complementary candidate families when sample-efficient."
+      ],
+      "tried_and_discarded": "Plain resampling without augmentations is much weaker; Appendix D.6 reports unsuccessful attempts to find universal audio augmentations, including poor validation generalization after optimizing a training set.",
+      "load_bearing_assumptions": [
+        "Sampling variations explores a sufficiently rich and stable response distribution.",
+        "Observed maxima and arbitrary replay margins are not deadline guarantees; returned-set sizing requires a calibrated tail/dependence model and an explicit void-risk target."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Direct evidence for black-box Best-of-N scaling, candidate dependence, cross-model heterogeneity, composition, and replay risk."
+    },
+    {
+      "title": "RainbowPlus: Enhancing Adversarial Prompt Generation via Evolutionary Quality-Diversity Search",
+      "authors": [
+        "Quy-Anh Dang",
+        "Chris Ngo",
+        "Truong-Son Hy"
+      ],
+      "venue": "arXiv preprint 2504.15047",
+      "url": "https://arxiv.org/abs/2504.15047",
+      "source_type": "preprint_with_public_code",
+      "core_contribution": "An adaptive MAP-Elites-style quality-diversity search with multiple candidates per archive cell, diversity filtering, batched probabilistic fitness, and survivor selection.",
+      "methodology": "Iterates parent sampling, LLM mutation, diversity filtering, response evaluation, and archive update. Compares against quality-diversity baselines on six datasets/four open models and against nine methods on HarmBench across twelve target models; releases code.",
+      "key_results": "Reports Diverse-Score about 0.84; up to 10,418 unique candidates versus 100 for Rainbow on Ministral-8B-Instruct-2410; mean HarmBench ASR 81.1% versus AutoDAN-Turbo 77.2%; runtime 1.45 versus 13.50 hours.",
+      "key_results_location": "abstract; Tables 2-4; Discussion, arXiv HTML lines 326-330",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Preprint results rely on an LLM judge and on a reimplementation of the closed-source Rainbow baseline.",
+        "High semantic diversity does not by itself imply independence of replay failures or transfer across hidden guardrails."
+      ],
+      "math_foundations": "Evolutionary quality-diversity optimization, MAP-Elites archives, niche-based survivor selection, probabilistic multi-candidate fitness, and explicit behavioral descriptors.",
+      "motivation": "Single-winner optimization collapses diversity and can miss distinct vulnerability niches; a portfolio should preserve both quality and behavioral coverage.",
+      "constraints_inferred": [
+        "Inference: define archive cells using source-compliant structural features, not sensitive payload strings.",
+        "Inference: cap correlated near-duplicates per cell and reserve slots across families/models."
+      ],
+      "key_decisions": [
+        "Keep several elites per niche.",
+        "Use joint quality and diversity gates before consuming live evaluation budget."
+      ],
+      "tried_and_discarded": "The paper replaces Rainbow's single-prompt-per-cell archive and pairwise fitness comparisons; it notes that Rainbow had to be reimplemented because the original framework was closed source.",
+      "load_bearing_assumptions": [
+        "The behavioral descriptor space captures distinctions that matter to target outcomes.",
+        "Judge scores are sufficiently calibrated for selection and are not systematically reward-hacked."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Provides the clearest portfolio mechanism for jointly preserving effectiveness and diversity under constrained search."
+    },
+    {
+      "title": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+      "authors": [
+        "Patrick Chao",
+        "Alexander Robey",
+        "Edgar Dobriban",
+        "Hamed Hassani",
+        "George J. Pappas",
+        "Eric Wong"
+      ],
+      "venue": "arXiv preprint 2310.08419",
+      "url": "https://arxiv.org/abs/2310.08419",
+      "source_type": "preprint_with_public_code",
+      "core_contribution": "PAIR uses an attacker model, target feedback, and iterative refinement to search semantic candidates with only black-box access to the target.",
+      "methodology": "An attacker LLM proposes a candidate, the target responds, an evaluator scores the response, and the attacker uses the transcript and score to refine the next candidate; evaluated across open and closed models.",
+      "key_results": "PAIR often finds a successful candidate in fewer than 20 target-model queries and reports transfer across GPT-3.5/4, Vicuna, and Gemini; an exact aggregate transfer rate is not reported in the abstract.",
+      "key_results_location": "arXiv abstract",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Efficiency counts target queries but not auxiliary attacker/evaluator calls.",
+        "Outcomes depend strongly on attacker and evaluator model quality and on target-model versions."
+      ],
+      "math_foundations": "Sequential black-box optimization with an LLM proposal policy, scalar feedback, bounded iterations, and multiple independent streams.",
+      "motivation": "Gradient access is unavailable for proprietary targets, while semantic feedback can guide a query-efficient search.",
+      "constraints_inferred": [
+        "Inference: preserve independent refinement streams to reduce early local lock-in.",
+        "Inference: account separately for target-query cost and auxiliary-model cost."
+      ],
+      "key_decisions": [
+        "Use response-conditioned iteration rather than static generation.",
+        "Stop a stream on verified success or budget exhaustion."
+      ],
+      "tried_and_discarded": "The paper positions high-query white-box suffix optimization and unguided/static attacks as unsuitable for its black-box, low-query goal; detailed negative trials are not_reported in the abstract.",
+      "load_bearing_assumptions": [
+        "The evaluator score tracks the true target criterion.",
+        "Target feedback remains informative across iterations and does not drift during the search."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Foundational query-efficient feedback loop for adaptive black-box candidate refinement."
+    },
+    {
+      "title": "Tree of Attacks: Jailbreaking Black-Box LLMs Automatically",
+      "authors": [
+        "Anay Mehrotra",
+        "Manolis Zampetakis",
+        "Paul Kassianik",
+        "Blaine Nelson",
+        "Hyrum Anderson",
+        "Yaron Singer",
+        "Amin Karbasi"
+      ],
+      "venue": "NeurIPS 2024",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/70702e8cbb4890b4a467b984ae59828a-Abstract-Conference.html",
+      "source_type": "conference_paper_with_public_code",
+      "core_contribution": "TAP combines branching search with two-stage pruning: reject off-topic candidates before target queries, then retain only high-scoring survivors for the next depth.",
+      "methodology": "Uses attacker, evaluator, and target LLMs in a breadth-first tree. At every round it branches candidates, prunes off-topic proposals, queries the target, scores outcomes, and selects a bounded frontier.",
+      "key_results": "On GPT-4-Turbo, TAP reports 84% success with 22.5 average target queries versus PAIR's 44% with 47.1. Removing off-topic pruning uses 55.4 queries and reaches 72% versus TAP's 22.5 queries and 84%. In the conference paper's transfer table, 34 of 42 candidates found on GPT-4-Turbo transfer to GPT-4o and 31 of 42 transfer to Gemini-Pro.",
+      "key_results_location": "NeurIPS paper Table 1, page 7; Table 4, page 8; Table 3, page 7",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Reported query efficiency excludes auxiliary attacker/evaluator calls.",
+        "Transfer varies sharply by model and is zero in several Llama-2-7B cells.",
+        "Evaluator choice can cause severe performance degradation; the authors' audit reports a 13% false-positive rate and 0% false-negative rate for the GPT-4 metric."
+      ],
+      "math_foundations": "Bounded breadth-first tree search, heuristic pruning, beam-like top-k frontier selection, and empirical transfer matrices.",
+      "motivation": "Branching improves exploration, while pre-target pruning prevents obviously irrelevant candidates from consuming scarce queries.",
+      "constraints_inferred": [
+        "Inference: use a cheap source-compliance and relevance gate before any expensive live call.",
+        "Inference: do not treat transfer as global; learn a directional source-to-target matrix with shrinkage for sparse cells."
+      ],
+      "key_decisions": [
+        "Branch before committing budget.",
+        "Prune twice: first for validity/relevance, then for outcome score.",
+        "Carry a small frontier, not just the current best."
+      ],
+      "tried_and_discarded": "A no-off-topic-pruning variant and a branching-factor-one variant are empirically inferior; a weaker evaluator configuration sharply reduces success.",
+      "load_bearing_assumptions": [
+        "The pruning evaluator has high recall for eventual successes.",
+        "Auxiliary-model expense and latency are acceptable even though they are omitted from the target-query budget."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Directly supports query-aware branching, preflight pruning, bounded frontiers, and cell-specific transfer estimates."
+    },
+    {
+      "title": "LASH: Adaptive Semantic Hybridization for Black-Box Jailbreaking of Large Language Models",
+      "authors": [
+        "Abdullah Al Nomaan Nafi",
+        "Fnu Suya",
+        "Swarup Bhunia",
+        "Prabuddha Chakraborty"
+      ],
+      "venue": "arXiv preprint 2605.21362",
+      "url": "https://arxiv.org/abs/2605.21362",
+      "source_type": "preprint",
+      "core_contribution": "Treats outputs from heterogeneous attack families as reusable seeds, then searches over seed subsets and softmax mixture weights to synthesize one candidate per target request using only black-box feedback.",
+      "methodology": "Builds a reduced-budget seed pool from PAIR, TAP, and AutoDAN-Turbo; a composition model combines selected seeds; a derivative-free genetic optimizer updates mixture weights under a two-stage refusal-plus-judge fitness. Evaluation uses 100 JailbreakBench behaviors, six target models, a 160-query cap, and end-to-end query accounting.",
+      "key_results": "Across six targets, LASH reports 84.50% keyword ASR and 74.50% two-stage ASR with 30.01 mean target queries. The strongest reported baseline averages are 66.83% keyword ASR (FlipAttack) and 40.67% two-stage ASR (TAP). Defended mean two-stage ASR is 41.50% under SmoothLLM, 18.00% under Llama Guard, and 70.83% under perplexity filtering.",
+      "key_results_location": "paper Table 2, page 4; Table 3, pages 5-6",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Very recent preprint evaluated on 100 behaviors and six targets with deterministic decoding.",
+        "GPT-4o-mini is used as both composer and judge, creating possible correlated model bias.",
+        "Per-request attack-family composition is not the same as allocating a global budget across target model/guardrail cells."
+      ],
+      "math_foundations": "Genetic optimization over discrete seed subsets and continuous softmax mixture weights; two-stage fitness; explicit end-to-end query budgeting.",
+      "motivation": "No single attack family dominates across target models and categories, so complementary candidates should be composed adaptively per request.",
+      "constraints_inferred": [
+        "Inference: enforce small seed-generation budgets so portfolio construction does not hide upstream query costs.",
+        "Inference: preserve source-family identity in the ledger to measure which mixtures transfer and which merely overfit the judge."
+      ],
+      "key_decisions": [
+        "Seed from multiple structurally distinct search families.",
+        "Optimize candidate composition per request rather than selecting a global single best method.",
+        "Count both seed generation and adaptive search against the target-query budget."
+      ],
+      "tried_and_discarded": "A seed-oracle that returns the best uncombined seed is outperformed by optimized hybridization on all six targets; uniform weighting is inferior to optimized weights in the reported ablation.",
+      "load_bearing_assumptions": [
+        "The seed families are genuinely complementary and the composer preserves their useful structure.",
+        "The two-stage judge is sufficiently aligned with the external success criterion and is not being optimized adversarially."
+      ],
+      "relevance": "high",
+      "relevance_reason": "The closest direct primary source for black-box, budget-accounted composition of a heterogeneous candidate portfolio."
+    },
+    {
+      "title": "The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against LLM Jailbreaks and Prompt Injections",
+      "authors": [
+        "Milad Nasr",
+        "Nicholas Carlini",
+        "Chawin Sitawarin",
+        "Sander V. Schulhoff",
+        "Jamie Hayes",
+        "Michael Ilie",
+        "Juliette Pluto",
+        "Shuang Song",
+        "Harsh Chaudhari",
+        "Ilia Shumailov",
+        "Abhradeep Thakurta",
+        "Kai Yuanqing Xiao",
+        "Andreas Terzis",
+        "Florian Tramèr"
+      ],
+      "venue": "arXiv preprint 2510.09023",
+      "url": "https://arxiv.org/abs/2510.09023",
+      "source_type": "preprint",
+      "core_contribution": "Argues that defense evaluation must let the attacker adapt to the defense and scale a common propose-score-select-update loop rather than replay fixed attacks.",
+      "methodology": "Systematically tunes and scales gradient descent, reinforcement learning, random search, LLM-guided search, and human exploration against each defense's actual mechanism and threat model.",
+      "key_results": "Bypasses 12 recent defenses spanning four technique families; ASR exceeds 90% for most defenses even though the majority originally reported near-zero ASR. In a human red-teaming study, competitors defeat every challenge considered.",
+      "key_results_location": "abstract; Figure 1; paper introduction and human red-teaming appendix",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "A successful adaptive break falsifies robustness but does not measure typical deployment frequency.",
+        "No finite collection of adaptive attacks proves that the strongest possible attacker has been tested."
+      ],
+      "math_foundations": "Stackelberg-style defender-first/adversary-second evaluation; iterative propose-score-select-update optimization under attack-specific budgets.",
+      "motivation": "Static benchmark strings and weak default attacks systematically overstate defensive robustness.",
+      "constraints_inferred": [
+        "Inference: evaluate each guardrail cell with defense-aware adaptation, while keeping budgets and information access explicit.",
+        "Inference: record the full scorer/version/protocol lineage so near-zero local ASR is not mistaken for robust live performance."
+      ],
+      "key_decisions": [
+        "Use static tests only as a floor.",
+        "Require at least one scaled, defense-adaptive search family per evaluated defense mechanism."
+      ],
+      "tried_and_discarded": "The paper rejects fixed attack corpora and computationally weak untuned optimizers as sufficient evidence for robustness.",
+      "load_bearing_assumptions": [
+        "Adaptive attackers receive the defense knowledge and feedback permitted by the stated threat model.",
+        "Reported attacks are strong falsification attempts, not worst-case guarantees."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Central evidence that allocation and candidate-generation policies must adapt per defense/model cell and that static local evaluations miscalibrate live robustness."
+    },
+    {
+      "title": "AutoDojo: Adaptive Attacks Expose Superficial Defenses and User-Underspecification Limits in LLM Agents",
+      "authors": [
+        "Xinhang Ma",
+        "Taoran Li",
+        "Chaowei Xiao",
+        "Zhiyuan Yu",
+        "Ning Zhang",
+        "Yevgeniy Vorobeychik"
+      ],
+      "venue": "arXiv preprint 2606.15057",
+      "url": "https://arxiv.org/abs/2606.15057",
+      "source_type": "preprint_with_public_code",
+      "core_contribution": "Extends AgentDojo with a cheap black-box loop that iteratively optimizes indirect prompt injections against the deployed defense and separates precisely specified from action-open tasks.",
+      "methodology": "Runs defense-aware iterative candidate generation and scoring across three task suites, five target models, and prompt-, filter-, and system-level defenses; releases the framework.",
+      "key_results": "Against a filter with 0% static ASR, AutoDojo recovers 28% ASR overall and 64% on action-open tasks. Adaptive ASR exceeds static ASR against nearly every evaluated defense.",
+      "key_results_location": "abstract; arXiv HTML lines 5-6",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Very recent preprint evaluated on three suites and five models.",
+        "Action-open tasks reveal an underspecified-authority problem that candidate search alone cannot repair."
+      ],
+      "math_foundations": "Iterative black-box optimization with response/rollout feedback; stratified ASR by task authority structure.",
+      "motivation": "A fixed injection distribution cannot measure whether a defense remains effective after the attack is optimized against it.",
+      "constraints_inferred": [
+        "Inference: stratify evaluation by task authority/underspecification, not only by model and guardrail.",
+        "Inference: reserve budget for fresh defense-aware candidates instead of relying entirely on transferred static candidates."
+      ],
+      "key_decisions": [
+        "Treat action-open tasks as a distinct high-risk cell.",
+        "Report static and adaptive ASR side by side."
+      ],
+      "tried_and_discarded": "Static AgentDojo injections are retained as a baseline but rejected as a sufficient robustness test.",
+      "load_bearing_assumptions": [
+        "The adaptive generator receives enough rollout feedback to optimize against the defense.",
+        "Generalizing the measured uplift to live targets requires new evidence; purpose-built response profiles cannot validate live heterogeneity."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Direct 2026 evidence for defense-aware black-box adaptation in tool-using agents and for adding task authority as an allocation dimension."
+    },
+    {
+      "title": "HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal",
+      "authors": [
+        "Mantas Mazeika",
+        "Long Phan",
+        "Xuwang Yin",
+        "Andy Zou",
+        "Zifan Wang",
+        "Norman Mu",
+        "Elham Sakhaee",
+        "Nathaniel Li",
+        "Steven Basart",
+        "Bo Li",
+        "David Forsyth",
+        "Dan Hendrycks"
+      ],
+      "venue": "ICML 2024",
+      "url": "https://proceedings.mlr.press/v235/mazeika24a.html",
+      "source_type": "conference_paper_with_public_code",
+      "core_contribution": "A standardized red-teaming evaluation with broad behavior coverage, comparable generation settings, held-out robust graders, and large attack-by-model tables.",
+      "methodology": "Defines 510 behaviors in four functional categories, fixes the target generation budget, evaluates completions with validated classifiers, and compares 18 red-teaming methods across 33 models/defenses.",
+      "key_results": "The initial benchmark covers 510 behaviors, 18 methods, and 33 models/defenses. Varying completion length can change substring-metric ASR by up to 30 percentage points, motivating a standardized 512-token generation limit. No evaluated attack or defense is uniformly effective; robustness is uncorrelated with size within six model families spanning 7B-70B parameters.",
+      "key_results_location": "Figure 1; Section 3.2, lines 77-104; Section 6.1, lines 233-256",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Any fixed behavior set, grader, and generation length can itself become a target for overfitting.",
+        "The original benchmark emphasizes harmful-content refusal, not the full stateful protocol of a competition or tool-using agent."
+      ],
+      "math_foundations": "Behavior-level attack success rate, validation/test separation, classifier agreement, controlled decoding, and full attack-by-target evaluation matrices.",
+      "motivation": "Disparate evaluation pipelines and fragile metrics make cross-paper ASR rankings effectively incomparable.",
+      "constraints_inferred": [
+        "Inference: freeze generation limits, grader versions, success criteria, and aggregation before comparing policies.",
+        "Inference: report both per-cell results and macro/micro aggregates to expose heterogeneous failure modes."
+      ],
+      "key_decisions": [
+        "Use held-out graders and behavior splits.",
+        "Standardize every budget-relevant generation parameter.",
+        "Retain a complete candidate-by-cell ledger rather than a single headline score."
+      ],
+      "tried_and_discarded": "Substring metrics and evaluation directly on an optimized classifier are rejected as insufficiently robust; nonstandard completion lengths are rejected for cross-method comparisons.",
+      "load_bearing_assumptions": [
+        "The evaluation classifier reflects the intended success definition across nonstandard outputs.",
+        "For an executable competition protocol, prose is insufficient unless every state transition, enum, serialization, schema, and ledger update has one computable value."
+      ],
+      "relevance": "high",
+      "relevance_reason": "Supplies the evaluation discipline needed to diagnose the project's severe local-to-live calibration failures."
+    },
+    {
+      "title": "Security Challenges in AI Agent Deployment: Insights from a Large Scale Public Competition",
+      "authors": [
+        "Andy Zou",
+        "Maxwell Lin",
+        "Eliot Jones",
+        "Micha Nowak",
+        "Mateusz Dziemian",
+        "Nick Winter",
+        "Alexander Grattan",
+        "Valent Nathanael",
+        "Ayla Croft",
+        "Xander Davies",
+        "Jai Patel",
+        "Robert Kirk",
+        "Nate Burnikell",
+        "Yarin Gal",
+        "Dan Hendrycks",
+        "J. Zico Kolter",
+        "Matt Fredrikson"
+      ],
+      "venue": "NeurIPS 2025 Datasets and Benchmarks Track",
+      "url": "https://papers.neurips.cc/paper_files/paper/2025/hash/73368bc7644c054b5bcc6490a8f2fb1c-Abstract-Datasets_and_Benchmarks_Track.html",
+      "source_type": "conference_paper_with_public_benchmark",
+      "core_contribution": "Turns a large public agent red-teaming competition into the ART benchmark and analyzes query efficiency, transferability, universality, and robustness across heterogeneous deployed-agent scenarios.",
+      "methodology": "Collects 1.8 million participant submissions against 22 frontier agents in 44 deployment scenarios, curates successful attacks into ART, and reevaluates across 19 models.",
+      "key_results": "More than 60,000 of 1.8 million submissions produced policy violations. Nearly all agents violate most tested policies within 10-100 queries. The resulting benchmark reaches near-100% ASR across tested agent/policy pairs and shows high cross-model/task transfer, while robustness has limited correlation with model size, capability, or inference-time compute.",
+      "key_results_location": "paper abstract; NeurIPS abstract lines 14-15",
+      "extraction_confidence": "high",
+      "reviewed": "no",
+      "limitations": [
+        "Competition submissions are adaptively selected and the curated benchmark is enriched for successful cases, so prevalence and near-100% ASR are not estimates for random real-world traffic.",
+        "Transfer measured on the studied agents and scenarios does not imply stable transfer to unseen model/guardrail cells."
+      ],
+      "math_foundations": "Empirical attack-success distributions, query-to-success curves, cross-model and cross-task transfer matrices, and correlation analyses against capability/size/compute.",
+      "motivation": "Public competition data offers a high-volume view of which attacks survive heterogeneous agents, tasks, and policies.",
+      "constraints_inferred": [
+        "Inference: seed a portfolio with attacks proven on multiple source cells, but keep exploration budget for target-specific failures.",
+        "Inference: calibrate forecasts on held-out time/model/task splits to limit survivor and leaderboard overfitting."
+      ],
+      "key_decisions": [
+        "Track query-to-first-success and transfer breadth in addition to ASR.",
+        "Separate discovery data from forecast calibration and final evaluation."
+      ],
+      "tried_and_discarded": "not_reported",
+      "load_bearing_assumptions": [
+        "The curated ART set remains representative enough for comparative stress testing despite survivor selection.",
+        "Near-perfect benchmark ASR is a stress-test result, not a calibrated forecast of hidden live-cell performance."
+      ],
+      "relevance": "high",
+      "relevance_reason": "The closest primary source to a public agent-security competition and direct evidence for query budgets, candidate reuse, and heterogeneous transfer."
+    }
+  ]
+}

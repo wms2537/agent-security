@@ -8,9 +8,9 @@
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "The 69.570 incumbent is limited by a measurable target-dependent allocation, reliability, or latency bottleneck that can be structurally improved once real evaluator evidence is recovered.",
-    "assumption_source": "Inferred from the recorded mock-to-live forecast failures and the missing competition rerun telemetry; provisional until the Phase-0a live-state audit.",
-    "novelty_claim": "Unselected — Cycle-3 ideation must compare genuinely distinct structural directions before one hypothesis is activated."
+    "assumption": "After restoring the public-proven single-post floor, reset/fixed overhead and context cliffs create a model-dependent candidate-message-multiplicity frontier that can be selected online without sacrificing the single-post fallback.",
+    "assumption_source": "SDK scorer/gateway source, live 69.570 incumbent and 88.515 public frontier, T006 exact local controls, and current adaptive-allocation/heavy-tail literature audited in research-log/115.",
+    "novelty_claim": "Competition-method claim only: Progressive Online Replay Frontier races exact multi-message structures by validated raw score per tail-adjusted replay cost while retaining a verified single-post floor. No academic novelty claim is made."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -28,10 +28,12 @@
     "Local mock and public-leaderboard results are tuning evidence, not guarantees of private/final transfer."
   ],
   "portfolio_sequence": [
-    "Cycle-3 Phase-0a candidate slate pending current Kaggle evidence"
+    "Progressive Online Replay Frontier",
+    "Replay-safe core-first single-post floor",
+    "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "None — Cycle-3 competition ideation and live-state recovery",
-  "active_hypothesis_artifact": "research-log/114-cycle3-ideation-start.md",
+  "active_hypothesis": "None — PORF selected at Phase 0a; falsifiable Phase-2 hypothesis not yet frozen",
+  "active_hypothesis_artifact": "research-log/115-cycle3-live-frontier-and-candidate-selection.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -43,7 +45,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 0
+      "spent": 1
     },
     "hypothesis_review_rounds": {
       "limit": 2,
@@ -411,8 +413,8 @@
       "id": "T045",
       "phase": "0a",
       "desc": "Recover current official competition state, public solution frontier and relevant systems research; build and select a diverse Cycle-3 candidate slate",
-      "status": "in_progress",
-      "evidence": "User verbatim authorizes all Kaggle actions, conditions submission on confidence and requests rigorous creative SciAgent work. Cycle-3 anchor and ideation-start record are drafted; no submission has occurred.",
+      "status": "done",
+      "evidence": "Research-log/115 records authenticated live state (rank 519, 69.570, leader 110.235, 2,207 teams), exact scorer/gateway bottleneck, seven source-audited public notebooks, author frontier through 88.515, two validated Tier-1 literature files with four main-agent primary-source spot checks, a four-direction slate, rejection of public-cell predicate fusion, and selection of PORF with a single-post fallback. Research budget 1/5; no push or submission occurred.",
       "parent": null
     }
   ],
@@ -478,6 +480,14 @@
       "varies": "novelty-and-public-lineage-availability",
       "kind": "understanding",
       "outcome": "refuted"
+    },
+    {
+      "cycle": 3,
+      "iteration": 1,
+      "direction": "progressive-online-replay-frontier",
+      "varies": "candidate-message-multiplicity-and-cost-aware-online-allocation",
+      "kind": "metric",
+      "outcome": "pending"
     }
   ],
   "tried_and_failed": [
@@ -945,11 +955,11 @@
       "status": "COMPLETE — Cycle 2 closed; Cycle 3 may replace the invalidated problem anchor"
     },
     "0a_cycle3": {
-      "problem_anchor": "DRAFT — PROBLEM.md supersedes Cycle 2 and records competition performance as primary outcome, delivery order, seven-part submission-confidence gate, official-rule boundary and mock/public proxy caveats.",
+      "problem_anchor": "COMPLETE — PROBLEM.md supersedes Cycle 2 and records competition performance as primary outcome, delivery order, seven-part submission-confidence gate, official-rule boundary and mock/public proxy caveats.",
       "authorization": "APPROVED — user verbatim authorizes all Kaggle actions but permits submission only when confident.",
-      "evidence_tracks": "PENDING — official live state, public competition frontier, and current systems research.",
-      "candidate_slate": "PENDING — at least two benchmarked, reproducible, taxonomy-diverse structural directions.",
-      "status": "IN PROGRESS — no active hypothesis and no submission"
+      "evidence_tracks": "COMPLETE — authenticated official state, seven public notebooks/current author scores, two Tier-1 literature files and four main-agent primary-source spot checks are recorded in research-log/115.",
+      "candidate_slate": "COMPLETE — replay-safe core-first floor, silent single-post, PORF structural allocation, and multi-predicate fusion were compared; fusion was source-refuted and PORF selected with the first two retained as fallback/arms.",
+      "status": "PASS — PORF may advance to one falsifiable Phase-2 hypothesis; research 1/5, review 0/2, no push or submission"
     }
   }
 }
