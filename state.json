@@ -1,16 +1,16 @@
 {
   "phase": "2",
   "cycle": 3,
-  "iteration": 1,
+  "iteration": 2,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "After restoring the public-proven single-post floor, reset/fixed overhead and context cliffs create a model-dependent candidate-message-multiplicity frontier that can be selected online without sacrificing the single-post fallback.",
-    "assumption_source": "SDK scorer/gateway source, live 69.570 incumbent and 88.515 public frontier, T006 exact local controls, and current adaptive-allocation/heavy-tail literature audited in research-log/115.",
-    "novelty_claim": "Competition-method claim only: Progressive Online Replay Frontier races exact multi-message structures by validated raw score per tail-adjusted replay cost while retaining a verified single-post floor. No academic novelty claim is made."
+    "assumption": "The source-authentic 24-versus-8 winner split reflects a candidate-boundary/context tradeoff that one exact nested sentinel can identify directionally, while verifying every future path and permitting only 24-to-8-to-1 transitions limits continuation failures.",
+    "assumption_source": "SDK scorer/gateway source, authenticated 69.570 incumbent, and the bound 360-row controlled profile artifact audited in research-log/129; sentinel-to-official-replay transfer remains explicitly unmeasured.",
+    "novelty_claim": "Competition-method claim only: Monotone Prefix Controller-24 replaces fixed multiplicity with one plug-in sentinel and a total verified 24-to-8-to-1 state machine at the only measured heterogeneous boundary. No academic novelty claim is made."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -28,12 +28,12 @@
     "Local mock and public-leaderboard results are tuning evidence, not guarantees of private/final transfer."
   ],
   "portfolio_sequence": [
-    "Progressive Online Replay Frontier",
+    "Monotone Prefix Controller-24",
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
   "active_hypothesis": "MPC-24 will produce one accepted, non-void, non-timeout official public score strictly greater than 69.570 by using one target-visible 24-message sentinel and a monotone verified 24-to-8-to-1 prefix fallback",
-  "active_hypothesis_artifact": "research-log/129-cycle3-mpc24-evidence-pivot.md",
+  "active_hypothesis_artifact": "research-log/130-hypothesis-iter-4-mpc24.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -423,9 +423,17 @@
       "id": "T046",
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 NPG-8 predictive engineering hypothesis before implementation or Kaggle mutation",
-      "status": "in_progress",
-      "evidence": "V3 research-log/125 at immutable commit 51f8104 passed deterministic author checks but round-3 theory review returned NEEDS_REVISION with 674/674 line and SHA integrity. Per-message attribution, conditional replay-risk scope, predictive language and taxonomy are RESOLVED; the end-to-end comparator and Phase-3 specification are only IMPROVED. Load-bearing defects: two validation extrema are not future lower/upper bounds; screen, validation and first/late-fill fallback portfolios are not branch-complete; provisional joint-cap objective is not explicit; promised fallback fixtures are absent; real evidence bindings and public generation-to-replay transfer remain incomplete. Verbatim report research-log/128; budget 3/12. No NPG implementation, Kaggle push, commit run or submission.",
+      "status": "failed",
+      "evidence": "V3 research-log/125 at immutable commit 51f8104 passed author checks but round-3 review returned NEEDS_REVISION with 674/674/SHA integrity. Research-log/129 then deterministically found fixed8 wins the measured short {1,4,8} frontier in 9/9 cells, so the adaptive short-arm premise is absent; search-log outcome is inconclusive and NPG-8 is retired without implementation or Kaggle mutation.",
       "parent": "T045"
+    },
+    {
+      "id": "T047",
+      "phase": "2",
+      "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
+      "status": "in_progress",
+      "evidence": "V4 research-log/130, config and author checker are frozen together before review. Verification command `comp/.venv/bin/python -I experiments/poc/mpc24_phase2_reference.py --config experiments/configs/mpc24-c3-v1.json` returned `mpc24_phase2_author_check=PASS`, 6 source/5 evidence bindings, 3 attribution/3 plug-in/9 state-machine/1 adverse Occam fixtures, 3 profiles/9 cells and point-estimate-not-bound semantics. Review budget remains 3/12 before dispatch; no Phase-3, attack or Kaggle mutation.",
+      "parent": "T046"
     }
   ],
   "parked_candidates": [
