@@ -49,7 +49,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 2,
-      "spent": 0
+      "spent": 1
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -976,8 +976,8 @@
       "justification": "AUTHOR COMPLETE, REVIEW PENDING — measured T005 39/47 capacity, T006 1.079/2.517 routing and exact scorer outcomes, current 69.570/88.515/110.235 frontier, public artifacts and adaptive/cost/tail literature support the engineering chain without claiming target prevalence.",
       "failure_metrics": "COMPLETE — exact success/refute/fail rules, seven frozen mechanism profiles, six one-change ablations, eight assumptions with validity domains, seven confidence checks and ten failure modes are specified.",
       "taxonomy_anti_stacking": "COMPLETE — Scope Mismatch x Optimization/Search x decouple; intermediate-optimum prediction differs from the plain {1,24} stack; measured bottlenecks, per-component ablations and end-to-end constrained contribution are explicit.",
-      "theory_review": "PENDING — immutable commit and sterile reviewer dispatch required before Phase 3.",
-      "status": "IN PROGRESS — no implementation, Kaggle push, commit run or submission"
+      "theory_review": "ROUND 1 DISPATCHED — immutable commit 256027f has 514 hypothesis lines; sterile reviewer receives the complete file path, engineering claim type and predictive question type. Budget 1/2.",
+      "status": "IN PROGRESS — awaiting blind theory verdict; no implementation, Kaggle push, commit run or submission"
     }
   }
 }
