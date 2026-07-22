@@ -487,9 +487,17 @@
       "id": "T054",
       "phase": "2",
       "desc": "Resolve round-9 engineering validity by testing the simpler absorbing-only explanation against a q-independent matched-trace factorial, retaining replay/atomic mechanisms only if each has a distinct measured held-out bottleneck, and correct the tied-rank proof in a superseding hypothesis",
-      "status": "in_progress",
-      "evidence": "ORIENT: `jq` showed `phase=2`, review budget 9/12, research budget 4/5 and sole open task T054; `git status --porcelain` was empty on `refs/heads/master` at 07043f8. Selected T054 only; Phase-3 runner/attempt and Kaggle actions remain out of scope.",
+      "status": "done",
+      "evidence": "`comp/.venv/bin/python -I experiments/poc/prac24_round9_factorial_audit.py` -> `prac24_round9_factorial_audit=PASS`, `full_two_cubed_factorial_estimable_cells=0`, absorption same-trace estimable with 415 primary tail paths/59.181928537553s, HCMS retention 0.999541494727 and efficiency lower ratio 1.355754716874, while replay/atomic removals are not same-trace estimable. `comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v3.py --config experiments/configs/ahcms24-c3-v3.json --hypothesis research-log/171-hypothesis-iter-8-ahcms24-v3.md` -> `ahcms24_phase2_author_check_v3=PASS`, 632 lines, four round-9 issues addressed, one contribution/one removal, q-dependent credit false, Phase3 artifacts absent and attack unchanged. Reports 170-172; review remains 9/12.",
       "parent": "T053"
+    },
+    {
+      "id": "T055",
+      "phase": "2",
+      "desc": "Obtain a fresh sterile round-10 re-review of immutable AHCMS-24 v3 with explicit disposition of all four round-9 issues before any Phase-3 implementation",
+      "status": "open",
+      "evidence": null,
+      "parent": "T054"
     }
   ],
   "parked_candidates": [
@@ -820,7 +828,7 @@
       "lesson": "An end-to-end gain does not measure a named component bottleneck: engineering evidence must directly profile the mechanism quantity and pair it with one clean removal, or treat the mechanism as inherited rather than claimed.",
       "apply_when": "A Phase-2 engineering hypothesis assigns contribution credit to a compound policy component using an aggregate score ratio.",
       "source": "research-log/166-prac24-theory-review-round-8.md",
-      "recurrences": 1
+      "recurrences": 2
     }
   ],
   "best_state": {

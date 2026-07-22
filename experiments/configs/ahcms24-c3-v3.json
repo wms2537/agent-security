@@ -1,0 +1,187 @@
+{
+  "schema_version": "ahcms24-c3-v3",
+  "concept": "Absorbing HCMS 24",
+  "short_name": "AHCMS-24",
+  "supersedes": "experiments/configs/prac24-c3-v2.json",
+  "primary_claim_scope": "fresh_controlled_q_independent_matched_trace_phase3_only",
+  "official_score_claim": "withheld_until_separate_target_confidence_bridge",
+  "target_void_proof_claim": "forbidden_remote_env_operations_are_not_cancellable",
+  "base_attack_sha256": "8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d",
+  "path_cap": 16,
+  "candidate_cap": 16,
+  "prefixes_descending": [24, 8, 1],
+  "controlled_budgets_s": {
+    "generation": 2.0,
+    "aggregate_replay": 2.0,
+    "trace_capture_outer": 120.0
+  },
+  "sampling_frame": {
+    "manifest_generation": "exactly once per canonical attempt: use secrets.randbelow rejection sampling to draw 3 unique masters per profile, one independent uniform Fisher-Yates capture permutation over all 9 units, and an independent uniform Fisher-Yates arm permutation for every unit-path; write and fsync the complete SAMPLING.json before any trace capture",
+    "retry_rule": "never redraw any master, capture order or arm order because of identities, traces, failure or outcome; a crash consumes the canonical scientific attempt",
+    "master_draw": "for each profile draw master=1_000_000_000+secrets.randbelow(8_000_000_000_000_000_000), rejecting duplicates until exactly 3 unique masters exist",
+    "capture_order": "apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to all 9 profile-master units and capture in that interleaved order",
+    "arm_order": "within each trace unit and path index, apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to prefix arms 24,8,1",
+    "outcome_blinding": "the manifest, code, primary comparison, thresholds and all unit identities are fsynced before capture; no redraw, threshold change or unit exclusion may depend on captured outcomes",
+    "sampling_interpretation": "the result is an exact fixed-sample matched-trace comparison over nine freshly randomized controlled units; it is not a target-population or target-model probability claim"
+  },
+  "matched_trace_unit": {
+    "definition": "one q-independent profile-master potential-outcome table with 16 path slots and fresh prefix arms 24,8,1 at every slot",
+    "process_boundary": "each profile-master unit runs in one fresh spawned child process; no evaluated method is executed during capture",
+    "arm_record": "for each arm retain environment construction/reset, indexed interaction suffixes, exact eligible nested returns, return-ready generation elapsed for the requested arm, actual replay elapsed and scorer output for every eligible return 24,8,1",
+    "retry_trace": "capture continues through all 16 path slots regardless of the first point-ledger no-fit so the post-trigger tail is observed once and can be truncated by the absorbing projection",
+    "policy_projection": "after all capture ends, every method walks the same stored table by path slot; policy state, replay admission and absorption only select or truncate stored outcomes and cannot alter them",
+    "missing_rule": "any missing arm, timeout, child failure, malformed attribution or missing eligible-return replay invalidates the entire profile-master trace and the joint result",
+    "support_rule": "every method is capped at 16 slots and may request only 24,8,1; no projection may escape capture support"
+  },
+  "inherited_controller": {
+    "hcms_policy": "initialize state 24, propose state, return longest exact prefix in 24,8,1, set state=min(previous_state,returned_prefix), and set state=1 after exact ineligible drop",
+    "replay_charge_formula": "1.25*c_returned+6.25*c_1",
+    "replay_admission": "accept an exact eligible candidate only if cumulative inherited point replay charge including it is at most 2.0 seconds",
+    "generation_admission": "start a path only when observed remaining generation time exceeds the inherited 0.1-second point reserve",
+    "status": "all fields inherited and held identical between AHCMS and its retry removal; none receives contribution credit",
+    "known_limit": "point replay and generation charges are controlled-harness mechanisms, not target tail guarantees"
+  },
+  "methods": {
+    "ahcms_absorbing": {
+      "policy": "inherited_hcms_policy",
+      "replay_ledger": "inherited_point_ledger",
+      "generation_gate": "inherited_point_reserve",
+      "after_first_replay_no_fit": "terminate permanently and return current candidate prefix"
+    },
+    "hcms_retry_removal": {
+      "policy": "inherited_hcms_policy",
+      "replay_ledger": "inherited_point_ledger",
+      "generation_gate": "inherited_point_reserve",
+      "after_first_replay_no_fit": "continue to the next path until the inherited path or generation cap",
+      "status": "single clean removal of absorbing_no_fit"
+    },
+    "fixed8_absorbing": {
+      "proposal": "always propose min(8,current monotone state), initialized to 8",
+      "permitted_prefixes": [8, 1],
+      "salvage": "longest_exact_prefix",
+      "transition": "state=min(previous_state,returned_prefix); exact ineligible drop sets state=1; first replay no-fit absorbs",
+      "status": "simple inherited-policy comparator, not a component removal"
+    },
+    "fixed24_no_salvage_absorbing": {
+      "proposal": "always propose 24",
+      "permitted_prefixes": [24],
+      "salvage": "exact24_or_drop",
+      "transition": "remain 24 after exact ineligible drop; first replay no-fit absorbs",
+      "status": "simple inherited-policy comparator, not a component removal"
+    }
+  },
+  "contribution_components": [
+    {
+      "id": "absorbing_no_fit",
+      "single_role": "terminate future path attempts immediately after the first otherwise-exact candidate cannot fit the inherited cumulative replay ledger",
+      "measured_bottleneck": "sealed primary retry traces contain 415 post-first-no-fit paths and 59.181928537553 seconds for three candidates worth 54 raw; HCMS alone contains 146 paths and 18.366501234705 seconds for one 18-raw candidate",
+      "clean_removal": "hcms_retry_removal",
+      "confirmation_predicate": "on the same nine fresh q-independent potential traces, AHCMS raw_per_generation_work_second divided by retry HCMS raw_per_generation_work_second is at least 1.10, AHCMS retains at least 0.995 of retry raw, retry tail work is at least 0.10 of retry generation work, AHCMS has zero post-trigger paths and zero controlled generation/replay overages"
+    }
+  ],
+  "unclaimed_diagnostics": {
+    "replay_envelope": "not part of AHCMS behavior, novelty, component count or primary comparison; any complete-prefix ratio is descriptive only",
+    "atomic_gate": "not part of AHCMS behavior, novelty, component count or primary comparison; zero-interaction path tails are descriptive only",
+    "q_dependent_fixtures": "forbidden as efficacy or component-necessity evidence",
+    "factorial_status": "the old artifact has zero estimable complete 2^3 cells; the prospective design tests the one retained component with one matched removal"
+  },
+  "round9_proof_correction": {
+    "status": "historical mathematical correction only; no finite-population probability claim supports the AHCMS engineering result",
+    "statement": "among one evaluation value and n uniformly assigned calibration values, failure of evaluation<=max(calibration) requires the evaluation value to be the unique strict maximum, whose probability is at most 1/(n+1); ties can only improve coverage",
+    "forbidden_wording": "unqualified uniform rank under ties"
+  },
+  "phase3": {
+    "runner_path": "experiments/poc/ahcms24_phase3_v1.py",
+    "attempt_dir": "experiments/runs/ahcms24-c3-poc-v1",
+    "profiles": [
+      {
+        "id": "steady_linear_ahcms_v1",
+        "agent": "compliant",
+        "latency_s": 0.0075
+      },
+      {
+        "id": "reset_dominant_ahcms_v1",
+        "agent": "amortizing",
+        "fixed_latency_s": 0.043,
+        "per_action_latency_s": 0.0008
+      },
+      {
+        "id": "immediate_cliff_ahcms_v1",
+        "agent": "context_limited",
+        "max_user_messages": 8,
+        "latency_s": 0.0015
+      }
+    ],
+    "methods": [
+      "ahcms_absorbing",
+      "hcms_retry_removal",
+      "fixed8_absorbing",
+      "fixed24_no_salvage_absorbing"
+    ],
+    "evaluation_design": "three fresh q-independent matched potential traces per profile; all four methods are deterministic projections of each trace, so no method order or predecessor exists",
+    "primary_metric": "raw_per_generation_work_second where generation_work is the sum of captured return-ready atomic path durations selected before termination",
+    "primary_comparison": "ahcms_absorbing versus hcms_retry_removal on the same nine traces",
+    "confirm": {
+      "minimum_absorbing_to_retry_efficiency_ratio": 1.10,
+      "minimum_absorbing_raw_retention": 0.995,
+      "minimum_retry_tail_generation_fraction": 0.10,
+      "maximum_retry_tail_recovered_raw_fraction": 0.005,
+      "minimum_absorbing_hcms_to_best_simple_raw_ratio": 1.10,
+      "maximum_absorbing_generation_overage_cells": 0,
+      "maximum_absorbing_aggregate_replay_overage_cells": 0,
+      "profiles": 3,
+      "sampled_units_per_profile": 3,
+      "matched_trace_units": 9,
+      "projected_method_cells": 36,
+      "complete_trace_fraction": 1.0,
+      "contribution_components": 1,
+      "clean_component_removals": 1,
+      "invalid_timeout_duplicate_or_malformed_count": 0
+    },
+    "decision_bands": {
+      "confirm": "every confirm predicate passes",
+      "disconfirm": "complete valid traces exist but any materiality, retention, tail-support, inherited-HCMS or overage predicate fails",
+      "invalid": "sampling, trace completeness, attribution, support, timeout, evidence identity or publication invariant fails; invalid is never relabeled inconclusive",
+      "inconclusive": "reserved only for an externally interrupted attempt with no valid fixed-sample result; nofit absent on complete valid traces is disconfirm because the measured bottleneck did not recur"
+    }
+  },
+  "target_confidence_bridge": {
+    "status": "closed_during_phase2_and_phase3",
+    "source_facts": "generation and each model-guardrail replay phase receive 9000 seconds; replay is cumulative across returned candidates; attack code cannot cancel an in-flight RemoteEnv operation",
+    "required_before_attack_mutation": [
+      "scrutinized rigorous theory re-review",
+      "confirmed fresh controlled matched-trace AHCMS result",
+      "source-compliant 9000-second scaling design with incumbent fallback"
+    ],
+    "required_before_submission": [
+      "Kaggle commit artifact parity",
+      "target-derived commit-run evidence",
+      "expected benefit over own 69.570 baseline and current public frontier",
+      "all seven PROBLEM.md confidence gates committed"
+    ]
+  },
+  "source_bindings": {
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/remote_env.py": "817301d4d0d7a7966649544aa1d2e4729a2f44fe41d58f490dffe4443904dfd1",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_inference_server.py": "b9402bbf6701c9f3880d7df828a8b4944d2e0930b17cc22cd78e2d7262cd794f",
+    "comp/sdk/aicomp_sdk/core/predicates.py": "9d9de5118d8883a0074a5405ed85cf2dec3f68e8516908cbc48f409e3ba56f37",
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f"
+  },
+  "evidence_bindings": {
+    "experiments/runs/hcms24-c3-poc-v1/COMPLETE.json": "34e9dc0274e0828f325cb280b2f392a6e867fabf4315c0c962cf3746dc200b07",
+    "experiments/runs/hcms24-c3-poc-v1/candidates.tsv": "2d494607cd38b132bf1c1b4d74c5a19ba40f6087fa5322158d66cc157731a3d9",
+    "experiments/runs/hcms24-c3-poc-v1/paths.tsv": "fa66a588668f7bd6076937e0db4bcd13185dd2cebdf814ef928c59aeed830185",
+    "experiments/runs/hcms24-c3-poc-v1/method_cells.tsv": "fb2105784120304eabd14fd099ce9f7be8eb306b28fd2d59ffa61408ca5cb1b0",
+    "experiments/runs/hcms24-c3-poc-v1/primary_summary.json": "257687bb18bdb3eb310999d06b42a839ab4db36f91487e8dd1326c27f587cd9b",
+    "research-log/161-poc-hcms24-result.md": "ff5fdb9d016fec9723e1070e90354881f34ddc08a599dca62980eb2f451c8482",
+    "research-log/163-rahcms-diagnosis-and-candidate-selection.md": "3e6fc56ca5bda8e682bff2ea41f983c51ef605c271bed3fc8018183ce17c38f1",
+    "research-log/169-prac24-v2-theory-review-round-9.md": "075d34a8f621b9f7f6ae73a5046866d1bb85cc8904949e270cabe13b5f10da99",
+    "experiments/poc/prac24_round9_factorial_audit.py": "f07dc6ceb2f8401115423cef9262d504dfec81d466cbf7dffd2e13dfd7c09f92",
+    "research-log/170-prac24-round9-occam-factorial-audit.md": "5dbad0dbc19956aa4214f3634a7db3a2e254d9e981e77f2cdf566f2589d23ed3"
+  },
+  "superseded_lineage_bindings": {
+    "experiments/configs/prac24-c3-v2.json": "ab2a4d871fe6db8cb4d150554260a958956b27ae139069cb07d6f7923195bb42",
+    "experiments/poc/prac24_phase2_reference_v2.py": "66dec6ccfd43af568515e5377eaf02bd816fcbb4768974dfae1f536f7ed69b00",
+    "research-log/167-hypothesis-iter-8-prac24-v2.md": "5f495207251f9b63b64d631d564740ede61c8e0855b49e31381c0b143a2e0aa0"
+  }
+}
