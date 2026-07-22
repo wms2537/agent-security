@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "On nine fresh, q-independent complete controlled potential traces, replacing HCMS retry-after-first-replay-no-fit with an absorbing transition will improve aggregate raw per generation-work second by at least 1.10x relative to retry HCMS while retaining at least 99.5% of retry raw and producing zero controlled resource-overage cells; round 10 requires endpoint-aligned simple controls and total resource/denominator definitions before this claim is reviewable.",
-  "active_hypothesis_artifact": "research-log/171-hypothesis-iter-8-ahcms24-v3.md",
+  "active_hypothesis": "On nine fresh q-independent complete controlled traces, AHCMS will improve aggregate raw per projected generation-work second by at least 1.10x versus retry HCMS, retain at least 99.5% of positive retry raw, remain overage-free, and beat every feasible simple absorbing control by the same efficiency threshold without raw/work Pareto domination; all zero-raw branches and resource boundaries are deterministic.",
+  "active_hypothesis_artifact": "research-log/174-hypothesis-iter-8-ahcms24-v4.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -503,9 +503,17 @@
       "id": "T056",
       "phase": "2",
       "desc": "Write and author-verify AHCMS-24 v4 aligning simple controls to the efficiency/work endpoint with an exact Pareto rule, defining per-unit generation-work and aggregate-replay overage formulas and boundaries, and totalizing every zero-denominator case",
-      "status": "in_progress",
-      "evidence": "`git status --porcelain`, `git symbolic-ref -q --short HEAD`, and state task/budget checks -> `t056_orient=PASS branch=master worktree=clean sole_open=T056 phase=2 research=4/5 review=10/12`. Selected as the sole task for this SciAgent working turn; no Phase-3 or Kaggle action is admitted.",
+      "status": "done",
+      "evidence": "`comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v4.py --config experiments/configs/ahcms24-c3-v4.json --hypothesis research-log/174-hypothesis-iter-8-ahcms24-v4.md` -> `ahcms24_phase2_author_check_v4=PASS`, `hypothesis_lines=686`, `round10_issues_addressed=3`, `resource_accounting_fixture_cases=13`, `denominator_totality_cases=4`, `simple_control_fixture_cases=6`, `simple_control_exhaustive_cases=4608`, `primary_threshold_cases=9`, `raw_prefix_scoring_cases=3`, Phase-3 artifacts absent, attack unchanged. Identities: config 8f1a4916..., checker 030c8e99..., hypothesis 4e66cab8.... Report 175; review remains 10/12 and Phase 2 remains closed.",
       "parent": "T055"
+    },
+    {
+      "id": "T057",
+      "phase": "2",
+      "desc": "Obtain a fresh sterile round-11 theory re-review of immutable AHCMS-24 v4 with explicit disposition of all three round-10 defects before any Phase-3 implementation",
+      "status": "open",
+      "evidence": "Opened after deterministic v4 author verification passed. No review has been dispatched and no review budget has been charged; state remains 10/12.",
+      "parent": "T056"
     }
   ],
   "parked_candidates": [
