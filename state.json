@@ -1,7 +1,7 @@
 {
-  "phase": "0a",
+  "phase": "2",
   "cycle": 3,
-  "iteration": 0,
+  "iteration": 1,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "None — PORF selected at Phase 0a; falsifiable Phase-2 hypothesis not yet frozen",
-  "active_hypothesis_artifact": "research-log/115-cycle3-live-frontier-and-candidate-selection.md",
+  "active_hypothesis": "PORF will produce a valid Kaggle public score >=95.000 by selecting exact progressive message multiplicity over a replay-safe single-post floor",
+  "active_hypothesis_artifact": "research-log/116-hypothesis-iter-1-porf.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -416,6 +416,14 @@
       "status": "done",
       "evidence": "Research-log/115 records authenticated live state (rank 519, 69.570, leader 110.235, 2,207 teams), exact scorer/gateway bottleneck, seven source-audited public notebooks, author frontier through 88.515, two validated Tier-1 literature files with four main-agent primary-source spot checks, a four-direction slate, rejection of public-cell predicate fusion, and selection of PORF with a single-post fallback. Research budget 1/5; no push or submission occurred.",
       "parent": null
+    },
+    {
+      "id": "T046",
+      "phase": "2",
+      "desc": "Freeze and independently theory-review the Cycle-3 PORF predictive engineering hypothesis before implementation or Kaggle mutation",
+      "status": "in_progress",
+      "evidence": "Research-log/116 freezes one >=95.000 valid-score external primary, exact variables/controls/policy, seven local profiles, six ablations, fixed bias surface, eight validity-domain assumptions, failure bands, taxonomy and anti-stacking evidence. No implementation, push, run or submission occurred; review not yet dispatched.",
+      "parent": "T045"
     }
   ],
   "parked_candidates": [
@@ -960,6 +968,16 @@
       "evidence_tracks": "COMPLETE — authenticated official state, seven public notebooks/current author scores, two Tier-1 literature files and four main-agent primary-source spot checks are recorded in research-log/115.",
       "candidate_slate": "COMPLETE — replay-safe core-first floor, silent single-post, PORF structural allocation, and multi-predicate fusion were compared; fusion was source-refuted and PORF selected with the first two retained as fallback/arms.",
       "status": "PASS — PORF may advance to one falsifiable Phase-2 hypothesis; research 1/5, review 0/2, no push or submission"
+    },
+    "2_cycle3_porf": {
+      "hypothesis": "FROZEN UNREVIEWED — research-log/116 predicts one valid official public score >=95.000; 84--94.995 refutes the structural target claim despite safe-floor improvement, <78/void is system failure.",
+      "variables_primary": "COMPLETE — varies exact candidate message multiplicity/allocation over M={1,2,4,8,16,24,32}; official score plus non-void validity is the single decisive external comparison; SDK/scorer/payload/guardrail path/hops/caps are controlled.",
+      "concept": "COMPLETE — Progressive Online Replay Frontier is named, explained in plain language and operationally defined with concrete cost, event, raw, firing and conservative-rate quantities.",
+      "justification": "AUTHOR COMPLETE, REVIEW PENDING — measured T005 39/47 capacity, T006 1.079/2.517 routing and exact scorer outcomes, current 69.570/88.515/110.235 frontier, public artifacts and adaptive/cost/tail literature support the engineering chain without claiming target prevalence.",
+      "failure_metrics": "COMPLETE — exact success/refute/fail rules, seven frozen mechanism profiles, six one-change ablations, eight assumptions with validity domains, seven confidence checks and ten failure modes are specified.",
+      "taxonomy_anti_stacking": "COMPLETE — Scope Mismatch x Optimization/Search x decouple; intermediate-optimum prediction differs from the plain {1,24} stack; measured bottlenecks, per-component ablations and end-to-end constrained contribution are explicit.",
+      "theory_review": "PENDING — immutable commit and sterile reviewer dispatch required before Phase 3.",
+      "status": "IN PROGRESS — no implementation, Kaggle push, commit run or submission"
     }
   }
 }
