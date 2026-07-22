@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "NPG-8 will produce one accepted, non-void, non-timeout official public score strictly greater than the exact 69.570 incumbent by selecting candidate boundary density from message-indexed nested-prefix evidence under a complete cost and count gate",
-  "active_hypothesis_artifact": "research-log/125-hypothesis-iter-3-npg8.md",
+  "active_hypothesis": "MPC-24 will produce one accepted, non-void, non-timeout official public score strictly greater than 69.570 by using one target-visible 24-message sentinel and a monotone verified 24-to-8-to-1 prefix fallback",
+  "active_hypothesis_artifact": "research-log/129-cycle3-mpc24-evidence-pivot.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -47,7 +47,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 1
+      "spent": 2
     },
     "hypothesis_review_rounds": {
       "limit": 12,
@@ -504,6 +504,14 @@
       "iteration": 1,
       "direction": "nested-prefix-gate-8",
       "varies": "candidate-boundary-density-via-nested-prefix-gating",
+      "kind": "metric",
+      "outcome": "inconclusive"
+    },
+    {
+      "cycle": 3,
+      "iteration": 2,
+      "direction": "monotone-prefix-controller-24",
+      "varies": "monotone-24-to-8-prefix-control",
       "kind": "metric",
       "outcome": "pending"
     }
@@ -1023,7 +1031,8 @@
       "search_log_v3": "APPENDED — prior PORF entry closed inconclusive after structural replacement; NPG-8 varies candidate-boundary-density-via-nested-prefix-gating with metric outcome pending.",
       "theory_review_round3": "DISPATCHED — immutable commit 51f8104 has 674 hypothesis lines/SHA 0346d0c...; a fresh sterile reviewer receives claim type engineering, question type predictive, both canonical SciAgent references and all six round-2 issues. Budget charged 3/12; no implementation or Kaggle mutation.",
       "theory_review_round3_result": "NEEDS_REVISION — integrity PASS 674/674/SHA 0346d0c.... Prior issues 1/3/5/6 RESOLVED and 2/4 IMPROVED. Extrema are not future bounds; provisional selection and every fallback portfolio need exact algebra/accounting; branch fixtures, evidence binding and public generation-to-replay transfer are incomplete. Verbatim report research-log/128; budget 3/12.",
-      "status": "V3 REVIEWED NEEDS_REVISION — Phase 2 remains open. Preserve v3 immutably and structurally replace the pseudo-bound gate before any implementation or Kaggle mutation."
+      "mpc24_evidence_pivot": "SELECTED — research-log/129 and read-only checker 989ec1d... bind the retained 360-row artifact: fixed8 wins within {1,4,8} in 9/9, proving v3 had no measured short-arm heterogeneity; the full frontier splits 24 in 6/9 and 8 in 3/9. A preordered replicate-0 sentinel plus held-out 1-4 descriptive audit is >= fixed8 in 9/9, > in 6/9, aggregate 1.507376725838. Prefix-8 nested timing remains an explicit proxy and no official inference is made. Research 2/5.",
+      "status": "V4 DIRECTION SELECTED / UNFROZEN — MPC-24 replaces the unsupported {1,4,8} pseudo-bound gate with one measured {8,24} decision and monotone 24→8→1 verified fallback. Complete algebra/state/branch fixtures and fresh review are required before implementation or Kaggle mutation."
     }
   }
 }
