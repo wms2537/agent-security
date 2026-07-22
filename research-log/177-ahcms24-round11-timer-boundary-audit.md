@@ -13,7 +13,7 @@ Sterile theory review round 11 (`research-log/176-ahcms24-v4-theory-review-round
 - Sealed attempt: `experiments/runs/hcms24-c3-poc-v1`
 - `COMPLETE.json` SHA-256: `34e9dc0274e0828f325cb280b2f392a6e867fabf4315c0c962cf3746dc200b07`
 - Audit program: `experiments/poc/ahcms24_round11_timer_audit.py`
-- Audit-program SHA-256: `82cc301b4bf3a771dfecdc12570d78887f0e69d8d6f7bb2c3114125133289202`
+- Audit-program SHA-256: `304484543ce7471526408234f13fe83a5277bf756b10b11fcca891e5a47acf7d`
 
 The checker parses the pinned runner's AST, extracts the exact `run_method_cell`, `replay_candidate`, and `checkpoint_in_flight` function bodies, and verifies the timer landmarks occur in the order described below. The whole-file hash makes those local ordering checks statements about one immutable source object.
 
@@ -46,21 +46,22 @@ An elapsed interval cannot identify CPU service time. V5 therefore makes no clai
 
 The old sealed primary HCMS traces contain:
 
-- retry captured generation-path elapsed: `69.9032745931763203 s`;
+- 370 retry generation paths;
+- retry captured generation-path elapsed, computed only as the sum of those paths' `path_cost_s`: `69.00197669875342412 s`;
 - 146 paths after the first replay no-fit;
 - retry-tail captured elapsed: `18.36650123470462862 s`;
-- absorbing projection captured elapsed: `51.53677335847169168 s`;
+- absorbing projection captured elapsed: `50.63547546404879550 s`;
 - absorbing raw `39,240`; retry raw `39,258`; and
-- nominal absorbing/retry raw-per-captured-elapsed ratio: `1.355754716874`.
+- nominal absorbing/retry raw-per-captured-elapsed ratio: `1.362095216773`.
 
-These values re-establish that the measured historical bottleneck is path-count-associated elapsed at the same timer bracket, not a decomposition of CPU, scheduler, or controller time.
+Both sides of this ratio now use exactly the same quantity proposed for v5: sums of `path_cost_s` intervals. Whole-cell `generation_elapsed_s` is deliberately excluded because it also spans post-timer exact-prefix selection, candidate/path assembly, publication checkpoints, and inter-path controller work. These values therefore establish a path-count-associated elapsed bottleneck at the same timer bracket, not a decomposition of CPU, scheduler, or controller time.
 
 ## Bounded scheduler-noise sensitivity
 
 Two conservative recalculations leave all retry raw credited while discounting retry-only elapsed:
 
-1. Deleting the single largest retry-tail interval (`0.17478107300121337 s`) yields an efficiency ratio of `1.352364886204`.
-2. Charging only half of every retry-tail interval yields an efficiency ratio of `1.177648105800`; the discounted tail remains `0.151239245574` of the discounted retry total.
+1. Deleting the single largest retry-tail interval (`0.17478107300121337 s`) yields an efficiency ratio of `1.358645048025`.
+2. Charging only half of every retry-tail interval yields an efficiency ratio of `1.180818355750`; the discounted tail remains `0.153517990418` of the discounted retry total.
 
 V5 will pre-specify the second, stronger perturbation as a confirmation guard on fresh traces: in addition to the nominal rules, replace retry elapsed `T_r=T_a+T_tail` with `T_r^(1/2)=T_a+T_tail/2`, retain all retry raw, and require both the `1.10` efficiency inequality and `0.10` tail-support inequality to pass. This says the result survives a bounded model in which half of every retry-only elapsed interval is measurement inflation.
 
@@ -80,10 +81,10 @@ Key output:
 ahcms24_round11_timer_audit=PASS
 scientific_runner_executed=false
 clock_interpretation=captured_elapsed_not_cpu_time_or_remote_deadline_proof
-historical_nominal_efficiency_ratio=1.355754716874
-historical_delete_largest_tail_efficiency_ratio=1.352364886204
-historical_half_tail_efficiency_ratio=1.177648105800
-historical_half_tail_fraction=0.151239245574
+historical_nominal_efficiency_ratio=1.362095216773
+historical_delete_largest_tail_efficiency_ratio=1.358645048025
+historical_half_tail_efficiency_ratio=1.180818355750
+historical_half_tail_fraction=0.153517990418
 prospective_sensitivity=charge_only_half_retry_tail_elapsed_keep_all_retry_raw
 scheduler_bound_scope=bounded_sensitivity_not_arbitrary_or_systematic_noise_guarantee
 ```

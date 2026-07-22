@@ -147,7 +147,6 @@ def main() -> None:
     verify_source_boundaries()
     verify_seal()
     paths = read_tsv("paths.tsv")
-    cells = read_tsv("method_cells.tsv")
     candidates = read_tsv("candidates.tsv")
 
     grouped: dict[tuple[str, ...], list[dict[str, str]]] = defaultdict(list)
@@ -166,11 +165,15 @@ def main() -> None:
         if first_no_fit is not None:
             retry_tail.extend(rows[first_no_fit + 1 :])
 
+    retry_paths = [
+        row
+        for row in paths
+        if row["namespace"] == "primary" and row["method"] == "hcms_calibrated"
+    ]
     retry_elapsed = sum(
         (
-            Decimal(row["generation_elapsed_s"])
-            for row in cells
-            if row["namespace"] == "primary" and row["method"] == "hcms_calibrated"
+            Decimal(row["path_cost_s"])
+            for row in retry_paths
         ),
         Decimal(0),
     )
@@ -201,7 +204,9 @@ def main() -> None:
     )
     half_tail_fraction = half_tail / half_tail_retry_elapsed
 
+    require(len(retry_paths) == 370, "retry path count drift")
     require(len(retry_tail) == 146, "retry-tail count drift")
+    require(retry_elapsed == Decimal("69.00197669875342412"), "retry elapsed drift")
     require(retry_tail_elapsed == Decimal("18.36650123470462862"), "tail elapsed drift")
     require(retry_raw == Decimal(39258), "retry raw drift")
     require(nominal_ratio >= Decimal("1.10"), "historical nominal margin absent")
@@ -221,6 +226,7 @@ def main() -> None:
     print("replay_includes=checkpoint_serialization,environment_construction,reset,interactions,in_interval_scheduling")
     print("replay_excludes=final_trace_export,predicates,signature,scorer,publication,artifact_fsync")
     print("clock_interpretation=captured_elapsed_not_cpu_time_or_remote_deadline_proof")
+    print(f"historical_retry_paths={len(retry_paths)}")
     print(f"historical_retry_tail_paths={len(retry_tail)}")
     print(f"historical_retry_elapsed_s={retry_elapsed}")
     print(f"historical_retry_tail_elapsed_s={retry_tail_elapsed}")
