@@ -424,7 +424,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 NPG-8 predictive engineering hypothesis before implementation or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V3 research-log/125 structurally replaces RCMF with one Nested Prefix Gate-8 component plus inherited correctness controls. Config npg8-c3-v1 and the deterministic author checker source-bind five official SDK/scorer files and exact base attack bytes; verify message-indexed attribution including concentrated [4,0,0,0]->0.25, 1,680 boundary-algebra cases, complete policy-start comparator fixtures, count dominance and three exact Phase-3 profiles. Author check PASS with NPG/fixed-8 aggregate 1.131023918935, minimum oracle ratio 1.0 and minimum screen saving 0.384615384615. Hypothesis SHA-256 0346d0c.../674 lines; static note 126. Theory review pending; no NPG implementation, Kaggle push, commit run or submission.",
+      "evidence": "V3 research-log/125 at immutable commit 51f8104 passed deterministic author checks but round-3 theory review returned NEEDS_REVISION with 674/674 line and SHA integrity. Per-message attribution, conditional replay-risk scope, predictive language and taxonomy are RESOLVED; the end-to-end comparator and Phase-3 specification are only IMPROVED. Load-bearing defects: two validation extrema are not future lower/upper bounds; screen, validation and first/late-fill fallback portfolios are not branch-complete; provisional joint-cap objective is not explicit; promised fallback fixtures are absent; real evidence bindings and public generation-to-replay transfer remain incomplete. Verbatim report research-log/128; budget 3/12. No NPG implementation, Kaggle push, commit run or submission.",
       "parent": "T045"
     }
   ],
@@ -1022,7 +1022,8 @@
       "author_verification_v3": "PASS — research-log/126 binds 674-line hypothesis SHA 0346d0c..., config SHA b76af59..., checker SHA 28503c2...; source_bindings=5, boundary_algebra_cases=1680, attribution_fixtures=3, policy_value_fixtures=2, Phase-3 profiles=3, NPG/fixed8=1.131023918935, minimum oracle ratio=1.0, minimum screen saving=0.384615384615. No implementation or Kaggle mutation.",
       "search_log_v3": "APPENDED — prior PORF entry closed inconclusive after structural replacement; NPG-8 varies candidate-boundary-density-via-nested-prefix-gating with metric outcome pending.",
       "theory_review_round3": "DISPATCHED — immutable commit 51f8104 has 674 hypothesis lines/SHA 0346d0c...; a fresh sterile reviewer receives claim type engineering, question type predictive, both canonical SciAgent references and all six round-2 issues. Budget charged 3/12; no implementation or Kaggle mutation.",
-      "status": "V3 FROZEN UNDER REVIEW — deterministic rung passed; Phase 3 and Kaggle mutation remain closed until a valid RIGOROUS verdict."
+      "theory_review_round3_result": "NEEDS_REVISION — integrity PASS 674/674/SHA 0346d0c.... Prior issues 1/3/5/6 RESOLVED and 2/4 IMPROVED. Extrema are not future bounds; provisional selection and every fallback portfolio need exact algebra/accounting; branch fixtures, evidence binding and public generation-to-replay transfer are incomplete. Verbatim report research-log/128; budget 3/12.",
+      "status": "V3 REVIEWED NEEDS_REVISION — Phase 2 remains open. Preserve v3 immutably and structurally replace the pseudo-bound gate before any implementation or Kaggle mutation."
     }
   }
 }
