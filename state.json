@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 8
+      "spent": 9
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -479,8 +479,8 @@
       "id": "T053",
       "phase": "2",
       "desc": "Obtain a fresh sterile re-review of PRAC-24 v2 with explicit disposition of all three round-8 issues before any Phase-3 implementation",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Dispatch preflight: `comp/.venv/bin/python -I experiments/poc/prac24_phase2_reference_v2.py --config experiments/configs/prac24-c3-v2.json --hypothesis research-log/167-hypothesis-iter-8-prac24-v2.md` -> `prac24_phase2_author_check_v2=PASS`; immutable hypothesis has 533 lines and SHA256 5f495207251f9b63b64d631d564740ede61c8e0855b49e31381c0b143a2e0aa0; Phase-3 runner/attempt absent. Fresh sterile round-9 re-review dispatched; budget charged 9/12 before dispatch.",
       "parent": "T052"
     }
   ],
