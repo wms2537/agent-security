@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 6
+      "spent": 7
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -440,7 +440,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the simpler HCMS-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "HCMS v1 research-log/146 plus hcms24-c3-v1 config and author checker freeze one shared four-method kernel, exact prefix coverage 1.0, 3 fresh efficacy profiles, delayed safety exclusion, 4-order Williams position/predecessor balance, 1.10 evidence-haircut threshold and end-to-end scalar ledger removal. Author checker PASS; review pending at 6/12. No Phase3/attack/Kaggle mutation.",
+      "evidence": "HCMS v1 research-log/146 at immutable a8da04e has 475 lines/SHA 5db694c... and freezes one shared four-method kernel, exact prefix coverage 1.0, 3 fresh efficacy profiles, delayed safety exclusion, 4-order Williams position/predecessor balance, 1.10 evidence-haircut threshold and end-to-end scalar ledger removal. Author checker PASS; sterile review round 7 dispatched and charged 7/12. No Phase3/attack/Kaggle mutation.",
       "parent": "T047"
     }
   ],
