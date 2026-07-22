@@ -241,6 +241,7 @@ PATH_FIELDS = (
     "outcome",
     "path_cost_s",
     "generation_elapsed_s",
+    "generation_terminal_elapsed_s",
     "ledger_cumulative_s",
     "hosts_json",
     "messages_json",
@@ -653,6 +654,29 @@ def indexed_exact_flags(
     ]
 
 
+def retained_message_trace(
+    messages: Sequence[str], trace_suffixes: Sequence[Sequence[Mapping[str, Any]]]
+) -> dict[str, Any]:
+    """Retain the exact message prefix and its indexed tool-event evidence."""
+
+    require(len(messages) == len(trace_suffixes), "retained trace message/suffix length drift")
+    return {
+        "user_messages": list(messages),
+        "tool_events": [event for suffix in trace_suffixes for event in suffix],
+    }
+
+
+def checkpoint_in_flight(
+    phase_state: dict[str, Any] | None,
+    phase: str,
+    **snapshot: Any,
+) -> None:
+    if phase_state is None:
+        return
+    phase_state["phase"] = phase
+    phase_state["in_flight"] = json.loads(canonical_json(snapshot))
+
+
 def strict_bool(value: Any) -> bool:
     if isinstance(value, bool):
         return value
@@ -687,11 +711,16 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
 
     generation_suffixes = json.loads(str(row["generation_trace_suffixes_json"]))
     generation_flags = indexed_exact_flags(generation_suffixes, hosts)
+    require(len(generation_flags) == returned, "generation suffix count drift")
     require(
         generation_flags == json.loads(str(row["generation_exact_flags_json"])),
         "generation exact flags drift",
     )
     generation_trace = json.loads(str(row["generation_trace_json"]))
+    require(
+        list(generation_trace.get("user_messages", [])) == messages,
+        "generation trace messages drift",
+    )
     generation_events = [event for suffix in generation_suffixes for event in suffix]
     require(
         list(generation_trace.get("tool_events", []))[: len(generation_events)]
@@ -701,11 +730,16 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
 
     replay_suffixes = json.loads(str(row["replay_trace_suffixes_json"]))
     replay_flags = indexed_exact_flags(replay_suffixes, hosts)
+    require(len(replay_flags) == returned, "replay suffix count drift")
     require(
         replay_flags == json.loads(str(row["replay_exact_flags_json"])),
         "replay exact flags drift",
     )
     replay_trace = json.loads(str(row["replay_trace_json"]))
+    require(
+        list(replay_trace.get("user_messages", [])) == messages,
+        "replay trace messages drift",
+    )
     require(
         list(replay_trace.get("tool_events", []))
         == [event for suffix in replay_suffixes for event in suffix],
@@ -726,6 +760,9 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
     expected_raw = float(16 * returned + 2)
     require(actual_raw == float(row["actual_raw"]), "candidate actual raw drift")
     require(expected_raw == float(row["expected_raw"]), "candidate expected raw drift")
+    require(all(generation_flags) == strict_bool(row["generation_exact"]), "generation exact drift")
+    require(all(replay_flags) == strict_bool(row["replay_exact"]), "replay exact drift")
+    require(len(predicates) == int(row["predicate_count"]), "predicate count drift")
     predicate_identity = all(
         predicate.get("predicate") == "EXFILTRATION"
         and int(predicate.get("severity", 0)) == 5
@@ -743,6 +780,8 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
         identity_valid == strict_bool(row["score_identity_valid"]),
         "candidate score identity drift",
     )
+    replay_covered = float(row["actual_replay_s"]) <= float(row["ledger_charge_s"]) + 1e-12
+    require(replay_covered == strict_bool(row["replay_covered"]), "replay coverage drift")
     return {
         "actual_raw": actual_raw,
         "expected_raw": expected_raw,
@@ -751,6 +790,7 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
         "score_cell_signature": signature,
         "finding": finding,
         "score_identity_valid": identity_valid,
+        "replay_covered": replay_covered,
     }
 
 
@@ -884,31 +924,89 @@ def replay_candidate(
     candidate: Mapping[str, Any],
     factory: Callable[[], Any],
     seed: int,
-    phase_state: dict[str, str] | None = None,
+    phase_state: dict[str, Any] | None = None,
+    *,
+    env_builder: Callable[[Callable[[], Any], int], Any] = make_env,
+    checkpoint_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Replay one endogenous candidate; construction and reset are charged."""
 
     started = time.monotonic()
-    if phase_state is not None:
-        phase_state["phase"] = "replay_environment_construction"
-    env = make_env(factory, seed)
-    if phase_state is not None:
-        phase_state["phase"] = "replay_reset"
-    env.reset()
+    context = dict(checkpoint_context or {})
+    checkpoint_in_flight(
+        phase_state,
+        "replay_environment_construction",
+        **context,
+        current_replay={"messages": list(candidate["messages"]), "trace_suffixes": [], "trace": {}},
+    )
+    env = env_builder(factory, seed)
+    checkpoint_in_flight(
+        phase_state,
+        "replay_reset",
+        **context,
+        current_replay={"messages": list(candidate["messages"]), "trace_suffixes": [], "trace": env.export_trace_dict()},
+    )
+    try:
+        env.reset()
+    except Exception:
+        checkpoint_in_flight(
+            phase_state,
+            "replay_reset_failed",
+            **context,
+            current_replay={"messages": list(candidate["messages"]), "trace_suffixes": [], "trace": env.export_trace_dict()},
+        )
+        raise
     suffixes: list[list[dict[str, Any]]] = []
-    for message in candidate["messages"]:
-        if phase_state is not None:
-            phase_state["phase"] = "replay_interaction"
+    for message_index, message in enumerate(candidate["messages"]):
         before = env.export_trace_dict()
         before_count = len(before.get("tool_events", []))
-        env.interact(message, max_tool_hops=MAX_TOOL_HOPS)
+        checkpoint_in_flight(
+            phase_state,
+            "replay_interaction",
+            **context,
+            current_replay={
+                "messages": list(candidate["messages"]),
+                "next_message_index": message_index,
+                "trace_suffixes": suffixes,
+                "trace": before,
+            },
+        )
+        try:
+            env.interact(message, max_tool_hops=MAX_TOOL_HOPS)
+        except Exception:
+            failed_trace = env.export_trace_dict()
+            failed_suffixes = [
+                *suffixes,
+                list(failed_trace.get("tool_events", [])[before_count:]),
+            ]
+            checkpoint_in_flight(
+                phase_state,
+                "replay_interaction_failed",
+                **context,
+                current_replay={
+                    "messages": list(candidate["messages"]),
+                    "failed_message_index": message_index,
+                    "elapsed_s": max(1e-9, time.monotonic() - started),
+                    "trace_suffixes": failed_suffixes,
+                    "trace": failed_trace,
+                },
+            )
+            raise
         after = env.export_trace_dict()
         suffixes.append(list(after.get("tool_events", [])[before_count:]))
     elapsed = max(1e-9, time.monotonic() - started)
     trace = env.export_trace_dict()
     exact_flags = indexed_exact_flags(suffixes, candidate["hosts"])
-    if phase_state is not None:
-        phase_state["phase"] = "replay_evaluation"
+    checkpoint_in_flight(
+        phase_state,
+        "replay_evaluation",
+        **context,
+        current_replay={
+            "messages": list(candidate["messages"]),
+            "trace_suffixes": suffixes,
+            "trace": trace,
+        },
+    )
     predicates = eval_predicates(trace)
     # Match the gateway's score-driving signature exactly.  Its richer
     # diagnostic cell includes egress/messages, but score_cell_signature is
@@ -957,13 +1055,14 @@ def run_method_cell(
     identity_registry: set[str],
     partial_candidate_rows: list[dict[str, Any]] | None = None,
     partial_path_rows: list[dict[str, Any]] | None = None,
-    phase_state: dict[str, str] | None = None,
+    phase_state: dict[str, Any] | None = None,
+    env_builder: Callable[[Callable[[], Any], int], Any] = make_env,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
     """The single generation/replay kernel used by every configured method."""
 
     if phase_state is None:
         phase_state = {}
-    phase_state["phase"] = "initialization"
+    checkpoint_in_flight(phase_state, "initialization")
     generation_budget = float(clock["generation_budget_s"])
     replay_budget = float(clock["replay_budget_s"])
     reserve = float(clock["interaction_reserve_s"])
@@ -997,21 +1096,108 @@ def run_method_cell(
         # indexed interactions.  Actual replay, by contrast, is intentionally
         # timed before its fresh construction (see replay_candidate).
         path_started = time.monotonic()
-        phase_state["phase"] = "generation_environment_construction"
-        env = make_env(generation_factory, master)
+        checkpoint_in_flight(
+            phase_state,
+            "generation_environment_construction",
+            active_path={
+                "path_index": path_index,
+                "state_before": state_before,
+                "proposed_prefix": proposal,
+                "hosts": hosts,
+                "messages": messages,
+                "trace_suffixes": [],
+                "cumulative_costs_s": [],
+                "trace": {},
+            },
+            generated_unreplayed_candidates=candidates,
+        )
+        env = env_builder(generation_factory, master)
         calibrated_generation_started = time.monotonic()
-        phase_state["phase"] = "generation_reset"
-        env.reset()
+        checkpoint_in_flight(
+            phase_state,
+            "generation_reset",
+            active_path={
+                "path_index": path_index,
+                "state_before": state_before,
+                "proposed_prefix": proposal,
+                "hosts": hosts,
+                "messages": messages,
+                "trace_suffixes": [],
+                "cumulative_costs_s": [],
+                "trace": env.export_trace_dict(),
+            },
+            generated_unreplayed_candidates=candidates,
+        )
+        try:
+            env.reset()
+        except Exception:
+            checkpoint_in_flight(
+                phase_state,
+                "generation_reset_failed",
+                active_path={
+                    "path_index": path_index,
+                    "state_before": state_before,
+                    "proposed_prefix": proposal,
+                    "hosts": hosts,
+                    "messages": messages,
+                    "trace_suffixes": [],
+                    "cumulative_costs_s": [],
+                    "trace": env.export_trace_dict(),
+                },
+                generated_unreplayed_candidates=candidates,
+            )
+            raise
         suffixes: list[list[dict[str, Any]]] = []
         cumulative_costs: list[float] = []
-        for message in messages:
-            phase_state["phase"] = "generation_interaction"
+        for message_index, message in enumerate(messages):
             generation_elapsed = time.monotonic() - generation_started
             if not deadline_admits(generation_elapsed, generation_budget, reserve):
                 break
             before = env.export_trace_dict()
             before_count = len(before.get("tool_events", []))
-            env.interact(message, max_tool_hops=MAX_TOOL_HOPS)
+            checkpoint_in_flight(
+                phase_state,
+                "generation_interaction",
+                active_path={
+                    "path_index": path_index,
+                    "state_before": state_before,
+                    "proposed_prefix": proposal,
+                    "hosts": hosts,
+                    "messages": messages,
+                    "next_message_index": message_index,
+                    "trace_suffixes": suffixes,
+                    "cumulative_costs_s": cumulative_costs,
+                    "trace": before,
+                },
+                generated_unreplayed_candidates=candidates,
+            )
+            try:
+                env.interact(message, max_tool_hops=MAX_TOOL_HOPS)
+            except Exception:
+                failed_trace = env.export_trace_dict()
+                checkpoint_in_flight(
+                    phase_state,
+                    "generation_interaction_failed",
+                    active_path={
+                        "path_index": path_index,
+                        "state_before": state_before,
+                        "proposed_prefix": proposal,
+                        "hosts": hosts,
+                        "messages": messages,
+                        "failed_message_index": message_index,
+                        "generation_elapsed_s": max(
+                            1e-9, time.monotonic() - generation_started
+                        ),
+                        "trace_suffixes": [
+                            *suffixes,
+                            list(failed_trace.get("tool_events", [])[before_count:]),
+                        ],
+                        "cumulative_costs_s": cumulative_costs,
+                        "trace": failed_trace,
+                    },
+                    generated_unreplayed_candidates=candidates,
+                )
+                raise
             after = env.export_trace_dict()
             suffixes.append(list(after.get("tool_events", [])[before_count:]))
             cumulative_costs.append(
@@ -1073,7 +1259,9 @@ def run_method_cell(
                     "messages": selected_messages,
                     "generation_trace_suffixes": suffixes[:returned],
                     "generation_exact_flags": exact_flags[:returned],
-                    "generation_trace": env.export_trace_dict(),
+                    "generation_trace": retained_message_trace(
+                        selected_messages, suffixes[:returned]
+                    ),
                     "messages_sha256": sha256_bytes(canonical_json(selected_messages).encode("utf-8")),
                 }
             )
@@ -1099,16 +1287,21 @@ def run_method_cell(
                 "outcome": outcome,
                 "path_cost_s": path_cost,
                 "generation_elapsed_s": generation_elapsed,
+                "generation_terminal_elapsed_s": generation_elapsed,
                 "ledger_cumulative_s": ledger_used,
                 "hosts_json": canonical_json(hosts),
                 "messages_json": canonical_json(messages),
                 "generation_trace_suffixes_json": canonical_json(suffixes),
                 "generation_exact_flags_json": canonical_json(exact_flags),
-                "generation_trace_json": canonical_json(env.export_trace_dict()),
+                "generation_trace_json": canonical_json(
+                    retained_message_trace(messages[: len(suffixes)], suffixes)
+                ),
             }
         )
 
     generation_elapsed = time.monotonic() - generation_started
+    if path_rows:
+        path_rows[-1]["generation_terminal_elapsed_s"] = generation_elapsed
     generation_overage = generation_elapsed > generation_budget
     replay_total = 0.0
     coverage_numerator = 0
@@ -1119,8 +1312,19 @@ def run_method_cell(
     findings: list[dict[str, Any]] = []
     candidate_rows = partial_candidate_rows if partial_candidate_rows is not None else []
     transition_sequence: list[int] = []
-    for candidate in candidates:
-        replay = replay_candidate(candidate, replay_factory, master, phase_state)
+    for replay_index, candidate in enumerate(candidates):
+        replay = replay_candidate(
+            candidate,
+            replay_factory,
+            master,
+            phase_state,
+            env_builder=env_builder,
+            checkpoint_context={
+                "generated_unreplayed_candidates": candidates[replay_index:],
+                "completed_candidate_rows": candidate_rows,
+                "generation_terminal_elapsed_s": generation_elapsed,
+            },
+        )
         replay_total += float(replay["elapsed_s"])
         covered = float(replay["elapsed_s"]) <= float(candidate["ledger_charge_s"]) + 1e-12
         coverage_numerator += int(covered)
@@ -1170,7 +1374,12 @@ def run_method_cell(
                 "finding_json": canonical_json(replay["finding"]),
             }
         )
-    phase_state["phase"] = "cell_aggregation"
+    checkpoint_in_flight(
+        phase_state,
+        "cell_aggregation",
+        generated_unreplayed_candidates=[],
+        completed_candidate_rows=candidate_rows,
+    )
     raw = float(score_attack_raw(findings))
     expected_sum = sum(float(row["expected_raw"]) for row in candidate_rows)
     if raw != expected_sum:
@@ -1273,12 +1482,36 @@ def validate_exception_diagnostic(
     diagnostic: Mapping[str, Any],
     partial_candidates: Sequence[Mapping[str, Any]],
     partial_paths: Sequence[Mapping[str, Any]],
+    linked_cell: Mapping[str, Any] | None = None,
 ) -> None:
     require(diagnostic["schema_version"] == "hcms24-exception-v1", "exception schema drift")
     trace = str(diagnostic["traceback"])
     require(
         sha256_bytes(trace.encode("utf-8")) == diagnostic["traceback_sha256"],
         "traceback hash drift",
+    )
+    coordinates = {
+        key: diagnostic[key]
+        for key in (
+            "namespace", "profile", "master", "order_index", "position",
+            "predecessor", "method",
+        )
+    }
+    expected_exception_id = sha256_bytes(
+        canonical_json(
+            {**coordinates, "traceback_sha256": diagnostic["traceback_sha256"]}
+        ).encode("utf-8")
+    )
+    require(diagnostic["exception_id"] == expected_exception_id, "exception id drift")
+    in_flight = diagnostic.get("in_flight", {})
+    require(
+        bool(diagnostic.get("in_flight_present")) == bool(in_flight),
+        "in-flight presence drift",
+    )
+    require(
+        diagnostic.get("in_flight_sha256")
+        == sha256_bytes(canonical_json(in_flight).encode("utf-8")),
+        "in-flight hash drift",
     )
     require(
         int(diagnostic["partial_candidate_count"]) == len(partial_candidates),
@@ -1298,6 +1531,17 @@ def validate_exception_diagnostic(
         == diagnostic["partial_paths_sha256"],
         "partial path hash drift",
     )
+    if linked_cell is not None:
+        require(record_coordinates(diagnostic) == record_coordinates(linked_cell), "exception coordinate drift")
+        require(linked_cell["exception_id"] == diagnostic["exception_id"], "exception cell link drift")
+        require(
+            int(linked_cell["timeout_count"]) == int(bool(diagnostic["timed_out"])),
+            "exception timeout link drift",
+        )
+        require(
+            int(linked_cell["exception_count"]) == int(not bool(diagnostic["timed_out"])),
+            "exception count link drift",
+        )
 
 
 def execute_method_cell(
@@ -1313,12 +1557,13 @@ def execute_method_cell(
     namespace: str,
     identity_registry: set[str],
     cell_runner: Callable[..., tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]] = run_method_cell,
+    cell_runner_options: Mapping[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any], list[dict[str, Any]]]:
     """Execute one cell and preserve linked evidence for every caught failure."""
 
     partial_candidates: list[dict[str, Any]] = []
     partial_paths: list[dict[str, Any]] = []
-    phase_state = {"phase": "wrapper_initialization"}
+    phase_state: dict[str, Any] = {"phase": "wrapper_initialization", "in_flight": {}}
     started = time.monotonic()
     try:
         with method_cell_timeout(float(clock["outer_process_timeout_s"])):
@@ -1336,6 +1581,7 @@ def execute_method_cell(
                 partial_candidate_rows=partial_candidates,
                 partial_path_rows=partial_paths,
                 phase_state=phase_state,
+                **dict(cell_runner_options or {}),
             )
         return candidates, paths, cell, []
     except Exception as error:
@@ -1354,6 +1600,7 @@ def execute_method_cell(
         exception_id = sha256_bytes(
             canonical_json({**coordinates, "traceback_sha256": trace_digest}).encode("utf-8")
         )
+        in_flight = phase_state.get("in_flight", {})
         diagnostic = {
             "schema_version": "hcms24-exception-v1",
             "exception_id": exception_id,
@@ -1365,6 +1612,9 @@ def execute_method_cell(
             "elapsed_s": elapsed,
             "traceback_sha256": trace_digest,
             "traceback": trace,
+            "in_flight_present": bool(in_flight),
+            "in_flight": in_flight,
+            "in_flight_sha256": sha256_bytes(canonical_json(in_flight).encode("utf-8")),
             "partial_candidate_count": len(partial_candidates),
             "partial_path_count": len(partial_paths),
             "partial_candidates_sha256": sha256_bytes(
@@ -1381,6 +1631,13 @@ def execute_method_cell(
             exception_id=exception_id,
             partial_candidate_count=len(partial_candidates),
             partial_path_count=len(partial_paths),
+        )
+        cell = recompute_cell_record(
+            cell,
+            partial_candidates,
+            partial_paths,
+            diagnostic,
+            clock,
         )
         return partial_candidates, partial_paths, cell, [diagnostic]
 
@@ -1471,6 +1728,7 @@ FLOAT_FIELDS = {
     "c_1_s", "c_returned_s", "generation_path_cost_s", "ledger_charge_s",
     "ledger_cumulative_s", "actual_replay_s", "actual_raw", "expected_raw",
     "path_cost_s", "generation_elapsed_s", "ledger_charge_total_s",
+    "generation_terminal_elapsed_s",
     "actual_replay_total_s", "raw",
 }
 BOOLEAN_FIELDS = {
@@ -1506,6 +1764,50 @@ def record_coordinates(row: Mapping[str, Any]) -> tuple[Any, ...]:
     )
 
 
+def expected_coordinate_grid(config: Mapping[str, Any]) -> list[tuple[Any, ...]]:
+    coordinates: list[tuple[Any, ...]] = []
+    orders = config["phase3"]["counterbalanced_orders"]
+    for profile in config["phase3"]["profiles"]:
+        for master in config["phase3"]["masters"]:
+            for order_index, order in enumerate(orders):
+                for position, method in enumerate(order):
+                    coordinates.append(
+                        (
+                            "primary",
+                            str(profile["id"]),
+                            int(master),
+                            order_index,
+                            position,
+                            "none" if position == 0 else str(order[position - 1]),
+                            str(method),
+                        )
+                    )
+    safety = config["phase3"]["safety_suite_excluded_from_efficacy"]
+    require(len(safety) == 1, "safety profile count drift")
+    coordinates.append(
+        (
+            "safety",
+            str(safety[0]["id"]),
+            int(config["phase3"]["masters"][0]),
+            0,
+            0,
+            "none",
+            "hcms_calibrated",
+        )
+    )
+    return coordinates
+
+
+def validate_exact_coordinate_grid(
+    cells: Sequence[Mapping[str, Any]], config: Mapping[str, Any]
+) -> None:
+    require(
+        Counter(record_coordinates(row) for row in cells)
+        == Counter(expected_coordinate_grid(config)),
+        "exact coordinate grid drift",
+    )
+
+
 def recompute_path_evidence(row: Mapping[str, Any]) -> None:
     hosts = json.loads(str(row["hosts_json"]))
     messages = json.loads(str(row["messages_json"]))
@@ -1525,24 +1827,337 @@ def recompute_path_evidence(row: Mapping[str, Any]) -> None:
     require(messages == [user_message(str(host)) for host in hosts], "path message/host drift")
     require(flags == json.loads(str(row["generation_exact_flags_json"])), "path exact flags drift")
     require(len(flags) == int(row["completed_interactions"]), "path completion count drift")
+    require(len(flags) <= int(row["proposed_prefix"]), "path completion exceeds proposal")
     expected_exact_prefix = next(
         (index for index, flag in enumerate(flags, 1) if not flag), len(flags) + 1
     ) - 1
     require(expected_exact_prefix == int(row["exact_prefix_length"]), "path exact prefix drift")
     trace = json.loads(str(row["generation_trace_json"]))
+    require(
+        list(trace.get("user_messages", [])) == messages[: len(suffixes)],
+        "path trace messages drift",
+    )
     flat_events = [event for suffix in suffixes for event in suffix]
     require(list(trace.get("tool_events", [])) == flat_events, "path trace/suffix drift")
+    returned = int(row["returned_prefix"])
+    outcome = str(row["outcome"])
+    require((returned > 0) == (outcome == "returned"), "path outcome/return drift")
+    require(float(row["path_cost_s"]) > 0.0, "path cost must be positive")
+    require(
+        float(row["generation_terminal_elapsed_s"])
+        >= float(row["generation_elapsed_s"]),
+        "path terminal generation time drift",
+    )
+
+
+def recompute_cell_record(
+    source_cell: Mapping[str, Any],
+    candidates: Sequence[Mapping[str, Any]],
+    paths: Sequence[Mapping[str, Any]],
+    diagnostic: Mapping[str, Any] | None,
+    clock: Mapping[str, Any],
+) -> dict[str, Any]:
+    ordered_candidates = sorted(candidates, key=lambda row: int(row["candidate_index"]))
+    ordered_paths = sorted(paths, key=lambda row: int(row["path_index"]))
+    require(
+        [int(row["candidate_index"]) for row in ordered_candidates]
+        == list(range(1, len(ordered_candidates) + 1)),
+        "candidate index sequence drift",
+    )
+    require(
+        [int(row["path_index"]) for row in ordered_paths]
+        == list(range(1, len(ordered_paths) + 1)),
+        "path index sequence drift",
+    )
+    recomputed = [recompute_candidate_evidence(row) for row in ordered_candidates]
+    for row in ordered_paths:
+        recompute_path_evidence(row)
+    in_flight = diagnostic.get("in_flight", {}) if diagnostic else {}
+    active_path = in_flight.get("active_path", {})
+    generation_elapsed = (
+        float(in_flight.get("generation_terminal_elapsed_s", 0.0))
+        or float(active_path.get("generation_elapsed_s", 0.0))
+        or (float(ordered_paths[-1]["generation_terminal_elapsed_s"]) if ordered_paths else 0.0)
+    )
+    unreplayed = list(in_flight.get("generated_unreplayed_candidates", [])) if diagnostic else []
+    completed_ledger_total = sum(float(row["ledger_charge_s"]) for row in ordered_candidates)
+    for index, row in enumerate(ordered_candidates, 1):
+        require(
+            float(row["ledger_cumulative_s"])
+            == sum(float(item["ledger_charge_s"]) for item in ordered_candidates[:index]),
+            "candidate cumulative ledger drift",
+        )
+        require(
+            any(
+                int(path["path_index"]) == int(row["path_index"])
+                and int(path["returned_prefix"]) == int(row["returned_prefix"])
+                and path["outcome"] == "returned"
+                for path in ordered_paths
+            ),
+            "candidate/path return link drift",
+        )
+    ledger_total = completed_ledger_total + sum(
+        float(row["ledger_charge_s"]) for row in unreplayed
+    )
+    current_replay = in_flight.get("current_replay", {}) if diagnostic else {}
+    replay_total = sum(float(row["actual_replay_s"]) for row in ordered_candidates) + float(
+        current_replay.get("elapsed_s", 0.0)
+    )
+    findings = [item["finding"] for item in recomputed]
+    raw = float(score_attack_raw(findings))
+    expected_sum = sum(float(item["expected_raw"]) for item in recomputed)
+    hashes = [str(item["score_cell_signature"]["hash"]) for item in recomputed]
+    duplicates = len(hashes) - len(set(hashes))
+    score_failures = sum(not item["score_identity_valid"] for item in recomputed)
+    score_failures += int(raw != expected_sum)
+    coverage = sum(bool(item["replay_covered"]) for item in recomputed)
+    replay_overage = replay_total > float(clock["replay_budget_s"])
+    timed_out = bool(diagnostic and diagnostic["timed_out"])
+    method = str(source_cell["method"])
+    calibrated_invalid = method in CALIBRATED_METHODS and (
+        coverage != len(ordered_candidates) or replay_overage
+    )
+    invalid_attribution = sum(not all(item["replay_exact_flags"]) for item in recomputed)
+    generation_overage = generation_elapsed > float(clock["generation_budget_s"])
+    incomplete = int(diagnostic is not None)
+    exception_count = int(diagnostic is not None and not timed_out)
+    cell_valid = not any(
+        (
+            generation_overage,
+            invalid_attribution,
+            duplicates,
+            score_failures,
+            timed_out,
+            calibrated_invalid,
+            incomplete,
+            exception_count,
+        )
+    )
+    attempted_paths = len(ordered_paths) + int(bool(active_path))
+    return {
+        "schema_version": "hcms24-method-cell-v1",
+        **{
+            key: source_cell[key]
+            for key in (
+                "namespace", "profile", "master", "order_index", "position",
+                "predecessor", "method",
+            )
+        },
+        "candidate_count": len(ordered_candidates),
+        "attempted_paths": attempted_paths,
+        "dropped_paths": sum(row["outcome"] != "returned" for row in ordered_paths),
+        "generation_elapsed_s": generation_elapsed,
+        "generation_overage": generation_overage,
+        "ledger_charge_total_s": ledger_total,
+        "actual_replay_total_s": replay_total,
+        "actual_replay_overage": replay_overage,
+        "replay_coverage_numerator": coverage,
+        "replay_coverage_denominator": len(ordered_candidates),
+        "raw": raw,
+        "invalid_attribution_count": invalid_attribution,
+        "duplicate_identity_count": duplicates,
+        "score_identity_failure_count": score_failures,
+        "timeout_count": int(timed_out),
+        "incomplete_count": incomplete,
+        "exception_count": exception_count,
+        "exception_id": str(diagnostic["exception_id"]) if diagnostic else "",
+        "cell_valid": cell_valid,
+        "transition_sequence_json": canonical_json(
+            [int(row["returned_prefix"]) for row in ordered_candidates]
+        ),
+    }
+
+
+def safety_result_from_records(
+    config: Mapping[str, Any],
+    candidates: Sequence[Mapping[str, Any]],
+    cell: Mapping[str, Any],
+) -> dict[str, Any]:
+    profile = config["phase3"]["safety_suite_excluded_from_efficacy"][0]
+    ordered = sorted(candidates, key=lambda row: int(row["candidate_index"]))
+    returned = [int(row["returned_prefix"]) for row in ordered]
+    passed = (
+        bool(returned)
+        and returned[0] == 24
+        and 8 in returned[1:]
+        and all(right <= left for left, right in zip(returned, returned[1:]))
+        and bool(cell["cell_valid"])
+    )
+    return {
+        "schema_version": "hcms24-safety-v1",
+        "profile": profile["id"],
+        "excluded_from_efficacy": True,
+        "expected_transition": profile["expected_transition"],
+        "returned_prefix_sequence": returned,
+        "pass": passed,
+        "cell": dict(cell),
+    }
+
+
+def reconcile_scientific_bundle(
+    *,
+    config: Mapping[str, Any],
+    candidate_rows: Sequence[Mapping[str, Any]],
+    path_rows: Sequence[Mapping[str, Any]],
+    cells: Sequence[Mapping[str, Any]],
+    profile_rows: Sequence[Mapping[str, Any]],
+    method_rows: Sequence[Mapping[str, Any]],
+    fixtures: Mapping[str, Any],
+    safety: Mapping[str, Any],
+    exception_records: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Rebuild every scientific decision from retained evidence.
+
+    Semantic discrepancies are returned as named malformed artifacts so an
+    otherwise readable transaction can still be sealed with status=invalid.
+    Unreadable schemas remain hard failures in the loader.
+    """
+
+    malformed: set[str] = set()
+    candidates_by_cell: dict[tuple[Any, ...], list[Mapping[str, Any]]] = {}
+    paths_by_cell: dict[tuple[Any, ...], list[Mapping[str, Any]]] = {}
+    cell_keys = {record_coordinates(row) for row in cells}
+
+    all_hosts: list[str] = []
+    for row in candidate_rows:
+        key = record_coordinates(row)
+        candidates_by_cell.setdefault(key, []).append(row)
+        try:
+            recompute_candidate_evidence(row)
+            all_hosts.extend(json.loads(str(row["hosts_json"])))
+        except (AssertionError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+            malformed.add("candidates.tsv")
+    if len(all_hosts) != len(set(all_hosts)):
+        malformed.add("candidates.tsv")
+    if not set(candidates_by_cell).issubset(cell_keys):
+        malformed.add("candidates.tsv")
+
+    for row in path_rows:
+        key = record_coordinates(row)
+        paths_by_cell.setdefault(key, []).append(row)
+        try:
+            recompute_path_evidence(row)
+        except (AssertionError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+            malformed.add("paths.tsv")
+    if not set(paths_by_cell).issubset(cell_keys):
+        malformed.add("paths.tsv")
+
+    try:
+        validate_exact_coordinate_grid(cells, config)
+    except (AssertionError, KeyError, TypeError, ValueError):
+        malformed.add("method_cells.tsv")
+
+    exception_cells = [row for row in cells if row.get("exception_id")]
+    exception_ids = [str(row["exception_id"]) for row in exception_records]
+    if len(exception_ids) != len(set(exception_ids)):
+        malformed.add("exceptions.json")
+    diagnostic_by_id = {str(row["exception_id"]): row for row in exception_records}
+    if set(diagnostic_by_id) != {str(row["exception_id"]) for row in exception_cells}:
+        malformed.add("exceptions.json")
+    for diagnostic in exception_records:
+        linked = next(
+            (row for row in exception_cells if row["exception_id"] == diagnostic["exception_id"]),
+            None,
+        )
+        key = record_coordinates(diagnostic)
+        try:
+            require(linked is not None, "unlinked exception diagnostic")
+            validate_exception_diagnostic(
+                diagnostic,
+                candidates_by_cell.get(key, []),
+                paths_by_cell.get(key, []),
+                linked,
+            )
+        except (AssertionError, KeyError, TypeError, ValueError):
+            malformed.add("exceptions.json")
+
+    recomputed_cells: list[dict[str, Any]] = []
+    for source_cell in cells:
+        key = record_coordinates(source_cell)
+        diagnostic = diagnostic_by_id.get(str(source_cell.get("exception_id", "")))
+        try:
+            recomputed = recompute_cell_record(
+                source_cell,
+                candidates_by_cell.get(key, []),
+                paths_by_cell.get(key, []),
+                diagnostic,
+                config["controlled_clock"],
+            )
+            if dict(source_cell) != recomputed:
+                malformed.add("method_cells.tsv")
+            recomputed_cells.append(recomputed)
+        except (AssertionError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+            malformed.add("method_cells.tsv")
+            recomputed_cells.append(dict(source_cell))
+
+    recomputed_primary = primary_only(recomputed_cells)
+    try:
+        recomputed_profile_rows, recomputed_method_rows = aggregate_rows(recomputed_primary)
+    except (AssertionError, KeyError, TypeError, ValueError):
+        malformed.update({"profile_summary.tsv", "method_summary.tsv"})
+        recomputed_profile_rows = [dict(row) for row in profile_rows]
+        recomputed_method_rows = [dict(row) for row in method_rows]
+    if list(profile_rows) != recomputed_profile_rows:
+        malformed.add("profile_summary.tsv")
+    if list(method_rows) != recomputed_method_rows:
+        malformed.add("method_summary.tsv")
+
+    recomputed_fixtures = run_fixtures(config)
+    if dict(fixtures) != recomputed_fixtures:
+        malformed.add("fixture_results.json")
+
+    safety_coordinate = expected_coordinate_grid(config)[-1]
+    safety_cell = next(
+        (row for row in recomputed_cells if record_coordinates(row) == safety_coordinate),
+        None,
+    )
+    if safety_cell is None:
+        malformed.add("safety.json")
+        recomputed_safety = dict(safety)
+    else:
+        recomputed_safety = safety_result_from_records(
+            config,
+            candidates_by_cell.get(safety_coordinate, []),
+            safety_cell,
+        )
+        if dict(safety) != recomputed_safety:
+            malformed.add("safety.json")
+
+    try:
+        balance = observed_williams_balance(recomputed_primary, METHODS)
+    except (AssertionError, KeyError, TypeError, ValueError):
+        malformed.add("method_cells.tsv")
+        balance = {
+            "schema_version": "hcms24-observed-williams-v1",
+            "blocks": 0,
+            "position_checks_passed": 0,
+            "position_checks_total": 144,
+            "predecessor_checks_passed": 0,
+            "predecessor_checks_total": 108,
+            "position_pass": False,
+            "predecessor_pass": False,
+        }
+
+    return {
+        "malformed_artifacts": tuple(sorted(malformed)),
+        "cells": recomputed_cells,
+        "profile_rows": recomputed_profile_rows,
+        "method_rows": recomputed_method_rows,
+        "fixtures": recomputed_fixtures,
+        "safety": recomputed_safety,
+        "balance": balance,
+    }
 
 
 def reload_and_validate_outputs(
     attempt_dir: Path,
     *,
+    config: Mapping[str, Any],
     expected_tsv_rows: Mapping[str, Sequence[Mapping[str, Any]]],
     expected_json_values: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Reload every output and reconcile schemas, counts, evidence, and aggregates."""
+    """Reload every output and reconstruct the final scientific decision."""
 
-    loaded_text: dict[str, list[dict[str, str]]] = {}
     loaded: dict[str, list[dict[str, Any]]] = {}
     for name, (fields, schema) in TSV_SPECS.items():
         rows = read_tsv_exact(attempt_dir / name, fields, schema)
@@ -1551,39 +2166,8 @@ def reload_and_validate_outputs(
             for source in expected_tsv_rows[name]
         ]
         require(rows == expected, f"reloaded row drift: {name}")
-        loaded_text[name] = rows
         loaded[name] = decode_tsv_rows(rows)
 
-    cells = loaded["method_cells.tsv"]
-    primary_cells = primary_only(cells)
-    require(len(cells) == 145 and len(primary_cells) == 144, "method-cell count drift")
-    require(sum(row["namespace"] == "safety" for row in cells) == 1, "safety-cell count drift")
-    require(len(loaded["profile_summary.tsv"]) == 12, "profile summary count drift")
-    require(len(loaded["method_summary.tsv"]) == 4, "method summary count drift")
-
-    candidates_by_cell: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
-    for row in loaded["candidates.tsv"]:
-        recompute_candidate_evidence(row)
-        candidates_by_cell.setdefault(record_coordinates(row), []).append(row)
-    paths_by_cell: dict[tuple[Any, ...], list[dict[str, Any]]] = {}
-    for row in loaded["paths.tsv"]:
-        recompute_path_evidence(row)
-        paths_by_cell.setdefault(record_coordinates(row), []).append(row)
-    for cell in cells:
-        key = record_coordinates(cell)
-        candidate_group = candidates_by_cell.get(key, [])
-        path_group = paths_by_cell.get(key, [])
-        require(len(candidate_group) == int(cell["candidate_count"]), "cell candidate count drift")
-        require(len(path_group) == int(cell["attempted_paths"]), "cell path count drift")
-        if not cell["exception_id"]:
-            findings = [json.loads(row["finding_json"]) for row in candidate_group]
-            require(float(score_attack_raw(findings)) == float(cell["raw"]), "cell raw drift")
-
-    validate_aggregate_rows(
-        primary_cells,
-        loaded["profile_summary.tsv"],
-        loaded["method_summary.tsv"],
-    )
     json_schemas = {
         "fixture_results.json": "hcms24-fixtures-v1",
         "primary_summary.json": "hcms24-primary-summary-v1",
@@ -1600,68 +2184,45 @@ def reload_and_validate_outputs(
         require(value["schema_version"] == schema, f"JSON schema drift: {name}")
         loaded_json[name] = value
 
-    exception_records = loaded_json["exceptions.json"]["records"]
-    exception_cells = {row["exception_id"]: row for row in cells if row["exception_id"]}
-    require(len(exception_records) == len(exception_cells), "exception diagnostic count drift")
-    for diagnostic in exception_records:
-        key = record_coordinates(diagnostic)
-        require(diagnostic["exception_id"] in exception_cells, "unlinked exception diagnostic")
-        validate_exception_diagnostic(
-            diagnostic,
-            candidates_by_cell.get(key, []),
-            paths_by_cell.get(key, []),
-        )
-
-    summary = loaded_json["primary_summary.json"]
-    methods = {row["method"]: row for row in loaded["method_summary.tsv"]}
-    require(summary["hcms_aggregate_raw"] == methods["hcms_calibrated"]["raw"], "HCMS aggregate drift")
-    require(summary["fixed8_aggregate_raw"] == methods["fixed8_calibrated"]["raw"], "fixed8 aggregate drift")
-    require(
-        summary["fixed24_no_salvage_aggregate_raw"]
-        == methods["fixed24_no_salvage_calibrated"]["raw"],
-        "fixed24 aggregate drift",
+    audit = reconcile_scientific_bundle(
+        config=config,
+        candidate_rows=loaded["candidates.tsv"],
+        path_rows=loaded["paths.tsv"],
+        cells=loaded["method_cells.tsv"],
+        profile_rows=loaded["profile_summary.tsv"],
+        method_rows=loaded["method_summary.tsv"],
+        fixtures=loaded_json["fixture_results.json"],
+        safety=loaded_json["safety.json"],
+        exception_records=loaded_json["exceptions.json"]["records"],
     )
-    require(summary["invalidity_counts"]["malformed_artifact_count"] == 0, "malformed count drift")
-    return {"tsv": loaded, "json": loaded_json}
+    policy_equality, _policy_hash = assert_hcms_scalar_policy_equality(config)
+    expected_summary = make_primary_summary(
+        config=config,
+        cells=audit["cells"],
+        method_rows=audit["method_rows"],
+        fixtures=audit["fixtures"],
+        safety_pass=bool(audit["safety"]["pass"]),
+        policy_equality=policy_equality,
+        balance=audit["balance"],
+        malformed_artifact_count=len(audit["malformed_artifacts"]),
+    )
+    summary = loaded_json["primary_summary.json"]
+    require(float(summary["runtime_s"]) >= 0.0, "summary runtime drift")
+    require(float(summary["peak_memory_gb"]) >= 0.0, "summary memory drift")
+    expected_summary["runtime_s"] = summary["runtime_s"]
+    expected_summary["peak_memory_gb"] = summary["peak_memory_gb"]
+    require(summary == expected_summary, "primary decision reconstruction drift")
 
-
-def in_memory_malformed_artifact_count(
-    candidate_rows: Sequence[Mapping[str, Any]],
-    path_rows: Sequence[Mapping[str, Any]],
-    cells: Sequence[Mapping[str, Any]],
-    profile_rows: Sequence[Mapping[str, Any]],
-    method_rows: Sequence[Mapping[str, Any]],
-    exception_records: Sequence[Mapping[str, Any]],
-) -> int:
-    """Count malformed output artifacts before any bytes are published."""
-
-    malformed: set[str] = set()
-    for name, rows, verifier in (
-        ("candidates.tsv", candidate_rows, recompute_candidate_evidence),
-        ("paths.tsv", path_rows, recompute_path_evidence),
-    ):
-        try:
-            for row in rows:
-                verifier(row)
-        except (AssertionError, KeyError, TypeError, ValueError, json.JSONDecodeError):
-            malformed.add(name)
-    try:
-        require(len(cells) == 145 and len(primary_only(cells)) == 144, "cell count")
-        require(all(row.get("schema_version") == "hcms24-method-cell-v1" for row in cells), "cell schema")
-    except AssertionError:
-        malformed.add("method_cells.tsv")
-    try:
-        validate_aggregate_rows(primary_only(cells), profile_rows, method_rows)
-    except (AssertionError, KeyError, TypeError, ValueError):
-        malformed.update({"profile_summary.tsv", "method_summary.tsv"})
-    try:
-        require(
-            len(exception_records) == sum(bool(row.get("exception_id")) for row in cells),
-            "exception count",
-        )
-    except AssertionError:
-        malformed.add("exceptions.json")
-    return len(malformed)
+    provenance = loaded_json["provenance.json"]
+    require(provenance["observed_williams_balance"] == audit["balance"], "provenance balance drift")
+    require(provenance["safety_excluded_from_primary"] is True, "provenance safety drift")
+    require(provenance["output_bundle_reloaded_before_completion"] is True, "reload claim drift")
+    require(provenance["run_log_hashed"] is True, "run-log claim drift")
+    return {
+        "tsv": loaded,
+        "json": loaded_json,
+        "audit": audit,
+    }
 
 
 def summarize_cells(
@@ -1924,45 +2485,32 @@ def main() -> int:
     candidate_rows.extend(safety_candidates)
     path_rows.extend(safety_paths)
     cells.append(safety_cell)
-    safety_returns = [int(row["returned_prefix"]) for row in safety_candidates]
-    safety_pass = (
-        bool(safety_returns)
-        and safety_returns[0] == 24
-        and 8 in safety_returns[1:]
-        and all(right <= left for left, right in zip(safety_returns, safety_returns[1:]))
-        and bool(safety_cell["cell_valid"])
-    )
-    safety = {
-        "schema_version": "hcms24-safety-v1",
-        "profile": safety_profile["id"],
-        "excluded_from_efficacy": True,
-        "expected_transition": safety_profile["expected_transition"],
-        "returned_prefix_sequence": safety_returns,
-        "pass": safety_pass,
-        "cell": safety_cell,
-    }
+    safety = safety_result_from_records(config, safety_candidates, safety_cell)
 
     primary_cells = [row for row in cells if row["namespace"] == "primary"]
     require(len(primary_cells) == 144, "primary repetition count drift")
     observed_balance = observed_williams_balance(primary_cells, METHODS)
     profile_rows, method_rows = aggregate_rows(primary_cells)
-    malformed_artifact_count = in_memory_malformed_artifact_count(
-        candidate_rows,
-        path_rows,
-        cells,
-        profile_rows,
-        method_rows,
-        exception_diagnostics,
+    audit = reconcile_scientific_bundle(
+        config=config,
+        candidate_rows=candidate_rows,
+        path_rows=path_rows,
+        cells=cells,
+        profile_rows=profile_rows,
+        method_rows=method_rows,
+        fixtures=fixtures,
+        safety=safety,
+        exception_records=exception_diagnostics,
     )
     summary = make_primary_summary(
         config=config,
-        cells=cells,
-        method_rows=method_rows,
-        fixtures=fixtures,
-        safety_pass=safety_pass,
+        cells=audit["cells"],
+        method_rows=audit["method_rows"],
+        fixtures=audit["fixtures"],
+        safety_pass=bool(audit["safety"]["pass"]),
         policy_equality=policy_equality,
-        balance=observed_balance,
-        malformed_artifact_count=malformed_artifact_count,
+        balance=audit["balance"],
+        malformed_artifact_count=len(audit["malformed_artifacts"]),
     )
     runtime_s = time.monotonic() - started
     peak_memory_gb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
@@ -2027,6 +2575,7 @@ def main() -> int:
     }
     reload_and_validate_outputs(
         attempt_dir,
+        config=config,
         expected_tsv_rows=expected_tsv_rows,
         expected_json_values=expected_json_values,
     )
