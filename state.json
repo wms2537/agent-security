@@ -448,7 +448,7 @@
       "phase": "3",
       "desc": "Implement, code-review, execute once, and independently audit the reviewed HCMS-24 public non-target proof of concept",
       "status": "in_progress",
-      "evidence": "Phase 3 opened only after scrutinized RIGOROUS report 149. PoC design 150 freezes the 144-repetition minimal probe, five prediction rows, confirm/reject/invalid bands, transferability limit and implementation-before-run sterile code review. Runner and attempt remain absent; no attack/Kaggle action.",
+      "evidence": "Phase 3 opened only after scrutinized RIGOROUS report 149. PoC design 150 is implemented but unexecuted in the runner/toy files recorded by note 151; direct static PASS and toy 8/8, canonical attempt absent, projected 9-10 minutes. Sterile code review is required before the first scientific command; no attack/Kaggle action.",
       "parent": "T048"
     }
   ],
