@@ -422,7 +422,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 PORF predictive engineering hypothesis before implementation or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "Research-log/116 freezes one >=95.000 valid-score external primary, exact variables/controls/policy, seven local profiles, six ablations, fixed bias surface, eight validity-domain assumptions, failure bands, taxonomy and anti-stacking evidence. No implementation, push, run or submission occurred; review not yet dispatched.",
+      "evidence": "Round-1 sterile review verified 514/514 lines and returned NEEDS_REVISION. Research-log/117 preserves the complete report: the >=95 forecast lacks target evidence, the timeout bound is invalid, raw/second ignores joint caps, anti-stacking fails, profiles are unfrozen constructed tests, stopping rules conflict, and failure semantics are inconsistent. Core multiplicity-frontier idea is salvageable; no implementation, push, run or submission occurred.",
       "parent": "T045"
     }
   ],
@@ -976,8 +976,9 @@
       "justification": "AUTHOR COMPLETE, REVIEW PENDING — measured T005 39/47 capacity, T006 1.079/2.517 routing and exact scorer outcomes, current 69.570/88.515/110.235 frontier, public artifacts and adaptive/cost/tail literature support the engineering chain without claiming target prevalence.",
       "failure_metrics": "COMPLETE — exact success/refute/fail rules, seven frozen mechanism profiles, six one-change ablations, eight assumptions with validity domains, seven confidence checks and ten failure modes are specified.",
       "taxonomy_anti_stacking": "COMPLETE — Scope Mismatch x Optimization/Search x decouple; intermediate-optimum prediction differs from the plain {1,24} stack; measured bottlenecks, per-component ablations and end-to-end constrained contribution are explicit.",
-      "theory_review": "ROUND 1 DISPATCHED — immutable commit 256027f has 514 hypothesis lines; sterile reviewer receives the complete file path, engineering claim type and predictive question type. Budget 1/2.",
-      "status": "IN PROGRESS — awaiting blind theory verdict; no implementation, Kaggle push, commit run or submission"
+      "theory_review": "ROUND 1 NEEDS_REVISION — reviewer and committed line counts agree 514/514. Taxonomy ACCEPTABLE and fixed bias surface PASS, but justification, mathematical validity, logic, assumptions and Occam all need revision; anti-stacking FAIL. Full verbatim report: research-log/117. Budget 1/2.",
+      "round1_disposition": "ACCEPTED — withdraw unsupported >=95 scientific forecast; isolate one constrained multiplicity-selector change; solve generation/replay/candidate constraints; freeze exact constructed mechanism profiles and equal-budget controls; make no target-transfer claim; reserve Kaggle evidence for the separate submission-confidence gate.",
+      "status": "NEEDS REVISION — v1 is not implementable as a confirmatory design; final review round remains unspent; no implementation, Kaggle push, commit run or submission"
     }
   }
 }
