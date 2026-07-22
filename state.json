@@ -1,16 +1,16 @@
 {
   "phase": "2",
   "cycle": 3,
-  "iteration": 2,
+  "iteration": 3,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "A simple ceiling-24 policy with longest eligible-prefix salvage and permanent downgrade captures the useful 24/8 heterogeneity without MPC selection, while a first-message-correlated replay surrogate preserves feasibility better than scalar 1.10 accounting.",
-    "assumption_source": "The frozen symmetry audit of the disclosed failed 360-row artifact found fixed24-ceiling equals MPC in state 9/9 and raw 17446/17446, no-salvage raw 10036, fixed8 raw 12090, calibrated overage 0/9 and scalar-controller actual replay overage 7/9. This is exploratory independent-arm evidence only; official transfer is withheld.",
-    "novelty_claim": "Competition-method claim to be frozen: HCMS-24 replaces selector complexity with one high ceiling, shared longest-prefix salvage and permanent downgrade, plus calibrated replay accounting. Each component has a measured adverse removal; Phase 3 must test both end to end under a shared kernel."
+    "assumption": "A complete-cell cumulative-prefix risk envelope, an absorbing replay-no-fit transition and a calibrated return-ready atomic-path gate can preserve HCMS-24's controlled raw advantage while eliminating the resource invalidities exposed by its first prospective run.",
+    "assumption_source": "The sealed invalid HCMS-24 attempt had candidate coverage 187/189 but aggregate HCMS replay overage 0/36; 420 post-first-no-fit paths consumed 59.767 seconds for three candidates, all four generation overages occurred in that tail, and 44/84 zero-interaction paths exceeded the old 0.1-second reserve. Research-log/162 limits conformal support to marginal exchangeable complete-cell claims and forbids target hard-safety inference.",
+    "novelty_claim": "Competition-method candidate: PRAC-24 replaces candidate-level point accounting with profile-position complete-trace prefix-risk calibration, retry-after-no-fit with an absorbing state, and a fixed reserve with a return-ready atomic-path gate. Four components have isolated removals; target and official-score claims remain withheld."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -28,12 +28,12 @@
     "Local mock and public-leaderboard results are tuning evidence, not guarantees of private/final transfer."
   ],
   "portfolio_sequence": [
-    "High-Ceiling Monotone Salvage-24",
+    "Prefix-Risk Absorbing Controller 24",
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "On the first exact fresh controlled batch, HCMS-24 aggregate constrained raw will be at least 1.10 times the best of calibrated fixed8 and calibrated fixed24-no-salvage, calibrated actual replay coverage will be 1.0 with zero HCMS overage, and end-to-end scalar HCMS will overrun actual replay in at least one method-cell.",
-  "active_hypothesis_artifact": "research-log/146-hypothesis-iter-7-hcms24.md",
+  "active_hypothesis": "Conditional on finite sealed calibration and full validity, PRAC-24 HCMS aggregate constrained raw will be at least 1.10 times the stronger simple PRAC control, all PRAC primary cells will stay inside both controlled budgets, and each of four named mechanisms will pass its clean-removal decision.",
+  "active_hypothesis_artifact": "research-log/164-hypothesis-iter-8-prac24.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -47,7 +47,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 3
+      "spent": 4
     },
     "hypothesis_review_rounds": {
       "limit": 12,
@@ -455,9 +455,17 @@
       "id": "T050",
       "phase": "2",
       "desc": "Diagnose the prospective HCMS-24 resource-risk failures against recent primary literature and freeze one superseding one-sided admission hypothesis before any rerun or Kaggle mutation",
+      "status": "done",
+      "evidence": "Reports 162-165 bind a five-primary-source resource-risk pass, deterministic reconstruction of the invalid HCMS attempt, six-candidate replacement critique, and a 527-line PRAC-24 hypothesis. Author checker PASS verifies 5 source/9 evidence hashes, noncircular 19-cell-per-profile-position calibration at alpha 0.05/rank 19, infinity censoring, matched 16-path support, four isolated component removals, Williams balance and a closed target bridge. Hypothesis SHA 2a19b75..., config SHA a9b31a4..., checker SHA caf2ceb.... Research 4/5, review unchanged 7/12; no Phase3, attack or Kaggle action.",
+      "parent": "T049"
+    },
+    {
+      "id": "T051",
+      "phase": "2",
+      "desc": "Obtain one fresh sterile theory review of the frozen PRAC-24 predictive hypothesis and its marginal complete-trace calibration lemma before any Phase-3 implementation",
       "status": "open",
       "evidence": null,
-      "parent": "T049"
+      "parent": "T050"
     }
   ],
   "parked_candidates": [
@@ -546,6 +554,14 @@
       "varies": "monotone-24-to-8-prefix-control",
       "kind": "metric",
       "outcome": "refuted"
+    },
+    {
+      "cycle": 3,
+      "iteration": 3,
+      "direction": "prefix-risk-absorbing-controller-24",
+      "varies": "complete-cell-resource-risk-admission-and-absorbing-stop",
+      "kind": "metric",
+      "outcome": "pending"
     }
   ],
   "tried_and_failed": [
@@ -768,6 +784,12 @@
       "lesson": "Capping an aggregate event count by the number of requested messages does not estimate message-level coverage; each credited event must be attributed to its requested message or unique marker before an arm is admitted.",
       "apply_when": "A Phase-2/3 multi-message selector uses tool-event counts as a coverage or firing-rate gate.",
       "source": "research-log/122-rcmf-theory-review-round-2.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "Resource uncertainty must be calibrated at the controller's actual decision endpoint: dependent candidate rows can be mapped to one complete-cell cumulative-prefix score, while timeout and censoring stay as infinity and evaluation support cannot exceed calibration support.",
+      "apply_when": "A sequential controller admits an endogenous prefix against an aggregate replay or generation deadline.",
+      "source": "research-log/163-rahcms-diagnosis-and-candidate-selection.md",
       "recurrences": 1
     }
   ],
