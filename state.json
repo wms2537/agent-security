@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 5
+      "spent": 6
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V6 research-log/140 plus v3 config/checker freeze one canonical clock (0.1 reserve, 6s generation/replay, 120s outer), time-zero admissibility, four Latin-square orders, and primary MPC>=1.05x max(fixed8,fixed24,static3:1). Fallback/attribution/deadline are safety controls; two measured contribution components remain; c1 is a correlated scale surrogate and taxonomy is Resource Bottleneck. Author checker PASS; review budget 5/12 before dispatch; no Phase3/attack/Kaggle mutation.",
+      "evidence": "V6 research-log/140 at immutable commit c0bee04 has 540 lines/SHA 11d184b... and passes the v3 author checker: canonical feasible clock, four Latin-square orders, strongest-simple comparator, two contribution components and three demoted safety controls. Sterile round-6 review is dispatched in research-log/142 and charged 6/12. Official score withheld; no Phase3/attack/Kaggle mutation.",
       "parent": "T046"
     }
   ],
