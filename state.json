@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V5 research-log/136 at immutable commit c7f20ee has 640 lines/SHA ddd18c6... and passes the v2 author checker with 54/54 heldout replay coverage, proxy ratio 1.443, total online branches, complete provenance, 4 profiles and 5 ablations. Sterile theory review round 5 is dispatched in research-log/138 and charged 5/12. Official score claim remains withheld; no Phase-3, attack or Kaggle mutation.",
+      "evidence": "V5 review integrity PASS at 640/640 lines/SHA ddd18c6... but round 5 returned NEEDS_REVISION. The 90-second reserve makes the frozen 6-second Phase3 impossible; root 9000/0.90 and Phase3 6-second replay budgets conflict; fixed method order confounds floor-based wall-time capacity; fallback/attribution are authored safety fixtures rather than measured components; fixed24/static mixture lack decision rules; c1 is only a correlated boundary surrogate and taxonomy should be Resource Bottleneck. Verbatim report research-log/139; budget 5/12. No Phase3/attack/Kaggle mutation.",
       "parent": "T046"
     }
   ],
