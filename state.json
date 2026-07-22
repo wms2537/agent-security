@@ -47,7 +47,7 @@
   "budgets": {
     "research_iterations": {
       "limit": 5,
-      "spent": 2
+      "spent": 3
     },
     "hypothesis_review_rounds": {
       "limit": 12,

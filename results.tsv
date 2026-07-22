@@ -46,3 +46,8 @@ porf-c3-profile-v2	sdk_stability_fraction	1.0	match-baseline	high	0.666666666667
 mpc24-c3-replay-cal-v1	heldout_replay_envelope_coverage	1.0	match-baseline	high	1.000000000000	confirm	NA	0.025844213	exploratory	structural gamma*c_m+kappa*c_1 proxy calibrated on replicates 0-2 and tested on 3-4
 mpc24-c3-replay-cal-v1	heldout_cells_ge_fixed8_fraction	1.0	match-baseline	low	1.000000000000	confirm	NA	0.025844213	exploratory	proxy-valued controller was no worse than fixed8 in all 9 retained cells
 mpc24-c3-replay-cal-v1	proxy_controller_to_fixed8_ratio	1.10	beat-baseline	low	1.443010752688	confirm	NA	0.025844213	exploratory	the same proxy controlled selection and capacity; actual held-out replay cost only tested coverage
+mpc24-c3-symmetry-v1	mpc_fixed24_first_state_match_fraction	1.0	match-baseline	high	NA	null	NA	NA	preregistered	symmetric monotone salvage may reproduce every MPC 24/8 first-state choice
+mpc24-c3-symmetry-v1	mpc_to_fixed24_ceiling_ratio	1.01	under-baseline	high	NA	null	NA	NA	preregistered	selector retires when its aggregate is within one percent of the symmetric fixed24 ceiling
+mpc24-c3-symmetry-v1	best_static_pattern	24	match-baseline	medium	NA	null	NA	NA	preregistered	search all primitive 8/24 periods one through six and cyclic phases
+mpc24-c3-symmetry-v1	scalar_actual_replay_overage_cells	1	beat-baseline	medium	NA	null	NA	NA	preregistered	full retrospective scalar-ledger controller should exceed actual replay in at least one of nine cells
+mpc24-c3-symmetry-v1	calibrated_actual_replay_overage_cells	0	match-baseline	high	NA	null	NA	NA	preregistered	calibrated ledger should keep actual replay within four seconds in every retained cell
