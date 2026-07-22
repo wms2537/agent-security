@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 10
+      "spent": 11
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -511,8 +511,8 @@
       "id": "T057",
       "phase": "2",
       "desc": "Obtain a fresh sterile round-11 theory re-review of immutable AHCMS-24 v4 with explicit disposition of all three round-10 defects before any Phase-3 implementation",
-      "status": "open",
-      "evidence": "Opened after deterministic v4 author verification passed. No review has been dispatched and no review budget has been charged; state remains 10/12.",
+      "status": "in_progress",
+      "evidence": "Dispatch preflight: `comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v4.py --config experiments/configs/ahcms24-c3-v4.json --hypothesis research-log/174-hypothesis-iter-8-ahcms24-v4.md` -> `ahcms24_phase2_author_check_v4=PASS`, `hypothesis_lines=686`, `round10_issues_addressed=3`, Phase-3 artifacts absent and review not yet dispatched; immutable hypothesis SHA256 4e66cab8f8e0aa5c155332303cfaa7e2110e3b181e9904c55bc36f87ea55032f. Round 11 charged before sterile dispatch; review 11/12.",
       "parent": "T056"
     }
   ],
