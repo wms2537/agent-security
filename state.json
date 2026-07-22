@@ -8,9 +8,9 @@
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "A complete-cell cumulative-prefix risk envelope, an absorbing replay-no-fit transition and a calibrated return-ready atomic-path gate can preserve HCMS-24's controlled raw advantage while eliminating the resource invalidities exposed by its first prospective run.",
-    "assumption_source": "The sealed invalid HCMS-24 attempt had candidate coverage 187/189 but aggregate HCMS replay overage 0/36; 420 post-first-no-fit paths consumed 59.767 seconds for three candidates, all four generation overages occurred in that tail, and 44/84 zero-interaction paths exceeded the old 0.1-second reserve. Research-log/162 limits conformal support to marginal exchangeable complete-cell claims and forbids target hard-safety inference.",
-    "novelty_claim": "Competition-method candidate: PRAC-24 replaces candidate-level point accounting with profile-position complete-trace prefix-risk calibration, retry-after-no-fit with an absorbing state, and a fixed reserve with a return-ready atomic-path gate. Four components have isolated removals; target and official-score claims remain withheld."
+    "assumption": "A uniform random role split of q-independent matched potential traces can calibrate cumulative-prefix replay and atomic generation risk without method-predecessor confounding; an absorbing no-fit transition and return-ready gate can then preserve useful HCMS policy value without the prior resource invalidities.",
+    "assumption_source": "The sealed invalid HCMS attempt had candidate coverage 187/189 but aggregate HCMS replay overage 0/36; 420 post-no-fit paths consumed 59.767 seconds for three candidates and 44/84 zero-interaction paths exceeded 0.1 seconds. Round-8 review accepted the rank algebra but rejected live calibration/evaluation process exchangeability and HCMS component attribution, motivating a role-blind matched-trace design and demotion of HCMS to inherited policy.",
+    "novelty_claim": "PRAC-24 v2 replaces point admission with an all-policy complete-trace prefix-risk score over a uniformly role-split matched corpus, retry-after-no-fit with an absorbing state, and a fixed reserve with a return-ready atomic gate. Only these three measured mechanisms receive component credit; HCMS is inherited and target/official claims remain withheld."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "Conditional on finite sealed calibration and full validity, PRAC-24 HCMS aggregate constrained raw will be at least 1.10 times the stronger simple PRAC control, all PRAC primary cells will stay inside both controlled budgets, and each of four named mechanisms will pass its clean-removal decision.",
-  "active_hypothesis_artifact": "research-log/164-hypothesis-iter-8-prac24.md",
+  "active_hypothesis": "On one uniformly role-split matched-trace attempt, PRAC-24 HCMS will achieve at least 1.10 times the stronger simple PRAC policy with zero projected PRAC resource overages, feasible q ceilings, and all three new components passing unique clean-removal predicates.",
+  "active_hypothesis_artifact": "research-log/167-hypothesis-iter-8-prac24-v2.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -471,9 +471,17 @@
       "id": "T052",
       "phase": "2",
       "desc": "Write and author-verify a superseding PRAC-24 hypothesis that repairs calibration/evaluation process exchangeability and makes inherited HCMS mechanism evidence and removals direct and unambiguous",
+      "status": "done",
+      "evidence": "Author verification returned `prac24_phase2_author_check_v2=PASS`, `hypothesis_lines=533`, `round8_issues_addressed=3`, `method_predecessor=none_matched_trace_projection`, `finite_q_conditioning_claim=forbidden`, `inherited_hcms_component_credit=false`, `contribution_components=3`, and 1899/3075 fixture algebra cases. Hypothesis SHA 5f49520..., config SHA ab2a4d8..., checker SHA 66dec6c.... Review remains 8/12; no Phase3, attack or Kaggle action.",
+      "parent": "T051"
+    },
+    {
+      "id": "T053",
+      "phase": "2",
+      "desc": "Obtain a fresh sterile re-review of PRAC-24 v2 with explicit disposition of all three round-8 issues before any Phase-3 implementation",
       "status": "open",
       "evidence": null,
-      "parent": "T051"
+      "parent": "T052"
     }
   ],
   "parked_candidates": [

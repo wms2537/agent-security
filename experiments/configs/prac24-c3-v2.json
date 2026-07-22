@@ -1,0 +1,219 @@
+{
+  "schema_version": "prac24-c3-v2",
+  "concept": "Prefix-Risk Absorbing Controller 24",
+  "short_name": "PRAC-24",
+  "supersedes": "experiments/configs/prac24-c3-v1.json",
+  "primary_claim_scope": "fresh_controlled_random_split_matched_trace_phase3_plus_bounded_conformance_only",
+  "official_score_claim": "withheld_until_separate_target_confidence_bridge",
+  "target_void_proof_claim": "forbidden_remote_env_operations_are_not_cancellable",
+  "base_attack_sha256": "8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d",
+  "path_cap": 16,
+  "candidate_cap": 16,
+  "prefixes_descending": [24, 8, 1],
+  "controlled_budgets_s": {
+    "generation": 2.0,
+    "aggregate_replay": 2.0,
+    "trace_capture_outer": 120.0,
+    "conformance_outer": 120.0
+  },
+  "sampling_frame": {
+    "manifest_generation": "exactly once per canonical attempt: use secrets.randbelow rejection sampling to draw 22 unique masters per profile, an independent uniform Fisher-Yates role permutation per profile, one independent uniform Fisher-Yates capture permutation over all 66 units, and an independent uniform Fisher-Yates arm permutation for every unit-path; write and fsync the complete SAMPLING.json before any trace capture",
+    "retry_rule": "never redraw any master, role, capture order or arm order because of identities, q values, traces, failure or outcome; a crash consumes the canonical scientific attempt",
+    "master_draw": "for each profile draw master=1_000_000_000+secrets.randbelow(8_000_000_000_000_000_000), rejecting duplicates until exactly 22 unique masters exist",
+    "role_assignment": "apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to the 22 masters; first 19 permuted masters are calibration and last 3 evaluation",
+    "capture_order": "apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to all 66 profile-master units; capture in that interleaved order without exposing role to the trace kernel",
+    "arm_order": "within each trace unit and path index, apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to prefix arms 24,8,1",
+    "label_blinding": "trace kernel receives profile, master, path and arm order but never calibration/evaluation role; evaluation objects remain in runner memory and no evaluation-derived byte is published until all trace capture ends and q values are sealed",
+    "sampling_interpretation": "conditional on the complete role-blind potential trace table, the independent uniform role permutation supplies finite-population exchangeability within each profile even under arbitrary temporal host drift; validity requires OS randomness and exact Fisher-Yates execution and does not imply target exchangeability"
+  },
+  "matched_trace_unit": {
+    "definition": "one q-independent profile-master potential-outcome table with 16 path slots and fresh prefix arms 24,8,1 at every slot",
+    "process_boundary": "each profile-master unit runs in one fresh spawned child process; no method is executed during capture",
+    "arm_record": "for each arm retain environment construction/reset, indexed interaction suffixes, exact eligible nested returns, return-ready generation elapsed for the requested arm, actual replay elapsed and actual scorer output for every eligible return 24,8,1",
+    "policy_projection": "after q sealing, each policy walks the same evaluation table by path slot and selects only the arm matching its current proposal; policy state and admission never alter captured potential outcomes",
+    "missing_rule": "any missing arm, timeout, child failure, malformed attribution or missing eligible-return replay makes the entire profile-master trace score positive_infinity",
+    "support_rule": "calibration and evaluation both contain exactly 16 slots and all three arms; no policy may request a seventeenth slot"
+  },
+  "base_models": {
+    "replay_charge": {
+      "formula": "1.25*c_returned+6.25*c_1",
+      "training_source": "sealed invalid HCMS antecedent; shape only",
+      "interpretation": "positive candidate scale corrected by complete-trace q_replay"
+    },
+    "atomic_generation_s": {
+      "1": 0.12223709747195244,
+      "8": 0.1423481605015695,
+      "24": 0.23516957298852503,
+      "training_source": "median consecutive return-ready path-publication increments in sealed invalid HCMS primary rows",
+      "interpretation": "positive arm scale corrected by complete-trace q_generation"
+    }
+  },
+  "risk_calibration": {
+    "calibration_units_per_profile": 19,
+    "evaluation_units_per_profile": 3,
+    "cell_risk_alpha": 0.05,
+    "order_statistic_rank": 19,
+    "rank_formula": "ceil((n+1)*(1-alpha))",
+    "unit": "one complete q-independent matched potential-outcome trace within an exact controlled profile",
+    "replay_score": "maximum over policies prac_hcms, prac_fixed8 and prac_fixed24_no_salvage and every nonempty eligible candidate prefix k of cumulative_actual_replay_through_k divided by cumulative_base_replay_charge_through_k on the full no-q trace stream",
+    "generation_score": "maximum over all 16 path slots and all three prefix arms of return_ready_atomic_elapsed divided by base_atomic_generation_s[prefix]",
+    "empty_replay_convention": "if every PRAC policy has K=0 eligible candidates, replay_score=0.0; missing or malformed evidence still makes the score positive_infinity",
+    "separate_multipliers": ["q_replay", "q_generation"],
+    "finite_rule": "the rank-19 score may be positive_infinity; infinity causes all PRAC policies to abstain and fails the feasibility prediction",
+    "publication_rule": "capture all calibration and evaluation traces before q; publish calibration scores and seal q; then expose and project evaluation traces; publish every infinity and all role/capture-order evidence",
+    "unconditional_guarantee": "before observing calibration, each named PRAC policy on one randomly role-assigned evaluation trace from the same controlled profile has marginal replay-score and generation-score coverage at least 19/20 separately",
+    "conditioning_warning": "the 19/20 statement is not conditional on the realized calibration set, q being finite, q meeting an engineering ceiling, or simultaneous success of several evaluation units; all evaluation results publish regardless of q"
+  },
+  "controller": {
+    "before_path": "start proposed prefix m only if observed remaining generation is at least q_generation*base_atomic_generation_s[m]; otherwise return current candidates",
+    "replay_admission": "accept the next exact eligible candidate only if q_replay times cumulative base replay charge including it is at most 2.0 seconds",
+    "absorbing_no_fit": "at the first exact candidate that fails replay admission, record drop_ledger_no_fit and terminate permanently",
+    "ineligible_transition": "an exact-prefix eligibility failure applies only the named monotone policy transition and may continue if the next path passes generation admission",
+    "path_cap": "stop before path slot 17 regardless of remaining budget",
+    "publication": "retain sampled root, roles, capture order, every potential arm, q values, policy projections, removals, infinities, timeouts and COMPLETE-last reconciliation"
+  },
+  "inherited_policy": {
+    "id": "hcms_exact_prefix_base",
+    "status": "inherited_not_a_prac_contribution_component",
+    "definition": "initialize state 24, propose state, return longest exact prefix in 24,8,1, set state=min(previous_state,returned_prefix), and set state=1 after exact ineligible drop",
+    "causal_claim": "none; candidate-boundary amortization is not claimed or inferred from the antecedent aggregate ratio",
+    "comparators": ["prac_fixed8", "prac_fixed24_no_salvage"],
+    "decision": "the inherited HCMS base is retained only if full PRAC HCMS aggregate raw is at least 1.10 times the stronger valid simple PRAC comparator"
+  },
+  "methods": {
+    "prac_hcms": {
+      "policy": "hcms_exact_prefix_base",
+      "risk_controller": "q_replay_q_generation_absorbing"
+    },
+    "prac_fixed8": {
+      "proposal": "always propose min(8,current monotone state), initialized to 8",
+      "permitted_prefixes": [8, 1],
+      "salvage": "longest_exact_prefix",
+      "transition": "state=min(previous_state,returned_prefix); exact ineligible drop sets state=1; replay no-fit is absorbing",
+      "risk_controller": "q_replay_q_generation_absorbing"
+    },
+    "prac_fixed24_no_salvage": {
+      "proposal": "always propose 24",
+      "permitted_prefixes": [24],
+      "salvage": "exact24_or_drop",
+      "transition": "remain 24 after exact ineligible drop; replay no-fit is absorbing",
+      "risk_controller": "q_replay_q_generation_absorbing"
+    },
+    "point_hcms_retry": {
+      "policy": "hcms_exact_prefix_base",
+      "risk_controller": "q_replay=q_generation=1, old 0.1-second point reserve, retry after replay no-fit",
+      "status": "legacy_bundled_diagnostic_not_component_evidence"
+    }
+  },
+  "contribution_components": [
+    {
+      "id": "complete_trace_prefix_envelope",
+      "single_role": "convert every dependent PRAC candidate stream into one all-policy cumulative-prefix replay multiplier at the aggregate replay endpoint",
+      "measured_bottleneck": "sealed HCMS candidate coverage was 187/189 while aggregate replay overage was 0/36; excluded safety prefix ratio reached 1.102552878986",
+      "clean_removal": "replay_point_removal",
+      "confirmation_predicate": "all PRAC evaluation aggregate replay overages=0 and cumulative_replay_spike full<=2.0 while q_replay=1 removal>2.0; if q_replay<=20/19 the component is not distinguished and the joint claim fails"
+    },
+    {
+      "id": "absorbing_no_fit",
+      "single_role": "terminate future path attempts immediately after the first exact replay-ledger no-fit",
+      "measured_bottleneck": "420 post-first-no-fit paths consumed 59.767362233368 seconds for three returned candidates",
+      "clean_removal": "retry_after_no_fit_removal",
+      "confirmation_predicate": "on the saturation-tail fixture full post-no-fit paths=0, removal post-no-fit paths=3, and removal recovered candidates=0"
+    },
+    {
+      "id": "return_ready_atomic_gate",
+      "single_role": "reserve one calibrated complete return-ready atomic arm before starting it",
+      "measured_bottleneck": "all four primary generation overages followed no-fit and 44/84 primary zero-interaction paths exceeded the old 0.1-second reserve",
+      "clean_removal": "point_reserve_generation_removal",
+      "confirmation_predicate": "all PRAC evaluation generation overages=0 and bounded_long_setup full does not start while 0.1-reserve removal starts and crosses; if q_generation*base24<=0.1 the component is not distinguished and the joint claim fails"
+    }
+  ],
+  "phase3": {
+    "runner_path": "experiments/poc/prac24_phase3_v2.py",
+    "attempt_dir": "experiments/runs/prac24-c3-poc-v2",
+    "profiles": [
+      {"id": "steady_linear_prac_v2", "agent": "compliant", "latency_s": 0.0075},
+      {"id": "reset_dominant_prac_v2", "agent": "amortizing", "fixed_latency_s": 0.043, "per_action_latency_s": 0.0008},
+      {"id": "immediate_cliff_prac_v2", "agent": "context_limited", "max_user_messages": 8, "latency_s": 0.0015}
+    ],
+    "methods": ["prac_hcms", "prac_fixed8", "prac_fixed24_no_salvage", "point_hcms_retry"],
+    "evaluation_design": "three randomly role-assigned matched traces per profile; all methods are deterministic projections of each same trace, so no method order or predecessor exists",
+    "conformance_suite_excluded_from_efficacy": [
+      {
+        "id": "cumulative_replay_spike",
+        "construction": "after q_replay is sealed expose 10 exact one-message candidates each with base charge 0.2 and bounded actual replay 0.19*q_replay; full admits min(10,floor(10/q_replay)), removal admits 10",
+        "precondition": "q_replay>20/19 else joint component claim fails as not distinguished"
+      },
+      {
+        "id": "saturation_tail_absorption",
+        "construction": "make the next exact one-message candidate fail replay admission, expose exactly three further bounded exact paths that also cannot fit, then cap",
+        "expected": "full tail paths 0; removal tail paths 3; removal recovered candidates 0"
+      },
+      {
+        "id": "bounded_long_setup",
+        "construction": "let u=q_generation*base24, set return-ready remaining r=(u+0.1)/2, expose bounded setup d=r+0.05; full compares r<u and removal compares r>0.1",
+        "precondition": "u>0.1 else joint component claim fails as not distinguished"
+      },
+      {
+        "id": "delayed_context_cliff",
+        "expected": "inherited HCMS transition 24_to_8_and_never_up; correctness only, no contribution credit"
+      }
+    ],
+    "confirm": {
+      "minimum_prac_hcms_to_best_simple_ratio": 1.10,
+      "maximum_q_replay": 1.25,
+      "maximum_q_generation": 3.50,
+      "maximum_prac_replay_overage_cells": 0,
+      "maximum_prac_generation_overage_cells": 0,
+      "profiles": 3,
+      "sampled_units_per_profile": 22,
+      "calibration_units_per_profile": 19,
+      "evaluation_units_per_profile": 3,
+      "evaluation_method_cells": 36,
+      "complete_trace_fraction": 1.0,
+      "component_predicates_pass": 3,
+      "attribution_fixtures_pass": 3,
+      "invalid_timeout_duplicate_or_malformed_count": 0
+    }
+  },
+  "target_confidence_bridge": {
+    "status": "closed_during_phase2_and_phase3",
+    "source_facts": "generation and each model-guardrail replay phase receive 9000 seconds; replay is cumulative across returned candidates; attack code cannot cancel an in-flight RemoteEnv operation",
+    "required_before_attack_mutation": [
+      "scrutinized rigorous theory re-review",
+      "confirmed fresh controlled matched-trace PRAC result and live conformance",
+      "source-compliant target scaling design with incumbent fallback"
+    ],
+    "required_before_submission": [
+      "Kaggle commit artifact parity",
+      "explicit target atomic-tail assumption and non-void risk estimate",
+      "expected benefit over own 69.570 baseline and current public frontier",
+      "all seven PROBLEM.md confidence gates committed"
+    ]
+  },
+  "source_bindings": {
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/remote_env.py": "817301d4d0d7a7966649544aa1d2e4729a2f44fe41d58f490dffe4443904dfd1",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_inference_server.py": "b9402bbf6701c9f3880d7df828a8b4944d2e0930b17cc22cd78e2d7262cd794f",
+    "comp/sdk/aicomp_sdk/core/predicates.py": "9d9de5118d8883a0074a5405ed85cf2dec3f68e8516908cbc48f409e3ba56f37",
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f"
+  },
+  "evidence_bindings": {
+    "experiments/runs/hcms24-c3-poc-v1/COMPLETE.json": "34e9dc0274e0828f325cb280b2f392a6e867fabf4315c0c962cf3746dc200b07",
+    "experiments/runs/hcms24-c3-poc-v1/candidates.tsv": "2d494607cd38b132bf1c1b4d74c5a19ba40f6087fa5322158d66cc157731a3d9",
+    "experiments/runs/hcms24-c3-poc-v1/paths.tsv": "fa66a588668f7bd6076937e0db4bcd13185dd2cebdf814ef928c59aeed830185",
+    "experiments/runs/hcms24-c3-poc-v1/method_cells.tsv": "fb2105784120304eabd14fd099ce9f7be8eb306b28fd2d59ffa61408ca5cb1b0",
+    "experiments/runs/hcms24-c3-poc-v1/primary_summary.json": "257687bb18bdb3eb310999d06b42a839ab4db36f91487e8dd1326c27f587cd9b",
+    "research-log/161-poc-hcms24-result.md": "ff5fdb9d016fec9723e1070e90354881f34ddc08a599dca62980eb2f451c8482",
+    "research-log/162-resource-risk-admission-literature.md": "d42f11db54aa3a7d718234c69c64e00be39d0ddbb6fd44049a1a55d28a8767cf",
+    "experiments/poc/rahcms_resource_diagnostic.py": "2b5d748f5550b58ee953afb1643cca0f94f581e9c144b3dabaf28a162667c8ad",
+    "research-log/163-rahcms-diagnosis-and-candidate-selection.md": "3e6fc56ca5bda8e682bff2ea41f983c51ef605c271bed3fc8018183ce17c38f1",
+    "research-log/166-prac24-theory-review-round-8.md": "37f06b237dc62c421d95983a2423d94a11d3b6dded0cd8094f4faf7091de00ab"
+  },
+  "superseded_lineage_bindings": {
+    "experiments/configs/prac24-c3-v1.json": "a9b31a47ba5e9c665bfb8480c3eab9d5b0e7d616af8b7b2a64bcade13415fe38",
+    "experiments/poc/prac24_phase2_reference_v1.py": "caf2ceb0801dea86ea17315305215011b203f9b4283f1a5f1650699dc88ccf59",
+    "research-log/164-hypothesis-iter-8-prac24.md": "2a19b7537711be39cea01ca679821c3a5ab000ae11fa1109fa3987e1bdd53784",
+    "research-log/165-prac24-phase2-author-verification.md": "19a186847900009e5304e757a26847699579a5d1ab2b5a5d005a8fd36b38857c"
+  }
+}
