@@ -543,9 +543,17 @@
       "id": "T061",
       "phase": "3",
       "desc": "Obtain a fresh sterile code/spec review of the committed AHCMS-24 Phase-3 runner and tests against immutable v5 and report 181, including source timer landmarks, full eligible-prefix replay support, longest-fitting ledger semantics, state-one true-no-fit transition, independent reload, durable per-unit staging, exact eleven-metric logging, one-use publication, and canonical-attempt absence before admitting scientific execution",
-      "status": "in_progress",
-      "evidence": "Pre-review verification on immutable commit `d71040facee87ea0cd8e588f16eede8fad81944a`: `t061_deterministic_pre_review=PASS head=d71040facee87ea0cd8e588f16eede8fad81944a fixed_bindings=117 timer_asts=2 policies=4 tests=23 canonical_attempt_absent=true`; the full suite returned `Ran 23 tests in 24.794s` and `OK`. Runner/test/design/hypothesis line counts are 1703/716/232/654 with exact SHAs bfeaed3b.../9e29043b.../29737040.../1877c502.... A fresh sterile review is dispatched to write report 183; no scientific or Kaggle action is admitted before an independently verified `SOUND` verdict.",
+      "status": "failed",
+      "evidence": "Main-agent verification returned `ahcms24_review_round1_integrity=PASS verdict=NEEDS_REVISION findings=4 high=3 medium=1 reviewed_lines=2419 report_sha256=65416cc10439208390509b755ee7accc205b32f3414239f6c35f9dcf64db638e f1_boundary_reproduced=true f2_command_origin_gap_reproduced=true f3_retirement_order_reproduced=true f4_inode_gap_reproduced=true canonical_attempt_absent=true`. Verbatim report 183 finds the cumulative point-charge clock starts after rather than before reset, exact command identity is self-reported, staging is deleted before late validation failures close, and the attempt directory is not inode-pinned. Reports 183-184 preserve the adverse verdict and routing. The 23 green synthetic tests miss the strongest defect; scientific attempts remain 0/3 and no Kaggle action occurred.",
       "parent": "T060"
+    },
+    {
+      "id": "T062",
+      "phase": "3",
+      "desc": "At the exhausted 2/2 implementation-correction gate, either obtain explicit authority for two additional correction attempts and then repair all four T061 findings as one unexecuted source-bound change, or retire the implementation as implementation_defeated and pivot",
+      "status": "open",
+      "evidence": "Report 182 records implementation corrections 2/2 and scientific debug 0/3. Reports 183-184 verify three HIGH plus one MEDIUM pre-run blocker and recommend raising the correction limit 2 -> 4 for one cohesive repair plus one fallback. No self-authorized third correction, scientific execution, attack mutation, Kaggle run, or submission is permitted.",
+      "parent": "T061"
     }
   ],
   "parked_candidates": [
