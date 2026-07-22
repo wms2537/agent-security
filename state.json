@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 2
+      "spent": 3
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -1021,7 +1021,8 @@
       "hypothesis_v3": "FROZEN UNREVIEWED — research-log/125 predicts one accepted, valid official score strictly greater than 69.570, defines exact message-indexed attribution, nested {1,4,8} screen/validation paths, a complete policy-start comparator, returned-probe accounting, count dominance, permanent first-fill fallback, fixed bias surface and Puzzle/Contradiction x Optimization/Search x replace taxonomy.",
       "author_verification_v3": "PASS — research-log/126 binds 674-line hypothesis SHA 0346d0c..., config SHA b76af59..., checker SHA 28503c2...; source_bindings=5, boundary_algebra_cases=1680, attribution_fixtures=3, policy_value_fixtures=2, Phase-3 profiles=3, NPG/fixed8=1.131023918935, minimum oracle ratio=1.0, minimum screen saving=0.384615384615. No implementation or Kaggle mutation.",
       "search_log_v3": "APPENDED — prior PORF entry closed inconclusive after structural replacement; NPG-8 varies candidate-boundary-density-via-nested-prefix-gating with metric outcome pending.",
-      "status": "V3 FROZEN UNREVIEWED — deterministic rung passed. Fresh sterile theory review is the only next action; Phase 3 and Kaggle mutation remain closed until RIGOROUS."
+      "theory_review_round3": "DISPATCHED — immutable commit 51f8104 has 674 hypothesis lines/SHA 0346d0c...; a fresh sterile reviewer receives claim type engineering, question type predictive, both canonical SciAgent references and all six round-2 issues. Budget charged 3/12; no implementation or Kaggle mutation.",
+      "status": "V3 FROZEN UNDER REVIEW — deterministic rung passed; Phase 3 and Kaggle mutation remain closed until a valid RIGOROUS verdict."
     }
   }
 }
