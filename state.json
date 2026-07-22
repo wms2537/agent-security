@@ -422,7 +422,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 PORF predictive engineering hypothesis before implementation or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V2 research-log/121 supersedes the rejected v1 after exact baseline linkage and a retained disconfirming 360-row profile. RCMF predicts one valid score >=73.050 relative to exact 69.570 artifact 8c44eb4; it changes one component, uses M={1,4,8}, split screen/validation, joint generation/replay/candidate-cap total raw, and the target-validated 0.90x1.10 ledger. Final review not yet dispatched; no RCMF implementation/push/submission.",
+      "evidence": "V2 research-log/121 supersedes rejected v1 after exact baseline linkage and a retained disconfirming 360-row profile. Round-2 integrity check `git show dc65853:research-log/121-hypothesis-iter-2-rcmf.md | wc -l` returned 681, matching the reviewer. Verdict NEEDS_REVISION: aggregate `min(e,m)` is not message-indexed coverage; the >=73.050 chain compares a post-search arm with the full historical baseline and relies on unmeasured row-share/private-transfer assumptions; replay tails and the Phase-3 comparator remain incomplete. Full report research-log/122; review budget exhausted 2/2. No RCMF implementation, Kaggle push, commit run or submission.",
       "parent": "T045"
     }
   ],
@@ -550,13 +550,13 @@
       "lesson": "Constructed response profiles validate policy mechanics but cannot confirm that target-model response heterogeneity exists.",
       "apply_when": "A Phase-2 empirical systems hypothesis uses purpose-built simulator profiles as evidence for a live target claim.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 3
+      "recurrences": 4
     },
     {
       "lesson": "Replay-deadline safety requires a calibrated tail/dependence model and an explicit void-risk target; observed maxima or an arbitrary margin are not coverage guarantees.",
       "apply_when": "A Phase-2 or Phase-4 design sizes a returned candidate set against the 9000-second replay deadline.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 3
+      "recurrences": 4
     },
     {
       "lesson": "A sufficient-condition decomposition must use independently specified loss bounds; defining the loss from the predicted outcome can reduce the antecedent to the conclusion.",
@@ -565,10 +565,10 @@
       "recurrences": 1
     },
     {
-      "lesson": "When probes are retained and scored, adaptation must be isolated from the fixed probe portfolio and from a nonadaptive mixed-length allocation.",
+      "lesson": "When probes are retained and scored, adaptation must be isolated from fixed and nonadaptive comparators, and every screen, validation, discard, fallback and fill cost must be charged in the end-to-end comparison.",
       "apply_when": "A Phase-2 adaptive-policy experiment retains exploratory probes in the evaluated output.",
       "source": "research-log/008-orf-theory-review.md",
-      "recurrences": 1
+      "recurrences": 2
     },
     {
       "lesson": "A public deterministic seed plus an opened flag is not held-out blinding; use commit-reveal or a post-freeze public randomness beacon with an append-only opening ledger.",
@@ -706,6 +706,12 @@
       "lesson": "Generation cost measured on a reused attack environment omits the evaluator's fresh environment/agent construction per replay candidate; candidate multiplicity can amortize this hidden replay-only fixed term even when agent action latency is linear.",
       "apply_when": "A competition allocator projects replay capacity from attack-time reset/interact measurements or compares candidate message multiplicities.",
       "source": "research-log/120-porf-profile-recovery-result.md",
+      "recurrences": 1
+    },
+    {
+      "lesson": "Capping an aggregate event count by the number of requested messages does not estimate message-level coverage; each credited event must be attributed to its requested message or unique marker before an arm is admitted.",
+      "apply_when": "A Phase-2/3 multi-message selector uses tool-event counts as a coverage or firing-rate gate.",
+      "source": "research-log/122-rcmf-theory-review-round-2.md",
       "recurrences": 1
     }
   ],
@@ -994,10 +1000,11 @@
       "profile_recovery_protocol": "FROZEN UNRUN — note 119, config porf-c3-profile-v2 and runner porf_c3_profile_v2 fix five deterministic joint-cap profiles plus 3 SDK profiles x 3 masters x 4 arms x 5 paired generation/replay replicates; fixed plain template; primary requires 5/5 and 9/9 decisions. Prediction rows appended before execution.",
       "profile_recovery_result": "DISCONFIRM/PASS ARTIFACT — immutable attempt envelope is FAIL with deterministic 5/5, SDK 6/9, stability 0.666666666667 and 360 rows. All per-turn masters unexpectedly selected m24 because source-authentic fresh replay-environment construction adds fixed candidate-boundary cost; reset-heavy selected 24/24/24 and context-cliff selected 8/8/8. Full analysis: note 120.",
       "new_mechanism": "REPLAY-CONSTRUCTION SCOPE MISMATCH — attack generation times reset+interact on a reused environment, while trusted replay constructs+resets+interacts per candidate. Paired controlled measurements expose a replay-only fixed term that long candidates amortize, but context cliffs require an exact finite frontier. This is mock mechanics evidence, not target prevalence.",
-      "hypothesis_v2": "FROZEN UNREVIEWED — research-log/121 defines Replay-Construction Multiplicity Frontier, one >=73.050 valid-score prediction, exact M={1,4,8} split selector, joint total-raw objective, one stopping rule, target-linked ledger, frozen profiles/ablations/bias/assumptions and ten round-1 dispositions.",
-      "anti_stacking_v2": "AUTHOR COMPLETE — one component only; measured candidate-boundary replay-construction bottleneck (paired ratios 3.0701--3.6204 plus 24/24/24 vs context 8/8/8); fixed-1/4/8 and rate baselines; end-to-end official constrained result. Silent/cap/banking/template/predicate additions prohibited.",
-      "theory_review_round2": "DISPATCH ACCOUNTED — immutable commit dc65853 contains 681-line research-log/121 with SHA-256 194e37bb...; fresh sterile reviewer receives the seven ordered round-1 defects plus three explicit subordinate defects for RESOLVED/IMPROVED/UNCHANGED/WORSE disposition. Budget 2/2.",
-      "status": "V2 FINAL REVIEW DISPATCHED — review budget exhausted at 2/2; no RCMF implementation, Kaggle push, commit run or submission occurred"
+      "hypothesis_v2": "FROZEN REVIEWED NEEDS_REVISION — research-log/121 defines RCMF and one >=73.050 valid-score prediction, but reviewer found the selection coverage and quantitative target chain unsound. The immutable artifact remains historical evidence and must not be edited.",
+      "anti_stacking_v2": "REVIEWER PASS WITH NARROW SCOPE — one measured controlled-SDK bottleneck, FIXED-1 removal plus fixed-arm/rate controls, and an end-to-end claimed outcome satisfy the formal one-component engineering test. This does not repair event attribution or target transfer.",
+      "theory_review_round2": "NEEDS_REVISION — reviewer and committed line counts agree 681/681 and SHA-256 194e37bb.... Prior issues 3/4/6/8/10 RESOLVED, 1/2/5/7 IMPROVED, and 9 UNCHANGED in substance. Load-bearing defects: `min(e,m)` confuses aggregate events with per-message coverage; the 5%/73.050 derivation compares non-equivalent end-to-end policies and assumes unmeasured row share/private transfer; remote replay tails and exact Phase-3 costs remain open; taxonomy operation should be replace. Full verbatim report: research-log/122. Budget 2/2 exhausted.",
+      "round2_blockers": "PHASE-2 OWNER — a superseding v3 must use per-message/URL attribution plus [4,0,0,0]->0.25 fixture; compare complete P_RCMF against complete P_BASE charging probes/validation/discards/fallback/fill; obtain telemetry, reserve overhead or narrow replay-risk claims; freeze all Phase-3 numbers/G recomputation; charge search cost against fixed arms; narrow causal language and relabel operation replace.",
+      "status": "V2 NEEDS_REVISION / BUDGET EXHAUSTED — Phase 2 remains open because no RIGOROUS verdict exists. No RCMF implementation, Kaggle push, commit run or submission is permitted until the user authorizes another hypothesis-review round or explicitly relaxes the SciAgent gate."
     }
   }
 }
