@@ -51,7 +51,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 12,
-      "spent": 4
+      "spent": 5
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V5 research-log/136 plus config/checker freeze a controlled claim using `r_proxy=1.25*c_m+6.25*c_1`, an implementation-total only24 rule, observable per-interaction deadline, complete freeze/output provenance, 11 state fixtures, 4 new profiles/3 new masters and 5 component ablations. Author command returned `mpc24_phase2_author_check_v2=PASS`, 54/54 heldout envelope, proxy ratio 1.443, and official score claim withheld. Review budget 4/12 before dispatch; no Phase-3, attack or Kaggle mutation.",
+      "evidence": "V5 research-log/136 at immutable commit c7f20ee has 640 lines/SHA ddd18c6... and passes the v2 author checker with 54/54 heldout replay coverage, proxy ratio 1.443, total online branches, complete provenance, 4 profiles and 5 ablations. Sterile theory review round 5 is dispatched in research-log/138 and charged 5/12. Official score claim remains withheld; no Phase-3, attack or Kaggle mutation.",
       "parent": "T046"
     }
   ],
