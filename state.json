@@ -511,9 +511,17 @@
       "id": "T057",
       "phase": "2",
       "desc": "Obtain a fresh sterile round-11 theory re-review of immutable AHCMS-24 v4 with explicit disposition of all three round-10 defects before any Phase-3 implementation",
-      "status": "in_progress",
-      "evidence": "Dispatch preflight: `comp/.venv/bin/python -I experiments/poc/ahcms24_phase2_reference_v4.py --config experiments/configs/ahcms24-c3-v4.json --hypothesis research-log/174-hypothesis-iter-8-ahcms24-v4.md` -> `ahcms24_phase2_author_check_v4=PASS`, `hypothesis_lines=686`, `round10_issues_addressed=3`, Phase-3 artifacts absent and review not yet dispatched; immutable hypothesis SHA256 4e66cab8f8e0aa5c155332303cfaa7e2110e3b181e9904c55bc36f87ea55032f. Round 11 charged before sterile dispatch; review 11/12.",
+      "status": "failed",
+      "evidence": "Main-agent parser -> `review_integrity=PASS reviewed_lines=686 reported_lines=686 sha256=4e66cab8f8e0aa5c155332303cfaa7e2110e3b181e9904c55bc36f87ea55032f prior_issue_dispositions=3 required_fixes=2 verdict=NEEDS_REVISION`. Report 176 resolves endpoint-aligned Occam, improves but does not resolve timing boundaries, and resolves denominator handling except a new all-zero AHCMS/simple explanation error. It rejects the false claim that `monotonic_ns` excludes scheduler delay and finds historical path/replay timers misaligned with the prospective endpoint. Review 11/12; Phase 2 remains closed; Phase-3 artifacts absent and attack unchanged.",
       "parent": "T056"
+    },
+    {
+      "id": "T058",
+      "phase": "2",
+      "desc": "Write and author-verify AHCMS-24 v5 with a source-audited historical-bracket-aligned elapsed-time endpoint that includes in-interval scheduling and controller work, plus a correct R_ahcms=R_simple=0 with positive retry-raw branch",
+      "status": "open",
+      "evidence": "Opened from the two required fixes in sterile round-11 report 176. The repair must preserve the real path-count/marginal-raw profile, either align prospective timer brackets exactly to the historical artifact or withdraw unmatched timing evidence, add adversarial zero-branch fixtures, and avoid implying two simple controls exhaust all simpler rivals.",
+      "parent": "T057"
     }
   ],
   "parked_candidates": [
@@ -820,7 +828,7 @@
       "lesson": "A one-sample wall-clock race across several fast mock arms is not a stable bottleneck profile; host jitter plus winner selection can reverse a thresholded routing decision even when code and seeds are unchanged.",
       "apply_when": "A Phase-2 engineering hypothesis uses sub-second wall-clock mocks or selects the fastest template/arm before comparing a derived rate.",
       "source": "research-log/118-cycle3-baseline-link-and-t006-reproducibility-audit.md",
-      "recurrences": 1
+      "recurrences": 2
     },
     {
       "lesson": "Generation cost measured on a reused attack environment omits the evaluator's fresh environment/agent construction per replay candidate; candidate multiplicity can amortize this hidden replay-only fixed term even when agent action latency is linear.",
