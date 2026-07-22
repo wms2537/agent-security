@@ -519,8 +519,8 @@
       "id": "T058",
       "phase": "2",
       "desc": "Write and author-verify AHCMS-24 v5 with a source-audited historical-bracket-aligned elapsed-time endpoint that includes in-interval scheduling and controller work, plus a correct R_ahcms=R_simple=0 with positive retry-raw branch",
-      "status": "open",
-      "evidence": "Opened from the two required fixes in sterile round-11 report 176. The repair must preserve the real path-count/marginal-raw profile, either align prospective timer brackets exactly to the historical artifact or withdraw unmatched timing evidence, add adversarial zero-branch fixtures, and avoid implying two simple controls exhaust all simpler rivals.",
+      "status": "in_progress",
+      "evidence": "ORIENT 2026-07-22: `jq -r '.tasks[] | select(.status==\"open\") | [.id,.phase,.desc] | @tsv' state.json` -> `T058\t2\tWrite and author-verify AHCMS-24 v5 ...`; selected as the sole open task. Opened from the two required fixes in sterile round-11 report 176. The repair must preserve the real path-count/marginal-raw profile, either align prospective timer brackets exactly to the historical artifact or withdraw unmatched timing evidence, add adversarial zero-branch fixtures, and avoid implying two simple controls exhaust all simpler rivals.",
       "parent": "T057"
     }
   ],
