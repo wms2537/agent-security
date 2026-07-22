@@ -1,0 +1,230 @@
+{
+  "schema_version": "ahcms24-c3-v5",
+  "concept": "Absorbing HCMS 24",
+  "short_name": "AHCMS-24",
+  "supersedes": "experiments/configs/ahcms24-c3-v4.json",
+  "hypothesis_path": "research-log/178-hypothesis-iter-8-ahcms24-v5.md",
+  "primary_claim_scope": "fresh_controlled_q_independent_matched_trace_phase3_only",
+  "official_score_claim": "withheld_until_separate_target_confidence_bridge",
+  "target_void_proof_claim": "forbidden_remote_env_operations_are_not_cancellable",
+  "base_attack_sha256": "8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d",
+  "path_cap": 16,
+  "candidate_cap": 16,
+  "prefixes_descending": [24, 8, 1],
+  "controlled_budgets_ns": {
+    "generation_projected_captured_elapsed_per_unit": 2000000000,
+    "aggregate_replay_projected_captured_elapsed_per_unit": 2000000000,
+    "trace_capture_outer_s": 120.0
+  },
+  "numeric_contract": {
+    "duration_storage": "store every captured duration as a nonnegative integer nanosecond difference from time.monotonic_ns; generation path duration must be strictly positive",
+    "budget_storage": "compare integer elapsed sums to exactly 2000000000 nanoseconds; equality passes and strict greater-than is overage",
+    "raw_storage": "for each method-unit recompute bound score_attack_raw once over that unit's complete accepted finding sequence: integer severity weights plus twice its integer unique-cell count; require the SDK float finite nonnegative and exactly integral, store integer R_m(u), and aggregate R_m=sum_u R_m(u); define retry-tail raw only as sum_u[R_retry(u)-R_ahcms(u)]",
+    "decision_arithmetic": "all raw/elapsed sums, floor-half sensitivity and cross products use Python integers; ratios are display diagnostics computed only after their positive-denominator branch passes"
+  },
+  "sampling_frame": {
+    "manifest_generation": "exactly once per canonical attempt: use secrets.randbelow rejection sampling to draw 3 unique masters per profile, one independent uniform Fisher-Yates capture permutation over all 9 units, and an independent uniform Fisher-Yates arm permutation for every unit-path; write and fsync complete SAMPLING.json before capture",
+    "retry_rule": "never redraw any master, capture order or arm order because of identities, traces, timing, failure or outcome; a crash consumes the canonical scientific attempt",
+    "master_draw": "for each profile draw master=1000000000+secrets.randbelow(8000000000000000000), rejecting duplicates until exactly 3 unique masters exist",
+    "capture_order": "apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to all 9 profile-master units and capture in that interleaved order",
+    "arm_order": "within every trace unit and path slot, apply Fisher-Yates using fresh secrets.randbelow(i+1) draws to arms 24,8,1",
+    "outcome_blinding": "manifest, code, endpoint, comparison, sensitivity and thresholds are fsynced before capture; no redraw, exclusion or threshold change may depend on captured outcomes",
+    "sampling_interpretation": "an exact fixed-sample matched-trace comparison over nine freshly randomized controlled units; not a target-population or target-model probability claim"
+  },
+  "matched_trace_unit": {
+    "definition": "one q-independent profile-master potential-outcome table with 16 path slots and fresh prefix arms 24,8,1 at every slot",
+    "process_boundary": "each profile-master unit runs in one fresh spawned child process; no evaluated method is executed during capture",
+    "generation_arm_record": "for each arm start time.monotonic_ns immediately before generation_environment_construction checkpoint; end immediately after the interaction loop and final generation_interaction_complete checkpoint but before exact-prefix extraction or selection; then join the elapsed value to the subsequently derived candidate-or-drop object",
+    "replay_record": "for every exact eligible returned candidate start time.monotonic_ns immediately before replay_environment_construction checkpoint; end immediately after the interaction loop and final replay_interaction_complete checkpoint but before final trace export, predicates, signature or scorer; then join the elapsed value to the subsequently derived scorer output",
+    "retry_trace": "capture continues through all 16 path slots regardless of first point-ledger no-fit so the post-trigger tail is observed once and can be truncated by the absorbing projection",
+    "policy_projection": "after capture ends, every method walks the same stored table by path slot; policy state, replay admission and absorption only select or truncate stored outcomes and cannot alter them",
+    "missing_rule": "any missing arm, timeout, child failure, malformed attribution or missing eligible-return replay invalidates the entire profile-master trace and joint result",
+    "support_rule": "every method is capped at 16 slots and may request only 24,8,1; no projection may escape capture support"
+  },
+  "timer_endpoint_table": {
+    "generation_start": "immediately before generation_environment_construction checkpoint",
+    "generation_end": "time read after last completed in-loop generation_interaction_complete checkpoint and before indexed_exact_flags/choose_return_prefix",
+    "generation_included": "checkpoint canonical-JSON snapshot serialization, fresh environment construction, reset, in-loop trace exports, interactions, suffix/cumulative-cost updates, garbage collection, sleep, preemption and scheduling delay occurring between timer reads",
+    "generation_excluded": "pre-timer host/message construction; post-timer exact-prefix extraction, candidate selection, transition, candidate/path assembly, publication checkpoints and artifact serialization/fsync",
+    "replay_start": "immediately before replay_environment_construction checkpoint",
+    "replay_end": "time read after last completed in-loop replay_interaction_complete checkpoint and before final trace export/evaluation/scorer",
+    "replay_included": "checkpoint canonical-JSON snapshot serialization, fresh environment construction, reset, in-loop trace exports, interactions, suffix updates, garbage collection, sleep, preemption and scheduling delay occurring between timer reads",
+    "replay_excluded": "post-timer final trace export, exact flags, replay-evaluation checkpoint, predicates, cell signature, scorer, publication and artifact serialization/fsync",
+    "interpretation": "captured elapsed intervals at historical brackets; not CPU service time, scheduler-free work, actual offline-method wall-clock, target latency, cancellation or remote-deadline proof"
+  },
+  "inherited_controller": {
+    "hcms_policy": "initialize state 24, propose state, return longest exact prefix in 24,8,1, set state=min(previous_state,returned_prefix), and set state=1 after exact ineligible drop",
+    "replay_charge_formula": "1.25*c_returned+6.25*c_1",
+    "replay_admission": "accept an exact eligible candidate only if cumulative inherited point replay charge including it is at most 2.0 seconds",
+    "generation_admission": "start a projected path only when observed remaining projected captured generation-path elapsed exceeds the inherited 0.1-second point reserve",
+    "status": "all fields inherited and identical between AHCMS and retry removal; none receives contribution credit",
+    "known_limit": "point replay/generation charges and captured elapsed endpoints are controlled-harness mechanisms, not target tail guarantees"
+  },
+  "methods": {
+    "ahcms_absorbing": {
+      "policy": "inherited_hcms_policy",
+      "replay_ledger": "inherited_point_ledger",
+      "generation_gate": "inherited_point_reserve",
+      "after_first_replay_no_fit": "terminate permanently and return current accepted candidate prefix"
+    },
+    "hcms_retry_removal": {
+      "policy": "inherited_hcms_policy",
+      "replay_ledger": "inherited_point_ledger",
+      "generation_gate": "inherited_point_reserve",
+      "after_first_replay_no_fit": "continue to next path until inherited path or generation cap",
+      "status": "single clean removal of absorbing_no_fit"
+    },
+    "fixed8_absorbing": {
+      "proposal": "always propose min(8,current monotone state), initialized to 8",
+      "permitted_prefixes": [8, 1],
+      "salvage": "longest_exact_prefix",
+      "transition": "state=min(previous_state,returned_prefix); exact ineligible drop sets state=1; first replay no-fit absorbs",
+      "status": "specified simple comparator, not a component removal"
+    },
+    "fixed24_no_salvage_absorbing": {
+      "proposal": "always propose 24",
+      "permitted_prefixes": [24],
+      "salvage": "exact24_or_drop",
+      "transition": "remain 24 after exact ineligible drop; first replay no-fit absorbs",
+      "status": "specified simple comparator, not a component removal"
+    }
+  },
+  "resource_accounting": {
+    "selected_paths": "P_m(u) is ordered selected slots through and including a first replay-ledger no-fit path; paths after absorption or another inherited terminal condition are excluded",
+    "per_unit_generation_elapsed_formula": "T_m(u)=sum_{t in P_m(u)} g_ns[u,t,a_m(u,t)] where every g_ns uses the exact generation timer bracket",
+    "aggregate_generation_elapsed_formula": "T_m=sum_u T_m(u); this is a projected captured-elapsed sum over independently captured intervals",
+    "generation_overage_formula": "O_G(m)=sum_u indicator(T_m(u)>2000000000)",
+    "accepted_candidates": "A_m(u) is ordered multiset of exact eligible candidate occurrences admitted by inherited point replay ledger; no-fit and later unselected trace occurrences are excluded",
+    "per_unit_replay_elapsed_formula": "L_m(u)=sum_{c in A_m(u)} ell_ns[u,c] where every ell_ns uses the exact replay timer bracket and empty sum is 0",
+    "aggregate_replay_overage_formula": "O_R(m)=sum_u indicator(L_m(u)>2000000000)",
+    "strict_boundary": "exact equality T_m(u)=2000000000 or L_m(u)=2000000000 is not overage; only strict greater-than counts",
+    "interpretation": "T and L are projected sums of stored captured elapsed intervals, not live method wall-clock, CPU work, target latency, cancellation or remote deadline certificates"
+  },
+  "scheduler_sensitivity": {
+    "purpose": "bounded stress against retry-tail-specific scheduling/controller elapsed inflation; not a claim that arbitrary scheduling noise is removed",
+    "tail_elapsed": "T_tail=T_retry-T_ahcms, required nonnegative from the shared-prefix projection",
+    "discounted_tail_elapsed": "H=floor(T_tail/2) integer nanoseconds",
+    "discounted_retry_elapsed": "T_retry_half=T_ahcms+H",
+    "raw_rule": "retain all retry raw R_retry while discounting elapsed; do not remove any recovered raw",
+    "efficiency_guard": "10*R_ahcms*T_retry_half >= 11*R_retry*T_ahcms",
+    "tail_support_guard": "10*H >= T_retry_half",
+    "scope": "confirmation is robust only to this prespecified 50-percent retry-tail elapsed discount; greater or systematic asymmetry remains a limitation"
+  },
+  "decision_totality": {
+    "elapsed_domain": "every selected g_ns is positive integer, every required ell_ns is nonnegative integer, and aggregate T_m is positive for all four complete projections; violation is invalid measurement evidence",
+    "raw_domain": "every per-unit and aggregate scorer result is finite, nonnegative and exactly integral; require R_ahcms(u)<=R_retry(u)",
+    "zero_retry_raw": "if R_retry=0, exact prefix identity requires R_ahcms=R_tail=0; completed valid attempt DISCONFIRMS and Delta_E/rho_raw/rho_tail are NA_zero_retry_raw",
+    "positive_retry_zero_ahcms": "if R_retry>0 and R_ahcms=0, nominal and sensitivity primary inequalities plus retention disconfirm because their left sides are zero and positive-retry right sides are positive",
+    "zero_ahcms_zero_simple_positive_retry": "if R_ahcms=R_simple=0 with R_retry>0, joint result disconfirms through primary and retention; simple efficiency cross-product remains defined and retired rho_simple is NA_zero_simple_raw",
+    "positive_retry_raw": "only when R_retry>0 may display Delta_E=(R_ahcms/T_ahcms)/(R_retry/T_retry), rho_raw=R_ahcms/R_retry and rho_tail=R_retry_tail/R_retry",
+    "retention_identity": "R_retry_tail=sum_u[R_retry(u)-R_ahcms(u)] with each marginal nonnegative, exactly R_retry=R_ahcms+R_retry_tail and rho_raw=1-rho_tail; rho_tail is consistency not independent evidence",
+    "legacy_rho_simple": "retired from all decisions; if emitted and max specified simple raw is zero report NA_zero_simple_raw",
+    "decision_order": "validate evidence/completeness; apply zero-retry branch; evaluate positive-retry nominal, retention, tail and half-tail sensitivity; evaluate AHCMS feasibility; evaluate both specified simple controls"
+  },
+  "occam_rule": {
+    "specified_simple_controls": ["fixed8_absorbing", "fixed24_no_salvage_absorbing"],
+    "scope_limit": "these two preregistered policies test two named simplifications only; they do not exhaust reduced global path caps or every simpler policy",
+    "feasible": "F_m is true exactly when O_G(m)=0 and O_R(m)=0 on all nine projections",
+    "infeasible_simple": "complete simple with F_s=false remains published but cannot dominate feasible AHCMS under constrained endpoint",
+    "efficiency_materiality": "for every feasible specified simple s require 10*R_ahcms*T_s >= 11*R_s*T_ahcms; denominator-free and defined at R_s=0",
+    "pareto_dominance": "specified simple s Pareto-dominates AHCMS exactly when F_s=true, R_s>=R_ahcms, T_s<=T_ahcms and at least one raw/elapsed inequality strict",
+    "confirmation": "AHCMS feasible; every specified simple complete; each specified simple either infeasible or passes materiality and does not Pareto-dominate AHCMS",
+    "unresolved_alternative": "a reduced global path cap is an acknowledged unevaluated simpler alternative and no global Occam-optimality claim is allowed"
+  },
+  "historical_profile": {
+    "role": "retrospective engineering profile only; not fresh confirmation",
+    "endpoint": "all seconds and ratios below use sums of path_cost_s at the exact historical generation-path bracket; whole-cell generation_elapsed_s is excluded",
+    "retry_paths": 370,
+    "retry_elapsed_s": "69.00197669875342412",
+    "retry_tail_paths": 146,
+    "retry_tail_elapsed_s": "18.36650123470462862",
+    "absorbing_elapsed_s": "50.63547546404879550",
+    "absorbing_raw": 39240,
+    "retry_raw": 39258,
+    "nominal_efficiency_ratio": "1.362095216773",
+    "half_tail_efficiency_ratio": "1.180818355750",
+    "half_tail_fraction": "0.153517990418"
+  },
+  "contribution_components": [
+    {
+      "id": "absorbing_no_fit",
+      "single_role": "terminate future path attempts immediately after first otherwise-exact candidate cannot fit inherited cumulative replay ledger",
+      "measured_bottleneck": "sealed HCMS primary traces contain 146 retry-tail paths, 18.36650123470462862 seconds at the exact path timer, and one 18-raw recovery; exact-bracket nominal ratio is 1.362095216773 and half-tail-discount ratio is 1.180818355750",
+      "clean_removal": "hcms_retry_removal",
+      "confirmation_predicate": "fresh matched traces pass nominal and half-tail-discount efficiency, retention, nominal and discounted tail support, AHCMS zero overages, and specified simple-control endpoint"
+    }
+  ],
+  "unclaimed_diagnostics": {
+    "replay_envelope": "not AHCMS behavior, novelty, component count or primary comparison",
+    "atomic_gate": "not AHCMS behavior, novelty, component count or primary comparison",
+    "q_dependent_fixtures": "forbidden as efficacy or component-necessity evidence",
+    "global_occam": "not claimed; fixed8 and fixed24 do not exhaust every simple policy"
+  },
+  "phase3": {
+    "runner_path": "experiments/poc/ahcms24_phase3_v1.py",
+    "attempt_dir": "experiments/runs/ahcms24-c3-poc-v1",
+    "profiles": [
+      {"id": "steady_linear_ahcms_v1", "agent": "compliant", "latency_s": 0.0075},
+      {"id": "reset_dominant_ahcms_v1", "agent": "amortizing", "fixed_latency_s": 0.043, "per_action_latency_s": 0.0008},
+      {"id": "immediate_cliff_ahcms_v1", "agent": "context_limited", "max_user_messages": 8, "latency_s": 0.0015}
+    ],
+    "methods": ["ahcms_absorbing", "hcms_retry_removal", "fixed8_absorbing", "fixed24_no_salvage_absorbing"],
+    "evaluation_design": "three fresh q-independent matched potential traces per profile; methods are deterministic projections, so no method order/predecessor exists",
+    "primary_metric": "aggregate integer raw per projected captured generation-path elapsed nanosecond",
+    "primary_comparison": "ahcms_absorbing versus hcms_retry_removal on same nine traces",
+    "confirm": {
+      "minimum_absorbing_to_retry_efficiency_ratio": 1.10,
+      "minimum_absorbing_to_retry_half_tail_discount_efficiency_ratio": 1.10,
+      "minimum_absorbing_raw_retention": 0.995,
+      "minimum_retry_tail_elapsed_fraction": 0.10,
+      "minimum_half_discounted_retry_tail_elapsed_fraction": 0.10,
+      "minimum_absorbing_to_each_specified_feasible_simple_efficiency_ratio": 1.10,
+      "require_no_specified_feasible_simple_pareto_dominates_absorbing": true,
+      "maximum_absorbing_generation_overage_cells": 0,
+      "maximum_absorbing_aggregate_replay_overage_cells": 0,
+      "profiles": 3,
+      "sampled_units_per_profile": 3,
+      "matched_trace_units": 9,
+      "projected_method_cells": 36,
+      "complete_trace_fraction": 1.0,
+      "contribution_components": 1,
+      "clean_component_removals": 1,
+      "invalid_timeout_duplicate_or_malformed_count": 0
+    },
+    "decision_bands": {
+      "confirm": "every validity, positive-retry, nominal, retention, tail, half-tail sensitivity, AHCMS feasibility and specified simple-control predicate passes",
+      "disconfirm": "complete valid traces exist but retry raw is zero or any materiality, retention, tail, sensitivity, AHCMS overage or specified simple-control predicate fails",
+      "invalid": "sampling, trace completeness, attribution, support, timeout, numeric domain, evidence identity or publication invariant fails",
+      "inconclusive": "only external interruption with no complete fixed-sample result; absent no-fit on complete traces is disconfirm"
+    }
+  },
+  "target_confidence_bridge": {
+    "status": "closed_during_phase2_and_phase3",
+    "source_facts": "generation and each model-guardrail replay phase receive 9000 seconds; replay cumulative across returned candidates; attack cannot cancel in-flight RemoteEnv operation",
+    "required_before_attack_mutation": ["scrutinized rigorous theory re-review", "confirmed fresh controlled matched-trace result", "source-compliant 9000-second scaling design with incumbent fallback"],
+    "required_before_submission": ["Kaggle commit artifact parity", "target-derived commit-run evidence", "expected benefit over own 69.570 baseline and current public frontier", "all seven PROBLEM.md confidence gates committed"]
+  },
+  "source_bindings": {
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/remote_env.py": "817301d4d0d7a7966649544aa1d2e4729a2f44fe41d58f490dffe4443904dfd1",
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_inference_server.py": "b9402bbf6701c9f3880d7df828a8b4944d2e0930b17cc22cd78e2d7262cd794f",
+    "comp/sdk/aicomp_sdk/core/predicates.py": "9d9de5118d8883a0074a5405ed85cf2dec3f68e8516908cbc48f409e3ba56f37",
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f"
+  },
+  "evidence_bindings": {
+    "experiments/poc/hcms24_phase3_v1.py": "7b030c67a7f18c4bce77db67f7db757b817aede7cbaf75aa1195a09d42f6b1f6",
+    "experiments/poc/ahcms24_round11_timer_audit.py": "304484543ce7471526408234f13fe83a5277bf756b10b11fcca891e5a47acf7d",
+    "research-log/177-ahcms24-round11-timer-boundary-audit.md": "b93ad5b7f544eb6bc4e46c217cab3dff5fad0ea65c806388d545e33a13335415",
+    "experiments/runs/hcms24-c3-poc-v1/COMPLETE.json": "34e9dc0274e0828f325cb280b2f392a6e867fabf4315c0c962cf3746dc200b07",
+    "experiments/runs/hcms24-c3-poc-v1/candidates.tsv": "2d494607cd38b132bf1c1b4d74c5a19ba40f6087fa5322158d66cc157731a3d9",
+    "experiments/runs/hcms24-c3-poc-v1/paths.tsv": "fa66a588668f7bd6076937e0db4bcd13185dd2cebdf814ef928c59aeed830185",
+    "experiments/runs/hcms24-c3-poc-v1/method_cells.tsv": "fb2105784120304eabd14fd099ce9f7be8eb306b28fd2d59ffa61408ca5cb1b0",
+    "research-log/176-ahcms24-v4-theory-review-round-11.md": "e1aeb1de02c5902a090197de565fe32021ca57914375c13f0c91a820ce02da9c"
+  },
+  "superseded_lineage_bindings": {
+    "experiments/configs/ahcms24-c3-v4.json": "8f1a49163fa36c63c72227ae95f1b260112a4219eb455aeff7fe92f531ff5b51",
+    "experiments/poc/ahcms24_phase2_reference_v4.py": "030c8e9928ccdc6b567cba5b6e1fc5dedb4fceb17c3cc647f71e0e5d0f7f119f",
+    "research-log/174-hypothesis-iter-8-ahcms24-v4.md": "4e66cab8f8e0aa5c155332303cfaa7e2110e3b181e9904c55bc36f87ea55032f",
+    "research-log/175-ahcms24-v4-phase2-author-verification.md": "b4c605a313b816c59e265cc369d36623e0166ad7d6596ef1a2857a3112ce91f3"
+  }
+}
