@@ -487,8 +487,8 @@
       "id": "T054",
       "phase": "2",
       "desc": "Resolve round-9 engineering validity by testing the simpler absorbing-only explanation against a q-independent matched-trace factorial, retaining replay/atomic mechanisms only if each has a distinct measured held-out bottleneck, and correct the tied-rank proof in a superseding hypothesis",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "ORIENT: `jq` showed `phase=2`, review budget 9/12, research budget 4/5 and sole open task T054; `git status --porcelain` was empty on `refs/heads/master` at 07043f8. Selected T054 only; Phase-3 runner/attempt and Kaggle actions remain out of scope.",
       "parent": "T053"
     }
   ],
