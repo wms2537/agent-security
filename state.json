@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "3",
   "cycle": 3,
   "iteration": 2,
   "entry_mode": "inspiration",
@@ -439,9 +439,17 @@
       "id": "T048",
       "phase": "2",
       "desc": "Freeze and independently theory-review the simpler HCMS-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
-      "status": "in_progress",
-      "evidence": "HCMS v1 research-log/146 at immutable a8da04e has 475 lines/SHA 5db694c... and freezes one shared four-method kernel, exact prefix coverage 1.0, 3 fresh efficacy profiles, delayed safety exclusion, 4-order Williams position/predecessor balance, 1.10 evidence-haircut threshold and end-to-end scalar ledger removal. Author checker PASS; sterile review round 7 dispatched and charged 7/12. No Phase3/attack/Kaggle mutation.",
+      "status": "done",
+      "evidence": "Sterile round-7 report 149 returned RIGOROUS with full scrutiny after verifying immutable 475 lines/SHA 5db694c..., rerunning the author checker, re-deriving the rate identity, resolving all seven prior defects, passing all eight bias categories and all three anti-stacking tests, and finding no required pre-Phase3 fixes. Review 7/12; target transfer and Kaggle remain separate.",
       "parent": "T047"
+    },
+    {
+      "id": "T049",
+      "phase": "3",
+      "desc": "Implement, code-review, execute once, and independently audit the reviewed HCMS-24 public non-target proof of concept",
+      "status": "in_progress",
+      "evidence": "Phase 3 opened only after scrutinized RIGOROUS report 149. Runner and attempt directory are absent; implementation must preserve the reviewed shared kernel, timer/replay conventions, safety exclusion, runtime policy diff and per-cell reporting before one exact run.",
+      "parent": "T048"
     }
   ],
   "parked_candidates": [
