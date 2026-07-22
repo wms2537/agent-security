@@ -214,7 +214,6 @@ CANDIDATE_FIELDS = (
     "messages_sha256",
     "generation_trace_suffixes_json",
     "generation_exact_flags_json",
-    "cumulative_costs_json",
     "generation_trace_json",
     "replay_trace_suffixes_json",
     "replay_exact_flags_json",
@@ -248,6 +247,7 @@ PATH_FIELDS = (
     "messages_json",
     "generation_trace_suffixes_json",
     "generation_exact_flags_json",
+    "cumulative_costs_json",
     "generation_trace_json",
 )
 CELL_FIELDS = (
@@ -1278,6 +1278,7 @@ def run_method_cell(
             replay_budget,
         )
         if selected is None:
+            candidate_record = None
             returned = None
             dropped_paths += 1
             state = transition_state(policy, state, None)
@@ -1297,8 +1298,7 @@ def run_method_cell(
             state = transition_state(policy, state, returned)
             candidate_index = len(candidates) + 1
             selected_messages = messages[:returned]
-            candidates.append(
-                {
+            candidate_record = {
                     "schema_version": "hcms24-candidate-v1",
                     "namespace": namespace,
                     "profile": profile["id"],
@@ -1329,11 +1329,9 @@ def run_method_cell(
                     ),
                     "messages_sha256": sha256_bytes(canonical_json(selected_messages).encode("utf-8")),
                 }
-            )
             outcome = "returned"
         generation_elapsed = time.monotonic() - generation_started
-        path_rows.append(
-            {
+        path_record = {
                 "schema_version": "hcms24-path-v1",
                 "namespace": namespace,
                 "profile": profile["id"],
@@ -1363,7 +1361,42 @@ def run_method_cell(
                     retained_message_trace(messages[: len(suffixes)], suffixes)
                 ),
             }
-        )
+        try:
+            if candidate_record is not None:
+                candidates.append(candidate_record)
+            checkpoint_in_flight(
+                phase_state,
+                "generation_path_decision_complete",
+                active_path={},
+                pending_path=path_record,
+                current_candidate=candidate_record,
+                generated_unreplayed_candidates=[
+                    row for row in candidates if row is not candidate_record
+                ],
+            )
+            path_rows.append(path_record)
+            checkpoint_in_flight(
+                phase_state,
+                "generation_path_published",
+                active_path={},
+                pending_path=None,
+                current_candidate=None,
+                generated_unreplayed_candidates=candidates,
+                completed_path_count=len(path_rows),
+            )
+        except Exception:
+            checkpoint_in_flight(
+                phase_state,
+                "generation_path_publication_failed",
+                active_path={},
+                pending_path=path_record,
+                current_candidate=candidate_record,
+                generated_unreplayed_candidates=[
+                    row for row in candidates if row is not candidate_record
+                ],
+                completed_path_count=len(path_rows),
+            )
+            raise
 
     generation_elapsed = time.monotonic() - generation_started
     if path_rows:
@@ -1707,15 +1740,22 @@ def execute_method_cell(
             partial_candidate_count=len(partial_candidates),
             partial_path_count=len(partial_paths),
         )
-        cell = recompute_cell_record(
-            cell,
-            partial_candidates,
-            partial_paths,
-            diagnostic,
-            policy,
-            clock,
-            candidate_cap,
-        )
+        try:
+            cell = recompute_cell_record(
+                cell,
+                partial_candidates,
+                partial_paths,
+                diagnostic,
+                policy,
+                clock,
+                candidate_cap,
+            )
+        except (AssertionError, KeyError, TypeError, ValueError, json.JSONDecodeError) as reconstruction_error:
+            diagnostic["reconstruction_failure"] = {
+                "type": type(reconstruction_error).__name__,
+                "message": str(reconstruction_error),
+            }
+            cell = invalid_reconstruction_cell(cell, diagnostic)
         return partial_candidates, partial_paths, cell, [diagnostic]
 
 

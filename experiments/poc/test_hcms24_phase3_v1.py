@@ -443,6 +443,23 @@ class HCMS24ToyTests(unittest.TestCase):
                 1,
             ),
         )
+        with tempfile.TemporaryDirectory() as path_roundtrip_temp:
+            roundtrip_root = Path(path_roundtrip_temp)
+            path_file = roundtrip_root / "paths.tsv"
+            RUNNER.write_tsv_exclusive(
+                path_file,
+                RUNNER.PATH_FIELDS,
+                success_paths,
+            )
+            path_text = RUNNER.read_tsv_exact(
+                path_file,
+                RUNNER.PATH_FIELDS,
+                "hcms24-path-v1",
+            )
+            self.assertTrue(path_text[0]["cumulative_costs_json"])
+            decoded_path = RUNNER.decode_tsv_rows(path_text)[0]
+            RUNNER.recompute_path_evidence(decoded_path)
+            self.assertNotIn("cumulative_costs_json", RUNNER.CANDIDATE_FIELDS)
 
         drift_candidates = json.loads(json.dumps(success_candidates))
         drift_paths = json.loads(json.dumps(success_paths))
@@ -527,6 +544,50 @@ class HCMS24ToyTests(unittest.TestCase):
         post_active = post_diagnostics[0]["in_flight"]["active_path"]
         self.assertEqual(len(post_active["trace_suffixes"]), 1)
         self.assertEqual(len(post_active["trace"]["user_messages"]), 1)
+
+        original_checkpoint = RUNNER.checkpoint_in_flight
+        injected = False
+
+        def timeout_after_candidate_append(phase_state, phase, **snapshot):
+            nonlocal injected
+            if phase == "generation_path_decision_complete" and not injected:
+                injected = True
+                raise RUNNER.MethodCellTimeout("candidate/path publication timeout")
+            return original_checkpoint(phase_state, phase, **snapshot)
+
+        RUNNER.checkpoint_in_flight = timeout_after_candidate_append
+        try:
+            window_candidates, window_paths, window_cell, window_diagnostics = (
+                RUNNER.execute_method_cell(
+                    profile={"id": "toy-profile", "agent": "compliant", "latency_s": 0.0},
+                    master=7,
+                    order_index=0,
+                    position=0,
+                    predecessor="none",
+                    policy=policy,
+                    clock=success_clock,
+                    candidate_cap=1,
+                    namespace="toy-publication-timeout",
+                    identity_registry=set(),
+                    cell_runner_options={
+                        "env_builder": lambda _factory, _seed: ToyEnv()
+                    },
+                )
+            )
+        finally:
+            RUNNER.checkpoint_in_flight = original_checkpoint
+        self.assertTrue(injected)
+        self.assertEqual(window_candidates, [])
+        self.assertEqual(window_paths, [])
+        self.assertFalse(window_cell["cell_valid"])
+        self.assertTrue(window_cell["timeout_count"])
+        self.assertEqual(
+            window_diagnostics[0]["phase"],
+            "generation_path_publication_failed",
+        )
+        self.assertIsNotNone(window_diagnostics[0]["in_flight"]["pending_path"])
+        self.assertIsNotNone(window_diagnostics[0]["in_flight"]["current_candidate"])
+        self.assertIn("reconstruction_failure", window_diagnostics[0])
 
     def test_safety_namespace_is_mechanically_excluded(self) -> None:
         rows = [
