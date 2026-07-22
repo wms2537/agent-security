@@ -551,8 +551,8 @@
       "id": "T062",
       "phase": "3",
       "desc": "At the exhausted 2/2 implementation-correction gate, either obtain explicit authority for two additional correction attempts and then repair all four T061 findings as one unexecuted source-bound change, or retire the implementation as implementation_defeated and pivot",
-      "status": "open",
-      "evidence": "Report 182 records implementation corrections 2/2 and scientific debug 0/3. Reports 183-184 verify three HIGH plus one MEDIUM pre-run blocker and recommend raising the correction limit 2 -> 4 for one cohesive repair plus one fallback. No self-authorized third correction, scientific execution, attack mutation, Kaggle run, or submission is permitted.",
+      "status": "in_progress",
+      "evidence": "The correction extension was not supplied on the first continuation after reports 183-184. Non-mutating design work froze report 185: actual process/interpreter authentication, the historical pre-reset point-clock boundary, a lifetime descriptor-owned canonical attempt, permanent 27-file per-unit capture journals plus progress, exact production ordering and ten adversarial test classes. Local mechanisms were bound by SHA and the canonical attempt remained absent. Deterministic verification is recorded as `ahcms24_repair_design_check=PASS findings_mapped=4 architectures_compared=3 journal_files=27 adversarial_test_classes=10 process_binding=exact descriptor_identity=stable correction_limit=2/2 scientific_debug=0/3 canonical_attempt_absent=true`. No implementation file changed and explicit authority to raise 2 -> 4 remains required.",
       "parent": "T061"
     }
   ],
