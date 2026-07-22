@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "HCMS-24 will use a shared ceiling/salvage kernel to outperform fixed8 and no-salvage controls while calibrated replay accounting prevents the end-to-end replay overages produced by scalar 1.10; exact fresh-batch thresholds remain to be frozen.",
-  "active_hypothesis_artifact": "pending HCMS-24 Phase-2 specification",
+  "active_hypothesis": "On the first exact fresh controlled batch, HCMS-24 aggregate constrained raw will be at least 1.10 times the best of calibrated fixed8 and calibrated fixed24-no-salvage, calibrated actual replay coverage will be 1.0 with zero HCMS overage, and end-to-end scalar HCMS will overrun actual replay in at least one method-cell.",
+  "active_hypothesis_artifact": "research-log/146-hypothesis-iter-7-hcms24.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -440,7 +440,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the simpler HCMS-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "Direction selected by frozen audit 145: keep high ceiling plus monotone salvage and calibrated replay accounting; retire the zero-value MPC selector. Shared-kernel specification and fresh predictive thresholds are not yet frozen. Research 3/5, review 6/12.",
+      "evidence": "HCMS v1 research-log/146 plus hcms24-c3-v1 config and author checker freeze one shared four-method kernel, exact prefix coverage 1.0, 3 fresh efficacy profiles, delayed safety exclusion, 4-order Williams position/predecessor balance, 1.10 evidence-haircut threshold and end-to-end scalar ledger removal. Author checker PASS; review pending at 6/12. No Phase3/attack/Kaggle mutation.",
       "parent": "T047"
     }
   ],

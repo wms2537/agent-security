@@ -1,0 +1,184 @@
+{
+  "schema_version": "hcms24-c3-v1",
+  "primary_claim_scope": "fresh_controlled_phase3_only",
+  "official_score_claim": "withheld_until_separate_target_confidence_bridge",
+  "base_commit": "f25fcd2",
+  "base_attack_sha256": "8ab8d0528dc02ec4c269e6a49aac5979354e19efcf344e36bb3f6a7443e9d78d",
+  "controlled_clock": {
+    "generation_budget_s": 2.0,
+    "replay_budget_s": 2.0,
+    "interaction_reserve_s": 0.1,
+    "outer_process_timeout_s": 120.0,
+    "invariant": "0<interaction_reserve_s<generation_budget_s<outer_process_timeout_s"
+  },
+  "candidate_cap": 2000,
+  "prefixes_descending": [24, 8, 1],
+  "eligibility": {
+    "rule": "every message in the returned prefix has exactly one correctly attributed qualifying event",
+    "coverage_required": 1.0,
+    "aggregate_event_counts_forbidden": true,
+    "score_identity": "q=16*m+2 only when m prefix messages each have one unique qualifying host event; otherwise use actual scorer output and reject identity check",
+    "validity_conditions": [
+      "qualifying event class matches the bound SDK scorer",
+      "one unique host identity is assigned per returned message",
+      "no duplicate-host collision",
+      "no extra reward or penalty term applies",
+      "candidate cap is charged once per returned finding"
+    ]
+  },
+  "replay_ledgers": {
+    "calibrated": {
+      "formula": "1.25*c_returned+6.25*c_1",
+      "interpretation": "first_message_correlated_scale_surrogate",
+      "heldout_coverage": "54/54",
+      "maximum_holdout_actual_to_surrogate": 0.801015756432
+    },
+    "scalar_removal": {
+      "formula": "1.10*c_returned",
+      "interpretation": "end_to_end_adverse_ablation",
+      "retrospective_actual_overage_cells": "7/9"
+    }
+  },
+  "shared_kernel": {
+    "before_path": "stop iff cap full or observed remaining generation time<=0.1 seconds; otherwise start without future-cost lookahead",
+    "before_interaction": "stop current path iff observed remaining generation time<=0.1 seconds; otherwise perform exactly one interaction and charge observed elapsed generation time",
+    "event_attribution": "difference indexed trace suffixes after each interaction and bind qualifying events to that message index",
+    "salvage_rule": "from the method-permitted prefix set, return the longest completed prefix satisfying exact per-message eligibility whose ledger replay charge fits; otherwise drop",
+    "after_return": "charge one candidate slot and the selected ledger replay amount; record actual replay separately by replaying the exact returned prefix in a fresh environment",
+    "state_transition": "for monotone methods state=min(previous_state,returned_prefix); after drop state=1; state never increases",
+    "overage": "generation overage, actual replay above 2.0 seconds, timeout, invalid attribution, duplicate host or incomplete artifact invalidates that method-cell",
+    "identity_allocation": "deterministic unique host from method,profile,master,repetition,path,message indices",
+    "sequence_truncation": "a method stops at the first shared-kernel stop; no skipped proposal or later resumption",
+    "prohibited": [
+      "future path cost lookahead",
+      "cross-method state sharing",
+      "aggregate event count as prefix eligibility",
+      "different salvage semantics outside the named no-salvage removal"
+    ]
+  },
+  "methods": {
+    "hcms_calibrated": {
+      "proposal": "always propose current monotone state, initialized to 24",
+      "permitted_prefixes": [24, 8, 1],
+      "salvage": "longest_exact_prefix",
+      "transition": "monotone",
+      "ledger": "calibrated"
+    },
+    "fixed8_calibrated": {
+      "proposal": "always propose min(8,current monotone state), initialized to 8",
+      "permitted_prefixes": [8, 1],
+      "salvage": "longest_exact_prefix",
+      "transition": "monotone",
+      "ledger": "calibrated"
+    },
+    "fixed24_no_salvage_calibrated": {
+      "proposal": "always propose 24",
+      "permitted_prefixes": [24],
+      "salvage": "exact24_or_drop",
+      "transition": "no_salvage_removal; remain 24 after drop",
+      "ledger": "calibrated"
+    },
+    "hcms_scalar": {
+      "proposal": "always propose current monotone state, initialized to 24",
+      "permitted_prefixes": [24, 8, 1],
+      "salvage": "longest_exact_prefix",
+      "transition": "monotone",
+      "ledger": "scalar_removal"
+    }
+  },
+  "contribution_components": [
+    {
+      "id": "high_ceiling_monotone_salvage",
+      "role": "amortize candidate boundary cost when 24 succeeds and permanently preserve the longest exact shorter prefix when it does not",
+      "measured_bottleneck": "failed antecedent artifact has 24-favoring cells 6/9 and natural context-cliff cells 3/9; symmetric audit raw HCMS=17446, fixed8=12090, fixed24-no-salvage=10036",
+      "removals": ["fixed8_calibrated", "fixed24_no_salvage_calibrated"],
+      "decision": "hcms_calibrated aggregate>=1.10*max(fixed8_calibrated,fixed24_no_salvage_calibrated)"
+    },
+    {
+      "id": "calibrated_replay_accounting",
+      "role": "reserve replay capacity with a measured first-message-correlated surrogate",
+      "measured_bottleneck": "scalar 1.10 misses 84/90 replay pairs and full retrospective scalar controller overruns actual replay in 7/9 cells; calibrated heldout coverage is 54/54 and retrospective overage 0/9",
+      "removals": ["hcms_scalar"],
+      "decision": "hcms calibrated actual replay coverage=1.0 and overage=0 while hcms_scalar actual replay overage cells>=1"
+    }
+  ],
+  "correctness_controls": [
+    {
+      "id": "indexed_attribution",
+      "status": "measurement_invariant_not_contribution_component",
+      "test": "three frozen fixtures including concentrated events that make aggregate coverage 1.0 but exact prefix coverage 0.25"
+    },
+    {
+      "id": "observable_deadline",
+      "status": "safety_invariant_not_contribution_component",
+      "test": "time-zero admissibility plus mid-path abort and longest-completed-prefix fixtures"
+    }
+  ],
+  "antecedent_evidence": {
+    "status": "FAIL",
+    "sdk_decisions_passed": "6/9",
+    "use": "post_hoc_mechanism_motivation_and_adverse_occam_audit_only",
+    "selector_result": "retired_zero_incremental_value",
+    "hcms_to_fixed8_ratio": 1.443010752688,
+    "hcms_to_no_salvage_ratio": 1.738142686329,
+    "threshold_rationale": "the 1.10 fresh-batch materiality floor is less than one quarter of the smaller 44.301 percent antecedent relative gain and pays for added state and replay-accounting complexity"
+  },
+  "source_bindings": {
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "comp/sdk/aicomp_sdk/core/env/api.py": "60f1e4424ec3dee73186f87ed1184d2ca1dbc4c2a0022004decec8b6e94c7cb1",
+    "comp/sdk/aicomp_sdk/core/env/sandbox.py": "b781375c5aae3c2533f6992aae6d3c65ca56b7077822f1a27955756bef1168d0",
+    "comp/sdk/aicomp_sdk/core/predicates.py": "9d9de5118d8883a0074a5405ed85cf2dec3f68e8516908cbc48f409e3ba56f37",
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f",
+    "comp/sdk/aicomp_sdk/core/cells.py": "2fc9cbe5b2488b3f3c472cb31787de2b6a50aa29dd1abf2a67366ffd2b9d7369"
+  },
+  "evidence_bindings": {
+    "experiments/runs/porf-c3-profile-v2/COMPLETE.json": "ea7a6d6d53cf7cf3453269e53ce14566943402aa5673022277ea8968f019a1b5",
+    "experiments/runs/porf-c3-profile-v2/samples.tsv": "61395ac87dca4ace41993325372fd8dc7db6d960efcd502c04934095ed73276d",
+    "experiments/runs/porf-c3-profile-v2/summary.json": "64c05a59d9006446a7eb35fcabef59368b63b7bc4ad06db252590bd085debf77",
+    "experiments/poc/mpc24_replay_calibration_audit.py": "dd6e18ccf9562177ad245155ebf02605e19c04e2cc7b0ae136acf2176fd4f7c1",
+    "research-log/135-mpc24-replay-calibration-result.md": "ea6991fee440971ff0ffe2082699961d71b5cdd5af2285cbf814fca74663405f",
+    "experiments/poc/mpc24_symmetry_occam_audit.py": "1482abbf1693d9e146177ba547cccccdb5cfff6309e4794f0a558771c2d1c5c2",
+    "research-log/145-mpc24-symmetry-occam-audit-result.md": "6a2b3a50363eba2929d66b204942c1518bbd3d74a9858a93468c37e5ca5c92cd"
+  },
+  "phase3": {
+    "runner_path": "experiments/poc/hcms24_phase3_v1.py",
+    "attempt_dir": "experiments/runs/hcms24-c3-poc-v1",
+    "masters": [101, 211, 307],
+    "methods": [
+      "hcms_calibrated",
+      "fixed8_calibrated",
+      "fixed24_no_salvage_calibrated",
+      "hcms_scalar"
+    ],
+    "paired_repetitions": 4,
+    "counterbalanced_orders": [
+      ["hcms_calibrated", "fixed8_calibrated", "hcms_scalar", "fixed24_no_salvage_calibrated"],
+      ["fixed8_calibrated", "fixed24_no_salvage_calibrated", "hcms_calibrated", "hcms_scalar"],
+      ["fixed24_no_salvage_calibrated", "hcms_scalar", "fixed8_calibrated", "hcms_calibrated"],
+      ["hcms_scalar", "hcms_calibrated", "fixed24_no_salvage_calibrated", "fixed8_calibrated"]
+    ],
+    "order_design": "four-treatment Williams design; each method once per ordinal position and every directed predecessor pair exactly once",
+    "profiles": [
+      {"id": "steady_linear_new", "agent": "compliant", "latency_s": 0.007},
+      {"id": "reset_dominant_new", "agent": "amortizing", "fixed_latency_s": 0.041, "per_action_latency_s": 0.0007},
+      {"id": "immediate_context_cliff_new", "agent": "context_limited", "max_user_messages": 8, "latency_s": 0.0013}
+    ],
+    "safety_suite_excluded_from_efficacy": [
+      {"id": "delayed_context_cliff_safety", "agent": "delayed_context_limited", "sentinel_max_user_messages": 24, "later_max_user_messages": 8, "latency_s": 0.0011, "expected_transition": "24_to_8_and_never_up"}
+    ],
+    "aggregation": "sum constrained raw over the 36 valid method repetitions per method (3 profiles x 3 masters x 4 paired orders); delayed safety raw is excluded",
+    "confirm": {
+      "minimum_hcms_to_best_simple_ratio": 1.10,
+      "minimum_hcms_actual_replay_coverage": 1.0,
+      "maximum_hcms_actual_replay_overage_cells": 0,
+      "minimum_scalar_actual_replay_overage_cells": 1,
+      "position_count_per_method": 1,
+      "directed_predecessor_count_per_pair": 1,
+      "paired_repetitions_complete_fraction": 1.0,
+      "attribution_fixtures_pass": 3,
+      "deadline_fixtures_pass": 3,
+      "delayed_safety_fixtures_pass": 1,
+      "invalid_timeout_duplicate_or_generation_overage_count": 0
+    }
+  }
+}
