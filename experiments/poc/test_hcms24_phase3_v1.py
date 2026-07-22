@@ -240,7 +240,7 @@ class HCMS24ToyTests(unittest.TestCase):
             RUNNER.checkpoint_in_flight(
                 kwargs["phase_state"],
                 "replay_interaction",
-                active_path={"path_index": 1, "note": "retained in-flight"},
+                diagnostic_note={"note": "retained in-flight"},
             )
             raise ValueError("toy diagnostic detail")
 
@@ -250,7 +250,9 @@ class HCMS24ToyTests(unittest.TestCase):
             order_index=2,
             position=3,
             predecessor="toy-predecessor",
-            policy={"name": "toy-method"},
+            policy=RUNNER.compile_policy(
+                "hcms_calibrated", self.config["methods"]["hcms_calibrated"]
+            ),
             clock={
                 "generation_budget_s": 0.5,
                 "replay_budget_s": 0.5,
@@ -271,7 +273,7 @@ class HCMS24ToyTests(unittest.TestCase):
         self.assertEqual(diagnostics[0]["exception_message"], "toy diagnostic detail")
         self.assertGreater(diagnostics[0]["elapsed_s"], 0.0)
         self.assertTrue(diagnostics[0]["in_flight_present"])
-        self.assertEqual(diagnostics[0]["in_flight"]["active_path"]["path_index"], 1)
+        self.assertEqual(diagnostics[0]["in_flight"]["diagnostic_note"]["note"], "retained in-flight")
         RUNNER.validate_exception_diagnostic(diagnostics[0], candidates, paths, cell)
 
         valid_exception_id = diagnostics[0]["exception_id"]
@@ -321,8 +323,10 @@ class HCMS24ToyTests(unittest.TestCase):
 
     def test_real_kernel_failure_checkpoints_inflight_replay_evidence(self) -> None:
         class ToyEnv:
-            def __init__(self, fail_interaction=False):
+            def __init__(self, fail_interaction=False, fail_export_after_interact=False):
                 self.fail_interaction = fail_interaction
+                self.fail_export_after_interact = fail_export_after_interact
+                self.export_failure_armed = False
                 self.messages = []
                 self.events = []
 
@@ -331,6 +335,9 @@ class HCMS24ToyTests(unittest.TestCase):
                 self.events = []
 
             def export_trace_dict(self):
+                if self.export_failure_armed:
+                    self.export_failure_armed = False
+                    raise RUNNER.MethodCellTimeout("post-interaction checkpoint timeout")
                 return {
                     "user_messages": list(self.messages),
                     "tool_events": list(self.events),
@@ -354,6 +361,7 @@ class HCMS24ToyTests(unittest.TestCase):
                         "output": "posted",
                     }
                 )
+                self.export_failure_armed = self.fail_export_after_interact
                 if self.fail_interaction:
                     raise RuntimeError("replay checkpoint failure")
 
@@ -392,7 +400,9 @@ class HCMS24ToyTests(unittest.TestCase):
         self.assertEqual(diagnostic["phase"], "replay_interaction_failed")
         self.assertTrue(diagnostic["in_flight_present"])
         in_flight = diagnostic["in_flight"]
-        self.assertEqual(len(in_flight["generated_unreplayed_candidates"]), 1)
+        self.assertEqual(in_flight["current_candidate"]["returned_prefix"], 24)
+        self.assertEqual(in_flight["generated_unreplayed_candidates"], [])
+        self.assertEqual(in_flight["current_replay"]["status"], "failed")
         self.assertEqual(len(in_flight["current_replay"]["trace"]["user_messages"]), 1)
         self.assertEqual(len(in_flight["current_replay"]["trace_suffixes"]), 1)
         RUNNER.validate_exception_diagnostic(diagnostic, candidates, paths, cell)
@@ -428,9 +438,95 @@ class HCMS24ToyTests(unittest.TestCase):
                 success_candidates,
                 success_paths,
                 None,
+                policy,
                 success_clock,
+                1,
             ),
         )
+
+        drift_candidates = json.loads(json.dumps(success_candidates))
+        drift_paths = json.loads(json.dumps(success_paths))
+        drift_candidates[0]["ledger_charge_s"] *= 2.0
+        drift_candidates[0]["ledger_cumulative_s"] = drift_candidates[0]["ledger_charge_s"]
+        drift_paths[0]["ledger_cumulative_s"] = drift_candidates[0]["ledger_charge_s"]
+        with self.assertRaisesRegex(AssertionError, "ledger formula drift"):
+            RUNNER.recompute_cell_record(
+                success_cell,
+                drift_candidates,
+                drift_paths,
+                None,
+                policy,
+                success_clock,
+                1,
+            )
+        with self.assertRaisesRegex(AssertionError, "returned path missing exactly one candidate"):
+            RUNNER.recompute_cell_record(
+                success_cell,
+                [],
+                success_paths,
+                None,
+                policy,
+                success_clock,
+                1,
+            )
+        state_paths = json.loads(json.dumps(success_paths))
+        state_paths[0]["state_before"] = 8
+        with self.assertRaisesRegex(AssertionError, "path state-before drift"):
+            RUNNER.recompute_cell_record(
+                success_cell,
+                success_candidates,
+                state_paths,
+                None,
+                policy,
+                success_clock,
+                1,
+            )
+
+        timing_mutation = json.loads(json.dumps(diagnostic))
+        timing_mutation["in_flight"]["current_replay"]["elapsed_s"] = 999.0
+        timing_mutation["in_flight_sha256"] = hashlib.sha256(
+            RUNNER.canonical_json(timing_mutation["in_flight"]).encode("utf-8")
+        ).hexdigest()
+        timing_cell = RUNNER.recompute_cell_record(
+            cell,
+            candidates,
+            paths,
+            timing_mutation,
+            policy,
+            {
+                "generation_budget_s": 0.5,
+                "replay_budget_s": 2.0,
+                "interaction_reserve_s": 0.1,
+                "outer_process_timeout_s": 1.0,
+            },
+            1,
+        )
+        self.assertEqual(timing_cell["actual_replay_total_s"], cell["actual_replay_total_s"])
+
+        post_candidates, post_paths, post_cell, post_diagnostics = RUNNER.execute_method_cell(
+            profile={"id": "toy-profile", "agent": "compliant", "latency_s": 0.0},
+            master=7,
+            order_index=0,
+            position=0,
+            predecessor="none",
+            policy=policy,
+            clock=success_clock,
+            candidate_cap=1,
+            namespace="toy-post-success-timeout",
+            identity_registry=set(),
+            cell_runner_options={
+                "env_builder": lambda _factory, _seed: ToyEnv(
+                    fail_export_after_interact=True
+                )
+            },
+        )
+        self.assertEqual(post_candidates, [])
+        self.assertEqual(post_paths, [])
+        self.assertTrue(post_cell["timeout_count"])
+        self.assertEqual(post_diagnostics[0]["phase"], "generation_interaction_failed")
+        post_active = post_diagnostics[0]["in_flight"]["active_path"]
+        self.assertEqual(len(post_active["trace_suffixes"]), 1)
+        self.assertEqual(len(post_active["trace"]["user_messages"]), 1)
 
     def test_safety_namespace_is_mechanically_excluded(self) -> None:
         rows = [
@@ -481,6 +577,9 @@ class HCMS24ToyTests(unittest.TestCase):
                 RUNNER.read_tsv_exact(path, ("schema_version", "value"), "toy-v1")
 
     def test_full_output_bundle_is_reloaded_before_completion(self) -> None:
+        bundle_config = json.loads(json.dumps(self.config))
+        bundle_config["candidate_cap"] = 0
+
         def cell(namespace, profile, master, order_index, position, predecessor, method):
             return {
                 "schema_version": "hcms24-method-cell-v1",
@@ -514,9 +613,9 @@ class HCMS24ToyTests(unittest.TestCase):
             }
 
         cells = []
-        orders = self.config["phase3"]["counterbalanced_orders"]
-        for profile in self.config["phase3"]["profiles"]:
-            for master in self.config["phase3"]["masters"]:
+        orders = bundle_config["phase3"]["counterbalanced_orders"]
+        for profile in bundle_config["phase3"]["profiles"]:
+            for master in bundle_config["phase3"]["masters"]:
                 for order_index, order in enumerate(orders):
                     for position, method in enumerate(order):
                         cells.append(
@@ -530,12 +629,12 @@ class HCMS24ToyTests(unittest.TestCase):
                                 method,
                             )
                         )
-        safety_profile = self.config["phase3"]["safety_suite_excluded_from_efficacy"][0]
+        safety_profile = bundle_config["phase3"]["safety_suite_excluded_from_efficacy"][0]
         cells.append(
             cell(
                 "safety",
                 safety_profile["id"],
-                self.config["phase3"]["masters"][0],
+                bundle_config["phase3"]["masters"][0],
                 0,
                 0,
                 "none",
@@ -543,10 +642,10 @@ class HCMS24ToyTests(unittest.TestCase):
             )
         )
         profile_rows, method_rows = RUNNER.aggregate_rows(cells[:-1])
-        fixtures = RUNNER.run_fixtures(self.config)
-        safety = RUNNER.safety_result_from_records(self.config, [], cells[-1])
+        fixtures = RUNNER.run_fixtures(bundle_config)
+        safety = RUNNER.safety_result_from_records(bundle_config, [], cells[-1])
         audit = RUNNER.reconcile_scientific_bundle(
-            config=self.config,
+            config=bundle_config,
             candidate_rows=[],
             path_rows=[],
             cells=cells,
@@ -557,16 +656,16 @@ class HCMS24ToyTests(unittest.TestCase):
             exception_records=[],
         )
         self.assertEqual(audit["malformed_artifacts"], ())
-        policy_equality, _digest = RUNNER.assert_hcms_scalar_policy_equality(self.config)
+        policy_equality, _digest = RUNNER.assert_hcms_scalar_policy_equality(bundle_config)
         summary = RUNNER.make_primary_summary(
-            config=self.config,
+            config=bundle_config,
             cells=audit["cells"],
             method_rows=audit["method_rows"],
             fixtures=audit["fixtures"],
             safety_pass=audit["safety"]["pass"],
             policy_equality=policy_equality,
             balance=audit["balance"],
-            malformed_artifact_count=0,
+            malformed_artifacts=(),
         )
         summary["runtime_s"] = 0.0
         summary["peak_memory_gb"] = 0.0
@@ -599,7 +698,7 @@ class HCMS24ToyTests(unittest.TestCase):
                 RUNNER.write_json_exclusive(attempt / name, value)
             reloaded = RUNNER.reload_and_validate_outputs(
                 attempt,
-                config=self.config,
+                config=bundle_config,
                 expected_tsv_rows=tsv_rows,
                 expected_json_values=json_values,
             )
@@ -608,9 +707,9 @@ class HCMS24ToyTests(unittest.TestCase):
             bad_cells = json.loads(json.dumps(cells))
             bad_cells[0]["replay_coverage_numerator"] = 1
             bad_profile_rows, bad_method_rows = RUNNER.aggregate_rows(bad_cells[:-1])
-            bad_safety = RUNNER.safety_result_from_records(self.config, [], bad_cells[-1])
+            bad_safety = RUNNER.safety_result_from_records(bundle_config, [], bad_cells[-1])
             bad_audit = RUNNER.reconcile_scientific_bundle(
-                config=self.config,
+                config=bundle_config,
                 candidate_rows=[],
                 path_rows=[],
                 cells=bad_cells,
@@ -622,18 +721,22 @@ class HCMS24ToyTests(unittest.TestCase):
             )
             self.assertIn("method_cells.tsv", bad_audit["malformed_artifacts"])
             bad_summary = RUNNER.make_primary_summary(
-                config=self.config,
+                config=bundle_config,
                 cells=bad_audit["cells"],
                 method_rows=bad_audit["method_rows"],
                 fixtures=bad_audit["fixtures"],
                 safety_pass=bad_audit["safety"]["pass"],
                 policy_equality=policy_equality,
                 balance=bad_audit["balance"],
-                malformed_artifact_count=len(bad_audit["malformed_artifacts"]),
+                malformed_artifacts=bad_audit["malformed_artifacts"],
             )
             bad_summary["runtime_s"] = 0.0
             bad_summary["peak_memory_gb"] = 0.0
             self.assertEqual(bad_summary["status"], "invalid")
+            self.assertEqual(
+                bad_summary["malformed_artifacts"],
+                list(bad_audit["malformed_artifacts"]),
+            )
             bad_tsv_rows = {
                 **tsv_rows,
                 "method_cells.tsv": bad_cells,
@@ -654,13 +757,17 @@ class HCMS24ToyTests(unittest.TestCase):
                     RUNNER.write_json_exclusive(bad_attempt / name, value)
                 bad_reloaded = RUNNER.reload_and_validate_outputs(
                     bad_attempt,
-                    config=self.config,
+                    config=bundle_config,
                     expected_tsv_rows=bad_tsv_rows,
                     expected_json_values=bad_json_values,
                 )
                 self.assertIn(
                     "method_cells.tsv",
                     bad_reloaded["audit"]["malformed_artifacts"],
+                )
+                self.assertEqual(
+                    bad_reloaded["audit"]["malformed_artifacts"],
+                    bad_audit["malformed_artifacts"],
                 )
 
             method_path = attempt / "method_summary.tsv"
@@ -671,7 +778,7 @@ class HCMS24ToyTests(unittest.TestCase):
             with self.assertRaisesRegex(AssertionError, "reloaded row drift"):
                 RUNNER.reload_and_validate_outputs(
                     attempt,
-                    config=self.config,
+                    config=bundle_config,
                     expected_tsv_rows=tsv_rows,
                     expected_json_values=json_values,
                 )

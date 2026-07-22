@@ -214,6 +214,7 @@ CANDIDATE_FIELDS = (
     "messages_sha256",
     "generation_trace_suffixes_json",
     "generation_exact_flags_json",
+    "cumulative_costs_json",
     "generation_trace_json",
     "replay_trace_suffixes_json",
     "replay_exact_flags_json",
@@ -780,8 +781,6 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
         identity_valid == strict_bool(row["score_identity_valid"]),
         "candidate score identity drift",
     )
-    replay_covered = float(row["actual_replay_s"]) <= float(row["ledger_charge_s"]) + 1e-12
-    require(replay_covered == strict_bool(row["replay_covered"]), "replay coverage drift")
     return {
         "actual_raw": actual_raw,
         "expected_raw": expected_raw,
@@ -790,7 +789,7 @@ def recompute_candidate_evidence(row: Mapping[str, Any]) -> dict[str, Any]:
         "score_cell_signature": signature,
         "finding": finding,
         "score_identity_valid": identity_valid,
-        "replay_covered": replay_covered,
+        "actual_replay_s": float(row["actual_replay_s"]),
     }
 
 
@@ -937,23 +936,34 @@ def replay_candidate(
         phase_state,
         "replay_environment_construction",
         **context,
-        current_replay={"messages": list(candidate["messages"]), "trace_suffixes": [], "trace": {}},
+        current_replay={"status": "not_started", "messages": list(candidate["messages"]), "trace_suffixes": [], "trace": {}},
     )
     env = env_builder(factory, seed)
     checkpoint_in_flight(
         phase_state,
         "replay_reset",
         **context,
-        current_replay={"messages": list(candidate["messages"]), "trace_suffixes": [], "trace": env.export_trace_dict()},
+        current_replay={"status": "in_progress", "messages": list(candidate["messages"]), "trace_suffixes": [], "trace": env.export_trace_dict()},
     )
     try:
         env.reset()
+        checkpoint_in_flight(
+            phase_state,
+            "replay_reset_complete",
+            **context,
+            current_replay={
+                "status": "in_progress",
+                "messages": list(candidate["messages"]),
+                "trace_suffixes": [],
+                "trace": env.export_trace_dict(),
+            },
+        )
     except Exception:
         checkpoint_in_flight(
             phase_state,
             "replay_reset_failed",
             **context,
-            current_replay={"messages": list(candidate["messages"]), "trace_suffixes": [], "trace": env.export_trace_dict()},
+            current_replay={"status": "failed", "messages": list(candidate["messages"]), "trace_suffixes": [], "trace": env.export_trace_dict()},
         )
         raise
     suffixes: list[list[dict[str, Any]]] = []
@@ -965,6 +975,7 @@ def replay_candidate(
             "replay_interaction",
             **context,
             current_replay={
+                "status": "in_progress",
                 "messages": list(candidate["messages"]),
                 "next_message_index": message_index,
                 "trace_suffixes": suffixes,
@@ -973,17 +984,33 @@ def replay_candidate(
         )
         try:
             env.interact(message, max_tool_hops=MAX_TOOL_HOPS)
+            after = env.export_trace_dict()
+            suffixes.append(list(after.get("tool_events", [])[before_count:]))
+            checkpoint_in_flight(
+                phase_state,
+                "replay_interaction_complete",
+                **context,
+                current_replay={
+                    "status": "in_progress",
+                    "messages": list(candidate["messages"]),
+                    "next_message_index": message_index + 1,
+                    "trace_suffixes": suffixes,
+                    "trace": after,
+                },
+            )
         except Exception:
             failed_trace = env.export_trace_dict()
-            failed_suffixes = [
-                *suffixes,
-                list(failed_trace.get("tool_events", [])[before_count:]),
-            ]
+            failed_suffixes = list(suffixes)
+            if len(failed_suffixes) == message_index:
+                failed_suffixes.append(
+                    list(failed_trace.get("tool_events", [])[before_count:])
+                )
             checkpoint_in_flight(
                 phase_state,
                 "replay_interaction_failed",
                 **context,
                 current_replay={
+                    "status": "failed",
                     "messages": list(candidate["messages"]),
                     "failed_message_index": message_index,
                     "elapsed_s": max(1e-9, time.monotonic() - started),
@@ -992,8 +1019,6 @@ def replay_candidate(
                 },
             )
             raise
-        after = env.export_trace_dict()
-        suffixes.append(list(after.get("tool_events", [])[before_count:]))
     elapsed = max(1e-9, time.monotonic() - started)
     trace = env.export_trace_dict()
     exact_flags = indexed_exact_flags(suffixes, candidate["hosts"])
@@ -1002,7 +1027,9 @@ def replay_candidate(
         "replay_evaluation",
         **context,
         current_replay={
+            "status": "complete",
             "messages": list(candidate["messages"]),
+            "elapsed_s": elapsed,
             "trace_suffixes": suffixes,
             "trace": trace,
         },
@@ -1130,6 +1157,21 @@ def run_method_cell(
         )
         try:
             env.reset()
+            checkpoint_in_flight(
+                phase_state,
+                "generation_reset_complete",
+                active_path={
+                    "path_index": path_index,
+                    "state_before": state_before,
+                    "proposed_prefix": proposal,
+                    "hosts": hosts,
+                    "messages": messages,
+                    "trace_suffixes": [],
+                    "cumulative_costs_s": [],
+                    "trace": env.export_trace_dict(),
+                },
+                generated_unreplayed_candidates=candidates,
+            )
         except Exception:
             checkpoint_in_flight(
                 phase_state,
@@ -1173,8 +1215,39 @@ def run_method_cell(
             )
             try:
                 env.interact(message, max_tool_hops=MAX_TOOL_HOPS)
+                after = env.export_trace_dict()
+                suffixes.append(list(after.get("tool_events", [])[before_count:]))
+                cumulative_costs.append(
+                    max(1e-9, time.monotonic() - calibrated_generation_started)
+                )
+                checkpoint_in_flight(
+                    phase_state,
+                    "generation_interaction_complete",
+                    active_path={
+                        "path_index": path_index,
+                        "state_before": state_before,
+                        "proposed_prefix": proposal,
+                        "hosts": hosts,
+                        "messages": messages,
+                        "next_message_index": message_index + 1,
+                        "trace_suffixes": suffixes,
+                        "cumulative_costs_s": cumulative_costs,
+                        "trace": after,
+                    },
+                    generated_unreplayed_candidates=candidates,
+                )
             except Exception:
                 failed_trace = env.export_trace_dict()
+                failed_suffixes = list(suffixes)
+                if len(failed_suffixes) == message_index:
+                    failed_suffixes.append(
+                        list(failed_trace.get("tool_events", [])[before_count:])
+                    )
+                failed_costs = list(cumulative_costs)
+                if len(failed_costs) < len(failed_suffixes):
+                    failed_costs.append(
+                        max(1e-9, time.monotonic() - calibrated_generation_started)
+                    )
                 checkpoint_in_flight(
                     phase_state,
                     "generation_interaction_failed",
@@ -1188,21 +1261,13 @@ def run_method_cell(
                         "generation_elapsed_s": max(
                             1e-9, time.monotonic() - generation_started
                         ),
-                        "trace_suffixes": [
-                            *suffixes,
-                            list(failed_trace.get("tool_events", [])[before_count:]),
-                        ],
-                        "cumulative_costs_s": cumulative_costs,
+                        "trace_suffixes": failed_suffixes,
+                        "cumulative_costs_s": failed_costs,
                         "trace": failed_trace,
                     },
                     generated_unreplayed_candidates=candidates,
                 )
                 raise
-            after = env.export_trace_dict()
-            suffixes.append(list(after.get("tool_events", [])[before_count:]))
-            cumulative_costs.append(
-                max(1e-9, time.monotonic() - calibrated_generation_started)
-            )
         path_cost = max(1e-9, time.monotonic() - path_started)
         exact_flags = indexed_exact_flags(suffixes, hosts[: len(suffixes)])
         selected = choose_return_prefix(
@@ -1293,6 +1358,7 @@ def run_method_cell(
                 "messages_json": canonical_json(messages),
                 "generation_trace_suffixes_json": canonical_json(suffixes),
                 "generation_exact_flags_json": canonical_json(exact_flags),
+                "cumulative_costs_json": canonical_json(cumulative_costs),
                 "generation_trace_json": canonical_json(
                     retained_message_trace(messages[: len(suffixes)], suffixes)
                 ),
@@ -1320,7 +1386,8 @@ def run_method_cell(
             phase_state,
             env_builder=env_builder,
             checkpoint_context={
-                "generated_unreplayed_candidates": candidates[replay_index:],
+                "current_candidate": candidate,
+                "generated_unreplayed_candidates": candidates[replay_index + 1 :],
                 "completed_candidate_rows": candidate_rows,
                 "generation_terminal_elapsed_s": generation_elapsed,
             },
@@ -1335,8 +1402,7 @@ def run_method_cell(
         score_hashes.add(score_hash)
         findings.append(replay["finding"])
         transition_sequence.append(int(candidate["returned_prefix"]))
-        candidate_rows.append(
-            {
+        completed_row = {
                 **{
                     key: value
                     for key, value in candidate.items()
@@ -1373,6 +1439,15 @@ def run_method_cell(
                 "score_cell_signature_json": canonical_json(replay["score_cell_signature"]),
                 "finding_json": canonical_json(replay["finding"]),
             }
+        candidate_rows.append(completed_row)
+        checkpoint_in_flight(
+            phase_state,
+            "replay_row_complete",
+            current_candidate=None,
+            current_replay={},
+            generated_unreplayed_candidates=candidates[replay_index + 1 :],
+            completed_candidate_rows=candidate_rows,
+            generation_terminal_elapsed_s=generation_elapsed,
         )
     checkpoint_in_flight(
         phase_state,
@@ -1637,7 +1712,9 @@ def execute_method_cell(
             partial_candidates,
             partial_paths,
             diagnostic,
+            policy,
             clock,
+            candidate_cap,
         )
         return partial_candidates, partial_paths, cell, [diagnostic]
 
@@ -1813,6 +1890,7 @@ def recompute_path_evidence(row: Mapping[str, Any]) -> None:
     messages = json.loads(str(row["messages_json"]))
     suffixes = json.loads(str(row["generation_trace_suffixes_json"]))
     flags = indexed_exact_flags(suffixes, hosts[: len(suffixes)])
+    cumulative_costs = [float(value) for value in json.loads(str(row["cumulative_costs_json"]))]
     require(len(hosts) == len(messages) == int(row["proposed_prefix"]), "path vector length drift")
     require(len(set(hosts)) == len(hosts), "path host uniqueness drift")
     coordinates = [
@@ -1827,6 +1905,16 @@ def recompute_path_evidence(row: Mapping[str, Any]) -> None:
     require(messages == [user_message(str(host)) for host in hosts], "path message/host drift")
     require(flags == json.loads(str(row["generation_exact_flags_json"])), "path exact flags drift")
     require(len(flags) == int(row["completed_interactions"]), "path completion count drift")
+    require(len(cumulative_costs) == len(flags), "path cumulative-cost length drift")
+    require(all(value > 0.0 for value in cumulative_costs), "path cumulative cost must be positive")
+    require(
+        all(right >= left for left, right in zip(cumulative_costs, cumulative_costs[1:])),
+        "path cumulative costs must be monotone",
+    )
+    require(
+        all(value <= float(row["path_cost_s"]) for value in cumulative_costs),
+        "path cumulative cost exceeds full path cost",
+    )
     require(len(flags) <= int(row["proposed_prefix"]), "path completion exceeds proposal")
     expected_exact_prefix = next(
         (index for index, flag in enumerate(flags, 1) if not flag), len(flags) + 1
@@ -1842,6 +1930,7 @@ def recompute_path_evidence(row: Mapping[str, Any]) -> None:
     returned = int(row["returned_prefix"])
     outcome = str(row["outcome"])
     require((returned > 0) == (outcome == "returned"), "path outcome/return drift")
+    require(returned <= int(row["proposed_prefix"]), "path return exceeds proposal")
     require(float(row["path_cost_s"]) > 0.0, "path cost must be positive")
     require(
         float(row["generation_terminal_elapsed_s"])
@@ -1855,8 +1944,14 @@ def recompute_cell_record(
     candidates: Sequence[Mapping[str, Any]],
     paths: Sequence[Mapping[str, Any]],
     diagnostic: Mapping[str, Any] | None,
+    policy: Mapping[str, Any],
     clock: Mapping[str, Any],
+    candidate_cap: int,
 ) -> dict[str, Any]:
+    """Reconstruct one method cell from config, path, candidate, and failure evidence."""
+
+    method = str(source_cell["method"])
+    require(str(policy["name"]) == method, "cell policy/method drift")
     ordered_candidates = sorted(candidates, key=lambda row: int(row["candidate_index"]))
     ordered_paths = sorted(paths, key=lambda row: int(row["path_index"]))
     require(
@@ -1875,34 +1970,218 @@ def recompute_cell_record(
     in_flight = diagnostic.get("in_flight", {}) if diagnostic else {}
     active_path = in_flight.get("active_path", {})
     generation_elapsed = (
-        float(in_flight.get("generation_terminal_elapsed_s", 0.0))
-        or float(active_path.get("generation_elapsed_s", 0.0))
-        or (float(ordered_paths[-1]["generation_terminal_elapsed_s"]) if ordered_paths else 0.0)
+        float(ordered_paths[-1]["generation_terminal_elapsed_s"])
+        if ordered_paths
+        else 0.0
     )
-    unreplayed = list(in_flight.get("generated_unreplayed_candidates", [])) if diagnostic else []
-    completed_ledger_total = sum(float(row["ledger_charge_s"]) for row in ordered_candidates)
-    for index, row in enumerate(ordered_candidates, 1):
+
+    generated_by_path: dict[int, Mapping[str, Any]] = {
+        int(row["path_index"]): row for row in ordered_candidates
+    }
+    require(
+        len(generated_by_path) == len(ordered_candidates),
+        "duplicate completed candidate path",
+    )
+    internal_candidates: list[Mapping[str, Any]] = []
+    current_candidate = in_flight.get("current_candidate") if diagnostic else None
+    if current_candidate:
+        internal_candidates.append(current_candidate)
+    if diagnostic:
+        internal_candidates.extend(in_flight.get("generated_unreplayed_candidates", []))
+
+    core_fields = (
+        "namespace", "profile", "master", "order_index", "position", "predecessor",
+        "method", "path_index", "candidate_index", "proposed_prefix", "returned_prefix",
+        "state_before", "state_after", "c_1_s", "c_returned_s",
+        "generation_path_cost_s", "ledger_kind", "ledger_charge_s",
+        "ledger_cumulative_s", "generation_exact", "messages_sha256",
+    )
+    for internal in internal_candidates:
+        path_index = int(internal["path_index"])
+        existing = generated_by_path.get(path_index)
+        if existing is not None:
+            require(
+                all(existing[field] == internal[field] for field in core_fields),
+                "completed/in-flight candidate drift",
+            )
+        else:
+            generated_by_path[path_index] = internal
+
+    all_generated = sorted(generated_by_path.values(), key=lambda row: int(row["candidate_index"]))
+    require(
+        [int(row["candidate_index"]) for row in all_generated]
+        == list(range(1, len(all_generated) + 1)),
+        "generated candidate index sequence drift",
+    )
+
+    ledger_used = 0.0
+    state = int(policy["initial_state"])
+    previous_generation_elapsed = 0.0
+    charge_by_path: dict[int, float] = {}
+    generated_paths_seen: set[int] = set()
+    for path in ordered_paths:
+        path_index = int(path["path_index"])
+        require(int(path["state_before"]) == state, "path state-before drift")
+        path_generation_elapsed = float(path["generation_elapsed_s"])
         require(
-            float(row["ledger_cumulative_s"])
-            == sum(float(item["ledger_charge_s"]) for item in ordered_candidates[:index]),
-            "candidate cumulative ledger drift",
+            path_generation_elapsed >= previous_generation_elapsed,
+            "generation elapsed sequence drift",
+        )
+        previous_generation_elapsed = path_generation_elapsed
+        proposal = proposed_prefix(policy, state)
+        require(int(path["proposed_prefix"]) == proposal, "configured proposal drift")
+        flags = json.loads(str(path["generation_exact_flags_json"]))
+        costs = [float(value) for value in json.loads(str(path["cumulative_costs_json"]))]
+        if len(flags) < proposal:
+            require(
+                not deadline_admits(
+                    float(path["generation_elapsed_s"]),
+                    float(clock["generation_budget_s"]),
+                    float(clock["interaction_reserve_s"]),
+                ),
+                "premature path truncation",
+            )
+        selected = choose_return_prefix(
+            policy,
+            flags,
+            costs,
+            ledger_used,
+            float(clock["replay_budget_s"]),
+        )
+        candidate = generated_by_path.get(path_index)
+        if selected is None:
+            require(candidate is None, "dropped path has a candidate")
+            returned = None
+            if not flags:
+                expected_outcome = "drop_no_completed_interaction"
+            elif longest_exact_prefix(flags, policy["permitted_prefixes"]) == 0:
+                expected_outcome = "drop_no_permitted_exact_prefix"
+            else:
+                expected_outcome = "drop_ledger_no_fit"
+            require(int(path["returned_prefix"]) == 0, "dropped path return drift")
+        else:
+            returned, charge, c_returned, c_1 = selected
+            require(candidate is not None, "returned path missing exactly one candidate")
+            generated_paths_seen.add(path_index)
+            expected_outcome = "returned"
+            for field in (
+                "namespace", "profile", "master", "order_index", "position",
+                "predecessor", "method",
+            ):
+                require(candidate[field] == source_cell[field], f"candidate coordinate drift: {field}")
+            require(int(path["returned_prefix"]) == returned, "configured return-prefix drift")
+            require(str(candidate["ledger_kind"]) == str(policy["ledger"]), "ledger kind drift")
+            require(float(candidate["c_1_s"]) == c_1, "candidate c_1 drift")
+            require(float(candidate["c_returned_s"]) == c_returned, "candidate c_returned drift")
+            require(float(candidate["ledger_charge_s"]) == charge, "ledger formula drift")
+            require(int(candidate["proposed_prefix"]) == proposal, "candidate proposal drift")
+            require(int(candidate["returned_prefix"]) == returned, "candidate return drift")
+            require(int(candidate["state_before"]) == state, "candidate state-before drift")
+            require(
+                float(candidate["generation_path_cost_s"]) == float(path["path_cost_s"]),
+                "candidate/path cost drift",
+            )
+            path_hosts = json.loads(str(path["hosts_json"]))
+            path_messages = json.loads(str(path["messages_json"]))
+            if "hosts" in candidate:
+                candidate_hosts = list(candidate["hosts"])
+                candidate_messages = list(candidate["messages"])
+                candidate_flags = list(candidate["generation_exact_flags"])
+                candidate_trace = dict(candidate["generation_trace"])
+            else:
+                candidate_hosts = json.loads(str(candidate["hosts_json"]))
+                candidate_messages = json.loads(str(candidate["messages_json"]))
+                candidate_flags = json.loads(str(candidate["generation_exact_flags_json"]))
+                candidate_trace = json.loads(str(candidate["generation_trace_json"]))
+            require(candidate_hosts == path_hosts[:returned], "candidate/path host drift")
+            require(candidate_messages == path_messages[:returned], "candidate/path message drift")
+            require(candidate_flags == flags[:returned], "candidate/path exact-flag drift")
+            require(bool(candidate["generation_exact"]) == all(candidate_flags), "candidate generation exact drift")
+            require(
+                str(candidate["messages_sha256"])
+                == sha256_bytes(canonical_json(candidate_messages).encode("utf-8")),
+                "candidate message digest drift",
+            )
+            require(
+                candidate_trace
+                == retained_message_trace(
+                    candidate_messages,
+                    json.loads(str(path["generation_trace_suffixes_json"]))[:returned],
+                ),
+                "candidate/path generation-trace drift",
+            )
+            ledger_used += charge
+            charge_by_path[path_index] = charge
+        require(str(path["outcome"]) == expected_outcome, "configured path outcome drift")
+        state = transition_state(policy, state, returned)
+        require(int(path["state_after"]) == state, "configured state transition drift")
+        if candidate is not None:
+            require(int(candidate["state_after"]) == state, "candidate state-after drift")
+            require(
+                float(candidate["ledger_cumulative_s"]) == ledger_used,
+                "candidate cumulative ledger drift",
+            )
+        require(float(path["ledger_cumulative_s"]) == ledger_used, "path cumulative ledger drift")
+
+    require(
+        set(generated_by_path) == generated_paths_seen,
+        "returned-path/candidate bijection drift",
+    )
+    if active_path:
+        require(
+            int(active_path["path_index"]) == len(ordered_paths) + 1,
+            "active path index drift",
+        )
+        require(int(active_path["state_before"]) == state, "active path state drift")
+        require(
+            int(active_path["proposed_prefix"]) == proposed_prefix(policy, state),
+            "active path proposal drift",
+        )
+        active_hosts = list(active_path["hosts"])
+        active_messages = list(active_path["messages"])
+        proposal = int(active_path["proposed_prefix"])
+        require(len(active_hosts) == len(active_messages) == proposal, "active path vector drift")
+        coordinates = [
+            source_cell[field]
+            for field in ("namespace", "profile", "master", "order_index", "method")
+        ]
+        coordinates.append(int(active_path["path_index"]))
+        require(
+            active_hosts
+            == [expected_host([*coordinates, index]) for index in range(1, proposal + 1)],
+            "active path host drift",
         )
         require(
-            any(
-                int(path["path_index"]) == int(row["path_index"])
-                and int(path["returned_prefix"]) == int(row["returned_prefix"])
-                and path["outcome"] == "returned"
-                for path in ordered_paths
+            active_messages == [user_message(host) for host in active_hosts],
+            "active path message drift",
+        )
+        active_suffixes = list(active_path.get("trace_suffixes", []))
+        active_costs = list(active_path.get("cumulative_costs_s", []))
+        require(len(active_suffixes) == len(active_costs), "active path evidence length drift")
+        active_trace = dict(active_path.get("trace", {}))
+        require(
+            list(active_trace.get("user_messages", []))[: len(active_suffixes)]
+            == active_messages[: len(active_suffixes)],
+            "active path trace-message drift",
+        )
+        require(
+            list(active_trace.get("tool_events", []))
+            == [event for suffix in active_suffixes for event in suffix],
+            "active path trace-suffix drift",
+        )
+
+    ledger_total = ledger_used
+    if diagnostic is None:
+        require(
+            len(all_generated) >= candidate_cap
+            or not deadline_admits(
+                generation_elapsed,
+                float(clock["generation_budget_s"]),
+                float(clock["interaction_reserve_s"]),
             ),
-            "candidate/path return link drift",
+            "premature method termination",
         )
-    ledger_total = completed_ledger_total + sum(
-        float(row["ledger_charge_s"]) for row in unreplayed
-    )
-    current_replay = in_flight.get("current_replay", {}) if diagnostic else {}
-    replay_total = sum(float(row["actual_replay_s"]) for row in ordered_candidates) + float(
-        current_replay.get("elapsed_s", 0.0)
-    )
+    replay_total = sum(float(row["actual_replay_s"]) for row in ordered_candidates)
     findings = [item["finding"] for item in recomputed]
     raw = float(score_attack_raw(findings))
     expected_sum = sum(float(item["expected_raw"]) for item in recomputed)
@@ -1910,10 +2189,14 @@ def recompute_cell_record(
     duplicates = len(hashes) - len(set(hashes))
     score_failures = sum(not item["score_identity_valid"] for item in recomputed)
     score_failures += int(raw != expected_sum)
-    coverage = sum(bool(item["replay_covered"]) for item in recomputed)
+    coverage = 0
+    for row in ordered_candidates:
+        charge = charge_by_path[int(row["path_index"])]
+        covered = float(row["actual_replay_s"]) <= charge + 1e-12
+        require(covered == strict_bool(row["replay_covered"]), "replay coverage drift")
+        coverage += int(covered)
     replay_overage = replay_total > float(clock["replay_budget_s"])
     timed_out = bool(diagnostic and diagnostic["timed_out"])
-    method = str(source_cell["method"])
     calibrated_invalid = method in CALIBRATED_METHODS and (
         coverage != len(ordered_candidates) or replay_overage
     )
@@ -1992,6 +2275,28 @@ def safety_result_from_records(
         "pass": passed,
         "cell": dict(cell),
     }
+
+
+def invalid_reconstruction_cell(
+    source_cell: Mapping[str, Any],
+    diagnostic: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    """Produce a deterministic invalid cell without trusting source metrics."""
+
+    result = failed_method_cell(
+        namespace=str(source_cell["namespace"]),
+        profile=str(source_cell["profile"]),
+        master=int(source_cell["master"]),
+        order_index=int(source_cell["order_index"]),
+        position=int(source_cell["position"]),
+        predecessor=str(source_cell["predecessor"]),
+        method=str(source_cell["method"]),
+        timed_out=bool(diagnostic and diagnostic.get("timed_out")),
+        exception_id=str(diagnostic["exception_id"]) if diagnostic else "",
+    )
+    if diagnostic is None:
+        result["exception_count"] = 0
+    return result
 
 
 def reconcile_scientific_bundle(
@@ -2081,14 +2386,19 @@ def reconcile_scientific_bundle(
                 candidates_by_cell.get(key, []),
                 paths_by_cell.get(key, []),
                 diagnostic,
+                compile_policy(
+                    str(source_cell["method"]),
+                    config["methods"][str(source_cell["method"])],
+                ),
                 config["controlled_clock"],
+                int(config["candidate_cap"]),
             )
             if dict(source_cell) != recomputed:
                 malformed.add("method_cells.tsv")
             recomputed_cells.append(recomputed)
         except (AssertionError, KeyError, TypeError, ValueError, json.JSONDecodeError):
             malformed.add("method_cells.tsv")
-            recomputed_cells.append(dict(source_cell))
+            recomputed_cells.append(invalid_reconstruction_cell(source_cell, diagnostic))
 
     recomputed_primary = primary_only(recomputed_cells)
     try:
@@ -2204,7 +2514,7 @@ def reload_and_validate_outputs(
         safety_pass=bool(audit["safety"]["pass"]),
         policy_equality=policy_equality,
         balance=audit["balance"],
-        malformed_artifact_count=len(audit["malformed_artifacts"]),
+        malformed_artifacts=audit["malformed_artifacts"],
     )
     summary = loaded_json["primary_summary.json"]
     require(float(summary["runtime_s"]) >= 0.0, "summary runtime drift")
@@ -2288,7 +2598,7 @@ def make_primary_summary(
     safety_pass: bool,
     policy_equality: bool,
     balance: Mapping[str, Any],
-    malformed_artifact_count: int,
+    malformed_artifacts: Sequence[str],
 ) -> dict[str, Any]:
     primary_cells = primary_only(cells)
     by_method = {str(row["method"]): row for row in method_rows}
@@ -2300,6 +2610,7 @@ def make_primary_summary(
     hcms_cells = [row for row in primary_cells if row["method"] == "hcms_calibrated"]
     scalar_cells = [row for row in primary_cells if row["method"] == "hcms_scalar"]
     calibrated_cells = [row for row in primary_cells if row["method"] in CALIBRATED_METHODS]
+    malformed_names = sorted(set(str(name) for name in malformed_artifacts))
     invalidity = {
         "generation_overage_count": sum(bool(row["generation_overage"]) for row in primary_cells),
         "calibrated_replay_overage_count": sum(bool(row["actual_replay_overage"]) for row in calibrated_cells),
@@ -2322,7 +2633,7 @@ def make_primary_summary(
         ),
         "safety_failure_count": int(not safety_pass),
         "safety_contamination_count": sum(row.get("namespace") != "primary" for row in primary_cells),
-        "malformed_artifact_count": malformed_artifact_count,
+        "malformed_artifact_count": len(malformed_names),
     }
     invalid_total = sum(invalidity.values())
     hcms_coverage_num = sum(int(row["replay_coverage_numerator"]) for row in hcms_cells)
@@ -2371,6 +2682,7 @@ def make_primary_summary(
         "safety_excluded_from_primary": len(primary_cells) == len(cells) - 1,
         "williams": balance,
         "fixtures": fixtures,
+        "malformed_artifacts": malformed_names,
         "invalidity_counts": invalidity,
         "joint_conditions": joint_conditions,
     }
@@ -2510,7 +2822,7 @@ def main() -> int:
         safety_pass=bool(audit["safety"]["pass"]),
         policy_equality=policy_equality,
         balance=audit["balance"],
-        malformed_artifact_count=len(audit["malformed_artifacts"]),
+        malformed_artifacts=audit["malformed_artifacts"],
     )
     runtime_s = time.monotonic() - started
     peak_memory_gb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
@@ -2573,11 +2885,16 @@ def main() -> int:
         "provenance.json": provenance,
         "exceptions.json": exceptions,
     }
-    reload_and_validate_outputs(
+    reloaded = reload_and_validate_outputs(
         attempt_dir,
         config=config,
         expected_tsv_rows=expected_tsv_rows,
         expected_json_values=expected_json_values,
+    )
+    require(
+        tuple(reloaded["audit"]["malformed_artifacts"])
+        == tuple(audit["malformed_artifacts"]),
+        "source/reload malformed artifact set drift",
     )
     complete_path = attempt_dir / "COMPLETE.json"
     print_flush_and_wait_for_log(
