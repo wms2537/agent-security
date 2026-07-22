@@ -422,7 +422,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 PORF predictive engineering hypothesis before implementation or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "Round-1 sterile review verified 514/514 lines and returned NEEDS_REVISION. Research-log/117 preserves the complete report: the >=95 forecast lacks target evidence, the timeout bound is invalid, raw/second ignores joint caps, anti-stacking fails, profiles are unfrozen constructed tests, stopping rules conflict, and failure semantics are inconsistent. Core multiplicity-frontier idea is salvageable; no implementation, push, run or submission occurred.",
+      "evidence": "V2 research-log/121 supersedes the rejected v1 after exact baseline linkage and a retained disconfirming 360-row profile. RCMF predicts one valid score >=73.050 relative to exact 69.570 artifact 8c44eb4; it changes one component, uses M={1,4,8}, split screen/validation, joint generation/replay/candidate-cap total raw, and the target-validated 0.90x1.10 ledger. Final review not yet dispatched; no RCMF implementation/push/submission.",
       "parent": "T045"
     }
   ],
@@ -994,7 +994,9 @@
       "profile_recovery_protocol": "FROZEN UNRUN — note 119, config porf-c3-profile-v2 and runner porf_c3_profile_v2 fix five deterministic joint-cap profiles plus 3 SDK profiles x 3 masters x 4 arms x 5 paired generation/replay replicates; fixed plain template; primary requires 5/5 and 9/9 decisions. Prediction rows appended before execution.",
       "profile_recovery_result": "DISCONFIRM/PASS ARTIFACT — immutable attempt envelope is FAIL with deterministic 5/5, SDK 6/9, stability 0.666666666667 and 360 rows. All per-turn masters unexpectedly selected m24 because source-authentic fresh replay-environment construction adds fixed candidate-boundary cost; reset-heavy selected 24/24/24 and context-cliff selected 8/8/8. Full analysis: note 120.",
       "new_mechanism": "REPLAY-CONSTRUCTION SCOPE MISMATCH — attack generation times reset+interact on a reused environment, while trusted replay constructs+resets+interacts per candidate. Paired controlled measurements expose a replay-only fixed term that long candidates amortize, but context cliffs require an exact finite frontier. This is mock mechanics evidence, not target prevalence.",
-      "status": "NEEDS REVISION — v2 may now isolate replay-construction-aware multiplicity selection using the linked 69.570 target baseline and the 360-row exploratory profile; final review round remains unspent; no Kaggle push/commit run/submission occurred"
+      "hypothesis_v2": "FROZEN UNREVIEWED — research-log/121 defines Replay-Construction Multiplicity Frontier, one >=73.050 valid-score prediction, exact M={1,4,8} split selector, joint total-raw objective, one stopping rule, target-linked ledger, frozen profiles/ablations/bias/assumptions and ten round-1 dispositions.",
+      "anti_stacking_v2": "AUTHOR COMPLETE — one component only; measured candidate-boundary replay-construction bottleneck (paired ratios 3.0701--3.6204 plus 24/24/24 vs context 8/8/8); fixed-1/4/8 and rate baselines; end-to-end official constrained result. Silent/cap/banking/template/predicate additions prohibited.",
+      "status": "V2 FROZEN UNREVIEWED — final review round remains unspent; no RCMF implementation, Kaggle push, commit run or submission occurred"
     }
   }
 }
