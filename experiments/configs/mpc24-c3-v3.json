@@ -1,0 +1,151 @@
+{
+  "schema_version": "mpc24-c3-v3",
+  "primary_claim_scope": "counterbalanced_controlled_phase3",
+  "official_score_claim": "withheld_until_separate_target_confidence_bridge",
+  "base_commit": "8c44eb4",
+  "base_attack_sha256": "8a5c920f32c06d55e0a8a3c4bf01eed76effae3f175d0c3557d411d0433b81fd",
+  "controlled_clock": {
+    "generation_budget_s": 6.0,
+    "replay_budget_s": 6.0,
+    "interaction_reserve_s": 0.1,
+    "outer_process_timeout_s": 120.0,
+    "invariant": "0<interaction_reserve_s<generation_budget_s<outer_process_timeout_s"
+  },
+  "candidate_cap": 2000,
+  "states": [24, 8, 1],
+  "minimum_message_coverage": 0.75,
+  "activation_margin": 1.10,
+  "replay_surrogate": {
+    "formula": "r_surrogate_m=1.25*c_m+6.25*c_1",
+    "interpretation": "first_message_correlated_scale_surrogate",
+    "forbidden_interpretation": "separately_identified_boundary_cost",
+    "calibration_replicates": [0, 1, 2],
+    "holdout_replicates": [3, 4],
+    "heldout_coverage": "54/54",
+    "maximum_holdout_actual_to_surrogate": 0.801015756432
+  },
+  "selector": {
+    "raw_q_m": "16*successes_m+2 if successes_m>0 else 0",
+    "additional_count": "min(K-1,floor((G-c24_attempt)/c_m),floor((R-r_surrogate_m)/r_surrogate_m))",
+    "portfolio_point_estimate": "q_m*(1+additional_count)",
+    "rule": "choose24 iff eligible8 and eligible24 and P24>=1.10*P8; else choose8 iff eligible8; else choose1 iff eligible1; else state1 and drop",
+    "only24_eligible": "choose1 iff eligible1; otherwise state1 and drop",
+    "semantics": "point_estimate_not_bound_expectation_or_target_guarantee"
+  },
+  "online_rule": {
+    "before_path": "stop iff cap full or observed remaining generation time<=0.1 seconds; otherwise start without future cost or eligibility",
+    "before_interaction": "stop current path iff observed remaining generation time<=0.1 seconds; otherwise perform one interaction",
+    "after_path": "return longest completed eligible prefix not exceeding state whose observed replay surrogate fits; otherwise drop",
+    "transition": "next_state=min(state,returned_prefix), or 1 after drop; never move upward",
+    "accounting": "charge all observed attempted generation time; charge replay surrogate and one slot only for returned prefix"
+  },
+  "contribution_components": [
+    {
+      "id": "multiplicity_selector",
+      "measured_bottleneck": "full fixed frontier winner is 24 in 6/9 and 8 in 3/9 controlled cells while fixed8 wins the short frontier 9/9",
+      "source": "experiments/runs/porf-c3-profile-v2/summary.json",
+      "removals": ["fixed_8", "fixed_24", "static_3x24_1x8"],
+      "decision": "mpc24 aggregate constrained raw >=1.05*best simple comparator"
+    },
+    {
+      "id": "replay_surrogate_ledger",
+      "measured_bottleneck": "scalar 1.10 misses 84/90 measured 8/24 replay pairs; calibrated surrogate covers heldout 54/54",
+      "source": "research-log/135-mpc24-replay-calibration-result.md",
+      "removals": ["scalar_1_10_ledger"],
+      "decision": "calibrated misses=0 and scalar misses>=1 on the same source-authentic Phase3 traces"
+    }
+  ],
+  "correctness_controls": [
+    {
+      "id": "monotone_prefix_salvage",
+      "role": "return a verified shorter prefix and never re-expand",
+      "status": "safety_invariant_not_contribution_component",
+      "test": "11 total-state fixtures plus delayed-context integration fixture"
+    },
+    {
+      "id": "indexed_attribution",
+      "role": "prevent concentrated events from fabricating continuation",
+      "status": "measurement_invariant_not_contribution_component",
+      "test": "3 attribution fixtures including aggregate false 1.0 versus exact 0.25"
+    },
+    {
+      "id": "observable_deadline",
+      "role": "stop from observed time only",
+      "status": "safety_invariant_not_contribution_component",
+      "test": "reserve admissibility and mid-path abort fixtures"
+    }
+  ],
+  "source_bindings": {
+    "comp/sdk/kaggle_evaluation/jed_attack_134815/jed_attack_gateway.py": "69aa2aeb84eb87e11a7e7369df6ff10cf521bf1a5dc00361bb6bd0c3e07f54b2",
+    "comp/sdk/aicomp_sdk/core/env/api.py": "60f1e4424ec3dee73186f87ed1184d2ca1dbc4c2a0022004decec8b6e94c7cb1",
+    "comp/sdk/aicomp_sdk/core/env/sandbox.py": "b781375c5aae3c2533f6992aae6d3c65ca56b7077822f1a27955756bef1168d0",
+    "comp/sdk/aicomp_sdk/core/predicates.py": "9d9de5118d8883a0074a5405ed85cf2dec3f68e8516908cbc48f409e3ba56f37",
+    "comp/sdk/aicomp_sdk/scoring.py": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f",
+    "comp/sdk/aicomp_sdk/core/cells.py": "2fc9cbe5b2488b3f3c472cb31787de2b6a50aa29dd1abf2a67366ffd2b9d7369"
+  },
+  "evidence_bindings": {
+    "experiments/runs/porf-c3-profile-v2/COMPLETE.json": "ea7a6d6d53cf7cf3453269e53ce14566943402aa5673022277ea8968f019a1b5",
+    "experiments/runs/porf-c3-profile-v2/samples.tsv": "61395ac87dca4ace41993325372fd8dc7db6d960efcd502c04934095ed73276d",
+    "experiments/runs/porf-c3-profile-v2/summary.json": "64c05a59d9006446a7eb35fcabef59368b63b7bc4ad06db252590bd085debf77",
+    "experiments/poc/mpc24_replay_calibration_audit.py": "dd6e18ccf9562177ad245155ebf02605e19c04e2cc7b0ae136acf2176fd4f7c1",
+    "research-log/135-mpc24-replay-calibration-result.md": "ea6991fee440971ff0ffe2082699961d71b5cdd5af2285cbf814fca74663405f",
+    "experiments/configs/mpc24-c3-v2.json": "206b358496b5d3585aabb3bd5a2e6a5325198fdf62d71427efd15a55f1419bad",
+    "experiments/poc/mpc24_phase2_reference_v2.py": "ef9686662c2856ec809cba22a2e10f44c1e81bf8611f3a85e0bba91930c1bdf3"
+  },
+  "measurement_provenance": {
+    "freeze_commit": "121993c9b25c28d002803cd8f1a2c4af23bab158",
+    "output_commit": "7bcd13b91eb8e28649067d20693cff3bcaae7c9b",
+    "runner_sha256": "30f6f847a81daed2665bc5c670aba00b48595e60d5c6472a3b8792c0553f987f",
+    "run_log_sha256": "98892f411275dc72379f504fb36fd9fae4ff6c7b678defcf452b5853d244f6c9",
+    "dependency_count": 9,
+    "python": "3.14.3",
+    "platform": "Linux-6.11.0-29-generic-x86_64-with-glibc2.40"
+  },
+  "author_contract": {
+    "reused_state_fixture_config": "experiments/configs/mpc24-c3-v2.json",
+    "reused_state_checker": "experiments/poc/mpc24_phase2_reference_v2.py",
+    "deadline_fixture": {
+      "generation_budget_s": 1.3,
+      "interaction_reserve_s": 0.1,
+      "observed_attempt_cost_s": 1.21,
+      "expected_remaining_s": 0.09,
+      "expected_stop": "generation_reserve",
+      "expected_returned_prefix": 8
+    }
+  },
+  "phase3": {
+    "runner_path": "experiments/poc/mpc24_phase3_v3.py",
+    "attempt_dir": "experiments/runs/mpc24-c3-poc-v3",
+    "masters": [101, 211, 307],
+    "paired_repetitions": 4,
+    "order_seed": 260722,
+    "methods": ["mpc24", "fixed_8", "fixed_24", "static_3x24_1x8"],
+    "counterbalanced_orders": [
+      ["mpc24", "fixed_8", "fixed_24", "static_3x24_1x8"],
+      ["fixed_8", "fixed_24", "static_3x24_1x8", "mpc24"],
+      ["fixed_24", "static_3x24_1x8", "mpc24", "fixed_8"],
+      ["static_3x24_1x8", "mpc24", "fixed_8", "fixed_24"]
+    ],
+    "static_mixture_sequence": [24, 24, 24, 8],
+    "profiles": [
+      {"id": "steady_linear_new", "agent": "compliant", "latency_s": 0.007},
+      {"id": "reset_dominant_new", "agent": "amortizing", "fixed_latency_s": 0.041, "per_action_latency_s": 0.0007},
+      {"id": "immediate_context_cliff_new", "agent": "context_limited", "max_user_messages": 8, "latency_s": 0.0013},
+      {"id": "delayed_context_cliff_new", "agent": "delayed_context_limited", "sentinel_max_user_messages": 24, "later_max_user_messages": 8, "latency_s": 0.0011, "role": "safety_fixture_not_fallback_evidence"}
+    ],
+    "aggregation": "sum constrained raw over all four counterbalanced repetitions, then over all 12 profile/master cells",
+    "primary_comparator": "maximum aggregate constrained raw among fixed_8,fixed_24,static_3x24_1x8",
+    "confirm": {
+      "minimum_mpc_to_best_simple_aggregate_ratio": 1.05,
+      "minimum_replay_surrogate_coverage": 1.0,
+      "calibrated_surrogate_misses": 0,
+      "minimum_scalar_1_10_misses": 1,
+      "method_position_count_per_cell": 1,
+      "paired_repetitions_complete_fraction": 1.0,
+      "attribution_fixtures_pass": 3,
+      "state_machine_fixtures_pass": 11,
+      "deadline_fixtures_pass": 2,
+      "invalid_timeout_or_overage_count": 0
+    }
+  }
+}

@@ -8,9 +8,9 @@
   "output_format": "markdown+code",
   "idea_dna": {
     "problem": "Which source-compliant candidate-generation and allocation policy maximizes expected competition score across evaluated model/guardrail cells without generation or replay timeout?",
-    "assumption": "The source-authentic 24-versus-8 split reflects a boundary/context tradeoff that one exact nested sentinel can identify in controlled regimes, while a calibrated boundary-aware replay proxy and observable 24-to-8-to-1 transitions can preserve feasibility and salvage shorter prefixes.",
+    "assumption": "The source-authentic 24-versus-8 split reflects a resource bottleneck that one exact nested sentinel can exploit in controlled regimes, while a first-message-correlated replay surrogate can preserve feasibility; MPC is worthwhile only if it beats fixed8, fixed24 and a static 3:1 mixture under counterbalanced timing.",
     "assumption_source": "SDK source plus the 360-row profile artifact and preregistered calibration audit: scalar 1.10 misses 84/90 retained 8/24 pairs, while r_proxy=1.25*c_m+6.25*c_1 covers 54/54 heldout pairs and yields proxy-valued MPC/fixed8 ratio 1.443. Official transfer is withheld.",
-    "novelty_claim": "Competition-method claim only: Calibrated MPC-24 replaces fixed-8 with one observable, boundary-aware sentinel controller and total verified 24-to-8-to-1 state machine. V5 claims controlled Phase-3 value only; no official-score or academic novelty claim is made."
+    "novelty_claim": "Competition-method claim only: Counterbalanced Calibrated MPC-24 replaces fixed density with a sentinel selector plus measured replay surrogate. Fallback, attribution and deadline are safety controls, not contribution components. V6 claims controlled value versus the strongest frozen simple policy only."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -32,8 +32,8 @@
     "Replay-safe core-first single-post floor",
     "Silent unique-domain wording as a raced arm"
   ],
-  "active_hypothesis": "On the first frozen controlled Phase-3 run, Calibrated MPC-24 will cover every actual replay cost, never lose to fixed8 in any of 12 cells, exceed fixed8 by at least 10% in aggregate, and show at least 10% fallback value in all delayed-context cells with zero invalidity or budget overage",
-  "active_hypothesis_artifact": "research-log/136-hypothesis-iter-5-mpc24-calibrated.md",
+  "active_hypothesis": "On the first four-repetition counterbalanced controlled Phase-3 batch, MPC-24 will cover every actual replay cost and achieve aggregate constrained raw at least 1.05 times the best of fixed8, fixed24 and a static 3x24:1x8 mixture with complete position balance and zero invalidity or overage",
+  "active_hypothesis_artifact": "research-log/140-hypothesis-iter-6-mpc24-counterbalanced.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution."
@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V5 review integrity PASS at 640/640 lines/SHA ddd18c6... but round 5 returned NEEDS_REVISION. The 90-second reserve makes the frozen 6-second Phase3 impossible; root 9000/0.90 and Phase3 6-second replay budgets conflict; fixed method order confounds floor-based wall-time capacity; fallback/attribution are authored safety fixtures rather than measured components; fixed24/static mixture lack decision rules; c1 is only a correlated boundary surrogate and taxonomy should be Resource Bottleneck. Verbatim report research-log/139; budget 5/12. No Phase3/attack/Kaggle mutation.",
+      "evidence": "V6 research-log/140 plus v3 config/checker freeze one canonical clock (0.1 reserve, 6s generation/replay, 120s outer), time-zero admissibility, four Latin-square orders, and primary MPC>=1.05x max(fixed8,fixed24,static3:1). Fallback/attribution/deadline are safety controls; two measured contribution components remain; c1 is a correlated scale surrogate and taxonomy is Resource Bottleneck. Author checker PASS; review budget 5/12 before dispatch; no Phase3/attack/Kaggle mutation.",
       "parent": "T046"
     }
   ],
