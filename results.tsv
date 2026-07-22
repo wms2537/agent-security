@@ -43,6 +43,6 @@ orf-p4-generalization	all_generalization_masters_clear_fraction	1.0	beat-baselin
 orf-p4-scaling	all_scale_master_cells_clear_fraction	1.0	beat-baseline	high	1.000000000000	confirm	0.583507538	0.031398170	keep	all 3 masters x nested 40/160/320-profile cells must gain at least 5 percent
 porf-c3-profile-v2	deterministic_profiles_passed	5	match-baseline	high	5	confirm	1.411659241	57.762814461	keep	five exact joint-cap profiles selected their frozen expected arms
 porf-c3-profile-v2	sdk_stability_fraction	1.0	match-baseline	high	0.666666666667	disconfirm	1.411659241	57.762814461	discard	6/9 frozen expectations passed; all per-turn masters unexpectedly selected m24 because trusted replay construction adds fixed per-candidate cost
-mpc24-c3-replay-cal-v1	heldout_replay_envelope_coverage	1.0	match-baseline	high					exploratory	structural gamma*c_m+kappa*c_1 proxy calibrated on replicates 0-2 and tested on 3-4
-mpc24-c3-replay-cal-v1	heldout_cells_ge_fixed8_fraction	1.0	match-baseline	low					exploratory	proxy-valued controller must be no worse than fixed8 in every retained cell
-mpc24-c3-replay-cal-v1	proxy_controller_to_fixed8_ratio	1.10	beat-baseline	low					exploratory	proxy must be used for both selection and capacity; actual future replay costs cannot grant capacity
+mpc24-c3-replay-cal-v1	heldout_replay_envelope_coverage	1.0	match-baseline	high	1.000000000000	confirm	NA	0.025844213	exploratory	structural gamma*c_m+kappa*c_1 proxy calibrated on replicates 0-2 and tested on 3-4
+mpc24-c3-replay-cal-v1	heldout_cells_ge_fixed8_fraction	1.0	match-baseline	low	1.000000000000	confirm	NA	0.025844213	exploratory	proxy-valued controller was no worse than fixed8 in all 9 retained cells
+mpc24-c3-replay-cal-v1	proxy_controller_to_fixed8_ratio	1.10	beat-baseline	low	1.443010752688	confirm	NA	0.025844213	exploratory	the same proxy controlled selection and capacity; actual held-out replay cost only tested coverage

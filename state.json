@@ -432,7 +432,7 @@
       "phase": "2",
       "desc": "Freeze and independently theory-review the Cycle-3 MPC-24 predictive engineering hypothesis before Phase 3 or Kaggle mutation",
       "status": "in_progress",
-      "evidence": "V4 review integrity PASS at 745/745 lines/SHA ac159271... but round 4 NEEDS_REVISION. Verbatim report research-log/133. Replay calibration protocol research-log/134 freezes a structural gamma*c_m+kappa*c_1 proxy, calibration reps 0-2, heldout reps 3-4, complete reconstructed provenance and three blank exploratory prediction rows before one read-only audit. Budget 4/12; no Phase-3, attack or Kaggle mutation.",
+      "evidence": "V4 round 4 NEEDS_REVISION is preserved verbatim in research-log/133. The preregistered read-only replay audit then confirmed 54/54 heldout envelope coverage, 9/9 MPC>=fixed8 cells and proxy-valued aggregate ratio 1.443010752688 using `r_proxy=1.25*c_m+6.25*c_1`; it binds freeze/output commits and 9 generating dependencies. Result research-log/135 is exploratory with no official inference. Budget 4/12; v5 not yet frozen; no Phase-3, attack or Kaggle mutation.",
       "parent": "T046"
     }
   ],
