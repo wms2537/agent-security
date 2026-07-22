@@ -701,6 +701,12 @@
       "apply_when": "A Phase-2 engineering hypothesis uses sub-second wall-clock mocks or selects the fastest template/arm before comparing a derived rate.",
       "source": "research-log/118-cycle3-baseline-link-and-t006-reproducibility-audit.md",
       "recurrences": 1
+    },
+    {
+      "lesson": "Generation cost measured on a reused attack environment omits the evaluator's fresh environment/agent construction per replay candidate; candidate multiplicity can amortize this hidden replay-only fixed term even when agent action latency is linear.",
+      "apply_when": "A competition allocator projects replay capacity from attack-time reset/interact measurements or compares candidate message multiplicities.",
+      "source": "research-log/120-porf-profile-recovery-result.md",
+      "recurrences": 1
     }
   ],
   "best_state": {
@@ -986,7 +992,9 @@
       "round1_disposition": "ACCEPTED AND EVIDENCE-AUDITED — note 118 links the exact conservative commit 8c44eb4 kernel at 12:47 UTC to the 12:49 submission scoring 69.570, but an unchanged T006 rerun fails its negative control (observed multi/single 1.1256 > 1.10). Withdraw T006 ratios as stable bottleneck evidence; build a deterministic joint-cap profile before v2; isolate one selector and freeze equal-arm controls.",
       "profile_recovery": "REQUIRED BEFORE V2 — exact T006 code SHA identities pass, but `comp/.venv/bin/python experiments/multi_message_eval.py` exits 1 because the per-turn negative selects multi_message. New exploratory profile must separate virtual-cost allocator correctness from real-SDK mechanics, hold template selection fixed, use equal replication and record every run.",
       "profile_recovery_protocol": "FROZEN UNRUN — note 119, config porf-c3-profile-v2 and runner porf_c3_profile_v2 fix five deterministic joint-cap profiles plus 3 SDK profiles x 3 masters x 4 arms x 5 paired generation/replay replicates; fixed plain template; primary requires 5/5 and 9/9 decisions. Prediction rows appended before execution.",
-      "status": "NEEDS REVISION — profile recovery is frozen but unrun; v1 remains non-implementable, final review round remains unspent, and no Kaggle push/commit run/submission occurred"
+      "profile_recovery_result": "DISCONFIRM/PASS ARTIFACT — immutable attempt envelope is FAIL with deterministic 5/5, SDK 6/9, stability 0.666666666667 and 360 rows. All per-turn masters unexpectedly selected m24 because source-authentic fresh replay-environment construction adds fixed candidate-boundary cost; reset-heavy selected 24/24/24 and context-cliff selected 8/8/8. Full analysis: note 120.",
+      "new_mechanism": "REPLAY-CONSTRUCTION SCOPE MISMATCH — attack generation times reset+interact on a reused environment, while trusted replay constructs+resets+interacts per candidate. Paired controlled measurements expose a replay-only fixed term that long candidates amortize, but context cliffs require an exact finite frontier. This is mock mechanics evidence, not target prevalence.",
+      "status": "NEEDS REVISION — v2 may now isolate replay-construction-aware multiplicity selection using the linked 69.570 target baseline and the 360-row exploratory profile; final review round remains unspent; no Kaggle push/commit run/submission occurred"
     }
   }
 }

@@ -1,0 +1,17 @@
+command=comp/.venv/bin/python -I experiments/porf_c3_profile_v2.py --config experiments/configs/porf-c3-profile-v2.json --attempt-dir experiments/runs/porf-c3-profile-v2
+status=FAIL
+deterministic_profiles_passed=5/5
+sdk_decisions_passed=6/9
+stability_fraction=0.666666666667
+sample_rows=360
+runtime_s=57.762814461
+max_rss_gb=1.411659241
+decision=per_turn_linear master=41 selected=24 expected_ok=false max_replay_gen_ratio=3.137901
+decision=per_turn_linear master=42 selected=24 expected_ok=false max_replay_gen_ratio=3.070086
+decision=per_turn_linear master=43 selected=24 expected_ok=false max_replay_gen_ratio=3.620353
+decision=reset_heavy master=41 selected=24 expected_ok=true max_replay_gen_ratio=2.494685
+decision=reset_heavy master=42 selected=24 expected_ok=true max_replay_gen_ratio=2.696213
+decision=reset_heavy master=43 selected=24 expected_ok=true max_replay_gen_ratio=2.755875
+decision=context_cliff master=41 selected=8 expected_ok=true max_replay_gen_ratio=5.151831
+decision=context_cliff master=42 selected=8 expected_ok=true max_replay_gen_ratio=5.429977
+decision=context_cliff master=43 selected=8 expected_ok=true max_replay_gen_ratio=5.543718

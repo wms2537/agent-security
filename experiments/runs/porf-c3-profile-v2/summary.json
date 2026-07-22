@@ -1,0 +1,646 @@
+{
+  "deterministic": [
+    {
+      "expected_selected": 1,
+      "profile": "time_bound_linear",
+      "rate_selected": 1,
+      "selected": 1,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 120,
+          "generation_cost": 1.0,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 18.0,
+          "replay_cost": 1.0,
+          "total_raw": 2160.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 5,
+          "generation_cost": 24.0,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 16.083333333333332,
+          "replay_cost": 24.0,
+          "total_raw": 1930.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 30,
+          "generation_cost": 4.0,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 16.5,
+          "replay_cost": 4.0,
+          "total_raw": 1980.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 15,
+          "generation_cost": 8.0,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 16.25,
+          "replay_cost": 8.0,
+          "total_raw": 1950.0
+        }
+      }
+    },
+    {
+      "expected_selected": 24,
+      "profile": "reset_heavy",
+      "rate_selected": 24,
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 20,
+          "generation_cost": 6.0,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 3.0,
+          "replay_cost": 6.0,
+          "total_raw": 360.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 4,
+          "generation_cost": 29.0,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 13.310344827586206,
+          "replay_cost": 29.0,
+          "total_raw": 1544.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 13,
+          "generation_cost": 9.0,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 7.333333333333333,
+          "replay_cost": 9.0,
+          "total_raw": 858.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 9,
+          "generation_cost": 13.0,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 10.0,
+          "replay_cost": 13.0,
+          "total_raw": 1170.0
+        }
+      }
+    },
+    {
+      "expected_selected": 8,
+      "profile": "interior_cliff",
+      "rate_selected": 8,
+      "selected": 8,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 20,
+          "generation_cost": 6.0,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 3.0,
+          "replay_cost": 6.0,
+          "total_raw": 360.0
+        },
+        "24": {
+          "admissible": false,
+          "candidate_count": 4,
+          "generation_cost": 29.0,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 0.0,
+          "replay_cost": 29.0,
+          "total_raw": 0.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 13,
+          "generation_cost": 9.0,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 7.333333333333333,
+          "replay_cost": 9.0,
+          "total_raw": 858.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 9,
+          "generation_cost": 13.0,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 10.0,
+          "replay_cost": 13.0,
+          "total_raw": 1170.0
+        }
+      }
+    },
+    {
+      "expected_selected": 24,
+      "profile": "candidate_cap_binding",
+      "rate_selected": 1,
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 3,
+          "generation_cost": 1.0,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 18.0,
+          "replay_cost": 1.0,
+          "total_raw": 54.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 3,
+          "generation_cost": 24.0,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 16.083333333333332,
+          "replay_cost": 24.0,
+          "total_raw": 1158.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 3,
+          "generation_cost": 4.0,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 16.5,
+          "replay_cost": 4.0,
+          "total_raw": 198.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 3,
+          "generation_cost": 8.0,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 16.25,
+          "replay_cost": 8.0,
+          "total_raw": 390.0
+        }
+      }
+    },
+    {
+      "expected_selected": 8,
+      "profile": "rate_vs_joint_cap_counterexample",
+      "rate_selected": 4,
+      "selected": 8,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 5,
+          "generation_cost": 0.5,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 36.0,
+          "replay_cost": 0.5,
+          "total_raw": 90.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 1,
+          "generation_cost": 20.0,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 19.3,
+          "replay_cost": 20.0,
+          "total_raw": 386.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 5,
+          "generation_cost": 1.0,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 66.0,
+          "replay_cost": 1.0,
+          "total_raw": 330.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 5,
+          "generation_cost": 2.1,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 61.904761904761905,
+          "replay_cost": 2.1,
+          "total_raw": 650.0
+        }
+      }
+    }
+  ],
+  "deterministic_profiles_passed": 5,
+  "deterministic_profiles_total": 5,
+  "environment": {
+    "pid": 2832665,
+    "platform": "Linux-6.11.0-29-generic-x86_64-with-glibc2.40",
+    "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [GCC 12.3.0]"
+  },
+  "max_rss_gb": 1.4116592407226562,
+  "runtime_s": 57.76281446102075,
+  "sample_rows": 360,
+  "schema_version": "porf-c3-profile-result-v2",
+  "sdk_decisions": [
+    {
+      "expected_ok": false,
+      "master": 41,
+      "max_paired_replay_generation_ratio": 3.1379008164046285,
+      "profile": "per_turn_linear",
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 32,
+          "generation_cost": 0.07475228200200945,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 145.84754186245425,
+          "replay_cost": 0.12341654696501791,
+          "total_raw": 576.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 6,
+          "generation_cost": 0.5774219949962571,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 587.2111825398102,
+          "replay_cost": 0.6573444298701361,
+          "total_raw": 2316.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 18,
+          "generation_cost": 0.11130884196609259,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 301.8069263393187,
+          "replay_cost": 0.21868285397067666,
+          "total_raw": 1188.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 13,
+          "generation_cost": 0.21634809498209506,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 454.8564472976731,
+          "replay_cost": 0.2858044571476057,
+          "total_raw": 1690.0
+        }
+      }
+    },
+    {
+      "expected_ok": false,
+      "master": 42,
+      "max_paired_replay_generation_ratio": 3.0700864587937575,
+      "profile": "per_turn_linear",
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 27,
+          "generation_cost": 0.06428916391450912,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 124.66733126099852,
+          "replay_cost": 0.144384257029742,
+          "total_raw": 486.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 6,
+          "generation_cost": 0.5811423070263118,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 599.269583131118,
+          "replay_cost": 0.644117457093671,
+          "total_raw": 2316.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 18,
+          "generation_cost": 0.10128607205115259,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 312.75213136912885,
+          "replay_cost": 0.21102973690722138,
+          "total_raw": 1188.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 13,
+          "generation_cost": 0.2174445620039478,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 445.11919491325915,
+          "replay_cost": 0.2920566030079499,
+          "total_raw": 1690.0
+        }
+      }
+    },
+    {
+      "expected_ok": false,
+      "master": 43,
+      "max_paired_replay_generation_ratio": 3.620353233684682,
+      "profile": "per_turn_linear",
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 28,
+          "generation_cost": 0.05183740903157741,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 129.888295505955,
+          "replay_cost": 0.13858061598148197,
+          "total_raw": 504.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 6,
+          "generation_cost": 0.5919837789842859,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 596.9740656787092,
+          "replay_cost": 0.6465942529030144,
+          "total_raw": 2316.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 19,
+          "generation_cost": 0.13153442193288356,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 317.4927828360735,
+          "replay_cost": 0.20787874108646065,
+          "total_raw": 1254.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 13,
+          "generation_cost": 0.22225467092357576,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 425.5297614591859,
+          "replay_cost": 0.30550154601223767,
+          "total_raw": 1690.0
+        }
+      }
+    },
+    {
+      "expected_ok": true,
+      "master": 41,
+      "max_paired_replay_generation_ratio": 2.4946852072810994,
+      "profile": "reset_heavy",
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 25,
+          "generation_cost": 0.07539265207014978,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 115.80764806272215,
+          "replay_cost": 0.15543014905415475,
+          "total_raw": 450.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 17,
+          "generation_cost": 0.14339035900775343,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 1684.9186713809136,
+          "replay_cost": 0.229091176064685,
+          "total_raw": 6562.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 20,
+          "generation_cost": 0.0916612200671807,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 334.10116511334587,
+          "replay_cost": 0.19754495611414313,
+          "total_raw": 1320.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 21,
+          "generation_cost": 0.10890000802464783,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 684.366233705173,
+          "replay_cost": 0.18995677109342068,
+          "total_raw": 2730.0
+        }
+      }
+    },
+    {
+      "expected_ok": true,
+      "master": 42,
+      "max_paired_replay_generation_ratio": 2.6962128850438187,
+      "profile": "reset_heavy",
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 21,
+          "generation_cost": 0.09473451902158558,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 94.59264413819753,
+          "replay_cost": 0.19028963788878173,
+          "total_raw": 378.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 16,
+          "generation_cost": 0.14233229402452707,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 1614.4126668724784,
+          "replay_cost": 0.23909624095540494,
+          "total_raw": 6176.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 22,
+          "generation_cost": 0.10437409009318799,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 375.19634057860253,
+          "replay_cost": 0.17590789904352278,
+          "total_raw": 1452.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 20,
+          "generation_cost": 0.12030130403582007,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 661.7793885459166,
+          "replay_cost": 0.1964400860015303,
+          "total_raw": 2600.0
+        }
+      }
+    },
+    {
+      "expected_ok": true,
+      "master": 43,
+      "max_paired_replay_generation_ratio": 2.755874966874242,
+      "profile": "reset_heavy",
+      "selected": 24,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 21,
+          "generation_cost": 0.09200005105230957,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 96.89285967900234,
+          "replay_cost": 0.1857722030254081,
+          "total_raw": 378.0
+        },
+        "24": {
+          "admissible": true,
+          "candidate_count": 16,
+          "generation_cost": 0.17517289891839027,
+          "raw_per_candidate": 386.0,
+          "raw_per_replay_second": 1607.8188110807168,
+          "replay_cost": 0.24007680302020162,
+          "total_raw": 6176.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 21,
+          "generation_cost": 0.10227281705010682,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 350.0697042671497,
+          "replay_cost": 0.18853388109710068,
+          "total_raw": 1386.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 19,
+          "generation_cost": 0.09870429500006139,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 640.2743543118672,
+          "replay_cost": 0.20303796196822077,
+          "total_raw": 2470.0
+        }
+      }
+    },
+    {
+      "expected_ok": true,
+      "master": 41,
+      "max_paired_replay_generation_ratio": 5.151830500193077,
+      "profile": "context_cliff",
+      "selected": 8,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 40,
+          "generation_cost": 0.02147299295756966,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 180.24231239176592,
+          "replay_cost": 0.09986556298099458,
+          "total_raw": 720.0
+        },
+        "24": {
+          "admissible": false,
+          "candidate_count": 28,
+          "generation_cost": 0.07721707096789032,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 0.0,
+          "replay_cost": 0.13971796503756195,
+          "total_raw": 0.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 38,
+          "generation_cost": 0.02802885405253619,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 635.510549305474,
+          "replay_cost": 0.10385350813157856,
+          "total_raw": 2508.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 28,
+          "generation_cost": 0.03857579501345754,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 935.5295019677853,
+          "replay_cost": 0.1389587391167879,
+          "total_raw": 3640.0
+        }
+      }
+    },
+    {
+      "expected_ok": true,
+      "master": 42,
+      "max_paired_replay_generation_ratio": 5.429977290501259,
+      "profile": "context_cliff",
+      "selected": 8,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 33,
+          "generation_cost": 0.046550865983590484,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 152.98465404414995,
+          "replay_cost": 0.11765886005014181,
+          "total_raw": 594.0
+        },
+        "24": {
+          "admissible": false,
+          "candidate_count": 25,
+          "generation_cost": 0.08101909700781107,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 0.0,
+          "replay_cost": 0.1591603880515322,
+          "total_raw": 0.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 29,
+          "generation_cost": 0.03116656094789505,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 494.01321902442294,
+          "replay_cost": 0.13359966385178268,
+          "total_raw": 1914.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 28,
+          "generation_cost": 0.035708302981220186,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 914.7050357445564,
+          "replay_cost": 0.14212231803685427,
+          "total_raw": 3640.0
+        }
+      }
+    },
+    {
+      "expected_ok": true,
+      "master": 43,
+      "max_paired_replay_generation_ratio": 5.543717774535872,
+      "profile": "context_cliff",
+      "selected": 8,
+      "table": {
+        "1": {
+          "admissible": true,
+          "candidate_count": 38,
+          "generation_cost": 0.02107902301941067,
+          "raw_per_candidate": 18.0,
+          "raw_per_replay_second": 172.57442114954276,
+          "replay_cost": 0.10430282703600824,
+          "total_raw": 684.0
+        },
+        "24": {
+          "admissible": false,
+          "candidate_count": 24,
+          "generation_cost": 0.06834300502669066,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 0.0,
+          "replay_cost": 0.16461909201461822,
+          "total_raw": 0.0
+        },
+        "4": {
+          "admissible": true,
+          "candidate_count": 36,
+          "generation_cost": 0.02793402597308159,
+          "raw_per_candidate": 66.0,
+          "raw_per_replay_second": 601.0668614855955,
+          "replay_cost": 0.10980475589167327,
+          "total_raw": 2376.0
+        },
+        "8": {
+          "admissible": true,
+          "candidate_count": 32,
+          "generation_cost": 0.049541186075657606,
+          "raw_per_candidate": 130.0,
+          "raw_per_replay_second": 1060.4976542462277,
+          "replay_cost": 0.12258395808748901,
+          "total_raw": 4160.0
+        }
+      }
+    }
+  ],
+  "sdk_decisions_passed": 6,
+  "sdk_decisions_total": 9,
+  "stability_fraction": 0.6666666666666666,
+  "status": "FAIL"
+}
