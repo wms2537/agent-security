@@ -396,6 +396,14 @@
       "status": "done",
       "evidence": "Primary-source and public-artifact audit 112 returns novelty NO-GO and data NO-GO. AgentDevel/PACE/SEA/GSME/HASE/SEVerA and the self-evolving-safety literature occupy the gate, immutable-evaluator, constraint-plus-utility and audit concepts. AHE/Rethinking/Meta-Harness/A-Evolve/MaMa artifacts expose code, endpoints or aggregates but not the complete candidate diff x decision x security x rejected-candidate lineage. No hypothesis/review/Phase3 action; research 5/5, review 23/30.",
       "parent": "T042"
+    },
+    {
+      "id": "T044",
+      "phase": "2",
+      "desc": "Complete the mandatory Cycle-2 SciAgent retrospective before accepting the user-directed return to Kaggle competition optimization",
+      "status": "done",
+      "evidence": "Verification command checked both required sections, eight complete process proposals and exactly one workspace change; output `cycle2_retrospective_check=PASS sections=2 proposals=8 workspace_changes=1`. Note 113 mines learnings, failures, 12 adverse review dispatches, budgets/gates and user corrections. User authorization quoted there permits Kaggle actions but conditions submission on confidence.",
+      "parent": "T043"
     }
   ],
   "parked_candidates": [
@@ -918,6 +926,13 @@
       "residual_gap": "A future Evidence Gap x Empirical Mapping corpus/protocol study could be novel if it publishes a complete real candidate lineage, externally anchored invariant suite, candidate-level security/utility for accepts and rejects, negative obligations, matched task-only/sampling controls and an immutable ledger.",
       "review_budget": "UNCHANGED — 23/30. No hypothesis was frozen or dispatched because novelty and data entry gates failed.",
       "status": "CONCLUDED NO-GO AT PHASE 2 — provisional thresholds retired; no Phase-3/framework/model/attack/held-out/Kaggle action; Cycle-2 portfolio closed"
+    },
+    "retrospective_cycle2": {
+      "artifact": "research-log/113-cycle2-retrospective.md",
+      "evidence_sources": "COMPLETE — learnings, tried/failed, reviewer history, budgets/gates and user corrections mined.",
+      "verification": "PASS — required sections 2/2, process proposals 8/8, skill files unchanged.",
+      "user_redirection": "AUTHORIZED — user verbatim authorizes all Kaggle actions, requires submission only when confident, and directs rigorous creative SciAgent work.",
+      "status": "COMPLETE — Cycle 2 closed; Cycle 3 may replace the invalidated problem anchor"
     }
   }
 }
