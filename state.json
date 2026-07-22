@@ -695,6 +695,12 @@
       "apply_when": "A Phase-1/2 self-evolution study proposes to measure security debt or the effect of candidate acceptance using published harness artifacts.",
       "source": "research-log/112-iphe-primary-audit-and-portfolio-closure.md",
       "recurrences": 1
+    },
+    {
+      "lesson": "A one-sample wall-clock race across several fast mock arms is not a stable bottleneck profile; host jitter plus winner selection can reverse a thresholded routing decision even when code and seeds are unchanged.",
+      "apply_when": "A Phase-2 engineering hypothesis uses sub-second wall-clock mocks or selects the fastest template/arm before comparing a derived rate.",
+      "source": "research-log/118-cycle3-baseline-link-and-t006-reproducibility-audit.md",
+      "recurrences": 1
     }
   ],
   "best_state": {
@@ -977,8 +983,9 @@
       "failure_metrics": "COMPLETE — exact success/refute/fail rules, seven frozen mechanism profiles, six one-change ablations, eight assumptions with validity domains, seven confidence checks and ten failure modes are specified.",
       "taxonomy_anti_stacking": "COMPLETE — Scope Mismatch x Optimization/Search x decouple; intermediate-optimum prediction differs from the plain {1,24} stack; measured bottlenecks, per-component ablations and end-to-end constrained contribution are explicit.",
       "theory_review": "ROUND 1 NEEDS_REVISION — reviewer and committed line counts agree 514/514. Taxonomy ACCEPTABLE and fixed bias surface PASS, but justification, mathematical validity, logic, assumptions and Occam all need revision; anti-stacking FAIL. Full verbatim report: research-log/117. Budget 1/2.",
-      "round1_disposition": "ACCEPTED — withdraw unsupported >=95 scientific forecast; isolate one constrained multiplicity-selector change; solve generation/replay/candidate constraints; freeze exact constructed mechanism profiles and equal-budget controls; make no target-transfer claim; reserve Kaggle evidence for the separate submission-confidence gate.",
-      "status": "NEEDS REVISION — v1 is not implementable as a confirmatory design; final review round remains unspent; no implementation, Kaggle push, commit run or submission"
+      "round1_disposition": "ACCEPTED AND EVIDENCE-AUDITED — note 118 links the exact conservative commit 8c44eb4 kernel at 12:47 UTC to the 12:49 submission scoring 69.570, but an unchanged T006 rerun fails its negative control (observed multi/single 1.1256 > 1.10). Withdraw T006 ratios as stable bottleneck evidence; build a deterministic joint-cap profile before v2; isolate one selector and freeze equal-arm controls.",
+      "profile_recovery": "REQUIRED BEFORE V2 — exact T006 code SHA identities pass, but `comp/.venv/bin/python experiments/multi_message_eval.py` exits 1 because the per-turn negative selects multi_message. New exploratory profile must separate virtual-cost allocator correctness from real-SDK mechanics, hold template selection fixed, use equal replication and record every run.",
+      "status": "NEEDS REVISION — v1 is not implementable and the old engineering profile is unstable; final review round remains unspent; no source mutation, Kaggle push, commit run or submission"
     }
   }
 }
