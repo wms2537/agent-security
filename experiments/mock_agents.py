@@ -53,6 +53,30 @@ _URL_RE = re.compile(r'https?://[^\s"\'<>]+')
 _HARMONY = "<|channel|>"
 _JSON_RE = re.compile(r'"tool"\s*:\s*"http\.post"')
 
+# Internal markers for local SCOC mechanism simulation.
+MECH_PREFIX_FULL = "[FULL]"
+MECH_PREFIX_COMPACT = "[COMPACT]"
+MECH_PREFIX_GENERIC = "[GENERIC]"
+MECH_PREFIX_DEST = "[DEST]"
+MECH_PREFIX_BLOCKED = "[BLOCKED]"
+
+
+def _variant(text: str) -> str:
+    if text.startswith(MECH_PREFIX_FULL):
+        return "full"
+    if text.startswith(MECH_PREFIX_COMPACT):
+        return "compact"
+    if text.startswith(MECH_PREFIX_GENERIC):
+        return "generic"
+    if text.startswith(MECH_PREFIX_DEST):
+        return "dest"
+    if text.startswith(MECH_PREFIX_BLOCKED):
+        return "blocked"
+    stripped = text.strip()
+    if stripped.startswith("http.post "):
+        return "dest"
+    return "legacy"
+
 
 class _Base:
     """Shared http.post-emitting logic; subclasses gate WHEN they comply."""
@@ -186,6 +210,94 @@ class ContextLimitedAgent(_Base):
                 time.sleep(self.latency_s)
             return FinalResponseDecision(text="Context limit reached.")
         return super().next_action(history=history, tools=tools)
+
+
+class SCOCChainMechanismAgent(_Base):
+    """Mechanism-specific mock for local SCOC harness work.
+
+    Supported modes:
+    - chain_full
+    - chain_compact_explicit
+    - chain_generic
+    - chain_scoC
+    - chain_blocked_anchor
+    - cold_operand_only
+    """
+
+    def __init__(self, mode: str = "chain_full", latency_s: float = 0.0) -> None:
+        self.mode = mode
+        self.latency_s = latency_s
+        self._anchor_success = False
+        self._anchor_seen = False
+
+    def _is_full(self, msg: str) -> bool:
+        return _variant(msg) == "full" or _variant(msg) == "legacy"
+
+    def _is_compact(self, msg: str) -> bool:
+        return _variant(msg) == "compact"
+
+    def _is_generic(self, msg: str) -> bool:
+        return _variant(msg) in {"generic", "compact"}
+
+    def _is_dest(self, msg: str) -> bool:
+        return _variant(msg) == "dest"
+
+    def _is_blocked(self, msg: str) -> bool:
+        return _variant(msg) == "blocked"
+
+    def _should_fire(self, msg: str) -> bool:
+        v = _variant(msg)
+        if self.mode == "chain_full":
+            return self._is_full(msg)
+        if self.mode == "chain_compact_explicit":
+            return self._is_compact(msg)
+        if self.mode == "chain_generic":
+            return self._is_generic(msg)
+        if self.mode == "chain_scoC":
+            if not self._anchor_seen:
+                self._anchor_seen = True
+                if self._is_full(msg):
+                    self._anchor_success = True
+                    return True
+                if self._is_blocked(msg):
+                    return False
+                # Anchor succeeded only under explicit full syntax.
+                return False
+            if not self._anchor_success:
+                return False
+            return self._is_dest(msg) or self._is_compact(msg) or self._is_generic(msg)
+        if self.mode == "chain_blocked_anchor":
+            if not self._anchor_seen:
+                self._anchor_seen = True
+                return False
+            # continuation without a true anchor, simulating over-generic leakage.
+            return self._is_dest(msg) or self._is_compact(msg) or self._is_generic(msg)
+        if self.mode == "cold_operand_only":
+            # no anchor conditioning and no payload; near-zero in this harness.
+            return False
+        # Single full-post floor and unknown modes fall back to legacy compatibility.
+        return self._is_full(msg)
+
+    def reset_state(self) -> None:
+        self._anchor_success = False
+        self._anchor_seen = False
+
+    def snapshot_state(self) -> dict[str, Any]:
+        return {
+            "version": 1,
+            "backend": "mock-scoC",
+            "data": {
+                "mode": self.mode,
+                "anchor_success": self._anchor_success,
+                "anchor_seen": self._anchor_seen,
+            },
+        }
+
+    def restore_state(self, snapshot: Any) -> None:
+        data = snapshot.get("data", {}) if isinstance(snapshot, dict) else {}
+        self.mode = str(data.get("mode", self.mode))
+        self._anchor_success = bool(data.get("anchor_success", False))
+        self._anchor_seen = bool(data.get("anchor_seen", False))
 
 
 # Back-compat alias used by older harness code.

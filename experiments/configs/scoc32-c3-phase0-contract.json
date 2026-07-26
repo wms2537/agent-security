@@ -1,0 +1,88 @@
+{
+  "schema_version": "scoc32-c3-phase0-contract-v1",
+  "hypothesis_id": "scoc32",
+  "phase": 0,
+  "cycle": 3,
+  "iteration": 5,
+  "active_mode": "source_compatible",
+  "problem": {
+    "name": "SCOC-32",
+    "claim": "Anchor once, transmit destination operands for later messages to reduce exact-seconds-per-raw under fixed-chain semantics."
+  },
+  "targets": {
+    "leader_score": 110.235,
+    "incumbent_score": 69.570,
+    "public_class_ref": 89.455,
+    "min_qualifying_control": 88.188
+  },
+  "mechanisms": {
+    "chain_lengths": [
+      1,
+      4,
+      8,
+      16,
+      24,
+      32
+    ],
+    "candidate_bound": 32,
+    "max_tool_hops": 8,
+    "max_replays_per_candidate": 32,
+    "comparison_set": [
+      "SINGLE_FULL",
+      "CHAIN_FULL",
+      "CHAIN_COMPACT_EXPLICIT",
+      "CHAIN_SCOC",
+      "CHAIN_GENERIC",
+      "CHAIN_BLOCKED_ANCHOR",
+      "COLD_OPERAND_ONLY"
+    ],
+    "active_arms": [
+      "SINGLE_FULL",
+      "CHAIN_SCOC"
+    ],
+    "control_arms": [
+      "CHAIN_COMPACT_EXPLICIT",
+      "CHAIN_GENERIC",
+      "COLD_OPERAND_ONLY",
+      "CHAIN_BLOCKED_ANCHOR"
+    ]
+  },
+  "scoring_math": {
+    "raw_single_full": "18*m",
+    "raw_chain": "16*m + 2",
+    "novelty_ratio": "(16*m + 2)/(18*m)",
+    "coverage_mode": "exact_event_coverage",
+    "clear_coverage_threshold": 0.95
+  },
+  "bridge": {
+    "incumbent_bridge_required_ratio": 1.584519189306,
+    "public_assoc_bridge_required_ratio": 1.232295567604,
+    "m32_max_chain_to_single_ratio_vs_incumbent": 0.563174694970,
+    "scoC_1_25_vs_source_control_min": 1.25,
+    "scoC_1_25_vs_public_assoc": {
+      "control": 89.455,
+      "required_chain_to_single": 0.724145354873
+    }
+  },
+  "boundaries": {
+    "source_control_reconstruction": "unattributed_source_control_only",
+    "no_kaggle_submit_without_confidence_gate": true,
+    "require_target_envelope_before_transfer_claim": true,
+    "frozen_fields": {
+      "score_math": [
+        "raw_single_full",
+        "raw_chain",
+        "bridge_formulae",
+        "coverage_mode"
+      ]
+    }
+  },
+  "outputs": {
+    "contract_artifacts": [
+      "research-log/189-scoc32-phase0-problem-and-winning-bridge.md",
+      "experiments/configs/evaluation-contract-scoc32-c3.md",
+      "experiments/configs/data-governance-scoc32-c3.md",
+      "experiments/configs/environment-scoc32-c3.md"
+    ]
+  }
+}

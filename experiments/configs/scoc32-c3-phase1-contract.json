@@ -1,0 +1,127 @@
+{
+  "schema_version": "scoc32-c3-phase1-contract-v1",
+  "hypothesis_id": "scoc32",
+  "phase": 1,
+  "cycle": 3,
+  "iteration": 5,
+  "phase0_contract": "experiments/configs/scoc32-c3-phase0-contract.json",
+  "phase0_artifacts": [
+    "research-log/189-scoc32-phase0-problem-and-winning-bridge.md",
+    "research-log/190-scoc32-phase1-decision-archaeology-and-anti-stacking.md",
+    "experiments/configs/evaluation-contract-scoc32-c3.md",
+    "experiments/configs/data-governance-scoc32-c3.md",
+    "experiments/configs/environment-scoc32-c3.md"
+  ],
+  "hypothesis": {
+    "id": "scoc32",
+    "name": "Success-Conditioned Operand Chains",
+    "claim": "replace full instruction-repeat replay with one exact successful anchor then destination-only operands, preserving complete payload and stop semantics under fixed template and guard conditions",
+    "status": "active",
+    "core_contribution": "single-anchor + destination-only continuation semantics",
+    "mechanism_scope": [
+      "candidate template selection mechanism (fixed in scope)",
+      "replay ledger mechanics",
+      "submission workflow"
+    ]
+  },
+  "comparison_set": [
+    "SINGLE_FULL",
+    "CHAIN_FULL",
+    "CHAIN_COMPACT_EXPLICIT",
+    "CHAIN_SCOC",
+    "CHAIN_GENERIC",
+    "CHAIN_BLOCKED_ANCHOR",
+    "COLD_OPERAND_ONLY"
+  ],
+  "required_gates": {
+    "coverage_threshold": 0.95,
+    "incumbent_bridge": 1.584519189306,
+    "control_source_bridge": 88.188,
+    "m32_bridge_vs_incumbent": 0.563174694970,
+    "m32_bridge_vs_source_control": 0.724145354873
+  },
+  "anti_stacking_lock": {
+    "mode": "frozen",
+    "invalidates_on": [
+      {
+        "case": "compact_syntax_dominance",
+        "logic": "CHAIN_COMPACT_EXPLICIT equals SCOC under identical fixed-length raw/sec and coverage"
+      },
+      {
+        "case": "blocked_anchor_dominance",
+        "logic": "CHAIN_BLOCKED_ANCHOR equals or exceeds SCOC under fixed-length raw/sec and coverage"
+      },
+      {
+        "case": "cold_operand_leakage",
+        "logic": "COLD_OPERAND_ONLY shows sustained retained firing under coverage gate"
+      }
+    ]
+  },
+  "scoring_algebra": {
+    "single_raw": "18*m",
+    "chain_raw": "16*m + 2",
+    "coverage_mode": "exact_event_coverage",
+    "coverage_reference": "SINGLE_FULL"
+  },
+  "control_boundaries": {
+    "selected_controls": [
+      {
+        "name": "CHAIN_FULL",
+        "role": "primary_baseline",
+        "mechanistic": "full instruction replay"
+      },
+      {
+        "name": "CHAIN_COMPACT_EXPLICIT",
+        "role": "short-message syntax ablation"
+      },
+      {
+        "name": "CHAIN_GENERIC",
+        "role": "generic chain control"
+      },
+      {
+        "name": "CHAIN_BLOCKED_ANCHOR",
+        "role": "blocked replay control"
+      },
+      {
+        "name": "COLD_OPERAND_ONLY",
+        "role": "operand leakage sentinel"
+      }
+    ],
+    "active_only": [
+      "SINGLE_FULL",
+      "CHAIN_SCOC"
+    ]
+  },
+  "metrics": {
+    "primary": [
+      {
+        "name": "raw_per_sec_gap",
+        "definition": "R_scoC / wall_seconds",
+        "notes": "requires coverage >= 0.95"
+      },
+      {
+        "name": "coverage_overlap",
+        "definition": "exact overlap between CHAIN_* and SINGLE_FULL"
+      }
+    ],
+    "guard": [
+      "coverage",
+      "source_control_reconstruction",
+      "mechanism_equivalence"
+    ]
+  },
+  "frozen_next_task": "T068",
+  "status": "frozen",
+  "mutations_forbidden": {
+    "selectors": true,
+    "harness_rewrite": true,
+    "private_evaluator_adaptation": true,
+    "selector_training": true,
+    "kaggle_submission": "allowed only after Phase-6 submission-confidence gate"
+  },
+  "contracts": {
+    "no_kaggle_submit_without_confidence_gate": true,
+    "no_private_payload_release": true,
+    "require_transfer_evidence": true
+  }
+}

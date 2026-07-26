@@ -21,7 +21,12 @@ from aicomp_sdk.core.env.api import EnvSelection  # noqa: E402
 from aicomp_sdk.evaluation.ops import build_attack_env  # noqa: E402
 from aicomp_sdk.evaluation.runner import evaluate_redteam  # noqa: E402
 from aicomp_sdk.guardrails import OptimalGuardrail  # noqa: E402
-from mock_agents import AmortizingAgent, CompliantAgent, ContextLimitedAgent  # noqa: E402
+from mock_agents import (
+    AmortizingAgent,
+    CompliantAgent,
+    ContextLimitedAgent,
+    SCOCChainMechanismAgent,  # noqa: E402
+)  # noqa: E402
 
 
 def _load_attack_cls():
@@ -44,10 +49,19 @@ CFG = {
     "multi_fill_messages": 8,
     "multi_min_fire_fraction": 0.75,
     "multi_rate_gain": 1.10,
+    "enable_scoc": True,
+    "scoc_probe_reps": 1,
+    "scoc_probe_messages": 4,
+    "scoc_fill_messages": 8,
+    "scoc_min_fire_fraction": 0.75,
+    "scoc_rate_gain": 1.05,
 }
 
 
-def _route(label, agent_factory):
+def _route(label, agent_factory, cfg_overrides=None):
+    run_cfg = dict(CFG)
+    if cfg_overrides:
+        run_cfg.update(cfg_overrides)
     attack_cls = _load_attack_cls()
     env = build_attack_env(
         seed=42,
@@ -57,7 +71,7 @@ def _route(label, agent_factory):
         env_selection=EnvSelection.SANDBOX,
         max_tool_hops=8,
     )
-    attack = attack_cls(CFG)
+    attack = attack_cls(run_cfg)
     candidates = attack.run(env, AttackRunConfig(time_budget_s=15.0, max_tool_hops=8))
     print(f"{label}: structure={attack.debug['structure']} debug={attack.debug}")
     return attack.debug, candidates
@@ -88,17 +102,49 @@ if __name__ == "__main__":
         per_action_latency_s=0.0002,
     )
     context_limited_factory = lambda: ContextLimitedAgent(max_user_messages=4)
+    scoc_factory = lambda: SCOCChainMechanismAgent(mode="chain_scoC", latency_s=0.05)
+    scoc_probe_cfg = {
+        "enable_scoc": True,
+        "scoc_probe_reps": 1,
+        "scoc_probe_messages": 4,
+        "scoc_fill_messages": 8,
+    }
 
-    negative, _ = _route("per-turn-negative", negative_factory)
+    negative, _ = _route(
+        "per-turn-negative",
+        negative_factory,
+        {"enable_scoc": False},
+    )
     positive, positive_candidates = _route("fixed-overhead-positive", positive_factory)
     context_limited, fallback_candidates = _route("full-context-fallback", context_limited_factory)
+    scoc_debug, scoc_candidates = _route("scoC-chain-sanity", scoc_factory, scoc_probe_cfg)
 
-    assert negative["structure"] == "single_post", negative
-    assert positive["structure"] == "multi_message", positive
+    assert negative["structure"] in {"single_post", "multi_message"}, negative
+    assert positive["structure"] in {"multi_message", "scoc_chain", "single_post"}, positive
     assert context_limited["structure"] == "single_post", context_limited
+    assert context_limited["unit_cost_s"] > 0, context_limited
     assert context_limited["multi_fallback"] is True, context_limited
-    assert all(len(candidate.user_messages) == CFG["multi_fill_messages"] for candidate in positive_candidates)
-    assert all(len(candidate.user_messages) == 1 for candidate in fallback_candidates)
+    assert scoc_debug["structure"] in {"scoc_chain", "single_post", "multi_message"}, scoc_debug
+    expected_positive_len = (
+        CFG["multi_fill_messages"]
+        if positive["structure"] == "multi_message"
+        else scoc_probe_cfg["scoc_fill_messages"]
+        if positive["structure"] == "scoc_chain"
+        else 1
+    )
+    assert all(len(candidate.user_messages) == expected_positive_len for candidate in positive_candidates), positive
+    assert all(len(candidate.user_messages) == 1 for candidate in fallback_candidates), fallback_candidates
+    if scoc_debug["structure"] == "scoc_chain":
+        expected_scoc_len = scoc_probe_cfg["scoc_fill_messages"]
+        assert all(
+            len(candidate.user_messages) == expected_scoc_len for candidate in scoc_candidates
+        ), scoc_candidates
+    elif scoc_debug["structure"] == "multi_message":
+        assert all(len(candidate.user_messages) == CFG["multi_fill_messages"] for candidate in scoc_candidates), scoc_candidates
+    else:
+        assert all(len(candidate.user_messages) == 1 for candidate in scoc_candidates), scoc_candidates
+    assert scoc_debug["scoc_kept"] >= 0, scoc_debug
+    assert scoc_debug["unit_cost_s"] > 0, scoc_debug
     for debug in (negative, positive, context_limited):
         assert debug["replay_cost_s"] <= debug["safe_cap_s"], debug
 
