@@ -615,10 +615,27 @@ class AttackAlgorithm(AttackAlgorithmBase):
                 replay_cost += candidate_cost
                 seen.add(msg)
 
+        # Record the exact ordered guard that ended VERIFIED FILL. This is
+        # behavior-neutral instrumentation: it reuses the values from the terminal
+        # while-condition without calling time_left() again or changing candidates.
+        terminal_candidate_count = len(candidates)
+        terminal_replay_cost = replay_cost
+        terminal_unit = unit
+        if terminal_candidate_count >= max_candidates:
+            fill_stop_reason = "candidate"
+        elif terminal_replay_cost + terminal_unit > safe_cap:
+            fill_stop_reason = "replay"
+        else:
+            # The while loop can reach this branch only when its third ordered
+            # guard, time_left(), returned false.
+            fill_stop_reason = "generation"
+
         # Hard clamp against a late latency spike using exact per-candidate costs.
+        preclamp_candidate_count = len(candidates)
         while replay_cost > safe_cap and len(candidates) > 1:
             candidates.pop()
             replay_cost -= candidate_costs.pop()
+        clamp_removed = preclamp_candidate_count - len(candidates)
 
         # Guarantee a non-empty return even if probing consumed the budget.
         if not candidates:
@@ -650,6 +667,13 @@ class AttackAlgorithm(AttackAlgorithmBase):
             "returned": len(candidates),
             "replay_cost_s": round(replay_cost, 1),
             "safe_cap_s": round(safe_cap, 1),
+            "fill_stop_reason": fill_stop_reason,
+            "fill_terminal_candidate_count": terminal_candidate_count,
+            "fill_terminal_candidate_cap": max_candidates,
+            "fill_terminal_replay_cost_s": terminal_replay_cost,
+            "fill_terminal_unit_cost_s": terminal_unit,
+            "fill_terminal_safe_cap_s": safe_cap,
+            "fill_clamp_removed": clamp_removed,
             "probes": {
                 _TEMPLATES[ti][0]: {
                     "fire_rate": round(fires[ti] / len(latencies[ti]), 3) if latencies[ti] else 0.0,

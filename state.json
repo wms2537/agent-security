@@ -764,7 +764,7 @@
       "phase": "2",
       "desc": "Repair DBER after round-13 review: freeze the full profile population, implement an auditable official-scoring/full-replay profiling harness, compare incumbent/headroom-only/generation-gated/bank-all including a replay-bound residual-fit case, and retain the generation gate only if it earns distinct safety credit",
       "status": "in_progress",
-      "evidence": "Report 217 freezes all 12 profile units (four regimes x seeds 41/42/43), exact runtime and source identities, behavior-neutral stop instrumentation, complete fresh-environment official replay, durable per-candidate provenance, independent reconstruction, four policies, predictions and the classifier-retention rule before implementation or execution.",
+      "evidence": "Reports 217-218 freeze all 12 units and the pre-execution URL-parser correction. Report 219 binds implementation SHAs and records compile PASS, 3 direct deterministic tests PASS, contract PASS for 12 units/4 policies/8 sources, behavior-neutral candidate identity, complete fresh replay/official scoring and independent artifact verification. Scientific execution remains absent.",
       "parent": "T087"
     }
   ],
