@@ -34,8 +34,8 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "dber",
-  "active_hypothesis_status": "profile_partial_generation_supported",
-  "active_hypothesis_artifact": "research-log/208-cycle3-iteration6-path-a-dual-budget-selection.md",
+  "active_hypothesis_status": "frozen_pending_theory_review",
+  "active_hypothesis_artifact": "research-log/215-dber-generation-binding-hypothesis-iter6.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -747,9 +747,17 @@
       "id": "T086",
       "phase": "2",
       "desc": "Freeze the narrowed generation-binding-only DBER hypothesis from run03, retract replay-fragment salvage, append the fresh search_log varies dimension, define variables/controls/thresholds/bias surface/component ablations and submission-confidence boundary, then prepare immutable theory-review artifact",
+      "status": "done",
+      "evidence": "`wc -l research-log/215-dber-generation-binding-hypothesis-iter6.md` returned `400`; deterministic `rg` found named concept, hypothesis, variables, primary comparison, controls, engineering profile, mechanisms, assumptions, all eight fixed-bias items, failure boundaries, taxonomy, anti-stacking, Occam, self-critique and review boundary. `jq .search_log[-1]` returns fresh metric varies `probe-output-admission-under-separate-generation-and-replay-budgets`. Profile recomputation returns generation 26/468, replay 28/0/overflow 0.948190746794641 and candidate 27/0. No attack edit or Kaggle action.",
+      "parent": "T085"
+    },
+    {
+      "id": "T087",
+      "phase": "2",
+      "desc": "Dispatch one sterile independent engineering theory review of immutable report 215, charge hypothesis-review round 13 at dispatch, verify reviewer line count against git, and record the blind verdict before any implementation",
       "status": "open",
       "evidence": null,
-      "parent": "T085"
+      "parent": "T086"
     }
   ],
   "parked_candidates": [
@@ -882,6 +890,14 @@
       "varies": "conversation-resident-invariant-factorization-and-self-success-continuation",
       "kind": "metric",
       "outcome": "refuted"
+    },
+    {
+      "cycle": 3,
+      "iteration": 6,
+      "direction": "dual-budget-evidence-reuse",
+      "varies": "probe-output-admission-under-separate-generation-and-replay-budgets",
+      "kind": "metric",
+      "outcome": null
     }
   ],
   "tried_and_failed": [
@@ -1529,6 +1545,16 @@
       "candidate_regime": "CONFIRM NEGATIVE — cap binding matched and salvage raw is 0.",
       "scope": "Exploratory controlled real-SDK mock evidence only; no target-model prevalence, private-transfer, live-score or Kaggle claim.",
       "status": "PROFILE COMPLETE / NARROW GENERATION-ONLY HYPOTHESIS REQUIRED / T086 OPEN"
+    },
+    "2_cycle3_dber_hypothesis": {
+      "falsifiability": "PASS — one primary paired comparison over three fixed generation-binding profiles; mean gain threshold 10 percent, per-profile nonnegative, zero cap/identity/provenance failures.",
+      "search_log": "PASS — iteration 6 metric varies is probe-output-admission-under-separate-generation-and-replay-budgets, absent from prior Cycle-3 metric dimensions.",
+      "concept": "PASS — Dual-Budget Evidence Reuse named, explained in plain language, and operationally defined with incumbent C, successful probe inventory P, stress factor alpha=2.0, eligibility and deterministic packing.",
+      "engineering_profile": "PASS — committed run03 measures 26 discarded probes and 468 raw ceiling under generation binding; replay control has zero fit and bank-all overflow 0.948190746794641 seconds.",
+      "bias_surface": "PASS — selection, confounding, assignment, deviation, missing data, measurement, analysis flexibility and selective reporting are explicit.",
+      "anti_stacking": "PASS DETERMINISTIC — Resource Bottleneck x Artifact/System x decouple; inventory removal equals incumbent, bank-all removal of gate must overflow a replay control; claim is end-to-end constrained system gain.",
+      "review": "PENDING — immutable report 215 requires sterile engineering theory review; hypothesis-review spent remains 12/32 until dispatch.",
+      "status": "DETERMINISTIC PHASE-2 CHECKS PASS / T087 REVIEW OPEN"
     }
   }
 }
