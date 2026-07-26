@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "dber",
-  "active_hypothesis_status": "needs_revision_round13",
+  "active_hypothesis_status": "refuted_round13_factorial_profile",
   "active_hypothesis_artifact": "research-log/215-dber-generation-binding-hypothesis-iter6.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -763,9 +763,17 @@
       "id": "T088",
       "phase": "2",
       "desc": "Repair DBER after round-13 review: freeze the full profile population, implement an auditable official-scoring/full-replay profiling harness, compare incumbent/headroom-only/generation-gated/bank-all including a replay-bound residual-fit case, and retain the generation gate only if it earns distinct safety credit",
-      "status": "in_progress",
-      "evidence": "Reports 217-218 freeze all 12 units and the pre-execution URL-parser correction. Report 219 binds implementation SHAs and records compile PASS, 3 direct deterministic tests PASS, contract PASS for 12 units/4 policies/8 sources, behavior-neutral candidate identity, complete fresh replay/official scoring and independent artifact verification. Scientific execution remains absent.",
+      "status": "done",
+      "evidence": "Frozen run04 exited 2 with 3/12 valid units; all direct stop reasons matched. Independent reload verifies 526 candidate rows and 48 policy portfolios. G gains 432-468 raw but exceeds safe/hard replay budgets; R0/R1 incumbents already exceed their replay budgets; only three K no-op controls pass. Report 220 and forced artifact bundle record hashes and full disposition. DBER/headroom-only are refuted as formulated; no candidate admission or Kaggle action.",
       "parent": "T087"
+    },
+    {
+      "id": "T089",
+      "phase": "2",
+      "desc": "Audit whether the newly measured full-lifecycle replay gap is identifiable and conservatively estimable from the attack-side interface; retire evidence reuse if not, otherwise freeze the minimal calibrated mechanism and its live-confidence bridge before any further review or implementation",
+      "status": "open",
+      "evidence": null,
+      "parent": "T088"
     }
   ],
   "parked_candidates": [
@@ -1563,6 +1571,16 @@
       "anti_stacking": "PASS DETERMINISTIC — Resource Bottleneck x Artifact/System x decouple; inventory removal equals incumbent, bank-all removal of gate must overflow a replay control; claim is end-to-end constrained system gain.",
       "review": "NEEDS_REVISION — round 13 integrity PASS at 400/400 lines. The generation-stop classifier is inferred, lacks an isolating ablation, and is weakly dominated by headroom-only under the stated model; engineering provenance and profile selection are not confirmatory-grade.",
       "status": "PHASE 2 CLOSED / T088 STRUCTURAL REPAIR OPEN"
+    },
+    "2_cycle3_dber_factorial": {
+      "population": "PASS — all 12 frozen units ran once in order; direct stop reasons matched G/R0/R1/K expectations.",
+      "provenance": "PASS — independent reload verifies 526 candidate rows, 48 policy portfolios, trace hashes, predicates, signatures, raw scores, replay costs, overflow decisions and admissions.",
+      "score": "PARTIAL — G gains 432-468 official raw and R1 seed41 gains 18, but R1 seeds42/43 gain zero.",
+      "safety": "REFUTED — every G headroom/gated portfolio exceeds safe and hard replay budgets; every R0/R1 incumbent already exceeds its hard replay budget under full fresh replay.",
+      "classifier": "NO DISTINCT CREDIT — generation-gated equals headroom-only on G and both are unsafe; replay controls cannot rescue an already-unsafe incumbent.",
+      "cost_model": "NEW BLOCKER — full replay is 2.269-3.130x generation episode time on average by regime, with 0.0705-0.0795s mean additive gap from fresh lifecycle work.",
+      "scope": "Controlled real-SDK mock mechanism evidence only; live ref 54923079 completed, so the small-budget fixed-overhead failure is not a claim that the 81.225 submission voided.",
+      "status": "DISCONFIRM / DBER REFUTED AS FORMULATED / T089 COST-IDENTIFIABILITY AUDIT OPEN"
     }
   }
 }

@@ -1,0 +1,20 @@
+commit: fb1c9f5
+command: PYTHONPATH=/home/soh/agent-security/comp/sdk:/home/soh/agent-security/experiments comp/.venv/bin/python experiments/dber_factorial_profile.py --out-dir artifacts/dber/run04
+exit_code: 2
+unit: id=G-seed41 stop=generation valid=False incumbent_raw=846.0 headroom_raw=1314.0 gated_raw=1314.0 bank_raw=1314.0
+unit: id=G-seed42 stop=generation valid=False incumbent_raw=810.0 headroom_raw=1242.0 gated_raw=1242.0 bank_raw=1242.0
+unit: id=G-seed43 stop=generation valid=False incumbent_raw=846.0 headroom_raw=1314.0 gated_raw=1314.0 bank_raw=1314.0
+unit: id=R0-seed41 stop=replay valid=False incumbent_raw=90.0 headroom_raw=90.0 gated_raw=90.0 bank_raw=558.0
+unit: id=R0-seed42 stop=replay valid=False incumbent_raw=72.0 headroom_raw=72.0 gated_raw=72.0 bank_raw=576.0
+unit: id=R0-seed43 stop=replay valid=False incumbent_raw=90.0 headroom_raw=90.0 gated_raw=90.0 bank_raw=576.0
+unit: id=R1-seed41 stop=replay valid=False incumbent_raw=36.0 headroom_raw=54.0 gated_raw=36.0 bank_raw=774.0
+unit: id=R1-seed42 stop=replay valid=False incumbent_raw=36.0 headroom_raw=36.0 gated_raw=36.0 bank_raw=774.0
+unit: id=R1-seed43 stop=replay valid=False incumbent_raw=54.0 headroom_raw=54.0 gated_raw=54.0 bank_raw=756.0
+unit: id=K-seed41 stop=candidate valid=True incumbent_raw=54.0 headroom_raw=54.0 gated_raw=54.0 bank_raw=54.0
+unit: id=K-seed42 stop=candidate valid=True incumbent_raw=54.0 headroom_raw=54.0 gated_raw=54.0 bank_raw=54.0
+unit: id=K-seed43 stop=candidate valid=True incumbent_raw=54.0 headroom_raw=54.0 gated_raw=54.0 bank_raw=54.0
+profile_units: 12
+valid_units: 3
+profile_status: CONTROLLED_PROFILE
+verification_command: PYTHONPATH=/home/soh/agent-security/comp/sdk:/home/soh/agent-security/experiments comp/.venv/bin/python experiments/dber_factorial_profile.py --verify-dir artifacts/dber/run04
+verification: {"candidate_rows": 526, "policy_portfolios_checked": 48, "status": "PASS", "units": 12}
