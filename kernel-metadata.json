@@ -1,0 +1,21 @@
+{
+  "id": "whymelabs/ai-agent-security-attack",
+  "id_no": 127741253,
+  "title": "AI Agent Security Attack",
+  "code_file": "ai-agent-security-attack.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [
+    "ai-agent-security-multi-step-tool-attacks"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
+  "machine_shape": "Cpu"
+}
