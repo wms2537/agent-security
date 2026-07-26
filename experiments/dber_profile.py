@@ -35,7 +35,7 @@ from mock_agents import AmortizingAgent  # noqa: E402
 REGIMES: tuple[dict[str, Any], ...] = (
     {
         "name": "generation_limited",
-        "time_budget_s": 2.00,
+        "time_budget_s": 4.00,
         "replay_budget_s": 6.00,
         "max_candidates": 200,
         "expected_binding": "generation",
@@ -332,7 +332,7 @@ def _profile_regime(module: Any, regime: dict[str, Any]) -> dict[str, Any]:
 def _write_outputs(out_dir: Path, rows: list[dict[str, Any]]) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     summary = {
-        "schema_version": "dber-prechange-profile-v2",
+        "schema_version": "dber-prechange-profile-v3",
         "status": "EXPLORATORY_PRECHANGE_PROFILE",
         "attack_sha256": _sha256(HERE / "attack.py"),
         "scope": (
@@ -356,7 +356,7 @@ def _print_contract() -> None:
     print(
         json.dumps(
             {
-                "schema_version": "dber-prechange-profile-contract-v2",
+                "schema_version": "dber-prechange-profile-contract-v3",
                 "attack_sha256": _sha256(HERE / "attack.py"),
                 "base_config": BASE_CONFIG,
                 "regimes": list(REGIMES),

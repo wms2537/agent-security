@@ -739,8 +739,8 @@
       "id": "T085",
       "phase": "2",
       "desc": "Third and final DBER pre-change profile attempt: preregister generation-limited time_budget_s=4.00 while preserving attack SHA, controller, replay/candidate regimes, bindings, metrics and thresholds; run in artifacts/dber/run03 and retire DBER if the profile still cannot execute",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "`dber_profile_v3_compile=PASS`; contract schema `dber-prechange-profile-contract-v3` binds unchanged attack SHA `efac9711...`, generation time 4.0 seconds, unchanged replay/candidate regimes, expected bindings generation/replay/candidate, and thresholds 18/18/0. Three new 11-field run03 prediction rows exist. Final profile attempt not yet executed.",
       "parent": "T084"
     }
   ],
