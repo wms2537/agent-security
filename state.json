@@ -1,16 +1,16 @@
 {
-  "phase": "5",
+  "phase": "2",
   "cycle": 3,
-  "iteration": 5,
+  "iteration": 6,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Can one exact successful EXFIL action establish conversation-resident invariant semantics so that later user turns transmit only new destination operands, preserving at least 0.95 exact-chain coverage while increasing raw per replay second enough to support a complete policy above 110.235?",
-    "assumption": "After one exact successful action, retained assistant and tool history carries enough high-authority action state for a short destination operand to reproduce the same tool, payload and stop semantics more efficiently than full instruction retransmission.",
-    "assumption_source": "Exact SDK inspection proves within-candidate RuntimeHistory retention across all evaluated adapters and reset only between candidates; six fresh public-notebook audits find full repetition, one-message repetition or disabled multi-message branches rather than operand-only continuation. Recent response-conditioned attack studies support state as a mechanism variable, but the required competition effect and exact coverage remain unmeasured.",
-    "novelty_claim": "SCOC-32 makes one contribution claim only: replace per-turn invariant semantic retransmission with one exact successful anchor plus destination-only operands. Template selection, profiling, replay accounting, fallback and any source-compatible control reconstruction receive no contribution credit."
+    "problem": "Can successful probe outputs that the 81.225 incumbent currently discards be admitted under separate generation and replay budgets to raise exact returned score only when generation is binding and replay headroom remains, while returning the incumbent portfolio unchanged in replay- or candidate-limited regimes?",
+    "assumption": "The incumbent pays generation cost for successful probe candidates before fill but does not return them; at least one target-relevant resource regime may end generation with enough replay and candidate headroom to salvage some of those exact candidates without displacing denser fill output.",
+    "assumption_source": "The exact latest pulled notebook has enable_scoc=False, eight templates, five probe repetitions, two multi probes, and an empty returned-candidate inventory after routing. The separate generation and replay budgets make conditional salvage possible, but whether the required headroom regime occurs is unmeasured and must be profiled before implementation.",
+    "novelty_claim": "DBER changes only probe-output admission: preserve successful probes as inventory, classify the binding resource after incumbent fill, and admit only positive-marginal-density inventory. Prompts, structure routing, scorer semantics, and the incumbent fill remain controls."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "scoc32",
-  "active_hypothesis_status": "refuted_phase3",
-  "active_hypothesis_artifact": "research-log/191-scoc32-phase1-hypothesis-lock.md",
+  "active_hypothesis": "dber",
+  "active_hypothesis_status": "selected_phase5_profile_pending",
+  "active_hypothesis_artifact": "research-log/208-cycle3-iteration6-path-a-dual-budget-selection.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -44,12 +44,14 @@
     "cycle3_authorization": "now i authosired all kaggle actions, go and play around with it. but with one consideration, only submit when you are confident on the solution. we should ibnovate , be creative, do the research properly, think properly using the sciagent skill",
     "cycle3_authorization_interpretation": "All Kaggle reads and mutations are authorized. Pushes and commit runs may be used as measurements; actual competition submission occurs only after a committed evidence-based confidence gate passes. Proceed autonomously with rigorous creative iteration.",
     "cycle3_review_extension": "authorise 10 review rounds, but please make sure you are doing things beneficial to the competiton. SOmetimes try tp think out of the box",
-    "cycle3_review_extension_interpretation": "Add ten Cycle-3 hypothesis-review rounds: limit 2 -> 12, spent remains 2. Use deterministic/source checks before reviews; extrapolate ideas; retain only components with a measured bottleneck, explicit role/interface, removal ablation and end-to-end value. This does not relax the Phase-2 gate or submission-confidence gate."
+    "cycle3_review_extension_interpretation": "Add ten Cycle-3 hypothesis-review rounds: limit 2 -> 12, spent remains 2. Use deterministic/source checks before reviews; extrapolate ideas; retain only components with a measured bottleneck, explicit role/interface, removal ablation and end-to-end value. This does not relax the Phase-2 gate or submission-confidence gate.",
+    "cycle3_iteration6_extension": "then continue improving",
+    "cycle3_iteration6_extension_interpretation": "Authorize exactly one additional competition research iteration, raising research_iterations from 5/5 to 6/6. Select a fresh non-SCOC dimension and preserve the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
-      "limit": 5,
-      "spent": 5
+      "limit": 6,
+      "spent": 6
     },
     "hypothesis_review_rounds": {
       "limit": 32,
@@ -713,9 +715,17 @@
       "id": "T082",
       "phase": "5",
       "desc": "Phase-5 user checkpoint: approve Path C internal SCOC-32 competition report/retrospective, or explicitly extend research-iteration budget for a fresh non-SCOC dimension before any new Phase-2/Kaggle experiment",
+      "status": "done",
+      "evidence": "User authorization quoted verbatim: 'then continue improving'. Applied as the minimum one-iteration extension `research_iterations 5/5 -> 6/6`. `rg` on the latest pulled Kaggle notebook found `enable_scoc: bool = False`, `probe_reps: int = 5`, eight templates and two multi probes; report 208 scores four fresh directions and selects DBER profile-first. No Kaggle mutation or submission.",
+      "parent": "T081"
+    },
+    {
+      "id": "T083",
+      "phase": "2",
+      "desc": "Profile the unchanged 81.225 incumbent across pre-specified generation-, replay-, and candidate-limited regimes; measure scheduled/successful/discarded probes, binding resource, returned raw, replay headroom, and oracle DBER salvage ceiling before any attack edit or Kaggle action",
       "status": "open",
       "evidence": null,
-      "parent": "T081"
+      "parent": "T082"
     }
   ],
   "parked_candidates": [
@@ -1475,9 +1485,18 @@
       "figures": "PASS — `figure_qa=PASS paper/figures/scoc32_mechanism_comparison` and `figure_qa=PASS paper/figures/scoc32_public_leaderboard_bundle`; SVG, PNG and source CSV files exist.",
       "freshness": "DONE — July 2026 long-horizon/stateful-agent sources checked; no exact SCOC analogue found, but adjacent literature supports harness/state/orchestration as the fresher direction.",
       "search_diagnosis": "STALLED — SCOC remains kind=metric/refuted; cycle-3 metric search has no attributable mechanism improvement and research iterations are exhausted.",
-      "budget": "EXHAUSTED — research_iterations 5/5; hypothesis review 12/32 and paper review 0/2 do not authorize a new research iteration.",
-      "path_recommendation": "Path C internal technical report/no submission/no SCOC paper. T082 holds the required user checkpoint before closing Phase 5 or spending new research budget.",
-      "status": "RECOMMENDATION COMPLETE / USER PATH APPROVAL PENDING"
+      "budget": "EXTENDED BY USER — exact quote 'then continue improving' is applied as one additional research iteration, moving 5/5 to 6/6; review and paper budgets remain unchanged.",
+      "path_recommendation": "Path A approved for exactly one fresh non-SCOC iteration. Report 208 selects DBER profile-first; no implementation or submission is authorized by this transition alone.",
+      "status": "PATH A APPROVED / PHASE 2 ITERATION 6"
+    },
+    "5_cycle3_iteration6_transition": {
+      "user_approval": "PASS — exact quote: 'then continue improving'.",
+      "candidate_rubric": "PASS — report 208 compares DBER, sequential elimination, official-output attribution, and replay-tail refinement with failure modes, implementation traps, evidence checks, scores, and rejection reasons.",
+      "fresh_dimension": "probe-output-admission-under-separate-generation-and-replay-budgets",
+      "incumbent_recovery": "PASS — latest pulled notebook SHA 25655097c513602c4e9edc0ef15f054b4209394a3a0bba5df3a98aa56fee0213 has enable_scoc=False; the 81.225 artifact uses the active adaptive multi-message controller.",
+      "budget": "research_iterations 6/6; hypothesis review 12/32; paper review 0/2.",
+      "submission": "HOLD — no Kaggle mutation or submission; the confidence gate remains unchanged.",
+      "status": "PASS TO PHASE 2 / T083 OPEN"
     }
   }
 }
