@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "5",
   "cycle": 3,
   "iteration": 6,
   "entry_mode": "inspiration",
@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "dber",
-  "active_hypothesis_status": "refuted_round13_factorial_profile",
-  "active_hypothesis_artifact": "research-log/215-dber-generation-binding-hypothesis-iter6.md",
+  "active_hypothesis": null,
+  "active_hypothesis_status": "dber_retired_cost_not_identifiable",
+  "active_hypothesis_artifact": "research-log/221-dber-cost-identifiability-and-retirement.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -771,9 +771,17 @@
       "id": "T089",
       "phase": "2",
       "desc": "Audit whether the newly measured full-lifecycle replay gap is identifiable and conservatively estimable from the attack-side interface; retire evidence reuse if not, otherwise freeze the minimal calibrated mechanism and its live-confidence bridge before any further review or implementation",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "Report 221 source-traces the six-method opaque attack interface, one prebuilt generation env, hidden per-candidate fresh replay, separate 9000s deadline, and absence of live episode/replay-duration telemetry. It proves the hidden lifecycle term is not identified by attack-side observations, rejects local additive/multiplicative tuning and completion-as-slack, and retires DBER/headroom-only without implementation or Kaggle action.",
       "parent": "T088"
+    },
+    {
+      "id": "T090",
+      "phase": "5",
+      "desc": "Iteration-6 competition checkpoint: preserve the 81.225 incumbent and DBER negative chain, then obtain new research-iteration authority before opening a fresh per-candidate latency/quality dimension using protocol-native wording plus sequential elimination",
+      "status": "open_waiting_research_budget",
+      "evidence": "Cycle-3 research is 6/6. The next direction is outside DBER and must not be smuggled through hypothesis-review budget.",
+      "parent": "T089"
     }
   ],
   "parked_candidates": [
@@ -1581,6 +1589,15 @@
       "cost_model": "NEW BLOCKER — full replay is 2.269-3.130x generation episode time on average by regime, with 0.0705-0.0795s mean additive gap from fresh lifecycle work.",
       "scope": "Controlled real-SDK mock mechanism evidence only; live ref 54923079 completed, so the small-budget fixed-overhead failure is not a claim that the 81.225 submission voided.",
       "status": "DISCONFIRM / DBER REFUTED AS FORMULATED / T089 COST-IDENTIFIABILITY AUDIT OPEN"
+    },
+    "5_cycle3_iteration6_dber": {
+      "mechanism": "RETIRED — generation-gated DBER is dominated under its own model; headroom-only shares a refuted full-replay cost model.",
+      "identifiability": "FAIL — the six-method opaque attack interface receives a prebuilt environment and exposes no fresh replay factory, clock, result or slack; hidden lifecycle cost has no interface-level finite upper bound.",
+      "live_scope": "Refs 54923079/54922298/54920038 completed, providing only T<=9000s; no episodes or per-cell replay duration expose remaining slack.",
+      "competition_asset": "RETAIN — the verified 81.225 notebook remains the live public incumbent and DBER is excluded from candidate-producing code.",
+      "next_dimension": "Per-candidate response latency/quality via protocol-native single-post wording with sequential elimination and exact incumbent fallback; explicitly excludes one-turn multi-post and SCOC.",
+      "budget": "research_iterations 6/6; hypothesis_review_rounds 13/32; paper_review_rounds 0/2.",
+      "status": "ITERATION 6 COMPLETE / T090 WAITING NEW RESEARCH-ITERATION AUTHORITY"
     }
   }
 }
