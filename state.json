@@ -731,9 +731,17 @@
       "id": "T084",
       "phase": "2",
       "desc": "Retry the DBER pre-change profile after preregistering a valid timescale above the incumbent slowest=1.0 safety sentinel; preserve attack SHA, controller settings, resource-order predictions, metrics and thresholds; write new prediction rows and use artifacts/dber/run02",
-      "status": "in_progress",
-      "evidence": "`dber_profile_v2_compile=PASS`; `--print-contract` returned schema `dber-prechange-profile-contract-v2`, unchanged attack SHA `efac9711...`, generation time budget 2.0 seconds, unchanged replay/candidate regimes and expected bindings, and unchanged salvage thresholds 18/18/0. Three new 11-field preregistered run02 rows exist. Experiment not yet executed.",
+      "status": "failed",
+      "evidence": "Command-first `artifacts/dber/run02/run.log` ends `RuntimeError: generation_limited: 5 returned signatures lack trace rows`. Seventeen probe traces exist, but the controller never entered fill and emitted its five unexecuted emergency fallbacks. `slowest=max(1.0,dt)` preserves a permanent 1.3-second reserve, so 2.0 seconds remained invalid. All run02 rows are crash/NA; no DBER prediction was tested.",
       "parent": "T083"
+    },
+    {
+      "id": "T085",
+      "phase": "2",
+      "desc": "Third and final DBER pre-change profile attempt: preregister generation-limited time_budget_s=4.00 while preserving attack SHA, controller, replay/candidate regimes, bindings, metrics and thresholds; run in artifacts/dber/run03 and retire DBER if the profile still cannot execute",
+      "status": "open",
+      "evidence": null,
+      "parent": "T084"
     }
   ],
   "parked_candidates": [

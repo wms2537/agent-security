@@ -150,6 +150,6 @@ scoc32-local-scoc-holdout-context_limited_8-seed2026-scoc_m64	normalized	2.16	ma
 dber-profile-generation-limited	oracle_salvage_raw	18	beat-baseline	medium	NA	null	NA	0.5	crash	run01 never entered first regime because time_budget_s=1.30 cannot clear incumbent slowest=1.0 safety sentinel
 dber-profile-replay-fragmented	oracle_salvage_raw	18	beat-baseline	medium	NA	null	NA	0.5	crash	run01 not reached after generation_limited harness-timescale crash
 dber-profile-candidate-limited	oracle_salvage_raw	0	match-baseline	high	NA	null	NA	0.5	crash	run01 not reached after generation_limited harness-timescale crash
-dber-profile-v2-generation-limited	oracle_salvage_raw	18	beat-baseline	medium	NA	null	NA	NA	preregistered	run02 pre-change controlled profile; two-second generation budget should leave room for at least one discarded successful probe
-dber-profile-v2-replay-fragmented	oracle_salvage_raw	18	beat-baseline	medium	NA	null	NA	NA	preregistered	run02 pre-change controlled profile; discrete residual below one 24-message fill unit should fit at least one shorter successful probe
-dber-profile-v2-candidate-limited	oracle_salvage_raw	0	match-baseline	high	NA	null	NA	NA	preregistered	run02 pre-change controlled profile; full candidate cap must forbid probe salvage
+dber-profile-v2-generation-limited	oracle_salvage_raw	18	beat-baseline	medium	NA	null	NA	1.2	crash	run02 executed partial probes but never entered fill because permanent one-second slowest sentinel preserves a 1.3-second reserve; emergency fallback lacked trace rows
+dber-profile-v2-replay-fragmented	oracle_salvage_raw	18	beat-baseline	medium	NA	null	NA	1.2	crash	run02 not reached after generation-limited harness-timescale crash
+dber-profile-v2-candidate-limited	oracle_salvage_raw	0	match-baseline	high	NA	null	NA	1.2	crash	run02 not reached after generation-limited harness-timescale crash
