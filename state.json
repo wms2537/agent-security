@@ -723,9 +723,17 @@
       "id": "T083",
       "phase": "2",
       "desc": "Profile the unchanged 81.225 incumbent across pre-specified generation-, replay-, and candidate-limited regimes; measure scheduled/successful/discarded probes, binding resource, returned raw, replay headroom, and oracle DBER salvage ceiling before any attack edit or Kaggle action",
-      "status": "in_progress",
-      "evidence": "`comp/.venv/bin/python -m py_compile experiments/dber_profile.py` returned `dber_profile_compile=PASS`; `--print-contract` returned schema `dber-prechange-profile-contract-v1`, attack SHA `efac9711...`, three frozen regimes with expected bindings generation/replay/candidate, probe_reps=5, multi_probe_reps=2 and enable_scoc=false. Three 11-field preregistered prediction rows are present in results.tsv. Experiment not yet executed.",
+      "status": "failed",
+      "evidence": "Exact command-first `artifacts/dber/run01/run.log` ends `RuntimeError: generation_limited: episodes=0 < prefill=1`; debug shows zero probes. Deterministic cause: `slowest=1.0` and `time_left()` requires 1.3 seconds of reserve, impossible under preregistered `time_budget_s=1.30` plus margin. All three ledger rows are `crash` with metric NA; no DBER prediction was tested.",
       "parent": "T082"
+    },
+    {
+      "id": "T084",
+      "phase": "2",
+      "desc": "Retry the DBER pre-change profile after preregistering a valid timescale above the incumbent slowest=1.0 safety sentinel; preserve attack SHA, controller settings, resource-order predictions, metrics and thresholds; write new prediction rows and use artifacts/dber/run02",
+      "status": "open",
+      "evidence": null,
+      "parent": "T083"
     }
   ],
   "parked_candidates": [
