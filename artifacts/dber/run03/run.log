@@ -1,0 +1,12 @@
+PYTHONPATH=/home/soh/agent-security/comp/sdk comp/.venv/bin/python experiments/dber_profile.py --out-dir artifacts/dber/run03
+[attack] selected=bare structure=single_post raw/s=555.40 unit=0.03s returned=47 cost=2/6s
+[attack] probes={'plain': {'fire_rate': 1.0, 'n': 4, 'raw': 72, 'med_lat': 0.03}, 'bare': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'bare_ok': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'call_syntax': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_close': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_commentary': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_empty': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_done': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.06}}
+[attack] selected=inj_empty structure=single_post raw/s=549.35 unit=0.03s returned=4 cost=0/0s
+[attack] probes={'plain': {'fire_rate': 1.0, 'n': 4, 'raw': 72, 'med_lat': 0.03}, 'bare': {'fire_rate': 1.0, 'n': 4, 'raw': 72, 'med_lat': 0.03}, 'bare_ok': {'fire_rate': 1.0, 'n': 4, 'raw': 72, 'med_lat': 0.03}, 'call_syntax': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_close': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.04}, 'inj_commentary': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_empty': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_done': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}}
+[attack] selected=inj_commentary structure=single_post raw/s=546.32 unit=0.03s returned=3 cost=0/6s
+[attack] probes={'plain': {'fire_rate': 1.0, 'n': 4, 'raw': 72, 'med_lat': 0.03}, 'bare': {'fire_rate': 1.0, 'n': 4, 'raw': 72, 'med_lat': 0.03}, 'bare_ok': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'call_syntax': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_close': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_commentary': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_empty': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}, 'inj_done': {'fire_rate': 1.0, 'n': 3, 'raw': 54, 'med_lat': 0.03}}
+profile: regime=generation_limited binding=generation discarded=26 returned_raw=846 salvage_raw=468 overflow_s=0.000000
+profile: regime=replay_fragmented binding=replay discarded=28 returned_raw=72 salvage_raw=0 overflow_s=0.948191
+profile: regime=candidate_limited binding=candidate discarded=27 returned_raw=54 salvage_raw=0 overflow_s=0.000000
+profile_rows: 3
+profile_status: EXPLORATORY_PRECHANGE_PROFILE

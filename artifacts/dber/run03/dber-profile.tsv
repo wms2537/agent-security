@@ -1,0 +1,4 @@
+regime	binding_resource	episodes	prefill_episodes	successful_discarded_probes	returned_candidates	returned_raw	replay_cost_s	replay_safe_cap_s	replay_headroom_s	candidate_headroom	oracle_salvage_count	oracle_salvage_raw	oracle_salvage_cost_s	oracle_gain_percent	bank_all_replay_overflow_s	runtime_s
+generation_limited	generation	73	26	26	47	846	1.716649078996852	5.9399999999999995	4.2233509210031475	153	26	468	0.9388703987933695	55.319148936170215	0.0	2.6584682350512594
+replay_fragmented	replay	32	28	28	4	72	0.1585890487767756	0.1782	0.0196109512232244	196	0	0	0.0	0.0	0.948190746794641	1.1276497999206185
+candidate_limited	candidate	30	27	27	3	54	0.10101654683239758	5.9399999999999995	5.838983453167602	0	0	0	0.0	0.0	0.0	1.0524469099473208

@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "dber",
-  "active_hypothesis_status": "selected_phase5_profile_pending",
+  "active_hypothesis_status": "profile_partial_generation_supported",
   "active_hypothesis_artifact": "research-log/208-cycle3-iteration6-path-a-dual-budget-selection.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -739,9 +739,17 @@
       "id": "T085",
       "phase": "2",
       "desc": "Third and final DBER pre-change profile attempt: preregister generation-limited time_budget_s=4.00 while preserving attack SHA, controller, replay/candidate regimes, bindings, metrics and thresholds; run in artifacts/dber/run03 and retire DBER if the profile still cannot execute",
-      "status": "in_progress",
-      "evidence": "`dber_profile_v3_compile=PASS`; contract schema `dber-prechange-profile-contract-v3` binds unchanged attack SHA `efac9711...`, generation time 4.0 seconds, unchanged replay/candidate regimes, expected bindings generation/replay/candidate, and thresholds 18/18/0. Three new 11-field run03 prediction rows exist. Final profile attempt not yet executed.",
+      "status": "done",
+      "evidence": "Command-first run03 completed with `profile_rows: 3` and `profile_status: EXPLORATORY_PRECHANGE_PROFILE`. TSV/JSON recomputation: generation binding matched with 26 discarded successful probes, 468 oracle salvage raw and 55.319148936170215% gain; replay binding matched but salvage=0 (disconfirm) and bank-all overflow=0.948190746794641s; candidate binding matched with salvage=0. Artifact hashes are recorded in report 214. No attack edit or Kaggle action.",
       "parent": "T084"
+    },
+    {
+      "id": "T086",
+      "phase": "2",
+      "desc": "Freeze the narrowed generation-binding-only DBER hypothesis from run03, retract replay-fragment salvage, append the fresh search_log varies dimension, define variables/controls/thresholds/bias surface/component ablations and submission-confidence boundary, then prepare immutable theory-review artifact",
+      "status": "open",
+      "evidence": null,
+      "parent": "T085"
     }
   ],
   "parked_candidates": [
@@ -1513,6 +1521,14 @@
       "budget": "research_iterations 6/6; hypothesis review 12/32; paper review 0/2.",
       "submission": "HOLD — no Kaggle mutation or submission; the confidence gate remains unchanged.",
       "status": "PASS TO PHASE 2 / T083 OPEN"
+    },
+    "2_cycle3_dber_profile": {
+      "provenance": "PASS — run03 command-first log and profile JSON/TSV bind attack SHA efac9711...; hashes recorded in report 214.",
+      "generation_regime": "PARTIAL SUPPORT — binding matched; 26 discarded successful probes; 468 oracle salvage raw; 55.319148936170215 percent regime-specific ceiling.",
+      "replay_regime": "DISCONFIRM — binding matched but 0.0196109512232244 seconds fit no probe; salvage raw 0; bank-all overflow 0.948190746794641 seconds.",
+      "candidate_regime": "CONFIRM NEGATIVE — cap binding matched and salvage raw is 0.",
+      "scope": "Exploratory controlled real-SDK mock evidence only; no target-model prevalence, private-transfer, live-score or Kaggle claim.",
+      "status": "PROFILE COMPLETE / NARROW GENERATION-ONLY HYPOTHESIS REQUIRED / T086 OPEN"
     }
   }
 }
