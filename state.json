@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "dber",
-  "active_hypothesis_status": "frozen_pending_theory_review",
+  "active_hypothesis_status": "needs_revision_round13",
   "active_hypothesis_artifact": "research-log/215-dber-generation-binding-hypothesis-iter6.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -755,9 +755,17 @@
       "id": "T087",
       "phase": "2",
       "desc": "Dispatch one sterile independent engineering theory review of immutable report 215, charge hypothesis-review round 13 at dispatch, verify reviewer line count against git, and record the blind verdict before any implementation",
-      "status": "in_progress",
-      "evidence": "Hypothesis-review round 13/32 charged at sterile dispatch against immutable 400-line report 215; reviewer result and independent line-count verification pending.",
+      "status": "done",
+      "evidence": "Independent reviewer reported 400 lines, matching `git show HEAD:research-log/215-dber-generation-binding-hypothesis-iter6.md | wc -l`; main-agent SHA-256 is 95700e6500c964be8c2c90d25a09f56bdee3c2e665bd88b306a8947b153e1bea. Blind verdict NEEDS_REVISION with six ordered fixes, recorded verbatim in report 216. The simpler headroom-only policy weakly dominates the generation-stop gate under the frozen model, so Phase 3 remains closed.",
       "parent": "T086"
+    },
+    {
+      "id": "T088",
+      "phase": "2",
+      "desc": "Repair DBER after round-13 review: freeze the full profile population, implement an auditable official-scoring/full-replay profiling harness, compare incumbent/headroom-only/generation-gated/bank-all including a replay-bound residual-fit case, and retain the generation gate only if it earns distinct safety credit",
+      "status": "open",
+      "evidence": null,
+      "parent": "T087"
     }
   ],
   "parked_candidates": [
@@ -1553,8 +1561,8 @@
       "engineering_profile": "PASS — committed run03 measures 26 discarded probes and 468 raw ceiling under generation binding; replay control has zero fit and bank-all overflow 0.948190746794641 seconds.",
       "bias_surface": "PASS — selection, confounding, assignment, deviation, missing data, measurement, analysis flexibility and selective reporting are explicit.",
       "anti_stacking": "PASS DETERMINISTIC — Resource Bottleneck x Artifact/System x decouple; inventory removal equals incumbent, bank-all removal of gate must overflow a replay control; claim is end-to-end constrained system gain.",
-      "review": "PENDING — immutable report 215 requires sterile engineering theory review; hypothesis-review spent remains 12/32 until dispatch.",
-      "status": "DETERMINISTIC PHASE-2 CHECKS PASS / T087 REVIEW OPEN"
+      "review": "NEEDS_REVISION — round 13 integrity PASS at 400/400 lines. The generation-stop classifier is inferred, lacks an isolating ablation, and is weakly dominated by headroom-only under the stated model; engineering provenance and profile selection are not confirmatory-grade.",
+      "status": "PHASE 2 CLOSED / T088 STRUCTURAL REPAIR OPEN"
     }
   }
 }
