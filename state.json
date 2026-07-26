@@ -1,16 +1,16 @@
 {
-  "phase": "5",
+  "phase": "2",
   "cycle": 3,
-  "iteration": 6,
+  "iteration": 7,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Can successful probe outputs that the 81.225 incumbent currently discards be admitted under separate generation and replay budgets to raise exact returned score only when generation is binding and replay headroom remains, while returning the incumbent portfolio unchanged in replay- or candidate-limited regimes?",
-    "assumption": "The incumbent pays generation cost for successful probe candidates before fill but does not return them; at least one target-relevant resource regime may end generation with enough replay and candidate headroom to salvage some of those exact candidates without displacing denser fill output.",
-    "assumption_source": "The exact latest pulled notebook has enable_scoc=False, eight templates, five probe repetitions, two multi probes, and an empty returned-candidate inventory after routing. The separate generation and replay budgets make conditional salvage possible, but whether the required headroom regime occurs is unmeasured and must be profiled before implementation.",
-    "novelty_claim": "DBER changes only probe-output admission: preserve successful probes as inventory, classify the binding resource after incumbent fill, and admit only positive-marginal-density inventory. Prompts, structure routing, scorer semantics, and the incumbent fill remain controls."
+    "problem": "Can a minimal fixed-count single-post kernel recover the missing throughput between the 81.225 incumbent and the approximate 90-point single-post ceiling by removing over-probing, per-candidate generation-side verification, and unidentifiable replay-cost sizing?",
+    "assumption": "The current public-score deficit is primarily effective returned-candidate throughput, not a lack of complex controller logic; once a reliable single-post template is selected, deterministic fill without generation-side verification should return more useful candidates.",
+    "assumption_source": "The live score 81.225 corresponds to 1805 single-post equivalents under the 0.045-per-finding arithmetic, while public single-post-family notebooks and the 90-point ceiling imply room for roughly 145-195 additional effective findings before needing multi-event density.",
+    "novelty_claim": "No novelty claim for Stage A. This is a control-recovery experiment that deliberately removes unidentifiable mechanisms before testing higher-density candidate structures."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": null,
-  "active_hypothesis_status": "dber_retired_cost_not_identifiable",
-  "active_hypothesis_artifact": "research-log/221-dber-cost-identifiability-and-retirement.md",
+  "active_hypothesis": "stagea-fixed-count-single-post-throughput",
+  "active_hypothesis_status": "preregistered_implemented_unsubmitted",
+  "active_hypothesis_artifact": "research-log/222-stagea-single-post-throughput-preregistration.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -46,12 +46,14 @@
     "cycle3_review_extension": "authorise 10 review rounds, but please make sure you are doing things beneficial to the competiton. SOmetimes try tp think out of the box",
     "cycle3_review_extension_interpretation": "Add ten Cycle-3 hypothesis-review rounds: limit 2 -> 12, spent remains 2. Use deterministic/source checks before reviews; extrapolate ideas; retain only components with a measured bottleneck, explicit role/interface, removal ablation and end-to-end value. This does not relax the Phase-2 gate or submission-confidence gate.",
     "cycle3_iteration6_extension": "then continue improving",
-    "cycle3_iteration6_extension_interpretation": "Authorize exactly one additional competition research iteration, raising research_iterations from 5/5 to 6/6. Select a fresh non-SCOC dimension and preserve the confidence-before-submission gate."
+    "cycle3_iteration6_extension_interpretation": "Authorize exactly one additional competition research iteration, raising research_iterations from 5/5 to 6/6. Select a fresh non-SCOC dimension and preserve the confidence-before-submission gate.",
+    "cycle3_stagea_audit_redirection": "Repository audit: the problem is the experimental loop, not a lack of engineering effort",
+    "cycle3_stagea_audit_redirection_interpretation": "Authorize a fresh Stage A competition iteration focused on minimal fixed-count single-post throughput: stop full-candidate verification, stop replay-cost sizing from generation timings, and use one-factor leaderboard measurements. Raise research_iterations 6/6 -> 7/7; preserve the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
-      "limit": 6,
-      "spent": 6
+      "limit": 7,
+      "spent": 7
     },
     "hypothesis_review_rounds": {
       "limit": 32,
@@ -779,9 +781,17 @@
       "id": "T090",
       "phase": "5",
       "desc": "Iteration-6 competition checkpoint: preserve the 81.225 incumbent and DBER negative chain, then obtain new research-iteration authority before opening a fresh per-candidate latency/quality dimension using protocol-native wording plus sequential elimination",
-      "status": "open_waiting_research_budget",
-      "evidence": "Cycle-3 research is 6/6. The next direction is outside DBER and must not be smuggled through hypothesis-review budget.",
+      "status": "done",
+      "evidence": "User audit redirection authorizes the fresh Stage A dimension and explicitly diagnoses the next experiment: minimal three-arm fixed-count single-post, no full-candidate verification, no generation-timing replay sizing, one-factor leaderboard measurements. Research budget raised 6/6 -> 7/7 by user direction; confidence-before-submission gate preserved.",
       "parent": "T089"
+    },
+    {
+      "id": "T091",
+      "phase": "2",
+      "desc": "Preregister and implement the Stage A minimal three-arm fixed-count single-post kernel at N=1950; create separate leaderboard/mechanics ledgers and rebuild notebooks; do not submit until confidence checklist passes",
+      "status": "done",
+      "evidence": "Report 222 preregisters public_score prediction 87.750 for lb-stagea-fixed1950; `python submission/build_notebook.py` returned `attack.py parses OK`; `python -m py_compile experiments/attack.py submission/build_notebook.py` exited 0; removed-branch `rg` returned no matches; smoke import returned `smoke_count 5`; fake env returned `fake_env_count 1950`, `unique_domains 1950`, `probe_count 4`, `selected_arm bare`; no Kaggle submission yet.",
+      "parent": "T090"
     }
   ],
   "parked_candidates": [
@@ -920,6 +930,14 @@
       "iteration": 6,
       "direction": "dual-budget-evidence-reuse",
       "varies": "probe-output-admission-under-separate-generation-and-replay-budgets",
+      "kind": "metric",
+      "outcome": "refuted"
+    },
+    {
+      "cycle": 3,
+      "iteration": 7,
+      "direction": "stagea-fixed-count-single-post-throughput",
+      "varies": "candidate-count-and-probe-overhead",
       "kind": "metric",
       "outcome": null
     }
