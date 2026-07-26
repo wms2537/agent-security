@@ -705,9 +705,17 @@
       "id": "T081",
       "phase": "5",
       "desc": "Perform the budget-mandated Phase-5 analysis of the refuted SCOC-32 component and unattributed 81.225 live bundle, including exclusions, seven questions, search diagnosis, budget check, and conclude-path recommendation without a new Kaggle submission",
+      "status": "done",
+      "evidence": "`headline_recompute=PASS run03=1.086158078744 run04=1.024074983325 mean=1.055116531034 sd=0.043899377768 gate=1.25 both_fail=True`; `figure_qa=PASS` for both SCOC figures; `row_check=PASS data_rows=148 total_lines=149`; refreshed Kaggle submissions still show best ref 54923079 COMPLETE at 81.225. Analysis recommends Path C internal report/no submission and leaves user path approval pending.",
+      "parent": "T080"
+    },
+    {
+      "id": "T082",
+      "phase": "5",
+      "desc": "Phase-5 user checkpoint: approve Path C internal SCOC-32 competition report/retrospective, or explicitly extend research-iteration budget for a fresh non-SCOC dimension before any new Phase-2/Kaggle experiment",
       "status": "open",
       "evidence": null,
-      "parent": "T080"
+      "parent": "T081"
     }
   ],
   "parked_candidates": [
@@ -1459,6 +1467,17 @@
       "provenance_limit": "Report 196's run04 timing tuple differs from the current ignored artifact; unlogged run27/run28 rows lack command-first provenance and remain excluded exploratory history.",
       "user_go": "Standing autonomous continuation applied to analysis only; no new submission was made.",
       "status": "REFUTED / ADVANCE TO PHASE 5 — research budget is exhausted 5/5, so T081 is the only open task."
+    },
+    "5_cycle3_scoc32": {
+      "analysis": "DONE — research-log/206-scoc32-analysis-iter-5-tables.md and research-log/207-scoc32-phase5-analysis-iter-5.md answer the refuted SCOC mechanism and unattributed 81.225 live bundle.",
+      "statistical_rigor": "PASS DESCRIPTIVE — declaration block uses mechanism rerun n=2 and live submission n=1; no p-value or paper-grade inferential claim is made.",
+      "headline_recompute": "PASS — `headline_recompute=PASS run03=1.086158078744 run04=1.024074983325 mean=1.055116531034 sd=0.043899377768 gate=1.25 both_fail=True`.",
+      "figures": "PASS — `figure_qa=PASS paper/figures/scoc32_mechanism_comparison` and `figure_qa=PASS paper/figures/scoc32_public_leaderboard_bundle`; SVG, PNG and source CSV files exist.",
+      "freshness": "DONE — July 2026 long-horizon/stateful-agent sources checked; no exact SCOC analogue found, but adjacent literature supports harness/state/orchestration as the fresher direction.",
+      "search_diagnosis": "STALLED — SCOC remains kind=metric/refuted; cycle-3 metric search has no attributable mechanism improvement and research iterations are exhausted.",
+      "budget": "EXHAUSTED — research_iterations 5/5; hypothesis review 12/32 and paper review 0/2 do not authorize a new research iteration.",
+      "path_recommendation": "Path C internal technical report/no submission/no SCOC paper. T082 holds the required user checkpoint before closing Phase 5 or spending new research budget.",
+      "status": "RECOMMENDATION COMPLETE / USER PATH APPROVAL PENDING"
     }
   }
 }
