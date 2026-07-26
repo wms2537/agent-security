@@ -55,7 +55,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 32,
-      "spent": 12
+      "spent": 13
     },
     "paper_review_rounds": {
       "limit": 2,
@@ -755,8 +755,8 @@
       "id": "T087",
       "phase": "2",
       "desc": "Dispatch one sterile independent engineering theory review of immutable report 215, charge hypothesis-review round 13 at dispatch, verify reviewer line count against git, and record the blind verdict before any implementation",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Hypothesis-review round 13/32 charged at sterile dispatch against immutable 400-line report 215; reviewer result and independent line-count verification pending.",
       "parent": "T086"
     }
   ],
