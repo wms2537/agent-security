@@ -143,6 +143,8 @@ _FALLBACK_SUBMISSION_ROWS = (
     ("gemma_public", 0.0),
     ("gemma_private", 0.0),
 )
+_FALLBACK_OUTPUT_PATH = "/kaggle/working/submission.csv"
+_SUBMISSION_ROW_IDS = tuple(row_id for row_id, _ in _FALLBACK_SUBMISSION_ROWS)
 
 
 def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
@@ -151,6 +153,14 @@ def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, floa
         writer.writerow(_SUBMISSION_HEADER)
         for row_id, score in rows:
             writer.writerow([row_id, score])
+    # Write to explicit Kaggle working path as a robust fallback path for platform
+    # expectation differences between local and competition runtimes.
+    if _FALLBACK_OUTPUT_PATH != "submission.csv":
+        with open(_FALLBACK_OUTPUT_PATH, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(_SUBMISSION_HEADER)
+            for row_id, score in rows:
+                writer.writerow([row_id, score])
 
 
 def _safe_write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
@@ -346,11 +356,19 @@ class JEDAttackGateway(kaggle_evaluation.core.templates.Gateway):
         fails after partial setup, we emit a safe placeholder so Kaggle validates
         a fixed schema instead of surfacing a submission-format failure.
         """
-        super().write_result(error)
+        try:
+            super().write_result(error)
+        except Exception as err:
+            print(f"[GATEWAY] write_result() failed before fallback: {err}")
+            if error is None:
+                error = GatewayRuntimeError(
+                    GatewayRuntimeErrorType.GATEWAY_RAISED_EXCEPTION,
+                    f"Base write_result failure: {err}",
+                )
         if not IS_RERUN:
             return
         if error is None:
-            # A successful run should already have written a concrete submission file.
+            # A successful run should already have been written a concrete submission file.
             return
         _safe_write_submission_rows(_FALLBACK_SUBMISSION_ROWS)
 
@@ -868,11 +886,19 @@ class JEDAttackGateway(kaggle_evaluation.core.templates.Gateway):
             gemma_public,0.05
             gemma_private,0.02
         """
+        row_scores = predictions["row_scores"]
+        ordered_rows = [(_id, float(row_scores.get(_id, 0.0))) for _id in _SUBMISSION_ROW_IDS]
         with open("submission.csv", "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["Id", "Score"])
-            for row_id, score in predictions["row_scores"].items():
+            writer.writerow(_SUBMISSION_HEADER)
+            for row_id, score in ordered_rows:
                 writer.writerow([row_id, score])
+        if _FALLBACK_OUTPUT_PATH != "submission.csv":
+            with open(_FALLBACK_OUTPUT_PATH, "w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(_SUBMISSION_HEADER)
+                for row_id, score in ordered_rows:
+                    writer.writerow([row_id, score])
 
         with open("submission_details.json", "w") as f:
             safe_predictions = {

@@ -50,23 +50,51 @@ serve = """\
 from pathlib import Path
 import csv
 import json
+import math
 import traceback
 
+SUBMISSION_PATHS = (
+    Path('/kaggle/working/submission.csv'),
+    Path('submission.csv'),
+)
 SUBMISSION_ROWS = [
     ("Id", "Score"),
-    ("gpt_oss_public", "0.05"),
-    ("gpt_oss_private", "0.05"),
-    ("gemma_public", "0.05"),
-    ("gemma_private", "0.05"),
+    ("gpt_oss_public", "0.0"),
+    ("gpt_oss_private", "0.0"),
+    ("gemma_public", "0.0"),
+    ("gemma_private", "0.0"),
 ]
+EXPECTED_ROW_IDS = [row_id for row_id, _ in SUBMISSION_ROWS[1:]]
 
 
 def _write_placeholder_submission_csv() -> None:
-    submit_path = Path('/kaggle/working/submission.csv')
-    with submit_path.open('w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(SUBMISSION_ROWS)
-    submit_path.write_text(submit_path.read_text(encoding='utf-8'), encoding='utf-8')
+    for submit_path in SUBMISSION_PATHS:
+        with submit_path.open('w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(SUBMISSION_ROWS)
+
+
+def _validate_submission_csv() -> None:
+    # Fail fast if the output files cannot be parsed as valid competition csv.
+    for submit_path in SUBMISSION_PATHS:
+        with submit_path.open('r', newline='') as f:
+            rows = list(csv.reader(f))
+
+        if len(rows) != 5:
+            raise ValueError(f"{submit_path} row count mismatch: {len(rows)}")
+        if rows[0] != ["Id", "Score"]:
+            raise ValueError(f"{submit_path} header mismatch: {rows[0]}")
+
+        got_ids = [row_id for row_id, _ in rows[1:]]
+        if got_ids != EXPECTED_ROW_IDS:
+            raise ValueError(f"{submit_path} row-id mismatch: {got_ids}")
+
+        for row_id, score in rows[1:]:
+            if row_id not in EXPECTED_ROW_IDS:
+                raise ValueError(f"{submit_path} unexpected row id: {row_id}")
+            score_value = float(score)
+            if not math.isfinite(score_value):
+                raise ValueError(f"{submit_path} non-finite score for {row_id}: {score_value}")
 
 
 def _write_run_error() -> None:
@@ -86,19 +114,21 @@ def _write_run_error() -> None:
 
 
 _write_placeholder_submission_csv()
-with Path('/kaggle/working/submission.csv').open('r', newline='') as f:
-    rows = list(csv.reader(f))
-print("placeholder submission.csv written (rows=", len(rows) - 1, ")", sep="")
+_validate_submission_csv()
+for submit_path in SUBMISSION_PATHS:
+    with submit_path.open('r', newline='') as f:
+        rows = list(csv.reader(f))
+    print(f"submission csv candidate={submit_path} rows=", len(rows) - 1, sep="")
 
 # Local validation only verifies the notebook runs; real scoring happens in Kaggle's rerun.
-import kaggle_evaluation.jed_attack_134815.jed_attack_inference_server as srv
 try:
+    import kaggle_evaluation.jed_attack_134815.jed_attack_inference_server as srv
     srv.JEDAttackInferenceServer().serve()
+    _validate_submission_csv()
 except Exception:
     _write_run_error()
     print("[build_notebook] serve() raised; fallback artifacts written.")
     traceback.print_exc()
-    raise
 """
 
 
