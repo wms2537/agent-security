@@ -22,6 +22,7 @@ import traceback
 import json
 import os
 import queue
+import math
 import sys
 import threading
 import time
@@ -147,7 +148,25 @@ _FALLBACK_OUTPUT_PATH = "/kaggle/working/submission.csv"
 _SUBMISSION_ROW_IDS = tuple(row_id for row_id, _ in _FALLBACK_SUBMISSION_ROWS)
 
 
+def _validate_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    if len(rows) != len(_SUBMISSION_ROW_IDS):
+        raise ValueError(f"Unexpected submission row count: {len(rows)}")
+    seen = set()
+    for row_id, score in rows:
+        if row_id in seen:
+            raise ValueError(f"Duplicate submission row id: {row_id}")
+        if row_id not in _SUBMISSION_ROW_IDS:
+            raise ValueError(f"Unexpected submission row id: {row_id}")
+        score_value = float(score)
+        if not math.isfinite(score_value):
+            raise ValueError(f"Non-finite submission score for {row_id}: {score_value}")
+        if score_value < 0:
+            raise ValueError(f"Negative submission score for {row_id}: {score_value}")
+        seen.add(row_id)
+
+
 def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    _validate_submission_rows(rows)
     with open("submission.csv", "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(_SUBMISSION_HEADER)
@@ -161,6 +180,13 @@ def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, floa
             writer.writerow(_SUBMISSION_HEADER)
             for row_id, score in rows:
                 writer.writerow([row_id, score])
+    # Readback guardrail for platforms with strict output validation.
+    with open(_FALLBACK_OUTPUT_PATH, "r", newline="") as f:
+        read_rows = list(csv.reader(f))
+    if read_rows != [[_SUBMISSION_HEADER[0], _SUBMISSION_HEADER[1]]] + [
+        [row_id, str(float(score))] for row_id, score in rows
+    ]:
+        raise ValueError("Submission write/readback mismatch")
 
 
 def _safe_write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
@@ -887,18 +913,11 @@ class JEDAttackGateway(kaggle_evaluation.core.templates.Gateway):
             gemma_private,0.02
         """
         row_scores = predictions["row_scores"]
-        ordered_rows = [(_id, float(row_scores.get(_id, 0.0))) for _id in _SUBMISSION_ROW_IDS]
-        with open("submission.csv", "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(_SUBMISSION_HEADER)
-            for row_id, score in ordered_rows:
-                writer.writerow([row_id, score])
-        if _FALLBACK_OUTPUT_PATH != "submission.csv":
-            with open(_FALLBACK_OUTPUT_PATH, "w", newline="") as f:
-                writer = csv.writer(f)
-                writer.writerow(_SUBMISSION_HEADER)
-                for row_id, score in ordered_rows:
-                    writer.writerow([row_id, score])
+        ordered_rows = []
+        for row_id in _SUBMISSION_ROW_IDS:
+            ordered_rows.append((row_id, float(row_scores.get(row_id, 0.0))))
+
+        _write_submission_rows(ordered_rows)
 
         with open("submission_details.json", "w") as f:
             safe_predictions = {
