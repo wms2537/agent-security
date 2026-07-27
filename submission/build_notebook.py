@@ -10,6 +10,7 @@ Run:  python submission/build_notebook.py
 from __future__ import annotations
 
 import json
+import csv
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,12 +44,39 @@ write_cell = (
 )
 
 serve = """\
-# Write a placeholder submission.csv so the commit run produces the output file the submit API
-# requires; Kaggle's real competition rerun overwrites it with the true per-cell scores.
+# Write a placeholder submission.csv so the commit run produces the output file the
+# Kaggle submit API requires.
+# Kaggle's real competition rerun overwrites it with the true per-cell scores.
 from pathlib import Path
-placeholder = 'Id,Score\\ngpt_oss_public,0.0\\ngpt_oss_private,0.0\\ngemma_public,0.0\\ngemma_private,0.0\\n'
-Path('/kaggle/working/submission.csv').write_text(placeholder)
-print('placeholder submission.csv written')
+
+SUBMISSION_ROWS = [
+    ("Id", "Score"),
+    ("gpt_oss_public", "0.05"),
+    ("gpt_oss_private", "0.05"),
+    ("gemma_public", "0.05"),
+    ("gemma_private", "0.05"),
+]
+
+submit_path = Path('/kaggle/working/submission.csv')
+import csv
+with submit_path.open('w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(SUBMISSION_ROWS)
+
+with submit_path.open('r', newline='') as f:
+    rows = list(csv.reader(f))
+
+assert rows[:1] == [["Id", "Score"]], "submission.csv header mismatch"
+assert len(rows) == 5, f"submission.csv row count mismatch: {len(rows)}"
+expected_ids = ["gpt_oss_public", "gpt_oss_private", "gemma_public", "gemma_private"]
+actual_ids = [row_id for row_id, _ in rows[1:]]
+assert actual_ids == expected_ids, f"submission.csv row-id order mismatch: {actual_ids}"
+for row_id, score in rows[1:]:
+    float(score)  # raises on empty/non-numeric values
+
+print("submission.csv schema and ids are valid")
+
+print(f"placeholder submission.csv written (rows={len(rows)-1})")
 
 # Local validation only verifies the notebook runs; real scoring happens in Kaggle's rerun.
 import kaggle_evaluation.jed_attack_134815.jed_attack_inference_server as srv
