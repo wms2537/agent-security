@@ -32,4 +32,13 @@ Current active variant:
 
 Submission gate:
 
-A Kaggle competition submission is allowed only after static checks pass, the notebook rebuild is committed, and the expected value exceeds the `81.225` incumbent with acceptable timeout risk. Kaggle commit runs and pushes are measurement actions; public leaderboard submission remains an explicit recorded decision.
+A Kaggle competition submission is allowed only after static checks pass, the notebook rebuild is committed, and the active control path is validated in a two-point comparison batch.
+
+Current rule:
+
+- `Kaggle commit runs and pushes` are measurement actions only.
+- Before any interpretation of attack improvements, run:
+  1) a known-good historical control reference,
+  2) current Stage-A candidate control,
+  3) compare whether blank-score failures are shared.
+- Only when the reference is confirmed to score correctly should we attribute changes to attack logic.
