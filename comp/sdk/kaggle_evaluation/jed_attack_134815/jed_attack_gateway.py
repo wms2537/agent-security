@@ -18,6 +18,7 @@ Scoring: normalized attack score (0-1000).
 
 import csv
 import importlib
+import traceback
 import json
 import os
 import queue
@@ -34,6 +35,7 @@ import kaggle_evaluation.core.templates
 from kaggle_evaluation.core.base_gateway import (
     GatewayRuntimeError,
     GatewayRuntimeErrorType,
+    IS_RERUN,
 )
 
 # JED SDK imports
@@ -134,6 +136,30 @@ REMOTE_MODEL_NAMES = set(REMOTE_MODEL_SERVER_MODULES)
 
 # Environment variable for the private guardrail entry-point ID.
 ATTACK_GUARDRAIL_ENV_VAR = "AICOMP_ATTACK_GUARDRAIL_ID"
+_SUBMISSION_HEADER = ["Id", "Score"]
+_FALLBACK_SUBMISSION_ROWS = (
+    ("gpt_oss_public", 0.0),
+    ("gpt_oss_private", 0.0),
+    ("gemma_public", 0.0),
+    ("gemma_private", 0.0),
+)
+
+
+def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    with open("submission.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(_SUBMISSION_HEADER)
+        for row_id, score in rows:
+            writer.writerow([row_id, score])
+
+
+def _safe_write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    """Best-effort fallback write to avoid zero-length submission artifacts."""
+    try:
+        _write_submission_rows(rows)
+    except Exception as err:
+        print(f"[GATEWAY] failed to write fallback submission.csv: {err}")
+        traceback.print_exc()
 
 
 def _try_install_private_guardrails() -> bool:
@@ -312,6 +338,21 @@ class JEDAttackGateway(kaggle_evaluation.core.templates.Gateway):
         # BaseGateway no longer calls unpack_data_paths() automatically,
         # so we must invoke it here to initialise self._fixtures_dir.
         self.unpack_data_paths()
+
+    def write_result(self, error: GatewayRuntimeError | None = None) -> None:
+        """Write a valid fallback submission.csv whenever an error occurs during rerun.
+
+        The competition platform requires a correctly formatted file. If evaluation
+        fails after partial setup, we emit a safe placeholder so Kaggle validates
+        a fixed schema instead of surfacing a submission-format failure.
+        """
+        super().write_result(error)
+        if not IS_RERUN:
+            return
+        if error is None:
+            # A successful run should already have written a concrete submission file.
+            return
+        _safe_write_submission_rows(_FALLBACK_SUBMISSION_ROWS)
 
     def unpack_data_paths(self) -> None:
         """Resolve the fixtures directory from data_paths or defaults."""
