@@ -57,7 +57,6 @@ import traceback
 
 SUBMISSION_PATHS = (
     Path('/kaggle/working/submission.csv'),
-    Path('submission.csv'),
 )
 SUBMISSION_ROWS = [
     ("Id", "Score"),
@@ -70,33 +69,33 @@ EXPECTED_ROW_IDS = [row_id for row_id, _ in SUBMISSION_ROWS[1:]]
 
 
 def _write_placeholder_submission_csv() -> None:
-    for submit_path in SUBMISSION_PATHS:
-        with submit_path.open('w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerows(SUBMISSION_ROWS)
+    submit_path = SUBMISSION_PATHS[0]
+    with submit_path.open('w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(SUBMISSION_ROWS)
 
 
 def _validate_submission_csv() -> None:
     # Fail fast if the output files cannot be parsed as valid competition csv.
-    for submit_path in SUBMISSION_PATHS:
-        with submit_path.open('r', newline='') as f:
-            rows = list(csv.reader(f))
+    submit_path = SUBMISSION_PATHS[0]
+    with submit_path.open('r', newline='') as f:
+        rows = list(csv.reader(f))
 
-        if len(rows) != 5:
-            raise ValueError(f"{submit_path} row count mismatch: {len(rows)}")
-        if rows[0] != ["Id", "Score"]:
-            raise ValueError(f"{submit_path} header mismatch: {rows[0]}")
+    if len(rows) != 5:
+        raise ValueError(f"{submit_path} row count mismatch: {len(rows)}")
+    if rows[0] != ["Id", "Score"]:
+        raise ValueError(f"{submit_path} header mismatch: {rows[0]}")
 
-        got_ids = [row_id for row_id, _ in rows[1:]]
-        if got_ids != EXPECTED_ROW_IDS:
-            raise ValueError(f"{submit_path} row-id mismatch: {got_ids}")
+    got_ids = [row_id for row_id, _ in rows[1:]]
+    if got_ids != EXPECTED_ROW_IDS:
+        raise ValueError(f"{submit_path} row-id mismatch: {got_ids}")
 
-        for row_id, score in rows[1:]:
-            if row_id not in EXPECTED_ROW_IDS:
-                raise ValueError(f"{submit_path} unexpected row id: {row_id}")
-            score_value = float(score)
-            if not math.isfinite(score_value):
-                raise ValueError(f"{submit_path} non-finite score for {row_id}: {score_value}")
+    for row_id, score in rows[1:]:
+        if row_id not in EXPECTED_ROW_IDS:
+            raise ValueError(f"{submit_path} unexpected row id: {row_id}")
+        score_value = float(score)
+        if not math.isfinite(score_value):
+            raise ValueError(f"{submit_path} non-finite score for {row_id}: {score_value}")
 
 
 def _write_run_error() -> None:
@@ -117,10 +116,9 @@ def _write_run_error() -> None:
 
 _write_placeholder_submission_csv()
 _validate_submission_csv()
-for submit_path in SUBMISSION_PATHS:
-    with submit_path.open('r', newline='') as f:
-        rows = list(csv.reader(f))
-    print(f"submission csv candidate={submit_path} rows=", len(rows) - 1, sep="")
+with SUBMISSION_PATHS[0].open('r', newline='') as f:
+    rows = list(csv.reader(f))
+print(f"submission csv candidate={SUBMISSION_PATHS[0]} rows=", len(rows) - 1, sep="")
 
 # Local validation only verifies the notebook runs; real scoring happens in Kaggle's rerun.
 try:
