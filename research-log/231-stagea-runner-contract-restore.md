@@ -40,6 +40,18 @@ notebook_contract_ok submission/kernel/kaggle_notebook.ipynb cells 3 bytes 12807
 attack_smoke_ok configured_return_count=7 smoke_count=5
 ```
 
+Kaggle commit-run check passed:
+
+```text
+Kernel version 22 successfully pushed.
+KernelWorkerStatus.COMPLETE
+Downloaded outputs: attack.py, submission.csv, ai-agent-security-attack.log
+Log contains: Dataset root, Setup complete, attack.py written, placeholder submission.csv written
+submission.csv rows: Id,Score plus gpt_oss_public/gpt_oss_private/gemma_public/gemma_private
+```
+
+This was a kernel commit-run only, not a competition submission.
+
 ## Next Gate
 
 Do not jump back to `1950`.
