@@ -19,6 +19,8 @@ Scoring: normalized attack score (0-1000).
 import csv
 import importlib
 import json
+import math
+import traceback
 import os
 import queue
 import sys
@@ -34,6 +36,7 @@ import kaggle_evaluation.core.templates
 from kaggle_evaluation.core.base_gateway import (
     GatewayRuntimeError,
     GatewayRuntimeErrorType,
+    IS_RERUN,
 )
 
 # JED SDK imports
@@ -64,6 +67,48 @@ GATEWAY_RESPONSE_TIMEOUT_S = int(
 )
 ENV_SELECTION = "gym"
 ATTACK_SEED = 123
+
+# Stable submission schema expected by the Kaggle scorer.
+_SUBMISSION_HEADER = ["Id", "Score"]
+_SUBMISSION_ROW_IDS = (
+    "gpt_oss_public",
+    "gpt_oss_private",
+    "gemma_public",
+    "gemma_private",
+)
+_FALLBACK_SUBMISSION_ROWS = tuple((row_id, 0.0) for row_id in _SUBMISSION_ROW_IDS)
+
+
+def _validate_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    if len(rows) != len(_SUBMISSION_ROW_IDS):
+        raise ValueError(f"Unexpected submission row count: {len(rows)}")
+    seen = set[str]()
+    for row_id, score in rows:
+        if row_id in seen:
+            raise ValueError(f"Duplicate submission row id: {row_id}")
+        if row_id not in _SUBMISSION_ROW_IDS:
+            raise ValueError(f"Unexpected submission row id: {row_id}")
+        score_value = float(score)
+        if not math.isfinite(score_value) or score_value < 0:
+            raise ValueError(f"Non-finite/negative score for {row_id}: {score_value}")
+        seen.add(row_id)
+
+
+def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    _validate_submission_rows(rows)
+    with open("submission.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(_SUBMISSION_HEADER)
+        for row_id, score in rows:
+            writer.writerow([row_id, score])
+
+
+def _safe_write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
+    try:
+        _write_submission_rows(rows)
+    except Exception as err:
+        print(f"[GATEWAY] failed to write fallback submission.csv: {err}")
+        traceback.print_exc()
 
 
 def _parse_model_names(value: str) -> list[str]:
@@ -312,6 +357,24 @@ class JEDAttackGateway(kaggle_evaluation.core.templates.Gateway):
         # BaseGateway no longer calls unpack_data_paths() automatically,
         # so we must invoke it here to initialise self._fixtures_dir.
         self.unpack_data_paths()
+
+    def write_result(self, error: GatewayRuntimeError | None = None) -> None:
+        """Write fallback submission rows on rerun errors to avoid submission-format blanks."""
+        try:
+            super().write_result(error)
+        except Exception as err:
+            print(f"[GATEWAY] base write_result failed: {err}")
+            traceback.print_exc()
+            if error is None:
+                error = GatewayRuntimeError(
+                    GatewayRuntimeErrorType.GATEWAY_RAISED_EXCEPTION,
+                    f"Base write_result failure: {err}",
+                )
+        if not IS_RERUN:
+            return
+        if error is None:
+            return
+        _safe_write_submission_rows(_FALLBACK_SUBMISSION_ROWS)
 
     def unpack_data_paths(self) -> None:
         """Resolve the fixtures directory from data_paths or defaults."""
@@ -828,11 +891,10 @@ class JEDAttackGateway(kaggle_evaluation.core.templates.Gateway):
             gemma_private,0.02
         """
         row_scores = predictions["row_scores"]
-        with open("submission.csv", "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["Id", "Score"])
-            for row_id, score in row_scores.items():
-                writer.writerow([row_id, score])
+        ordered_rows = [
+            (_row_id, float(row_scores.get(_row_id, 0.0))) for _row_id in _SUBMISSION_ROW_IDS
+        ]
+        _write_submission_rows(ordered_rows)
 
         with open("submission_details.json", "w") as f:
             safe_predictions = {

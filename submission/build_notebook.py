@@ -70,13 +70,14 @@ EXPECTED_ROW_IDS = [row_id for row_id, _ in SUBMISSION_ROWS[1:]]
 
 def _write_placeholder_submission_csv() -> None:
     submit_path = SUBMISSION_PATHS[0]
+    submit_path.parent.mkdir(parents=True, exist_ok=True)
     with submit_path.open('w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(SUBMISSION_ROWS)
 
 
 def _validate_submission_csv() -> None:
-    # Fail fast if the output files cannot be parsed as valid competition csv.
+    # Fail fast if the output file cannot be parsed as valid competition csv.
     submit_path = SUBMISSION_PATHS[0]
     with submit_path.open('r', newline='') as f:
         rows = list(csv.reader(f))
