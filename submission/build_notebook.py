@@ -12,6 +12,8 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
+import subprocess
 import traceback
 from pathlib import Path
 
@@ -53,10 +55,15 @@ from pathlib import Path
 import csv
 import json
 import math
+import os
+import sys
 import traceback
+import subprocess
 
 SUBMISSION_PATHS = (
     Path('/kaggle/working/submission.csv'),
+    Path('submission.csv'),
+    Path('/tmp/submission.csv'),
 )
 SUBMISSION_ROWS = [
     ("Id", "Score"),
@@ -69,34 +76,34 @@ EXPECTED_ROW_IDS = [row_id for row_id, _ in SUBMISSION_ROWS[1:]]
 
 
 def _write_placeholder_submission_csv() -> None:
-    submit_path = SUBMISSION_PATHS[0]
-    submit_path.parent.mkdir(parents=True, exist_ok=True)
-    with submit_path.open('w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(SUBMISSION_ROWS)
+    for submit_path in SUBMISSION_PATHS:
+        submit_path.parent.mkdir(parents=True, exist_ok=True)
+        with submit_path.open('w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(SUBMISSION_ROWS)
 
 
 def _validate_submission_csv() -> None:
     # Fail fast if the output file cannot be parsed as valid competition csv.
-    submit_path = SUBMISSION_PATHS[0]
-    with submit_path.open('r', newline='') as f:
-        rows = list(csv.reader(f))
+    for submit_path in SUBMISSION_PATHS:
+        with submit_path.open('r', newline='') as f:
+            rows = list(csv.reader(f))
 
-    if len(rows) != 5:
-        raise ValueError(f"{submit_path} row count mismatch: {len(rows)}")
-    if rows[0] != ["Id", "Score"]:
-        raise ValueError(f"{submit_path} header mismatch: {rows[0]}")
+        if len(rows) != 5:
+            raise ValueError(f"{submit_path} row count mismatch: {len(rows)}")
+        if rows[0] != ["Id", "Score"]:
+            raise ValueError(f"{submit_path} header mismatch: {rows[0]}")
 
-    got_ids = [row_id for row_id, _ in rows[1:]]
-    if got_ids != EXPECTED_ROW_IDS:
-        raise ValueError(f"{submit_path} row-id mismatch: {got_ids}")
+        got_ids = [row_id for row_id, _ in rows[1:]]
+        if got_ids != EXPECTED_ROW_IDS:
+            raise ValueError(f"{submit_path} row-id mismatch: {got_ids}")
 
-    for row_id, score in rows[1:]:
-        if row_id not in EXPECTED_ROW_IDS:
-            raise ValueError(f"{submit_path} unexpected row id: {row_id}")
-        score_value = float(score)
-        if not math.isfinite(score_value):
-            raise ValueError(f"{submit_path} non-finite score for {row_id}: {score_value}")
+        for row_id, score in rows[1:]:
+            if row_id not in EXPECTED_ROW_IDS:
+                raise ValueError(f"{submit_path} unexpected row id: {row_id}")
+            score_value = float(score)
+            if not math.isfinite(score_value):
+                raise ValueError(f"{submit_path} non-finite score for {row_id}: {score_value}")
 
 
 def _write_run_error() -> None:
@@ -115,16 +122,47 @@ def _write_run_error() -> None:
     _write_placeholder_submission_csv()
 
 
+def _run_gateway_in_subprocess() -> None:
+    gateway_source = '''import sys
+import glob
+from pathlib import Path
+
+# argparse guard for Kaggle
+sys.argv = [sys.argv[0]]
+for candidate in glob.glob('/kaggle/input/**/kaggle_evaluation', recursive=True):
+    root = str(Path(candidate).parent)
+    if root not in sys.path:
+        sys.path.insert(0, root)
+    print('Dataset root:', root)
+    break
+
+import kaggle_evaluation.jed_attack_134815.jed_attack_inference_server as srv
+
+srv.JEDAttackInferenceServer().serve()
+'''
+
+    child_script = Path('/tmp/kaggle_jed_gateway_subprocess.py')
+    child_script.write_text(gateway_source, encoding='utf-8')
+
+    result = subprocess.run(
+        [sys.executable, str(child_script)],
+        check=False,
+        env=os.environ.copy(),
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"gateway subprocess failed with return code {result.returncode}")
+
+
 _write_placeholder_submission_csv()
 _validate_submission_csv()
-with SUBMISSION_PATHS[0].open('r', newline='') as f:
-    rows = list(csv.reader(f))
-print(f"submission csv candidate={SUBMISSION_PATHS[0]} rows=", len(rows) - 1, sep="")
+for submit_path in SUBMISSION_PATHS:
+    with submit_path.open('r', newline='') as f:
+        rows = list(csv.reader(f))
+    print(f"submission csv candidate={submit_path} rows=", len(rows) - 1, sep="")
 
 # Local validation only verifies the notebook runs; real scoring happens in Kaggle's rerun.
 try:
-    import kaggle_evaluation.jed_attack_134815.jed_attack_inference_server as srv
-    srv.JEDAttackInferenceServer().serve()
+    _run_gateway_in_subprocess()
     _validate_submission_csv()
 except Exception:
     _write_run_error()
