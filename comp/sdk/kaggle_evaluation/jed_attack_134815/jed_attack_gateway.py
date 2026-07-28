@@ -23,6 +23,7 @@ import math
 import traceback
 import os
 import queue
+from pathlib import Path
 import sys
 import threading
 import time
@@ -77,6 +78,10 @@ _SUBMISSION_ROW_IDS = (
     "gemma_private",
 )
 _FALLBACK_SUBMISSION_ROWS = tuple((row_id, 0.0) for row_id in _SUBMISSION_ROW_IDS)
+_SUBMISSION_PATHS = (
+    Path("/kaggle/working/submission.csv"),
+    Path("submission.csv"),
+)
 
 
 def _validate_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
@@ -96,11 +101,30 @@ def _validate_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, f
 
 def _write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
     _validate_submission_rows(rows)
-    with open("submission.csv", "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(_SUBMISSION_HEADER)
-        for row_id, score in rows:
-            writer.writerow([row_id, score])
+    expected_rows = [[_SUBMISSION_HEADER[0], _SUBMISSION_HEADER[1]]] + [
+        [row_id, str(float(score))] for row_id, score in rows
+    ]
+
+    write_ok = False
+    for submission_path in _SUBMISSION_PATHS:
+        try:
+            submission_path.parent.mkdir(parents=True, exist_ok=True)
+            with submission_path.open("w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(_SUBMISSION_HEADER)
+                for row_id, score in rows:
+                    writer.writerow([row_id, score])
+
+            with submission_path.open("r", newline="") as f:
+                observed_rows = list(csv.reader(f))
+            if observed_rows != expected_rows:
+                raise ValueError(f"Submission write/readback mismatch at {submission_path}")
+            write_ok = True
+        except Exception as err:
+            print(f"[GATEWAY] failed writing submission path {submission_path}: {err}")
+
+    if not write_ok:
+        raise RuntimeError("Failed to write submission.csv to any path")
 
 
 def _safe_write_submission_rows(rows: list[tuple[str, float]] | tuple[tuple[str, float], ...]) -> None:
