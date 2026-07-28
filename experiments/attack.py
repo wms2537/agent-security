@@ -83,10 +83,11 @@ PRIOR_RANK: dict[str, int] = {"bare": 0, "plain": 1, "harmony": 2}
 
 
 class AttackConfig:
-    # Default keeps the Stage A candidate-count objective.
+    # Default is pinned to the last live-valid submission count (v16 scored 45.000).
+    # Larger counts must be reintroduced as one-factor Kaggle sweeps only.
     # Can be overridden at runtime via AICOMP_RETURN_COUNT for
     # controlled one-factor count-sweep experiments.
-    return_count: int = 1950
+    return_count: int = 500
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
     max_tool_hops: int = 8
