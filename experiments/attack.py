@@ -86,7 +86,7 @@ class AttackConfig:
     # Default keeps the Stage A candidate-count objective.
     # Can be overridden at runtime via AICOMP_RETURN_COUNT for
     # controlled one-factor count-sweep experiments.
-    return_count: int = 500
+    return_count: int = 1950
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
     max_tool_hops: int = 8
