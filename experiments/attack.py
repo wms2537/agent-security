@@ -20,6 +20,7 @@ count sweeps, not inferred from hidden evaluator lifecycle cost.
 from __future__ import annotations
 
 import time
+import os
 from collections.abc import Mapping
 from typing import Any
 
@@ -82,7 +83,10 @@ PRIOR_RANK: dict[str, int] = {"bare": 0, "plain": 1, "harmony": 2}
 
 
 class AttackConfig:
-    return_count: int = 1950
+    # Default keeps the Stage A candidate-count objective.
+    # Can be overridden at runtime via AICOMP_RETURN_COUNT for
+    # controlled one-factor count-sweep experiments.
+    return_count: int = 500
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
     max_tool_hops: int = 8
@@ -96,6 +100,12 @@ class AttackConfig:
                     setattr(obj, k, type(getattr(cls, k))(v))
                 except Exception:
                     pass
+        env_return_count = os.getenv("AICOMP_RETURN_COUNT")
+        if env_return_count:
+            try:
+                obj.return_count = int(env_return_count)
+            except Exception:
+                pass
         obj.return_count = max(1, min(int(obj.return_count), MAX_CANDIDATES))
         obj.max_tool_hops = max(1, min(int(obj.max_tool_hops), 8))
         obj.confirmation_latency_tie_ratio = max(1.0, float(obj.confirmation_latency_tie_ratio))
