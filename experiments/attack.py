@@ -83,11 +83,11 @@ PRIOR_RANK: dict[str, int] = {"bare": 0, "plain": 1, "harmony": 2}
 
 
 class AttackConfig:
-    # Default is pinned to the last live-valid submission count (v16 scored 45.000).
+    # Stage-A one-factor count sweep. rc500 scored 45.000 on v22/ref 55070486.
     # Larger counts must be reintroduced as one-factor Kaggle sweeps only.
     # Can be overridden at runtime via AICOMP_RETURN_COUNT for
     # controlled one-factor count-sweep experiments.
-    return_count: int = 500
+    return_count: int = 750
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
     max_tool_hops: int = 8
