@@ -325,4 +325,4 @@
 2026-07-30 | P2 | T105 Stage A batched rc656 sweep | done | ref `55097959` completed with public score `59.040`; result is consistent with linear count scaling and adds no new upper-bound information
 2026-07-30 | P2 | T106 Stage A batched rc718 sweep | done_fail | ref `55098004` completed with blank public/private score, setting live upper bound below rc718 for this exact candidate profile
 2026-07-30 | P2 | T107 Stage A rc702 midpoint sweep | in_progress | one-factor change only: default return_count `718 -> 702`, midpoint after rc687 visible and rc718 blank; kernel v28 completed and ref `55111188` is pending
-2026-07-30 | P2 | T108 Stage A rc710 high-side sweep | in_progress | user authorized two together; one-factor count branch `702 -> 710`, below failed rc718 and above pending rc702
+2026-07-30 | P2 | T108 Stage A rc710 high-side sweep | in_progress | user authorized two together; one-factor count branch `702 -> 710`, below failed rc718 and above pending rc702; kernel v29 completed and ref `55111237` is pending
