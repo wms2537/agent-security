@@ -322,3 +322,4 @@
 2026-07-29 | P2 | T102 Stage A rc750 count sweep | done_fail | ref `55077477` completed with blank public/private score after rc750 one-factor sweep; combined with rc500 visible score, this sets a live upper bound below 750 for this exact candidate profile
 2026-07-30 | P2 | T103 Stage A rc625 midpoint sweep | done | ref `55086769` completed with public score `56.250`, confirming linear count scaling through 625 and setting the next live bracket to [625 visible, 750 blank]
 2026-07-30 | P2 | T104 Stage A rc687 midpoint sweep | in_progress | one-factor change only: default return_count `625 -> 687` after rc625 visible and rc750 blank; rebuild, kernel commit-run, and code-competition submission required before any higher-count sweep
+2026-07-30 | P2 | T105 Stage A batched rc656 sweep | in_progress | user requested submitting a few more without waiting; one-factor count branch `687 -> 656` while rc687 remains pending, preserving rc625 visible and rc750 blank bounds
