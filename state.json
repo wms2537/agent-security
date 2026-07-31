@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-single-message-two-call-density",
-  "active_hypothesis_status": "preregistered_source_checked_unimplemented",
+  "active_hypothesis_status": "implemented_local_pass_unsubmitted",
   "active_hypothesis_artifact": "research-log/233-stageb-single-message-two-call-hypothesis.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -815,9 +815,17 @@
       "id": "T112",
       "phase": "2",
       "desc": "Close v32 exact full-repeat M2 and preregister a single-message two-call density hypothesis with source and local mechanics gates",
-      "status": "in_progress",
-      "evidence": "v32 ref 55134050 is COMPLETE with blank public/private scores; research-log/232 records the validated notebook contract and the remote replay-boundary interpretation. User authorization for one fresh iteration is recorded verbatim under checkpoint_defaults.cycle3_iteration7_extension.",
+      "status": "done",
+      "evidence": "research-log/234 verifies the post-preregistration implementation: real SDK CompliantAgent fixture returned 2 events/2 predicates/raw 34 per candidate, 3-candidate end-to-end raw=102, all notebook and submission schema checks PASS; source SHA 90a0c3b8....",
       "parent": "T111"
+    },
+    {
+      "id": "T113",
+      "phase": "4",
+      "desc": "Push and submit the single-message two-call rc500 artifact after the committed local confidence gate, then record the target result",
+      "status": "open",
+      "evidence": null,
+      "parent": "T112"
     }
   ],
   "parked_candidates": [
