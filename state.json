@@ -823,8 +823,8 @@
       "id": "T113",
       "phase": "4",
       "desc": "Push and submit the single-message two-call rc500 artifact after the committed local confidence gate, then record the target result",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Committed local gate and kernel v33 output inspection passed; code-competition submission ref 55138755 is SubmissionStatus.PENDING at 2026-07-31 13:44 UTC. Ledger row records the one-factor structure and rc500 count.",
       "parent": "T112"
     }
   ],
