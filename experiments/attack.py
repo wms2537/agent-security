@@ -134,14 +134,17 @@ PRIOR_RANK: dict[str, int] = {
 
 
 class AttackConfig:
-    # Stage-B exact full-repeat M=2 density test. rc600 targets >100 if both
+    # Stage-B exact full-repeat M=2 density test. rc500 targets ~85 if both
     # messages fire across the same scoring cells: single-post observed 0.09
     # per candidate, and M=2 raw is 34/18 of single-post -> ~0.17 per candidate.
+    # rc600 would target ~102, but rc1000 single-post fast-bank blanked, so the
+    # first density probe should establish safety and score identity before the
+    # >100 bracket.
     # This intentionally preserves direct serve, fast-bank selection, fixed
     # count, no fill verification, and no replay-time sizing.
     # Can be overridden at runtime via AICOMP_RETURN_COUNT for
     # controlled one-factor count-sweep experiments.
-    return_count: int = 600
+    return_count: int = 500
     messages_per_candidate: int = 2
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
