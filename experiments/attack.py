@@ -140,7 +140,7 @@ class AttackConfig:
     # serve, fixed count, no fill verification, and no replay-time sizing.
     # Can be overridden at runtime via AICOMP_RETURN_COUNT for
     # controlled one-factor count-sweep experiments.
-    return_count: int = 900
+    return_count: int = 1000
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
     max_tool_hops: int = 8
