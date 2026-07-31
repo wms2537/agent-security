@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "stagea-fixed-count-single-post-throughput",
-  "active_hypothesis_status": "preregistered_implemented_unsubmitted",
-  "active_hypothesis_artifact": "research-log/222-stagea-single-post-throughput-preregistration.md",
+  "active_hypothesis": "stageb-single-message-two-call-density",
+  "active_hypothesis_status": "preregistered_source_checked_unimplemented",
+  "active_hypothesis_artifact": "research-log/233-stageb-single-message-two-call-hypothesis.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -48,12 +48,14 @@
     "cycle3_iteration6_extension": "then continue improving",
     "cycle3_iteration6_extension_interpretation": "Authorize exactly one additional competition research iteration, raising research_iterations from 5/5 to 6/6. Select a fresh non-SCOC dimension and preserve the confidence-before-submission gate.",
     "cycle3_stagea_audit_redirection": "Repository audit: the problem is the experimental loop, not a lack of engineering effort",
-    "cycle3_stagea_audit_redirection_interpretation": "Authorize a fresh Stage A competition iteration focused on minimal fixed-count single-post throughput: stop full-candidate verification, stop replay-cost sizing from generation timings, and use one-factor leaderboard measurements. Raise research_iterations 6/6 -> 7/7; preserve the confidence-before-submission gate."
+    "cycle3_stagea_audit_redirection_interpretation": "Authorize a fresh Stage A competition iteration focused on minimal fixed-count single-post throughput: stop full-candidate verification, stop replay-cost sizing from generation timings, and use one-factor leaderboard measurements. Raise research_iterations 6/6 -> 7/7; preserve the confidence-before-submission gate.",
+    "cycle3_iteration7_extension": "then we should properly work it out!",
+    "cycle3_iteration7_extension_interpretation": "Authorize one fresh competition research iteration after closing the exact full-repeat M2 negative result. Test a single-user-message, sequential two-tool-call structure with source and local mechanics gates before any remote submission; preserve the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
-      "limit": 7,
-      "spent": 7
+      "limit": 8,
+      "spent": 8
     },
     "hypothesis_review_rounds": {
       "limit": 32,
@@ -808,6 +810,14 @@
       "status": "in_progress",
       "evidence": "Submission queued as ref 55002770 with status SubmissionStatus.PENDING at 2026-07-26 13:49:36.967. No public score yet.",
       "parent": "T092"
+    },
+    {
+      "id": "T112",
+      "phase": "2",
+      "desc": "Close v32 exact full-repeat M2 and preregister a single-message two-call density hypothesis with source and local mechanics gates",
+      "status": "in_progress",
+      "evidence": "v32 ref 55134050 is COMPLETE with blank public/private scores; research-log/232 records the validated notebook contract and the remote replay-boundary interpretation. User authorization for one fresh iteration is recorded verbatim under checkpoint_defaults.cycle3_iteration7_extension.",
+      "parent": "T111"
     }
   ],
   "parked_candidates": [
