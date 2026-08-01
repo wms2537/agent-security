@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-single-message-two-call-density",
-  "active_hypothesis_status": "implemented_local_pass_unsubmitted",
+  "active_hypothesis_status": "rc500_completed_density_partial_rc650_preregistered",
   "active_hypothesis_artifact": "research-log/233-stageb-single-message-two-call-hypothesis.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -823,9 +823,17 @@
       "id": "T113",
       "phase": "4",
       "desc": "Push and submit the single-message two-call rc500 artifact after the committed local confidence gate, then record the target result",
-      "status": "in_progress",
-      "evidence": "Committed local gate and kernel v33 output inspection passed; code-competition submission ref 55138755 is SubmissionStatus.PENDING at 2026-07-31 13:44 UTC. Ledger row records the one-factor structure and rc500 count.",
+      "status": "done",
+      "evidence": "`kaggle competitions submissions ... -v` returned ref 55138755 COMPLETE with publicScore 65.320. This is below the 81.225 incumbent but implies 0.130640 public score per candidate and 1.451555555556x single-post density, so the rc500 score threshold is disconfirmed while the density profile is retained.",
       "parent": "T112"
+    },
+    {
+      "id": "T114",
+      "phase": "4",
+      "desc": "Run guarded single-message two-call rc650 count calibration after the v33 density profile",
+      "status": "in_progress",
+      "evidence": "research-log/236 preregisters rc650: predicted public score 84.916 if v33 density transfers, 58.500 if the guard falls back, and no rc700+ until rc650 has a visible result.",
+      "parent": "T113"
     }
   ],
   "parked_candidates": [

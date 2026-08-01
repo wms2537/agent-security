@@ -144,14 +144,15 @@ PRIOR_RANK: dict[str, int] = {
 
 
 class AttackConfig:
-    # Stage-B single-message two-call density test. rc500 targets ~85 if both
-    # sequential calls fire across the same scoring cells: single-post observed
-    # 0.09 per candidate, and two events are 34/18 of single-post.
-    # This intentionally preserves direct serve, fast-bank selection, fixed
-    # count, no fill verification, and no replay-time sizing.
+    # Stage-B single-message two-call count calibration. v33 at rc500 scored
+    # 65.320, or 0.130640 per candidate, giving 1.4516x single-post density.
+    # rc650 projects to 84.916 if that density transfers while staying a
+    # conservative first count step above the 81.225 incumbent.
+    # This preserves direct serve, fast-bank selection, no fill verification,
+    # no replay-time sizing, and the two-event admission guard.
     # Can be overridden at runtime via AICOMP_RETURN_COUNT for
     # controlled one-factor count-sweep experiments.
-    return_count: int = 500
+    return_count: int = 650
     messages_per_candidate: int = 1
     probe_start_index: int = 900_000
     confirmation_latency_tie_ratio: float = 1.20
@@ -227,7 +228,7 @@ def _count_exfil(trace: Any) -> int:
 
 
 class AttackAlgorithm(AttackAlgorithmBase):
-    """Small-probe fast-bank exact full-repeat M=2 portfolio."""
+    """Small-probe fast-bank single-message two-call portfolio."""
 
     def __init__(self, config: Mapping[str, Any] | None = None) -> None:
         super().__init__(config)
