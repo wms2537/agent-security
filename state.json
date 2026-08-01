@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-single-message-two-call-density",
-  "active_hypothesis_status": "rc500_completed_density_partial_rc650_preregistered",
+  "active_hypothesis_status": "rc650_submitted_pending",
   "active_hypothesis_artifact": "research-log/233-stageb-single-message-two-call-hypothesis.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -832,7 +832,7 @@
       "phase": "4",
       "desc": "Run guarded single-message two-call rc650 count calibration after the v33 density profile",
       "status": "in_progress",
-      "evidence": "research-log/236 preregisters rc650: predicted public score 84.916 if v33 density transfers, 58.500 if the guard falls back, and no rc700+ until rc650 has a visible result.",
+      "evidence": "research-log/236 preregisters rc650: predicted public score 84.916 if v33 density transfers, 58.500 if the guard falls back, and no rc700+ until rc650 has a visible result. Kernel v34 completed; downloaded output passed submission schema and source-marker checks; code-competition submission ref 55153594 is SubmissionStatus.PENDING.",
       "parent": "T113"
     }
   ],

@@ -1,6 +1,6 @@
 # Stage B two-call rc650 count calibration
 
-**Date:** 2026-08-01 · **Phase:** 4 · **Cycle:** 3 · **Iteration:** 8 · **Status:** preregistered before remote run
+**Date:** 2026-08-01 · **Phase:** 4 · **Cycle:** 3 · **Iteration:** 8 · **Status:** submitted, pending remote result
 
 ## Context
 
@@ -54,6 +54,20 @@ submission/build_notebook.py
 direct-serve notebook contract
 downloaded Kaggle kernel output schema
 ```
+
+The gate passed for kernel version `34`:
+
+```text
+py_compile experiments/attack.py -> exit 0
+two PASS two_call selected_events=2 candidates=3 urls=2
+fallback PASS single_post_fallback selected_events=0 candidates=3 urls=1
+notebook_contract=PASS copies=3 direct_serve=true rc650=true guard=true
+none_env_smoke=PASS returned=5 messages_per_candidate=1
+submission_schema=PASS rows=4 header=Id,Score
+```
+
+Kaggle submission ref `55153594` was queued at `2026-08-01 04:24:39.363000`
+with status `SubmissionStatus.PENDING`.
 
 ## Problem alignment
 
