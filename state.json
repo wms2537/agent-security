@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "stageb-single-message-two-call-density",
-  "active_hypothesis_status": "rc650_submitted_pending",
-  "active_hypothesis_artifact": "research-log/233-stageb-single-message-two-call-hypothesis.md",
+  "active_hypothesis": "public-control-validation-fill-recovery",
+  "active_hypothesis_status": "validated_pre_remote_push",
+  "active_hypothesis_artifact": "research-log/237-public-high-score-notebook-audit.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -50,7 +50,9 @@
     "cycle3_stagea_audit_redirection": "Repository audit: the problem is the experimental loop, not a lack of engineering effort",
     "cycle3_stagea_audit_redirection_interpretation": "Authorize a fresh Stage A competition iteration focused on minimal fixed-count single-post throughput: stop full-candidate verification, stop replay-cost sizing from generation timings, and use one-factor leaderboard measurements. Raise research_iterations 6/6 -> 7/7; preserve the confidence-before-submission gate.",
     "cycle3_iteration7_extension": "then we should properly work it out!",
-    "cycle3_iteration7_extension_interpretation": "Authorize one fresh competition research iteration after closing the exact full-repeat M2 negative result. Test a single-user-message, sequential two-tool-call structure with source and local mechanics gates before any remote submission; preserve the confidence-before-submission gate."
+    "cycle3_iteration7_extension_interpretation": "Authorize one fresh competition research iteration after closing the exact full-repeat M2 negative result. Test a single-user-message, sequential two-tool-call structure with source and local mechanics gates before any remote submission; preserve the confidence-before-submission gate.",
+    "cycle3_public_notebook_audit": "please go refer other high scoring public notebooks; go and use chrome to drive",
+    "cycle3_public_notebook_audit_interpretation": "Use Chrome/page evidence plus Kaggle CLI pulls to audit high-scoring public notebooks and restore a validated public-control floor if the current density path fails. This is a floor-recovery control, not a novelty claim or relaxation of the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
@@ -831,9 +833,25 @@
       "id": "T114",
       "phase": "4",
       "desc": "Run guarded single-message two-call rc650 count calibration after the v33 density profile",
-      "status": "in_progress",
-      "evidence": "research-log/236 preregisters rc650: predicted public score 84.916 if v33 density transfers, 58.500 if the guard falls back, and no rc700+ until rc650 has a visible result. Kernel v34 completed; downloaded output passed submission schema and source-marker checks; code-competition submission ref 55153594 is SubmissionStatus.PENDING.",
+      "status": "failed",
+      "evidence": "`kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v` returned ref 55153594 COMPLETE with blank public/private score. The v34 commit-run output had already passed schema and source-marker checks, so rc650 guarded two-call is treated as a hidden rerun/runtime/replay-boundary failure, not a local CSV-header failure.",
       "parent": "T113"
+    },
+    {
+      "id": "T115",
+      "phase": "4",
+      "desc": "Audit high-scoring public notebooks with Chrome/CLI and restore a public-control validation-fill single-post kernel with GPU metadata before any next submission",
+      "status": "done",
+      "evidence": "research-log/237 records Chrome/CLI public-notebook evidence and implementation. Verification commands passed: py_compile, jq state parse, TSV width checks, no-env contract `fallback_n=300 forced=5`, local SDK live-fill `compliant=5 harmony=5`, notebook rebuild `attack.py parses OK`, notebook contract checks, and kernel metadata `True NvidiaTeslaT4`.",
+      "parent": "T114"
+    },
+    {
+      "id": "T116",
+      "phase": "4",
+      "desc": "Push the validated public-control GPU kernel as Kaggle v35, inspect output/schema/source, and submit only if the commit-run artifact passes the confidence gate",
+      "status": "open",
+      "evidence": null,
+      "parent": "T115"
     }
   ],
   "parked_candidates": [
