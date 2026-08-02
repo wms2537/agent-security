@@ -34,8 +34,8 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-measured-validation-fill-density",
-  "active_hypothesis_status": "phase2_revision_v4_pending_re_review",
-  "active_hypothesis_artifact": "research-log/252-hypothesis-iter-10-measured-density-overlay-v4.md",
+  "active_hypothesis_status": "phase2_revision_v5_pending_re_review",
+  "active_hypothesis_artifact": "research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -886,7 +886,7 @@
       "phase": "2",
       "desc": "Preregister a measured validation-fill density repair after v36: exact dense probes/fill candidates are charged end-to-end, only fired dense candidates are retained, blind dense emission is forbidden, and v35 validation-fill remains fallback",
       "status": "in_progress",
-      "evidence": "Round-3 sterile re-review returned NEEDS_REVISION in report 251. Report 252 v4 renames the mechanism Capped Measured Dense Replacement, sets `MEASURED_DENSE_MIN_KEPT_TO_USE=84` using threshold math, and narrows the anti-stacking claim to a local-comparator plus public-score evidence package; re-review pending.",
+      "evidence": "Round-4 sterile re-review returned NEEDS_REVISION in report 253 after catching a scoring-unit error. Report 254 v5 uses consistent units, targets public score `>=100.000`, requires `MEASURED_DENSE_MIN_EVENTS=4` and `MEASURED_DENSE_MIN_KEPT_TO_USE=93`, and derives cap `96` as a three-candidate slack margin; re-review pending.",
       "parent": "T119"
     }
   ],
