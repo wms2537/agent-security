@@ -885,8 +885,8 @@
       "id": "T120",
       "phase": "2",
       "desc": "Preregister a measured validation-fill density repair after v36: exact dense probes/fill candidates are charged end-to-end, only fired dense candidates are retained, blind dense emission is forbidden, and v35 validation-fill remains fallback",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "`wc -l research-log/245-hypothesis-iter-10-measured-density-fill.md` returned `190`; `awk -F'\\t' ... results.tsv` returned `results.tsv columns 11 ok`; sterile theory review pending.",
       "parent": "T119"
     }
   ],
