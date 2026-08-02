@@ -917,8 +917,8 @@
       "id": "T124",
       "phase": "4",
       "desc": "Push a measured dense replacement Kaggle kernel commit-run only after local gates pass, then inspect downloaded output/schema/source before submission",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "Kernel version 37 pushed and `kaggle kernels status whymelabs/ai-agent-security-attack` returned `KernelWorkerStatus.COMPLETE`; output download produced `attack.py`, `submission.csv`, and log under `kaggle_outputs/v37-measured-dense`; CSV check returned `csv_rows 5`, `csv_header Id,Score`, `csv_empty_cells 0`, `csv_widths [2]`, and `source_strip_match True`; targeted log grep returned no error matches and `rg \"_emit_dense\"` over downloaded attack source returned no matches.",
       "parent": "T123"
     },
     {
