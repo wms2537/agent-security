@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "3",
   "cycle": 3,
   "iteration": 10,
   "entry_mode": "inspiration",
@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-measured-validation-fill-density",
-  "active_hypothesis_status": "phase2_revision_v5_pending_re_review",
+  "active_hypothesis_status": "phase2_rigorous_ready_for_poc",
   "active_hypothesis_artifact": "research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -885,9 +885,17 @@
       "id": "T120",
       "phase": "2",
       "desc": "Preregister a measured validation-fill density repair after v36: exact dense probes/fill candidates are charged end-to-end, only fired dense candidates are retained, blind dense emission is forbidden, and v35 validation-fill remains fallback",
-      "status": "in_progress",
-      "evidence": "Round-4 sterile re-review returned NEEDS_REVISION in report 253 after catching a scoring-unit error. Report 254 v5 uses consistent units, targets public score `>=100.000`, requires `MEASURED_DENSE_MIN_EVENTS=4` and `MEASURED_DENSE_MIN_KEPT_TO_USE=93`, and derives cap `96` as a three-candidate slack margin; re-review pending.",
+      "status": "done",
+      "evidence": "Sterile v5 re-review returned `Overall: RIGOROUS` in report 255 with reviewer line count `197`, matching `git show HEAD:research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md | wc -l`. Review budget is 19/32.",
       "parent": "T119"
+    },
+    {
+      "id": "T121",
+      "phase": "3",
+      "desc": "Implement and locally prove Capped Measured Dense Replacement mechanics with frozen constants from report 254 before any Kaggle push",
+      "status": "open",
+      "evidence": null,
+      "parent": "T120"
     }
   ],
   "parked_candidates": [
@@ -1494,6 +1502,17 @@
       "path": "Path A selected: measured validation-fill density controller; blind dense retry and single-post micro-tuning rejected by Candidate Critique Rubric.",
       "figure_exception": "No new figure generated because only one kept public_score row exists and crash/discard rows must not enter ranking figures.",
       "user_approval": "User approved continuation verbatim: `ok, go on then`."
+    },
+    "2_cycle3_iter10": {
+      "hypothesis": "research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md is the accepted immutable hypothesis for Capped Measured Dense Replacement.",
+      "variables_controls_primary": "Independent variable is replacement of the refuted blind dense branch with measured dense candidates; frozen constants include min_events=4, min_kept=93, max_kept=96, budget_frac=0.20; primary comparison is first eligible public_score >=100.000 versus failure blank or <86.670.",
+      "search_log": "Cycle 3 iteration 10 varies measured-density-validation-fill-admission, kind metric, outcome pending; Phase-5 had no same-dimension escalation trigger.",
+      "concept": "Capped Measured Dense Replacement is named, described plainly, and operationally defined in report 254.",
+      "justification": "Engineering profile includes v34/v36 blank dense failures, v35 86.670 fallback floor, dense source score 0.330, report 249 local score-rate profile, and threshold math 93*0.330+0.8*86.670=100.026.",
+      "failure_modes_metrics_taxonomy": "Failure/partial/success bins, metrics, Optimization Bottleneck / Engineering replacement / replace taxonomy, and no-replay-cost scope are explicit in report 254.",
+      "anti_stacking": "RIGOROUS reviewer accepted the local no-fire/positive/capped-unmeasured comparator plus public-score evidence package as distinguishing from a plain capped dense stack.",
+      "theory_review": "Report 255 records sterile v5 re-review RIGOROUS; reviewer line count 197 matched `git show HEAD:research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md | wc -l`; budget 19/32.",
+      "problem_alignment": "Confirmation would provide target-owned evidence that replacing the refuted blind dense branch can reach the competition-relevant 100 range without repeating blank-score failure."
     },
     "1_cycle2": {
       "literature_search": "COMPLETE \u2014 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
