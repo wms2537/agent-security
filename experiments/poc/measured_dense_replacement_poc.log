@@ -1,0 +1,11 @@
+PYTHONPATH=comp/sdk:experiments comp/.venv/bin/python experiments/poc/measured_dense_replacement_poc.py
+poc_gate_pass: 1
+positive_dense_retained: 96
+positive_min_events: 4
+nofire_dense_retained: 0
+nofire_fallback_one_url: 1
+unmeasured_comparator_dense_retained: 96
+score_rate_stop_changes_admission: 1
+max_message_len: 392
+empty_messages: 0
+runtime_seconds: 4.170895
