@@ -811,8 +811,8 @@
       "id": "T093",
       "phase": "2",
       "desc": "Submit Stage A Kaggle kernel v10 as a live leaderboard measurement and track score convergence",
-      "status": "in_progress",
-      "evidence": "Submission queued as ref 55002770 with status SubmissionStatus.PENDING at 2026-07-26 13:49:36.967. No public score yet.",
+      "status": "failed",
+      "evidence": "`comp/.venv/bin/kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v | rg \"55002770\"` returned `55002770,submission.csv,2026-07-26 13:49:36.967000,Stage A fixed-count N1950 (three-arm minimal control),SubmissionStatus.COMPLETE,,`; later T094 already recorded this as a blank-score rerun/runtime-class failure, not an unresolved pending job.",
       "parent": "T092"
     },
     {
