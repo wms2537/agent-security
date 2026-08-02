@@ -1,0 +1,14 @@
+PYTHONPATH=comp/sdk:experiments comp/.venv/bin/python experiments/measured_dense_impl_gate/run_check.py
+poc_gate_pass: 1
+positive_total_candidates: 120
+positive_dense_retained: 96
+positive_min_events: 4
+positive_first_dense: 1
+nofire_total_candidates: 300
+nofire_dense_retained: 0
+nofire_fallback_one_url: 1
+disabled_count: 5
+disabled_max_urls: 1
+max_message_len: 392
+empty_messages: 0
+runtime_seconds: 3.684057

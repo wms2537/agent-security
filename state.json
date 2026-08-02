@@ -901,8 +901,8 @@
       "id": "T122",
       "phase": "4",
       "desc": "Implement Capped Measured Dense Replacement in experiments/attack.py with frozen constants, rebuild notebooks, and run local confidence-gate checks before any Kaggle push or submission",
-      "status": "in_progress",
-      "evidence": "Phase-4 experiment plan recorded in research-log/258-exp-plan-measured-dense-replacement.md; `results.tsv` row `local-measured-dense-impl-gate` preregistered before implementation.",
+      "status": "done",
+      "evidence": "`grep \"^[a-z_]*:\" experiments/measured_dense_impl_gate/run.log` returned `poc_gate_pass: 1`, `positive_dense_retained: 96`, `positive_min_events: 4`, `nofire_dense_retained: 0`, `nofire_fallback_one_url: 1`, `disabled_count: 5`, and `disabled_max_urls: 1`; notebook rebuild returned `attack.py parses OK`; `rg` found frozen constants, `DENSE_ENABLED = False`, placeholder `Id,Score`, and direct `JEDAttackInferenceServer().serve()`.",
       "parent": "T121"
     },
     {
