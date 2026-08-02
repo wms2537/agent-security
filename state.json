@@ -925,8 +925,8 @@
       "id": "T125",
       "phase": "4",
       "desc": "Submit the measured dense replacement kernel version only if the commit-run confidence gate passes, then record the public score against preregistered bins",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "`comp/.venv/bin/kaggle competitions submit ai-agent-security-multi-step-tool-attacks -k whymelabs/ai-agent-security-attack -v 37 -f submission.csv -m \"Measured dense replacement v37\"` exited 0; submissions table shows ref `55189377` with `SubmissionStatus.PENDING`.",
       "parent": "T124"
     }
   ],
