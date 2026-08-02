@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "public-control-validation-fill-recovery",
-  "active_hypothesis_status": "validated_pre_remote_push",
+  "active_hypothesis_status": "remote_partial_keep",
   "active_hypothesis_artifact": "research-log/237-public-high-score-notebook-audit.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -849,8 +849,8 @@
       "id": "T116",
       "phase": "4",
       "desc": "Push the validated public-control GPU kernel as Kaggle v35, inspect output/schema/source, and submit only if the commit-run artifact passes the confidence gate",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "`kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v` returned ref 55158967 COMPLETE with publicScore 86.670 for v35. Source SHA was 1e18beda6589f43dbbd2bcc500a876aeb6cef272579894c828bd31289a7aa87e; leaderboard top at the same poll was 112.865, so public-control single-post is kept as a floor but not sufficient for the win target.",
       "parent": "T115"
     }
   ],
