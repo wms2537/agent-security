@@ -867,8 +867,8 @@
       "id": "T118",
       "phase": "4",
       "desc": "Push the locally verified four-endpoint density notebook as Kaggle v36, inspect commit-run output/schema/source, and submit only if the confidence gate remains clean",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Kernel version 36 pushed from commit 452d675 and reached KernelWorkerStatus.COMPLETE. Downloaded output schema check returned `submission_rows 5`, `submission_header Id,Score`, `submission_empty_cells 0`; source check returned `source_strip_match True` with only wrapper newlines; dense constants present and log contained no traceback. Competition submission accepted as ref 55177045 with status SubmissionStatus.PENDING.",
       "parent": "T117"
     }
   ],
