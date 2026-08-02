@@ -909,8 +909,8 @@
       "id": "T123",
       "phase": "4",
       "desc": "Review the measured dense replacement attack diff and local confidence logs before any Kaggle mutation",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "Report 260 direct code review returned `Overall: SOUND` after three stalled subagent review attempts; it found and fixed the config-overridable measured-constant issue, removed the unused blind `_emit_dense` helper, and reran checks. `grep \"^[a-z_]*:\" experiments/measured_dense_impl_gate/run.log` returned `poc_gate_pass: 1`; `rg \"_emit_dense\" experiments/attack.py ai-agent-security-attack.ipynb submission/kaggle_notebook.ipynb submission/kernel/kaggle_notebook.ipynb || true` returned no matches.",
       "parent": "T122"
     },
     {

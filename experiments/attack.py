@@ -140,19 +140,6 @@ def _emit(count: int, template: str = TEMPLATE) -> list[AttackCandidate]:
     return [_candidate_from_message(_msg(index, template)) for index in range(count)]
 
 
-def _emit_dense(
-    count: int,
-    *,
-    frame: bool = False,
-    endpoints: int = DENSE_ENDPOINTS,
-) -> list[AttackCandidate]:
-    count = max(1, min(int(count), HARD_N_CAP))
-    return [
-        _candidate_from_message(_dense_msg(index, frame=frame, endpoints=endpoints))
-        for index in range(count)
-    ]
-
-
 def _adaptive_margin(
     slowest: float,
     margin_s: float,
@@ -264,66 +251,16 @@ class AttackAlgorithm(AttackAlgorithmBase):
         ):
             return [], 0.0
 
-        endpoints = _coerce_int(
-            cfg.get("measured_dense_endpoints", MEASURED_DENSE_ENDPOINTS),
-            MEASURED_DENSE_ENDPOINTS,
-            low=1,
-            high=8,
-        )
-        min_events = _coerce_int(
-            cfg.get("measured_dense_min_events", MEASURED_DENSE_MIN_EVENTS),
-            MEASURED_DENSE_MIN_EVENTS,
-            low=1,
-            high=endpoints,
-        )
-        min_kept = _coerce_int(
-            cfg.get("measured_dense_min_kept_to_use", MEASURED_DENSE_MIN_KEPT_TO_USE),
-            MEASURED_DENSE_MIN_KEPT_TO_USE,
-            low=1,
-            high=HARD_N_CAP,
-        )
-        max_kept = _coerce_int(
-            cfg.get("measured_dense_max_kept", MEASURED_DENSE_MAX_KEPT),
-            MEASURED_DENSE_MAX_KEPT,
-            low=1,
-            high=HARD_N_CAP,
-        )
-        max_kept = max(min_kept, max_kept)
-        budget_frac = _coerce_float(
-            cfg.get("measured_dense_budget_frac", MEASURED_DENSE_BUDGET_FRAC),
-            MEASURED_DENSE_BUDGET_FRAC,
-            low=0.01,
-        )
-        budget_frac = min(0.95, budget_frac)
-        probe_reps = _coerce_int(
-            cfg.get("measured_dense_probe_reps", MEASURED_DENSE_PROBE_REPS),
-            MEASURED_DENSE_PROBE_REPS,
-            low=1,
-            high=4,
-        )
-        max_attempts = _coerce_int(
-            cfg.get("measured_dense_max_attempts", MEASURED_DENSE_MAX_ATTEMPTS),
-            MEASURED_DENSE_MAX_ATTEMPTS,
-            low=1,
-            high=HARD_N_CAP,
-        )
-        score_rate_gain = _coerce_float(
-            cfg.get("measured_dense_score_rate_gain", MEASURED_DENSE_SCORE_RATE_GAIN),
-            MEASURED_DENSE_SCORE_RATE_GAIN,
-            low=0.0,
-        )
-        probe_base = _coerce_int(
-            cfg.get("measured_dense_probe_base", MEASURED_DENSE_PROBE_BASE),
-            MEASURED_DENSE_PROBE_BASE,
-            low=1,
-            high=10_000_000,
-        )
-        frame_offset = _coerce_int(
-            cfg.get("measured_dense_frame_offset", MEASURED_DENSE_FRAME_OFFSET),
-            MEASURED_DENSE_FRAME_OFFSET,
-            low=1,
-            high=10_000_000,
-        )
+        endpoints = MEASURED_DENSE_ENDPOINTS
+        min_events = MEASURED_DENSE_MIN_EVENTS
+        min_kept = MEASURED_DENSE_MIN_KEPT_TO_USE
+        max_kept = MEASURED_DENSE_MAX_KEPT
+        budget_frac = MEASURED_DENSE_BUDGET_FRAC
+        probe_reps = MEASURED_DENSE_PROBE_REPS
+        max_attempts = MEASURED_DENSE_MAX_ATTEMPTS
+        score_rate_gain = MEASURED_DENSE_SCORE_RATE_GAIN
+        probe_base = MEASURED_DENSE_PROBE_BASE
+        frame_offset = MEASURED_DENSE_FRAME_OFFSET
         hops = _coerce_int(max_hops, 8, low=1, high=8)
         deadline = branch_start + budget * budget_frac
 

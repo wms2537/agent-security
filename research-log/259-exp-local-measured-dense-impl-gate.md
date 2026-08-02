@@ -35,7 +35,7 @@ disabled_count: 5
 disabled_max_urls: 1
 max_message_len: 392
 empty_messages: 0
-runtime_seconds: 3.684057
+runtime_seconds: 3.856135
 ```
 
 Prediction vs. reality: the preregistered `poc_gate_pass = 1` prediction was confirmed. The default compliant fixture returned a dense prefix of exactly 96 candidates, the replayed dense messages produced at least four events, the no-fire fixture retained zero dense candidates and fell back to one-url single-post candidates, and the explicit disabled override returned five one-url fallback candidates.
@@ -47,7 +47,7 @@ Prediction vs. reality: the preregistered `poc_gate_pass = 1` prediction was con
 - Provenance: PASS — `head -n 1 experiments/measured_dense_impl_gate/run.log` returned the exact command; `wc -l` returned 14 log lines; `stat` showed the log was written after source changes.
 - Frozen constants/wrapper: PASS — `rg` over `experiments/attack.py` and all three notebooks found `DENSE_ENABLED = False`, `MEASURED_DENSE_REPLACEMENT_ENABLED = True`, `MEASURED_DENSE_MIN_KEPT_TO_USE = 93`, `MEASURED_DENSE_MAX_KEPT = 96`, `MEASURED_DENSE_PROBE_BASE = 760000`, `MEASURED_DENSE_FRAME_OFFSET = 50000`, `Id,Score`, and direct `JEDAttackInferenceServer().serve()`.
 - Metadata: PASS — `jq -r '.enable_gpu, .machine_shape, .kernel_type' submission/kernel/kernel-metadata.json` returned `true`, `NvidiaTeslaT4`, `notebook`.
-- Blind dense return: PASS — `rg -n "return _emit_dense|_emit_dense\\(" experiments/attack.py` returned only the helper definition, not a return path.
+- Blind dense return: PASS — `rg -n "_emit_dense" experiments/attack.py ai-agent-security-attack.ipynb submission/kaggle_notebook.ipynb submission/kernel/kaggle_notebook.ipynb || true` returned no matches after T123 hardening.
 
 ## Problem alignment
 
