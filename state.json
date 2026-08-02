@@ -34,8 +34,8 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-single-message-four-endpoint-density",
-  "active_hypothesis_status": "implemented_local_gates_passed_pre_remote",
-  "active_hypothesis_artifact": "research-log/240-stageb-four-endpoint-density-implementation.md",
+  "active_hypothesis_status": "refuted_safe_floor_restored",
+  "active_hypothesis_artifact": "research-log/242-v36-failure-analysis.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -867,9 +867,17 @@
       "id": "T118",
       "phase": "4",
       "desc": "Push the locally verified four-endpoint density notebook as Kaggle v36, inspect commit-run output/schema/source, and submit only if the confidence gate remains clean",
-      "status": "in_progress",
-      "evidence": "Kernel version 36 pushed from commit 452d675 and reached KernelWorkerStatus.COMPLETE. Downloaded output schema check returned `submission_rows 5`, `submission_header Id,Score`, `submission_empty_cells 0`; source check returned `source_strip_match True` with only wrapper newlines; dense constants present and log contained no traceback. Competition submission accepted as ref 55177045 with status SubmissionStatus.PENDING.",
+      "status": "failed",
+      "evidence": "`kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v` returned ref 55177045 COMPLETE with blank public/private score. Commit-run output was schema-valid and source-matched after wrapper-newline normalization, so v36 is recorded as a hidden rerun/runtime/replay-boundary failure of blind dense rc320, not a local submission.csv schema failure.",
       "parent": "T117"
+    },
+    {
+      "id": "T119",
+      "phase": "4",
+      "desc": "Disable blind dense emission as the default active path after v36 blanked, rebuild notebooks, and keep v35 validation-fill as the safe floor before any new density fix attempt",
+      "status": "done",
+      "evidence": "`comp/.venv/bin/python submission/build_notebook.py` returned `attack.py parses OK`; notebook grep returned `DENSE_ENABLED = False`, `Id,Score`, and direct `JEDAttackInferenceServer().serve()`; local SDK smoke returned `default_count 5`, `default_max_urls 1`, `explicit_dense_max_urls 4`.",
+      "parent": "T118"
     }
   ],
   "parked_candidates": [
@@ -1033,7 +1041,7 @@
       "direction": "stageb-single-message-four-endpoint-density",
       "varies": "exact-within-message-endpoint-density-admission",
       "kind": "metric",
-      "outcome": null
+      "outcome": "refuted"
     }
   ],
   "tried_and_failed": [
@@ -1090,6 +1098,12 @@
       "failure_class": "refuted",
       "why": "Coverage was 1.0, but two preserved m=32 mechanism tables produced SCOC/full ratios 1.086158079 and 1.024074983, below the frozen 1.25 gate; generic shorthand slightly beat SCOC in run03 and the paired local end-to-end score was flat. The 81.225 live bundle changed multiple mechanisms and cannot identify SCOC's contribution.",
       "log": "research-log/205-scoc32-phase3-recovery-live-score-and-refutation.md"
+    },
+    {
+      "approach": "Exact single-message four-endpoint density with probe admission followed by blind rc320 emission",
+      "failure_class": "refuted",
+      "why": "V36 ref 55177045 completed with blank public/private score despite a clean commit-run schema/source gate. Because the v35 fallback would have scored visibly if dense admission failed, blind rc320 dense emission is treated as crossing a hidden rerun/runtime/replay boundary.",
+      "log": "research-log/242-v36-failure-analysis.md"
     }
   ],
   "learnings": [

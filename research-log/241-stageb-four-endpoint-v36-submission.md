@@ -1,6 +1,6 @@
 # Stage B Four-Endpoint V36 Submission
 
-**Date:** 2026-08-02 · **Phase:** 4 · **Cycle:** 3 · **Iteration:** 9 · **Status:** in-progress
+**Date:** 2026-08-02 · **Phase:** 4 · **Cycle:** 3 · **Iteration:** 9 · **Status:** failed
 
 ## Context
 
@@ -18,11 +18,12 @@ Downloaded commit-run artifacts:
 
 The downloaded `attack.py` has a different raw SHA only because the notebook wrapper adds one leading and one trailing newline. Mechanical comparison confirms the source body matches after stripping wrapper newlines.
 
-The code-competition submission was accepted:
+The code-competition submission was accepted and later completed with no score:
 
 - Submission ref: `55177045`
 - Description: `Guarded four-endpoint density rc320 v36`
-- Status at first poll: `SubmissionStatus.PENDING`
+- Final status: `SubmissionStatus.COMPLETE`
+- Public/private score: blank
 
 ## Gate Check
 
@@ -33,11 +34,12 @@ The code-competition submission was accepted:
 - Source match: source comparison -> `source_strip_match True`, `remote_leading_newline True`, `remote_trailing_newline_count_delta 2`.
 - Dense source markers: `rg` over output artifacts -> `DENSE_TARGET_COUNT = 320`, `DENSE_MIN_EVENTS = 4`.
 - Submission poll: `comp/.venv/bin/kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v` -> `55177045,submission.csv,2026-08-02 04:08:21.400000,Guarded four-endpoint density rc320 v36,SubmissionStatus.PENDING,,`
+- Final submission poll: `comp/.venv/bin/kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v` -> `55177045,submission.csv,2026-08-02 04:08:21.400000,Guarded four-endpoint density rc320 v36,SubmissionStatus.COMPLETE,,`
 
 ## Problem alignment
 
-This is a live target measurement of the exact density mechanism needed to move beyond the v35 single-post floor and toward public scores above `100`.
+This is a live target measurement showing that blind rc320 four-endpoint density crosses a hidden rerun/runtime/replay boundary even though local mechanics and commit-run schema pass.
 
 ## Decision
 
-Wait for ref `55177045` to finish, then update `results.tsv`, `competition/leaderboard_experiments.tsv`, `state.json`, and the search decision.
+Record v36 as a failed blind dense branch. Disable blind dense emission as the active default before any new push. Any future density attempt must be validation-fill/resource-measured rather than probe-then-blind-emit.

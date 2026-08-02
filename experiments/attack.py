@@ -1,10 +1,10 @@
-"""Guarded density kernel for Kaggle AI Agent Security.
+"""Public-control validation-fill kernel for Kaggle AI Agent Security.
 
 Purpose:
-    Test a narrow above-floor density branch while preserving the v35
-    public-control single-post validation-fill fallback. The dense branch emits
-    one user message that asks for four independent http.post calls, but only
-    after exact-shape online probes show four EXFILTRATION events.
+    Preserve the v35 public-control single-post validation-fill floor after
+    v36 refuted blind four-endpoint dense emission. The dense branch remains
+    available only through an explicit config override for a separately
+    preregistered repair experiment.
 """
 
 from __future__ import annotations
@@ -59,7 +59,10 @@ DEFAULT_BUDGET_S = 9000.0
 LAT_FLOOR_S = 0.001
 
 # Stage B exact single-message four-endpoint density probe.
-DENSE_ENABLED = True
+# Default disabled after v36 completed with a blank score despite clean local
+# schema/source gates. Do not re-enable globally without a new preregistered
+# measured-fill hypothesis.
+DENSE_ENABLED = False
 DENSE_ENDPOINTS = 4
 DENSE_TARGET_COUNT = 320
 DENSE_PROBE_REPS = 2
