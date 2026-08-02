@@ -1,16 +1,16 @@
 {
   "phase": "2",
   "cycle": 3,
-  "iteration": 8,
+  "iteration": 9,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
   "output_format": "markdown+code",
   "idea_dna": {
-    "problem": "Can a minimal fixed-count single-post kernel recover the missing throughput between the 81.225 incumbent and the approximate 90-point single-post ceiling by removing over-probing, per-candidate generation-side verification, and unidentifiable replay-cost sizing?",
-    "assumption": "The current public-score deficit is primarily effective returned-candidate throughput, not a lack of complex controller logic; once a reliable single-post template is selected, deterministic fill without generation-side verification should return more useful candidates.",
-    "assumption_source": "The live score 81.225 corresponds to 1805 single-post equivalents under the 0.045-per-finding arithmetic, while public single-post-family notebooks and the 90-point ceiling imply room for roughly 145-195 additional effective findings before needing multi-event density.",
-    "novelty_claim": "No novelty claim for Stage A. This is a control-recovery experiment that deliberately removes unidentifiable mechanisms before testing higher-density candidate structures."
+    "problem": "Can an exact single-user-message multi-endpoint candidate exceed the v35 single-post floor by scoring multiple EXFILTRATION events per replay while keeping the public-control validation-fill kernel as fallback?",
+    "assumption": "The remaining gap to the 112.865 public leader is score density, not only returned single-post count. A single message that asks for four independent http.post calls can amortize per-candidate replay overhead if the live model actually executes several posts within the eight-hop replay limit.",
+    "assumption_source": "SDK source scores every EXFILTRATION predicate at severity weight 16 plus a once-per-cell novelty bonus; the gateway replays every message with max_tool_hops=8 and validates all resulting predicates. Prior v33 single-message two-call score 65.320 showed partial within-message density but under-returned and v34 rc650 exceeded the hidden boundary; v35 score 86.670 restores the fallback floor.",
+    "novelty_claim": "Replace fixed single-post throughput with exact-shape within-message endpoint-density admission: the branch is admitted only when online probes show four events in the final candidate shape, otherwise the incumbent validation-fill control remains active."
   },
   "inspiration": "Win the Kaggle competition through creative, rigorous SciAgent-guided optimization; all Kaggle actions are authorized, but submit only when confident.",
   "domain": "Kaggle AI agent security competition optimization",
@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "public-control-validation-fill-recovery",
-  "active_hypothesis_status": "remote_partial_keep",
-  "active_hypothesis_artifact": "research-log/237-public-high-score-notebook-audit.md",
+  "active_hypothesis": "stageb-single-message-four-endpoint-density",
+  "active_hypothesis_status": "preregistered_unimplemented",
+  "active_hypothesis_artifact": "research-log/239-stageb-four-endpoint-density-hypothesis.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -52,12 +52,14 @@
     "cycle3_iteration7_extension": "then we should properly work it out!",
     "cycle3_iteration7_extension_interpretation": "Authorize one fresh competition research iteration after closing the exact full-repeat M2 negative result. Test a single-user-message, sequential two-tool-call structure with source and local mechanics gates before any remote submission; preserve the confidence-before-submission gate.",
     "cycle3_public_notebook_audit": "please go refer other high scoring public notebooks; go and use chrome to drive",
-    "cycle3_public_notebook_audit_interpretation": "Use Chrome/page evidence plus Kaggle CLI pulls to audit high-scoring public notebooks and restore a validated public-control floor if the current density path fails. This is a floor-recovery control, not a novelty claim or relaxation of the confidence-before-submission gate."
+    "cycle3_public_notebook_audit_interpretation": "Use Chrome/page evidence plus Kaggle CLI pulls to audit high-scoring public notebooks and restore a validated public-control floor if the current density path fails. This is a floor-recovery control, not a novelty claim or relaxation of the confidence-before-submission gate.",
+    "cycle3_iteration9_extension": "continue",
+    "cycle3_iteration9_extension_interpretation": "Authorize one bounded competition research iteration after v35 restored a visible 86.670 floor. Test exact single-message four-endpoint density with public-control fallback; preserve the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
-      "limit": 8,
-      "spent": 8
+      "limit": 9,
+      "spent": 9
     },
     "hypothesis_review_rounds": {
       "limit": 32,
@@ -852,6 +854,14 @@
       "status": "done",
       "evidence": "`kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v` returned ref 55158967 COMPLETE with publicScore 86.670 for v35. Source SHA was 1e18beda6589f43dbbd2bcc500a876aeb6cef272579894c828bd31289a7aa87e; leaderboard top at the same poll was 112.865, so public-control single-post is kept as a floor but not sufficient for the win target.",
       "parent": "T115"
+    },
+    {
+      "id": "T117",
+      "phase": "2",
+      "desc": "Preregister, implement, and locally verify an exact single-message four-endpoint density controller with v35 public-control fallback; submit only if exact mechanics and confidence gates pass",
+      "status": "open",
+      "evidence": null,
+      "parent": "T116"
     }
   ],
   "parked_candidates": [
@@ -998,6 +1008,22 @@
       "iteration": 7,
       "direction": "stagea-fixed-count-single-post-throughput",
       "varies": "candidate-count-and-probe-overhead",
+      "kind": "metric",
+      "outcome": "improved"
+    },
+    {
+      "cycle": 3,
+      "iteration": 8,
+      "direction": "stageb-single-message-two-call-density",
+      "varies": "single-message-multi-tool-event-density",
+      "kind": "metric",
+      "outcome": "refuted"
+    },
+    {
+      "cycle": 3,
+      "iteration": 9,
+      "direction": "stageb-single-message-four-endpoint-density",
+      "varies": "exact-within-message-endpoint-density-admission",
       "kind": "metric",
       "outcome": null
     }
