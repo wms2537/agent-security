@@ -901,9 +901,33 @@
       "id": "T122",
       "phase": "4",
       "desc": "Implement Capped Measured Dense Replacement in experiments/attack.py with frozen constants, rebuild notebooks, and run local confidence-gate checks before any Kaggle push or submission",
+      "status": "in_progress",
+      "evidence": "Phase-4 experiment plan recorded in research-log/258-exp-plan-measured-dense-replacement.md; `results.tsv` row `local-measured-dense-impl-gate` preregistered before implementation.",
+      "parent": "T121"
+    },
+    {
+      "id": "T123",
+      "phase": "4",
+      "desc": "Review the measured dense replacement attack diff and local confidence logs before any Kaggle mutation",
       "status": "open",
       "evidence": null,
-      "parent": "T121"
+      "parent": "T122"
+    },
+    {
+      "id": "T124",
+      "phase": "4",
+      "desc": "Push a measured dense replacement Kaggle kernel commit-run only after local gates pass, then inspect downloaded output/schema/source before submission",
+      "status": "open",
+      "evidence": null,
+      "parent": "T123"
+    },
+    {
+      "id": "T125",
+      "phase": "4",
+      "desc": "Submit the measured dense replacement kernel version only if the commit-run confidence gate passes, then record the public score against preregistered bins",
+      "status": "open",
+      "evidence": null,
+      "parent": "T124"
     }
   ],
   "parked_candidates": [
