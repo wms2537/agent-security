@@ -1,7 +1,7 @@
 {
-  "phase": "4",
+  "phase": "2",
   "cycle": 3,
-  "iteration": 9,
+  "iteration": 10,
   "entry_mode": "inspiration",
   "project_type": "empirical",
   "intensity": "medium",
@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "stageb-single-message-four-endpoint-density",
-  "active_hypothesis_status": "refuted_safe_floor_restored",
-  "active_hypothesis_artifact": "research-log/242-v36-failure-analysis.md",
+  "active_hypothesis": "stageb-measured-validation-fill-density",
+  "active_hypothesis_status": "phase2_preregistration_open",
+  "active_hypothesis_artifact": "research-log/244-analysis-iter-9.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -54,12 +54,14 @@
     "cycle3_public_notebook_audit": "please go refer other high scoring public notebooks; go and use chrome to drive",
     "cycle3_public_notebook_audit_interpretation": "Use Chrome/page evidence plus Kaggle CLI pulls to audit high-scoring public notebooks and restore a validated public-control floor if the current density path fails. This is a floor-recovery control, not a novelty claim or relaxation of the confidence-before-submission gate.",
     "cycle3_iteration9_extension": "continue",
-    "cycle3_iteration9_extension_interpretation": "Authorize one bounded competition research iteration after v35 restored a visible 86.670 floor. Test exact single-message four-endpoint density with public-control fallback; preserve the confidence-before-submission gate."
+    "cycle3_iteration9_extension_interpretation": "Authorize one bounded competition research iteration after v35 restored a visible 86.670 floor. Test exact single-message four-endpoint density with public-control fallback; preserve the confidence-before-submission gate.",
+    "cycle3_iteration10_extension": "ok, go on then",
+    "cycle3_iteration10_extension_interpretation": "Authorize one bounded competition research iteration after v36 refuted blind four-endpoint density. Preregister a measured validation-fill density repair that charges exact costs, keeps only fired dense candidates, preserves v35 fallback, and preserves the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
-      "limit": 9,
-      "spent": 9
+      "limit": 10,
+      "spent": 10
     },
     "hypothesis_review_rounds": {
       "limit": 32,
@@ -878,6 +880,14 @@
       "status": "done",
       "evidence": "`comp/.venv/bin/python submission/build_notebook.py` returned `attack.py parses OK`; notebook grep returned `DENSE_ENABLED = False`, `Id,Score`, and direct `JEDAttackInferenceServer().serve()`; local SDK smoke returned `default_count 5`, `default_max_urls 1`, `explicit_dense_max_urls 4`.",
       "parent": "T118"
+    },
+    {
+      "id": "T120",
+      "phase": "2",
+      "desc": "Preregister a measured validation-fill density repair after v36: exact dense probes/fill candidates are charged end-to-end, only fired dense candidates are retained, blind dense emission is forbidden, and v35 validation-fill remains fallback",
+      "status": "open",
+      "evidence": null,
+      "parent": "T119"
     }
   ],
   "parked_candidates": [
@@ -1042,6 +1052,14 @@
       "varies": "exact-within-message-endpoint-density-admission",
       "kind": "metric",
       "outcome": "refuted"
+    },
+    {
+      "cycle": 3,
+      "iteration": 10,
+      "direction": "stageb-measured-validation-fill-density",
+      "varies": "measured-density-validation-fill-admission",
+      "kind": "metric",
+      "outcome": null
     }
   ],
   "tried_and_failed": [
@@ -1465,6 +1483,17 @@
       "path": "Internal technical report/no submission. User advance authorization quoted: 'then go on with next phases up until phase 6 then, define a goal', followed by 'continue working'; goal expressly requests a Phase-6 paper/report under no-Kaggle/no-heldout boundaries.",
       "locked_test_exception": "NOT RUN and not represented as passed. The empirical Path-C locked-test step conflicts with the user's explicit prohibition on held-out/beacon/freeze/target/evaluation actions; this remains a headline limitation.",
       "status": "PASS for transition to a local Phase-6 internal report with the explicit locked-test exception; not a venue/submission decision"
+    },
+    "5_cycle3_iter9": {
+      "analysis": "research-log/244-analysis-iter-9.md records v36 as a preregistered blank-score disconfirmation and keeps v35 public-control validation-fill score 86.670 as the safe floor.",
+      "statistical_rigor": "Independent unit is one Kaggle code-competition submission; n=1 per leaderboard condition; no p-values or seed-standardized claims computed. Headline arithmetic recomputed as 320*((4*16+2)/200)=105.600 predicted versus actual NA/blank.",
+      "seven_questions": "research-log/244 answers all seven Phase-5 questions and concludes the blind four-endpoint rc320 controller failed a hidden rerun/runtime/replay boundary while preserving the broader density problem.",
+      "freshness": "`kaggle competitions leaderboard -c ai-agent-security-multi-step-tool-attacks -s | head` showed leader 112.865; public-kernel list included current high-score public refs.",
+      "search_diagnosis": "Cycle-3 iteration 9 is kind=metric; last two metric iterations both failed to improve best_state but varied different dimensions, so stalled-by-outcome with no same-dimension escalation trigger.",
+      "budgets": "research_iterations was 9/9 before user message `ok, go on then`; recorded as one bounded extension 9/9 -> 10/10 for measured validation-fill density repair only.",
+      "path": "Path A selected: measured validation-fill density controller; blind dense retry and single-post micro-tuning rejected by Candidate Critique Rubric.",
+      "figure_exception": "No new figure generated because only one kept public_score row exists and crash/discard rows must not enter ranking figures.",
+      "user_approval": "User approved continuation verbatim: `ok, go on then`."
     },
     "1_cycle2": {
       "literature_search": "COMPLETE \u2014 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
