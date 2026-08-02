@@ -893,8 +893,8 @@
       "id": "T121",
       "phase": "3",
       "desc": "Implement and locally prove Capped Measured Dense Replacement mechanics with frozen constants from report 254 before any Kaggle push",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "PoC design report 256 written; `results.tsv` includes preregistered row `poc-measured-dense-replacement`; implementer dispatch pending.",
       "parent": "T120"
     }
   ],
