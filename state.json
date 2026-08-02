@@ -65,7 +65,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 32,
-      "spent": 15
+      "spent": 16
     },
     "paper_review_rounds": {
       "limit": 2,
