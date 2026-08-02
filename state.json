@@ -34,8 +34,8 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-measured-validation-fill-density",
-  "active_hypothesis_status": "phase2_preregistration_open",
-  "active_hypothesis_artifact": "research-log/244-analysis-iter-9.md",
+  "active_hypothesis_status": "phase2_revision_pending_re_review",
+  "active_hypothesis_artifact": "research-log/247-hypothesis-iter-10-measured-density-overlay-v2.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -886,7 +886,7 @@
       "phase": "2",
       "desc": "Preregister a measured validation-fill density repair after v36: exact dense probes/fill candidates are charged end-to-end, only fired dense candidates are retained, blind dense emission is forbidden, and v35 validation-fill remains fallback",
       "status": "in_progress",
-      "evidence": "`wc -l research-log/245-hypothesis-iter-10-measured-density-fill.md` returned `190`; `awk -F'\\t' ... results.tsv` returned `results.tsv columns 11 ok`; sterile theory review pending.",
+      "evidence": "Round-1 sterile theory review returned NEEDS_REVISION in report 246. Superseding report 247 freezes Capped Measured Density Overlay constants (`min_events=3`, `max_kept=96`, `max_attempts=160`, `budget_frac=0.20`, `score_rate_gain=1.15`) and narrows the claim; re-review pending.",
       "parent": "T119"
     }
   ],
