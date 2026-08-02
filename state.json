@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "4",
   "cycle": 3,
   "iteration": 9,
   "entry_mode": "inspiration",
@@ -34,8 +34,8 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-single-message-four-endpoint-density",
-  "active_hypothesis_status": "preregistered_unimplemented",
-  "active_hypothesis_artifact": "research-log/239-stageb-four-endpoint-density-hypothesis.md",
+  "active_hypothesis_status": "implemented_local_gates_passed_pre_remote",
+  "active_hypothesis_artifact": "research-log/240-stageb-four-endpoint-density-implementation.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -858,10 +858,18 @@
     {
       "id": "T117",
       "phase": "2",
-      "desc": "Preregister, implement, and locally verify an exact single-message four-endpoint density controller with v35 public-control fallback; submit only if exact mechanics and confidence gates pass",
+      "desc": "Preregister, implement, and locally verify an exact single-message four-endpoint density controller with v35 public-control fallback",
+      "status": "done",
+      "evidence": "Implementation SHA a546e769d81984a6063c4ad0fcbf535f576bc8aea2b4c47b3a0e0dd34e2e9f17. `py_compile` exited 0; local CompliantAgent exact-shape probe returned `dense_exact_events 4`, `dense_tool_events 4`, `dense_raw_one 66.0`; fallback fixture returned `fallback_count 5` and one URL per candidate; dense serialization smoke returned `dense_candidates 320`, `dense_first_url_count 4`, `dense_empty_messages 0`, `dense_max_message_len 380`; notebook rebuild returned `attack.py parses OK` and notebook contracts passed.",
+      "parent": "T116"
+    },
+    {
+      "id": "T118",
+      "phase": "4",
+      "desc": "Push the locally verified four-endpoint density notebook as Kaggle v36, inspect commit-run output/schema/source, and submit only if the confidence gate remains clean",
       "status": "open",
       "evidence": null,
-      "parent": "T116"
+      "parent": "T117"
     }
   ],
   "parked_candidates": [
