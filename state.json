@@ -34,8 +34,8 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stagec-burst2-validation-fill",
-  "active_hypothesis_status": "phase2_hypothesis_written_theory_review_pending",
-  "active_hypothesis_artifact": "research-log/269-hypothesis-iter-11-burst2-validation-fill.md",
+  "active_hypothesis_status": "phase2_hypothesis_v2_written_re_review_pending",
+  "active_hypothesis_artifact": "research-log/271-hypothesis-iter-11-burst2-validation-fill-v2.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -968,7 +968,7 @@
       "phase": "2",
       "desc": "Preregister Burst-2 Validation Fill with one changed variable K=1 -> K=2 inside the restored v35 validation-fill loop, then obtain theory review before implementation",
       "status": "in_progress",
-      "evidence": "Report 269 written and `results.tsv` row `lb-stagec-burst2-validation-fill` preregistered with predicted public_score `100.000`; sterile theory review dispatched and hypothesis_review_rounds charged `19 -> 20`.",
+      "evidence": "Report 269 written and `results.tsv` row `lb-stagec-burst2-validation-fill` preregistered with predicted public_score `100.000`; sterile theory review dispatched and hypothesis_review_rounds charged `19 -> 20`; the reviewer stalled twice, was interrupted, and direct fallback review report 270 returned `NEEDS_REVISION`; v2 report 271 written with the required fixes.",
       "parent": "T129"
     }
   ],
@@ -1643,14 +1643,14 @@
       "status": "PASS"
     },
     "2_cycle3_iter11": {
-      "hypothesis": "research-log/269-hypothesis-iter-11-burst2-validation-fill.md preregisters Burst-2 Validation Fill.",
+      "hypothesis": "research-log/271-hypothesis-iter-11-burst2-validation-fill-v2.md supersedes report 269 and preregisters Burst-2 Validation Fill v2.",
       "variables_controls_primary": "Independent variable is candidate-internal post cardinality K=1 -> K=2 under the restored v35 validation-fill/replay-safe controller. Primary comparison is first eligible Kaggle public_score with success >=100.000, partial [86.670,100.000), failure blank/error or <86.670.",
       "search_log": "Cycle 3 iteration 11 appends varies candidate-internal-post-cardinality-under-validation-fill, kind metric, outcome pending.",
       "concept": "Burst-2 Validation Fill is named, described plainly, and operationally defined with globally unique two-endpoint messages.",
       "justification": "Evidence chain cites v35 86.670, v36 K=4 blank, v37 K=4 measured regression 84.735, public audit BURST_K=2, and current 107-113 leaderboard frontier.",
       "failure_modes_metrics_taxonomy": "Failure modes, metrics, thresholds, threat surface, and Optimization Bottleneck / Empirical Mapping / replace taxonomy are explicit in report 269.",
       "anti_stacking": "Single-component replace hypothesis with K=1 byte-equivalent ablation, K=2 serialization/mechanics gates, and direct public-score comparison.",
-      "theory_review": "Sterile theory review dispatched for committed report 269; budget charged 19/9999 -> 20/9999.",
+      "theory_review": "Round-1 sterile review dispatch stalled twice and was interrupted; direct fallback review report 270 returned NEEDS_REVISION; v2 report 271 addresses the required fixes and awaits re-review.",
       "problem_alignment": "Confirmation would show a source-compliant candidate-generation policy can increase replay score density above the single-post floor without the refuted K=4 timeout/regression failure."
     },
     "1_cycle2": {
