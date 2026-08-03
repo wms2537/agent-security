@@ -1,5 +1,5 @@
 {
-  "phase": "2",
+  "phase": "3",
   "cycle": 3,
   "iteration": 11,
   "entry_mode": "inspiration",
@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stagec-burst2-validation-fill",
-  "active_hypothesis_status": "phase2_hypothesis_v2_written_re_review_pending",
+  "active_hypothesis_status": "phase2_passed_ready_phase3_local_mechanics",
   "active_hypothesis_artifact": "research-log/271-hypothesis-iter-11-burst2-validation-fill-v2.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -967,9 +967,17 @@
       "id": "T130",
       "phase": "2",
       "desc": "Preregister Burst-2 Validation Fill with one changed variable K=1 -> K=2 inside the restored v35 validation-fill loop, then obtain theory review before implementation",
-      "status": "in_progress",
-      "evidence": "Report 269 written and `results.tsv` row `lb-stagec-burst2-validation-fill` preregistered with predicted public_score `100.000`; sterile theory review dispatched and hypothesis_review_rounds charged `19 -> 20`; the reviewer stalled twice, was interrupted, and direct fallback review report 270 returned `NEEDS_REVISION`; v2 report 271 written with the required fixes.",
+      "status": "done",
+      "evidence": "Report 269 written and `results.tsv` row `lb-stagec-burst2-validation-fill` preregistered with predicted public_score `100.000`; sterile theory review dispatched and hypothesis_review_rounds charged `19 -> 20`; the reviewer stalled twice, was interrupted, direct fallback review report 270 returned `NEEDS_REVISION`, and v2 report 271 fixed issues; direct re-review report 272 returned `Overall: RIGOROUS` with committed line count `182`.",
       "parent": "T129"
+    },
+    {
+      "id": "T131",
+      "phase": "3",
+      "desc": "Implement Burst-2 Validation Fill locally behind frozen K=2 constants and prove K=1 byte-equivalence, K=2 serialization, no dense markers, and fake-live keep/event-count mechanics before any Kaggle push",
+      "status": "open",
+      "evidence": null,
+      "parent": "T130"
     }
   ],
   "parked_candidates": [
@@ -1650,8 +1658,13 @@
       "justification": "Evidence chain cites v35 86.670, v36 K=4 blank, v37 K=4 measured regression 84.735, public audit BURST_K=2, and current 107-113 leaderboard frontier.",
       "failure_modes_metrics_taxonomy": "Failure modes, metrics, thresholds, threat surface, and Optimization Bottleneck / Empirical Mapping / replace taxonomy are explicit in report 269.",
       "anti_stacking": "Single-component replace hypothesis with K=1 byte-equivalent ablation, K=2 serialization/mechanics gates, and direct public-score comparison.",
-      "theory_review": "Round-1 sterile review dispatch stalled twice and was interrupted; direct fallback review report 270 returned NEEDS_REVISION; v2 report 271 addresses the required fixes and awaits re-review.",
+      "theory_review": "Direct re-review report 272 returned RIGOROUS for the narrowed calibration claim; committed v2 line count `git show HEAD:research-log/271-hypothesis-iter-11-burst2-validation-fill-v2.md | wc -l` returned 182.",
       "problem_alignment": "Confirmation would show a source-compliant candidate-generation policy can increase replay score density above the single-post floor without the refuted K=4 timeout/regression failure."
+    },
+    "3_cycle3_iter11": {
+      "poc_support": "pending",
+      "scope": "Local mechanics only; not target-model second-event prevalence, replay-safety beyond inherited v35 ledger, private-transfer, or Kaggle score.",
+      "problem_alignment": "Phase 3 must prove the K=2 source/message mechanics before any remote mutation."
     },
     "1_cycle2": {
       "literature_search": "COMPLETE \u2014 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
