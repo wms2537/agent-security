@@ -56,19 +56,21 @@
     "cycle3_iteration9_extension": "continue",
     "cycle3_iteration9_extension_interpretation": "Authorize one bounded competition research iteration after v35 restored a visible 86.670 floor. Test exact single-message four-endpoint density with public-control fallback; preserve the confidence-before-submission gate.",
     "cycle3_iteration10_extension": "ok, go on then",
-    "cycle3_iteration10_extension_interpretation": "Authorize one bounded competition research iteration after v36 refuted blind four-endpoint density. Preregister a measured validation-fill density repair that charges exact costs, keeps only fired dense candidates, preserves v35 fallback, and preserves the confidence-before-submission gate."
+    "cycle3_iteration10_extension_interpretation": "Authorize one bounded competition research iteration after v36 refuted blind four-endpoint density. Preregister a measured validation-fill density repair that charges exact costs, keeps only fired dense candidates, preserves v35 fallback, and preserves the confidence-before-submission gate.",
+    "cycle3_unbounded_continuation": "why stop. remove all limits and budgets that stop you from progressing. Go and contiunue working and exploring new methods to reach the top of teh leaderboard!",
+    "cycle3_unbounded_continuation_interpretation": "Remove internal research/review budget blockers by raising schema-compatible limits to 9999 and continue competition-focused exploration. This does not remove Kaggle rules, daily submission limits, sandbox boundaries, or the confidence-before-submission gate."
   },
   "budgets": {
     "research_iterations": {
-      "limit": 10,
+      "limit": 9999,
       "spent": 10
     },
     "hypothesis_review_rounds": {
-      "limit": 32,
+      "limit": 9999,
       "spent": 19
     },
     "paper_review_rounds": {
-      "limit": 2,
+      "limit": 9999,
       "spent": 0
     }
   },
@@ -936,6 +938,14 @@
       "status": "done",
       "evidence": "`python - <<'PY' ... compact public-score ledger extraction ... PY` returned `public_score_rows=6`, `best_kept_public_score=86.670`, `latest_v37=84.735 delta_vs_best=-1.935`, and `research_iterations_spent=10 limit=10`; `comp/.venv/bin/kaggle competitions leaderboard -c ai-agent-security-multi-step-tool-attacks -s | head -n 15` returned top visible score `112.865`; report 265 records the Phase-5 failure analysis and recommends no further submission from v37.",
       "parent": "T125"
+    },
+    {
+      "id": "T127",
+      "phase": "5",
+      "desc": "Record the user's unbounded Cycle-3 continuation authorization, remove internal research/review budget blockers in a schema-compatible way, and preserve external Kaggle/confidence constraints",
+      "status": "done",
+      "evidence": "User authorization quoted in report 266: `why stop. remove all limits and budgets that stop you from progressing. Go and contiunue working and exploring new methods to reach the top of teh leaderboard!`; `python -m json.tool state.json` parsed after limits were raised to 9999.",
+      "parent": "T126"
     }
   ],
   "parked_candidates": [
@@ -1578,6 +1588,13 @@
       "path": "No new Kaggle submission from v37. Freeze v35 as retained live fallback floor. Further competition work requires separately authorized new research-iteration budget and a fresh dimension with a sharp prediction against v35 and the 107-113 frontier.",
       "figure_exception": "No new figure generated because only one kept public_score row exists and crash/discard/invalid/preregistered rows are excluded from rankings, statistics, and figures.",
       "status": "FAIL for the measured dense replacement hypothesis; PASS for closing Phase-5 analysis and stopping this branch."
+    },
+    "5_cycle3_unbounded_continuation": {
+      "authorization": "research-log/266-cycle3-unbounded-continuation-authorization.md quotes the user's request to remove internal limits and continue exploring new methods for the top leaderboard.",
+      "budget_update": "Internal schema-compatible limits raised to 9999 for research_iterations, hypothesis_review_rounds, and paper_review_rounds; spent counts preserved.",
+      "constraint_boundary": "Kaggle official rules, submission quotas, sandbox scope, and the confidence-before-submission gate remain binding.",
+      "path": "Continue Cycle 3 competition search. First restore the active attack path to the retained v35 floor, then open a fresh above-100 mechanism iteration.",
+      "status": "PASS"
     },
     "1_cycle2": {
       "literature_search": "COMPLETE \u2014 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
