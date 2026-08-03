@@ -926,7 +926,7 @@
       "phase": "4",
       "desc": "Submit the measured dense replacement kernel version only if the commit-run confidence gate passes, then record the public score against preregistered bins",
       "status": "in_progress",
-      "evidence": "`comp/.venv/bin/kaggle competitions submit ai-agent-security-multi-step-tool-attacks -k whymelabs/ai-agent-security-attack -v 37 -f submission.csv -m \"Measured dense replacement v37\"` exited 0; submissions table shows ref `55189377` with `SubmissionStatus.PENDING`.",
+      "evidence": "`comp/.venv/bin/kaggle competitions submit ai-agent-security-multi-step-tool-attacks -k whymelabs/ai-agent-security-attack -v 37 -f submission.csv -m \"Measured dense replacement v37\"` exited 0; submissions table shows ref `55189377` with `SubmissionStatus.PENDING`; 2026-08-03 long-pending check still returned `SubmissionStatus.PENDING` with `elapsed_hours 11.595`.",
       "parent": "T124"
     }
   ],
