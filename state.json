@@ -991,9 +991,17 @@
       "id": "T133",
       "phase": "4",
       "desc": "Push Burst-2 Validation Fill as a Kaggle commit-run, wait for completion, download output, and inspect submission.csv/source/schema before any competition submission",
+      "status": "done",
+      "evidence": "Kernel v38 pushed and `kaggle kernels status whymelabs/ai-agent-security-attack` returned `KernelWorkerStatus.COMPLETE`; output check returned `csv_rows 5`, `csv_header Id,Score`, `csv_empty_cells 0`, `source_strip_match True`, `BUNDLE_POSTS = 2` present, and no refuted dense/slow markers; report 275 records the gate pass.",
+      "parent": "T132"
+    },
+    {
+      "id": "T134",
+      "phase": "4",
+      "desc": "Submit Kaggle kernel v38 only after the committed confidence checklist passes, then record the submission reference and poll terminal public score",
       "status": "open",
       "evidence": null,
-      "parent": "T132"
+      "parent": "T133"
     }
   ],
   "parked_candidates": [
@@ -1685,6 +1693,13 @@
       "scope": "Local mechanics only; not target-model second-event prevalence, replay-safety beyond inherited v35 ledger, private-transfer, or Kaggle score.",
       "problem_alignment": "The K=2 source/message mechanics are proven locally before remote mutation.",
       "status": "PASS"
+    },
+    "4_cycle3_iter11": {
+      "local_review": "PASS — report 274 returns SOUND for the Burst-2 active-source diff and local confidence checks.",
+      "commit_run": "PASS — report 275 records v38 COMPLETE with schema-valid placeholder output, source_strip_match True, K=2 markers present, and prohibited dense/slow markers absent.",
+      "confidence_checklist": "PASS — report 276 records all submission-confidence gates passed and selects v38 for one competition submission.",
+      "scope": "Commit-run proves artifact/output contract only; target score still pending.",
+      "status": "PASS_FOR_SUBMISSION"
     },
     "1_cycle2": {
       "literature_search": "COMPLETE \u2014 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
