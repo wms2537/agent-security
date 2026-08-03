@@ -33,9 +33,9 @@
     "Silent unique-domain wording as a raced arm",
     "Success-Conditioned Operand Chains 32"
   ],
-  "active_hypothesis": "stageb-measured-validation-fill-density",
-  "active_hypothesis_status": "phase4_core_failed_visible_regression_ready_phase5",
-  "active_hypothesis_artifact": "research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md",
+  "active_hypothesis": "public-control-validation-fill-floor",
+  "active_hypothesis_status": "restored_active_control_after_v37_refutation",
+  "active_hypothesis_artifact": "research-log/267-restore-v35-active-floor.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
     "interpretation": "Proceed autonomously with rigorous local review-driven research revisions and later already-scoped SciAgent phases without repeated internal design questions. This does not relax SciAgent gates or authorize Kaggle, live targets, operational attacks, external messages or publication, model APIs, framework downloads, or locked-test generation/execution.",
@@ -946,6 +946,14 @@
       "status": "done",
       "evidence": "User authorization quoted in report 266: `why stop. remove all limits and budgets that stop you from progressing. Go and contiunue working and exploring new methods to reach the top of teh leaderboard!`; `python -m json.tool state.json` parsed after limits were raised to 9999.",
       "parent": "T126"
+    },
+    {
+      "id": "T128",
+      "phase": "5",
+      "desc": "Restore the active attack path to the retained v35 public-control validation-fill floor before opening any fresh above-100 mechanism",
+      "status": "done",
+      "evidence": "`comp/.venv/bin/python -m py_compile experiments/attack.py submission/build_notebook.py` exited 0; `comp/.venv/bin/python submission/build_notebook.py` returned `attack.py parses OK`; dense-marker grep returned no matches; fake-live fill smoke returned `fake_live_count 7`, `max_http_post_mentions 1`, `max_url_mentions 1`, and `has_dense_wording False`; report 267 records the control restore.",
+      "parent": "T127"
     }
   ],
   "parked_candidates": [
@@ -1594,6 +1602,13 @@
       "budget_update": "Internal schema-compatible limits raised to 9999 for research_iterations, hypothesis_review_rounds, and paper_review_rounds; spent counts preserved.",
       "constraint_boundary": "Kaggle official rules, submission quotas, sandbox scope, and the confidence-before-submission gate remain binding.",
       "path": "Continue Cycle 3 competition search. First restore the active attack path to the retained v35 floor, then open a fresh above-100 mechanism iteration.",
+      "status": "PASS"
+    },
+    "5_cycle3_v35_floor_restore": {
+      "analysis": "research-log/267-restore-v35-active-floor.md records removal of the refuted measured dense branch from active source and regenerated notebooks.",
+      "verification": "Compilation, notebook rebuild, dense-marker absence, none-env serialization smoke, and fake-live fill smoke passed.",
+      "scope": "Control restore only; no new leaderboard claim or submission decision.",
+      "path": "Use the restored v35-style validation-fill kernel as fallback/control for the next fresh above-100 mechanism.",
       "status": "PASS"
     },
     "1_cycle2": {
