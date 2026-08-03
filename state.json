@@ -67,7 +67,7 @@
     },
     "hypothesis_review_rounds": {
       "limit": 9999,
-      "spent": 19
+      "spent": 20
     },
     "paper_review_rounds": {
       "limit": 9999,
@@ -968,7 +968,7 @@
       "phase": "2",
       "desc": "Preregister Burst-2 Validation Fill with one changed variable K=1 -> K=2 inside the restored v35 validation-fill loop, then obtain theory review before implementation",
       "status": "in_progress",
-      "evidence": "Report 269 written and `results.tsv` row `lb-stagec-burst2-validation-fill` preregistered with predicted public_score `100.000`; theory review pending.",
+      "evidence": "Report 269 written and `results.tsv` row `lb-stagec-burst2-validation-fill` preregistered with predicted public_score `100.000`; sterile theory review dispatched and hypothesis_review_rounds charged `19 -> 20`.",
       "parent": "T129"
     }
   ],
@@ -1650,7 +1650,7 @@
       "justification": "Evidence chain cites v35 86.670, v36 K=4 blank, v37 K=4 measured regression 84.735, public audit BURST_K=2, and current 107-113 leaderboard frontier.",
       "failure_modes_metrics_taxonomy": "Failure modes, metrics, thresholds, threat surface, and Optimization Bottleneck / Empirical Mapping / replace taxonomy are explicit in report 269.",
       "anti_stacking": "Single-component replace hypothesis with K=1 byte-equivalent ablation, K=2 serialization/mechanics gates, and direct public-score comparison.",
-      "theory_review": "pending",
+      "theory_review": "Sterile theory review dispatched for committed report 269; budget charged 19/9999 -> 20/9999.",
       "problem_alignment": "Confirmation would show a source-compliant candidate-generation policy can increase replay score density above the single-post floor without the refuted K=4 timeout/regression failure."
     },
     "1_cycle2": {
