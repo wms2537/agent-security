@@ -999,8 +999,8 @@
       "id": "T134",
       "phase": "4",
       "desc": "Submit Kaggle kernel v38 only after the committed confidence checklist passes, then record the submission reference and poll terminal public score",
-      "status": "open",
-      "evidence": null,
+      "status": "in_progress",
+      "evidence": "Submit command for kernel v38 exited 0; submissions table returned ref `55207548` as `SubmissionStatus.PENDING`; report 277 records pending state.",
       "parent": "T133"
     }
   ],
