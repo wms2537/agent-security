@@ -983,9 +983,17 @@
       "id": "T132",
       "phase": "4",
       "desc": "Review Burst-2 active-source diff and run confidence checks before any Kaggle push; if sound, push a commit-run and inspect output/source/schema without submitting yet",
+      "status": "done",
+      "evidence": "Report 274 returned `Overall: SOUND`; `git diff b61684a..HEAD -- experiments/attack.py` shows only BUNDLE_TEMPLATE/BUNDLE_POSTS/_bundle_msg/routing changes; fail-fast mechanics rerun returned `burst2_gate_pass: 1`; prohibited-marker grep over source and notebooks returned no matches.",
+      "parent": "T131"
+    },
+    {
+      "id": "T133",
+      "phase": "4",
+      "desc": "Push Burst-2 Validation Fill as a Kaggle commit-run, wait for completion, download output, and inspect submission.csv/source/schema before any competition submission",
       "status": "open",
       "evidence": null,
-      "parent": "T131"
+      "parent": "T132"
     }
   ],
   "parked_candidates": [
