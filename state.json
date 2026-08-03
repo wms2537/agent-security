@@ -933,8 +933,8 @@
       "id": "T126",
       "phase": "5",
       "desc": "Analyze iteration 10 measured dense replacement v37 visible regression, update search diagnosis and budget decision, and recommend conclude versus a separately authorized fresh dimension",
-      "status": "open",
-      "evidence": null,
+      "status": "done",
+      "evidence": "`python - <<'PY' ... compact public-score ledger extraction ... PY` returned `public_score_rows=6`, `best_kept_public_score=86.670`, `latest_v37=84.735 delta_vs_best=-1.935`, and `research_iterations_spent=10 limit=10`; `comp/.venv/bin/kaggle competitions leaderboard -c ai-agent-security-multi-step-tool-attacks -s | head -n 15` returned top visible score `112.865`; report 265 records the Phase-5 failure analysis and recommends no further submission from v37.",
       "parent": "T125"
     }
   ],
@@ -1567,6 +1567,17 @@
       "user_go": "PASS — checkpoint default quotes `go, dont ask me these questions again, go iterate and improve yourself`; Cycle-3 authorization preserves confidence-before-submission.",
       "scope": "Local mechanics only; not target-model prevalence, replay-safety, private-transfer, or Kaggle submission evidence.",
       "problem_alignment": "The PoC supports a source-compliant measured replacement for the v36 blind dense failure while keeping v35 fallback as regression control."
+    },
+    "5_cycle3_iter10": {
+      "analysis": "research-log/265-analysis-iter-10.md records v37 as a visible target-owned regression: ref 55189377 completed with public score 84.735 versus v35 ref 55158967 score 86.670.",
+      "statistical_rigor": "Independent unit is one Kaggle code-competition submission per condition; n=1 per leaderboard condition; no p-values or seed-standardized claims computed. Decision is a deterministic preregistered-bin failure because 84.735 < 86.670.",
+      "seven_questions": "Report 265 answers all seven Phase-5 questions: result, mechanism, attribution, robustness, surprises, current leaderboard comparison, and problem alignment.",
+      "freshness": "`comp/.venv/bin/kaggle competitions leaderboard -c ai-agent-security-multi-step-tool-attacks -s | head -n 15` returned a visible frontier led by 112.865 with multiple teams above 107, so v37 is not competition-competitive.",
+      "search_diagnosis": "Cycle-3 iteration 10 is kind=metric and outcome=refuted. The last three Stage-B metric attempts are refuted/crash/discard; the last two vary different dimensions, so this is not a same-dimension retry-loop violation, but practical diminishing returns are active.",
+      "budgets": "research_iterations is exhausted at 10/10; hypothesis_review_rounds remains 19/32; paper_review_rounds remains 0/2.",
+      "path": "No new Kaggle submission from v37. Freeze v35 as retained live fallback floor. Further competition work requires separately authorized new research-iteration budget and a fresh dimension with a sharp prediction against v35 and the 107-113 frontier.",
+      "figure_exception": "No new figure generated because only one kept public_score row exists and crash/discard/invalid/preregistered rows are excluded from rankings, statistics, and figures.",
+      "status": "FAIL for the measured dense replacement hypothesis; PASS for closing Phase-5 analysis and stopping this branch."
     },
     "1_cycle2": {
       "literature_search": "COMPLETE \u2014 36 high-relevance primary-source entries and 67 search records across research-log/lit/arxiv_orchestration_2026.json, primary_agent_security_2026.json, and primary_jailbreaks_2026.json; core synthesis uses 25 and explicitly dismisses 11.",
