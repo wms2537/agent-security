@@ -1,5 +1,5 @@
 {
-  "phase": "4",
+  "phase": "5",
   "cycle": 3,
   "iteration": 10,
   "entry_mode": "inspiration",
@@ -34,7 +34,7 @@
     "Success-Conditioned Operand Chains 32"
   ],
   "active_hypothesis": "stageb-measured-validation-fill-density",
-  "active_hypothesis_status": "phase3_poc_confirmed_ready_phase4",
+  "active_hypothesis_status": "phase4_core_failed_visible_regression_ready_phase5",
   "active_hypothesis_artifact": "research-log/254-hypothesis-iter-10-measured-density-overlay-v5.md",
   "checkpoint_defaults": {
     "internal_research": "go, dont ask me these questions again, go iterate and improve yourself",
@@ -925,9 +925,17 @@
       "id": "T125",
       "phase": "4",
       "desc": "Submit the measured dense replacement kernel version only if the commit-run confidence gate passes, then record the public score against preregistered bins",
-      "status": "in_progress",
-      "evidence": "`comp/.venv/bin/kaggle competitions submit ai-agent-security-multi-step-tool-attacks -k whymelabs/ai-agent-security-attack -v 37 -f submission.csv -m \"Measured dense replacement v37\"` exited 0; submissions table shows ref `55189377` with `SubmissionStatus.PENDING`; 2026-08-03 long-pending check still returned `SubmissionStatus.PENDING` with `elapsed_hours 11.595`.",
+      "status": "failed",
+      "evidence": "`comp/.venv/bin/kaggle competitions submissions ai-agent-security-multi-step-tool-attacks -v | rg \"55189377|55158967|ref,fileName\"` returned ref `55189377` COMPLETE publicScore `84.735` and v35 ref `55158967` COMPLETE publicScore `86.670`; report 254 bins classify `84.735 < 86.670` as failure.",
       "parent": "T124"
+    },
+    {
+      "id": "T126",
+      "phase": "5",
+      "desc": "Analyze iteration 10 measured dense replacement v37 visible regression, update search diagnosis and budget decision, and recommend conclude versus a separately authorized fresh dimension",
+      "status": "open",
+      "evidence": null,
+      "parent": "T125"
     }
   ],
   "parked_candidates": [
@@ -1099,7 +1107,7 @@
       "direction": "stageb-measured-validation-fill-density",
       "varies": "measured-density-validation-fill-admission",
       "kind": "metric",
-      "outcome": null
+      "outcome": "refuted"
     }
   ],
   "tried_and_failed": [
@@ -1162,6 +1170,12 @@
       "failure_class": "refuted",
       "why": "V36 ref 55177045 completed with blank public/private score despite a clean commit-run schema/source gate. Because the v35 fallback would have scored visibly if dense admission failed, blind rc320 dense emission is treated as crossing a hidden rerun/runtime/replay boundary.",
       "log": "research-log/242-v36-failure-analysis.md"
+    },
+    {
+      "approach": "Capped measured dense replacement with 93-96 locally firing four-endpoint candidates before v35 fallback",
+      "failure_class": "refuted",
+      "why": "V37 ref 55189377 completed visibly with public score 84.735, below the v35 fallback floor 86.670 by 1.935 points and 15.265 below the preregistered 100.000 target. The target-owned result falsifies the claim that measured dense replacement would reach the competition-relevant 100 range.",
+      "log": "research-log/264-v37-measured-dense-result.md"
     }
   ],
   "learnings": [
