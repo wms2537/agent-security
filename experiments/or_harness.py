@@ -155,7 +155,10 @@ def score_candidate(model: str, message: str, max_tool_hops: int = 8) -> dict[st
         "model": model, "latency_s": round(dt, 2), "fired": fired,
         "predicates": [f'{p.get("predicate")}(sev{p.get("severity")})' for p in preds],
         "raw_per_candidate": round(score_attack([finding], normalize=False), 1),
-        "tool_events": [(e.get("name"), e.get("ok")) for e in trace.get("tool_events", [])],
+        "tool_events": [
+            (e.get("name"), e.get("ok"), {k: str(v)[:18] for k, v in (e.get("args") or {}).items()})
+            for e in trace.get("tool_events", [])
+        ],
     }
 
 
