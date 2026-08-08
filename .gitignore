@@ -8,3 +8,5 @@ artifacts/
 *.log
 bad_submission.csv
 submission.csv
+.env
+kaggle_outputs/
