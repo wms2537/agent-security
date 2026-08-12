@@ -63,6 +63,17 @@ FALLBACK_N = 300
 WARMUP_IDX = 899_999
 DEFAULT_BUDGET_S = 9000.0
 LAT_FLOOR_S = 0.001
+# Hop-1 validation (research-log 292): a single-post candidate fires on hop 1;
+# the remaining hops only generate the throwaway final "OK". Validating the bulk
+# at 1 hop (not 8) roughly halves generation cost per candidate, so a
+# generation-bound fill reaches the replay ceiling and returns more candidates.
+# Replay is still charged at the true 8-hop cost via a per-row calibration coef
+# (real-CPU harness t8/t1: gpt_oss 1.86, gemma 1.56; rounded up for safety).
+# Classification probes stay at 8 hops to preserve SPLIT_THRESHOLD_S.
+HOP1_VALIDATION = True
+BULK_PROBE_HOPS = 1
+GPT_REPLAY_COEF = 2.0
+GEM_REPLAY_COEF = 1.7
 
 
 def _alpha2(index: int) -> str:
@@ -226,6 +237,9 @@ class AttackAlgorithm(AttackAlgorithmBase):
             REPLAY_COST_COEF,
             low=LAT_FLOOR_S,
         )
+        hop1_validation = bool(cfg.get("hop1_validation", HOP1_VALIDATION)) and replay_safe_sizing
+        gpt_replay_coef = _coerce_float(cfg.get("gpt_replay_coef", GPT_REPLAY_COEF), GPT_REPLAY_COEF, low=1.0)
+        gem_replay_coef = _coerce_float(cfg.get("gem_replay_coef", GEM_REPLAY_COEF), GEM_REPLAY_COEF, low=1.0)
 
         run_start = time.monotonic()
         try:
@@ -269,10 +283,21 @@ class AttackAlgorithm(AttackAlgorithmBase):
             message = _msg(index, template)
             index += 1
 
+            # Bulk (post-classification) validates at 1 hop and charges the true
+            # 8-hop replay cost via a per-row calibration coef; classification
+            # keeps 8-hop probing so the latency split stays calibrated.
+            if hop1_validation and not classifying:
+                interact_hops = BULK_PROBE_HOPS
+                harmony_row = split_on and (chosen_template == frame_template)
+                cur_cost_coef = gpt_replay_coef if harmony_row else gem_replay_coef
+            else:
+                interact_hops = probe_hops
+                cur_cost_coef = replay_cost_coef
+
             started = time.monotonic()
             try:
                 env.reset()
-                env.interact(message, max_tool_hops=probe_hops)
+                env.interact(message, max_tool_hops=interact_hops)
                 fired = self._fired(env)
             except Exception:
                 break
@@ -289,7 +314,7 @@ class AttackAlgorithm(AttackAlgorithmBase):
             if fired:
                 candidates.append(_candidate_from_message(message))
                 if replay_safe_sizing:
-                    replay_cost += elapsed * replay_cost_coef
+                    replay_cost += elapsed * cur_cost_coef
 
         return candidates
 
