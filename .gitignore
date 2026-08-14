@@ -10,3 +10,5 @@ bad_submission.csv
 submission.csv
 .env
 kaggle_outputs/
+local_obs/
+.gstack/
