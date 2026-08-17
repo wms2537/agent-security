@@ -67,7 +67,7 @@ LAT_FLOOR_S = 0.001
 # return 5 fixed known-firing candidates on the other, so the aggregate public
 # score decodes each model's real finding count. Set to "slow" (gpt_oss active)
 # or "fast" (gemma active); None = normal both-row operation.
-ISOLATE_ROW: str | None = "slow"
+ISOLATE_ROW: str | None = "fast"
 ISOLATE_FIXED_N = 5
 
 
