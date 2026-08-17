@@ -63,6 +63,12 @@ FALLBACK_N = 300
 WARMUP_IDX = 899_999
 DEFAULT_BUDGET_S = 9000.0
 LAT_FLOOR_S = 0.001
+# Row-isolation diagnostic (research-log 298): run the full fill on ONE row and
+# return 5 fixed known-firing candidates on the other, so the aggregate public
+# score decodes each model's real finding count. Set to "slow" (gpt_oss active)
+# or "fast" (gemma active); None = normal both-row operation.
+ISOLATE_ROW: str | None = "slow"
+ISOLATE_FIXED_N = 5
 
 
 def _alpha2(index: int) -> str:
@@ -226,6 +232,9 @@ class AttackAlgorithm(AttackAlgorithmBase):
             REPLAY_COST_COEF,
             low=LAT_FLOOR_S,
         )
+        isolate_row = cfg.get("isolate_row", ISOLATE_ROW)
+        isolate_row = isolate_row if isolate_row in ("slow", "fast") else None
+        isolate_fixed_n = _coerce_int(cfg.get("isolate_fixed_n", ISOLATE_FIXED_N), ISOLATE_FIXED_N, low=1, high=50)
 
         run_start = time.monotonic()
         try:
@@ -285,6 +294,18 @@ class AttackAlgorithm(AttackAlgorithmBase):
                 if classify_count == split_classify_n:
                     mean_latency = classify_elapsed_sum / classify_count
                     chosen_template = frame_template if mean_latency > split_threshold else TEMPLATE
+                    if isolate_row:
+                        is_slow = chosen_template == frame_template
+                        active = (isolate_row == "slow") == is_slow
+                        if not active:
+                            # Inactive row: return exactly N fixed candidates that
+                            # fire on THIS model (harmony frame for slow gpt_oss,
+                            # plain template for fast gemma).
+                            tmpl = frame_template if is_slow else TEMPLATE
+                            return [
+                                _candidate_from_message(_msg(900_000 + j, tmpl))
+                                for j in range(isolate_fixed_n)
+                            ]
 
             if fired:
                 candidates.append(_candidate_from_message(message))
