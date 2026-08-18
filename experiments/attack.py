@@ -69,6 +69,12 @@ LAT_FLOOR_S = 0.001
 # or "fast" (gemma active); None = normal both-row operation.
 ISOLATE_ROW: str | None = None
 ISOLATE_FIXED_N = 5
+# Budget probe (research-log 302): after classification, blind-emit exactly
+# BLIND_COUNT single-post candidates per row (no validation; firing is
+# deterministic 100%). If they all score, the replay budget had headroom our
+# adaptive replay-safe sizing left unused; if it blanks, the wall is at/below
+# BLIND_COUNT and the frontier needs a faster candidate. 0 = off.
+BLIND_COUNT = 1250
 
 
 def _alpha2(index: int) -> str:
@@ -235,6 +241,7 @@ class AttackAlgorithm(AttackAlgorithmBase):
         isolate_row = cfg.get("isolate_row", ISOLATE_ROW)
         isolate_row = isolate_row if isolate_row in ("slow", "fast") else None
         isolate_fixed_n = _coerce_int(cfg.get("isolate_fixed_n", ISOLATE_FIXED_N), ISOLATE_FIXED_N, low=1, high=50)
+        blind_count = _coerce_int(cfg.get("blind_count", BLIND_COUNT), BLIND_COUNT, low=0, high=HARD_N_CAP)
 
         run_start = time.monotonic()
         try:
@@ -294,6 +301,13 @@ class AttackAlgorithm(AttackAlgorithmBase):
                 if classify_count == split_classify_n:
                     mean_latency = classify_elapsed_sum / classify_count
                     chosen_template = frame_template if mean_latency > split_threshold else TEMPLATE
+                    if blind_count > 0:
+                        # Budget probe: blind-emit a fixed count with the chosen
+                        # per-model template; firing is deterministic so all fire.
+                        return [
+                            _candidate_from_message(_msg(j, chosen_template))
+                            for j in range(blind_count)
+                        ]
                     if isolate_row:
                         is_slow = chosen_template == frame_template
                         active = (isolate_row == "slow") == is_slow
