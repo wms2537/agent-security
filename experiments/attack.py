@@ -74,7 +74,7 @@ ISOLATE_FIXED_N = 5
 # deterministic 100%). If they all score, the replay budget had headroom our
 # adaptive replay-safe sizing left unused; if it blanks, the wall is at/below
 # BLIND_COUNT and the frontier needs a faster candidate. 0 = off.
-BLIND_COUNT = 1250
+BLIND_COUNT = 0
 
 
 def _alpha2(index: int) -> str:
