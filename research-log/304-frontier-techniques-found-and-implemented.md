@@ -42,3 +42,32 @@ analysis + email/plan injections make them fire and amortize.
 
 Submit v49; compare to 87.255. Success => per-candidate value is the lever;
 iterate N and combo. Blank => heavier candidates overran replay; lower N / raise margin.
+
+## CORRECTION (same day): v49 regressed to 58.045; techniques are mid-tier, frontier is private
+
+v49 (my combo+multipost hybrid) scored 58.045 -- a regression (calibration off:
+heavy candidates + our safe sizing returned too few, and per-candidate value did
+not offset). Reverted to v42 (87.255).
+
+Decisive check: the public-notebook authors' ACTUAL leaderboard scores:
+- evgendvorkin (the combo+multipost notebook, 268 votes) = 88.510
+- coolin 91.39, nctuan 90.63, adhiraj 88.70, dimong4 88.07, foysal 86.99, others 83-89
+- pilkwang = 109.620 BUT their public notebook == our v42 (~87); their 109 is a
+  PRIVATE version.
+
+Conclusion: the combo/multipost/reasoning-collapse techniques in PUBLIC notebooks
+top out around ~88-91, NOT the 109-137 frontier. The frontier is private code the
+leaders do not share (pilkwang public ~87 vs private 109 is the proof).
+
+So the accurate position (correcting BOTH my earlier overclaim AND the v49
+over-hype):
+- My "87.255 is an impossible ceiling" was WRONG (46 teams >=100 current-regime).
+- But the 100+ mechanism is NOT recoverable from public sources; every accessible
+  public notebook scores <=91.
+- Achievable from public info: ~91 (coolin/nctuan) = +4 over us, by replicating a
+  better-calibrated public notebook. The true frontier (109-137) is private.
+
+## State
+
+attack.py reverted to v42 (87.255). Frontier-technique code removed. Honest
+verdict: reachable public ceiling ~91; true frontier private.
