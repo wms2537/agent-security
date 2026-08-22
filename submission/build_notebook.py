@@ -35,12 +35,11 @@ print('Setup complete')
 """
 
 write_cell = (
-    "attack_code = r'''\n"
-    + ATTACK_SRC.replace("'''", "\\'\\'\\'")
-    + "\n'''\n"
+    "attack_code = r'''" + ATTACK_SRC.replace("'''", "\\'\\'\\'") + "'''\n"
     "with open('/kaggle/working/attack.py', 'w') as f:\n"
     "    f.write(attack_code)\n"
-    "print('attack.py written:', len(attack_code), 'bytes')\n"
+    "import hashlib\n"
+    "print('attack.py written:', len(attack_code), 'bytes sha256:', hashlib.sha256(attack_code.encode()).hexdigest())\n"
 )
 
 serve = """\
