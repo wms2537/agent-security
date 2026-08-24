@@ -10,15 +10,21 @@ Run:  python submission/build_notebook.py
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ATTACK_SRC = (ROOT / "experiments" / "attack.py").read_text()
+# Default source of truth; pass an explicit path to build a variant notebook
+# (e.g. python submission/build_notebook.py experiments/v59-m2-packing/attack.py)
+_src = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "experiments" / "attack.py"
+ATTACK_SRC = _src.read_text()
 OUTS = (
     ROOT / "ai-agent-security-attack.ipynb",
     ROOT / "submission" / "kaggle_notebook.ipynb",
     ROOT / "submission" / "kernel" / "kaggle_notebook.ipynb",
 )
+if len(sys.argv) > 1:
+    OUTS = [ROOT / "submission" / "kernel" / "kaggle_notebook.ipynb"]
 
 setup = """\
 import sys, glob
