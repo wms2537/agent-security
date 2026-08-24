@@ -1,0 +1,11 @@
+{
+  "status": "KNOWN_BEST",
+  "public_score": 87.480,
+  "submission_ref": "55681594",
+  "kernel_version_scored": "v54 (repeat); original 87.255 at ref 55320487 (Aug 7)",
+  "replay_safe_frac": 0.98,
+  "attack_sha256": "569c42d3341b9dbc07ee22a7ef16819673348d6ca1116ce199887bbe06290103",
+  "notebook_builder": "submission/build_notebook.py (byte-exact embed, sha256 printed at write)",
+  "config_notes": "single-post validation-fill; classify n=8 mean threshold 12s; harmony frame on slow row only; warmup candidate kept if fired; HARD_N_CAP 2000; frac 0.98",
+  "regime": "current (post 2026-08-19 rerun); reproduced twice: 87.255 + 87.480, Var ~ +-0.2"
+}
